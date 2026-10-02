@@ -1,0 +1,12 @@
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+
+const tiers = [{ key: "free", name: "Free", price: "$0", copy: "Start a case, use DIY guides, and read the community." }, { key: "member", name: "Member", price: "$9/mo", copy: "Persistent case history and full community participation." }, { key: "premium", name: "Premium", price: "$19/mo", copy: "Priority service context and paid expert-response opportunities." }];
+export default function MembershipPage() {
+  const [tier, setTier] = useState("free"); const [message, setMessage] = useState("");
+  useEffect(() => { if (!isSupabaseConfigured) return; const db = createBrowserSupabaseClient(); db.auth.getUser().then(async ({ data }) => { if (!data.user) return; const { data: profile } = await db.from("profiles").select("membership_tier").eq("id", data.user.id).maybeSingle(); setTier(profile?.membership_tier ?? "free"); }); }, []);
+  async function checkout(next: string) { if (!isSupabaseConfigured) return setMessage("Configure Supabase and Stripe to subscribe."); const db = createBrowserSupabaseClient(); const { data } = await db.auth.getSession(); if (!data.session) return setMessage("Sign in, then choose a tier."); setMessage("Opening secure checkout..."); const response = await fetch("/api/membership/checkout", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${data.session.access_token}` }, body: JSON.stringify({ tier: next }) }); const result = await response.json(); if (result.url) window.location.assign(result.url); else setMessage(result.error || "Checkout could not be started."); }
+  return <main className="content-page wrap membership"><header className="content-head"><div><p className="eyebrow">Memberships</p><h1>Choose the help you need.</h1><p>Keep your issue history in one place, join the community, and get the support you need.</p></div><Link className="inline-cta" href="/issues">My issues</Link></header><p className="directory-status">{message}</p><section className="tier-grid">{tiers.map((item) => <article className={tier === item.key ? "tier-card active" : "tier-card"} key={item.key}><p className="eyebrow">{item.name}</p><h2>{item.price}</h2><p>{item.copy}</p>{item.key === "free" ? <span>Current baseline</span> : <button disabled={tier === item.key} onClick={() => checkout(item.key)}>{tier === item.key ? "Current tier" : `Choose ${item.name}`}</button>}</article>)}</section></main>;
+}

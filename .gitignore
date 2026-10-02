@@ -1,0 +1,16 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+
+# Local environment and Supabase state
+.env*
+!.env.example
+.supabase/
+
+# Logs and OS files
+*.log
+.DS_Store
+
+# Vercel local metadata
+.vercel/
