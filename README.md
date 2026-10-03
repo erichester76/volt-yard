@@ -6,7 +6,7 @@ The product is backed by Supabase Auth, Postgres, Storage, and Row Level Securit
 
 ## Product Scope
 
-- Visitors can locate published partners by browser location or a geocoded city, state, or ZIP, then filter by vehicle, capability, partner type, and radius.
+- Visitors can locate published partners by browser location or a server-backed Google Places city, ZIP, or address selection, then filter by vehicle, capability, partner type, and radius. Manual submit falls back to geocoding.
 - Account holders can save vehicles, create issue cases, use issue pathways, and request a service-case snapshot.
 - Partners submit profile changes and images for administrator approval. Only approved published profiles appear in the directory.
 - Administrators review partner submissions, manage catalog and community data, moderate member contributions, assign demo membership tiers, and record expert payouts.
@@ -20,7 +20,7 @@ See [DESIGN.md](DESIGN.md) for journeys, information architecture, roles, and ar
 - Node.js 24, matching CI.
 - npm.
 - A Supabase project with Email Auth enabled.
-- A Google Cloud project with Geocoding API enabled for location text search. Google Places API (New) is needed only for Google partner imports.
+- A Google Cloud project with Geocoding API and Places API (New) enabled for location search and Google partner imports.
 - Stripe test or live credentials for commerce and memberships.
 
 The repository does not include a Supabase local-development configuration or seed file. Local application development normally uses a configured Supabase project; schema changes remain versioned SQL migrations.
@@ -61,7 +61,7 @@ The directory is visible only when the public Supabase variables are present. Se
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | application | Browser-safe Supabase publishable key. |
 | `SUPABASE_SECRET_KEY` | server-side catalog sync, imports, checkout, Stripe webhooks | Server-only Supabase secret key. |
 | `NEXT_PUBLIC_APP_URL` | custom-domain/non-Vercel checkout origins | Canonical origin, no path or trailing slash. Local default is `http://localhost:3000`. |
-| `GOOGLE_MAPS_API_KEY` | `/api/geocode`; Google imports | Server-only. Enable Geocoding API; enable Places API (New) for Google imports. |
+| `GOOGLE_MAPS_API_KEY` | `/api/geocode`, `/api/places/autocomplete`; Google imports | Server-only. Enable Geocoding API and Places API (New). |
 | `YELP_API_KEY` | Yelp imports | Server-only. |
 | `CRON_SECRET` | catalog sync and partner imports | Sent as `Authorization: Bearer <secret>`. |
 | `STRIPE_SECRET_KEY` | service and membership Checkout; webhook verification | Server-only. |

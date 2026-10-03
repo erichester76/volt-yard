@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   createBrowserSupabaseClient,
@@ -9,6 +9,8 @@ import {
 
 type Capability = { id: string; name: string };
 type PartnerType = { id: string; name: string };
+type PlaceSuggestion = { placeId: string; label: string };
+type Coordinates = { latitude: number; longitude: number };
 const externalWebsite = (website: string | null) => {
   if (!website?.trim()) return null;
   try {
@@ -107,14 +109,12 @@ export default function Home() {
   const [catalogMakes, setCatalogMakes] = useState<string[]>([]);
   const [radius, setRadius] = useState(25);
   const [nearbyShops, setNearbyShops] = useState<Shop[]>([]);
-  const [location, setLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
-  const [browserLocation, setBrowserLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  } | null>(null);
+  const [location, setLocation] = useState<Coordinates | null>(null);
+  const [browserLocation, setBrowserLocation] = useState<Coordinates | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceSuggestion | null>(null);
+  const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([]);
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [isSelectingPlace, setIsSelectingPlace] = useState(false);
   const [locationLabel, setLocationLabel] = useState("your location");
   const [isGeocoding, setIsGeocoding] = useState(false);
   const [locationStatus, setLocationStatus] = useState(
@@ -319,17 +319,87 @@ export default function Home() {
     });
   }, [make, year]);
 
+  useEffect(() => {
+    const input = query.trim();
+    if (input.length < 2 || selectedPlace?.label === query) {
+      setSuggestions([]);
+      setActiveSuggestion(-1);
+      return;
+    }
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      try {
+        const response = await fetch("/api/places/autocomplete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ input }), signal: controller.signal });
+        const result = (await response.json().catch(() => null)) as { suggestions?: PlaceSuggestion[] } | null;
+        if (!response.ok || !result?.suggestions) return;
+        setSuggestions(result.suggestions);
+        setActiveSuggestion(-1);
+      } catch {
+        // The fallback geocode submit remains available if suggestions fail.
+      }
+    }, 250);
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [query, selectedPlace]);
+
+  async function selectPlace(suggestion: PlaceSuggestion) {
+    setSuggestions([]);
+    setActiveSuggestion(-1);
+    setIsSelectingPlace(true);
+    setLocationStatus("Finding that location...");
+    try {
+      const response = await fetch("/api/places/autocomplete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ placeId: suggestion.placeId }) });
+      const result = (await response.json().catch(() => null)) as { latitude: number; longitude: number; label: string } | { error: string } | null;
+      if (!response.ok || !result || !("latitude" in result)) {
+        setLocationStatus(result && "error" in result ? result.error : "Location search failed. Please try again.");
+        return;
+      }
+      setLocation({ latitude: result.latitude, longitude: result.longitude });
+      setLocationLabel(result.label);
+      setQuery(result.label);
+      setSelectedPlace({ placeId: suggestion.placeId, label: result.label });
+      setLocationStatus(`Using ${result.label}`);
+      setSearched(true);
+      document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
+    } catch {
+      setLocationStatus("Location search failed. Please try again.");
+    } finally {
+      setIsSelectingPlace(false);
+    }
+  }
+
+  function locationKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActiveSuggestion((current) => Math.min(current + 1, suggestions.length - 1));
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActiveSuggestion((current) => Math.max(current - 1, 0));
+    } else if (event.key === "Escape") {
+      setSuggestions([]);
+      setActiveSuggestion(-1);
+    } else if (event.key === "Enter" && activeSuggestion >= 0) {
+      event.preventDefault();
+      void selectPlace(suggestions[activeSuggestion]);
+    }
+  }
+
   async function search(event: FormEvent) {
     event.preventDefault();
     const enteredLocation = query.trim();
-    if (!enteredLocation || enteredLocation === "Current location") {
+    if (selectedPlace?.label === enteredLocation && location) {
+      setLocationStatus(`Using ${locationLabel}`);
+    } else if (!enteredLocation || enteredLocation === "Current location") {
       if (!browserLocation) {
         setLocationStatus("Enter a city, state, or ZIP to search.");
         return;
       }
       setLocation(browserLocation);
-      setLocationLabel("your location");
-      setQuery("Current location");
+        setLocationLabel("your location");
+        setQuery("Current location");
+        setSelectedPlace(null);
       setLocationStatus("Using your current location");
     } else {
       setIsGeocoding(true);
@@ -351,6 +421,7 @@ export default function Home() {
         setLocation({ latitude: result.latitude, longitude: result.longitude });
         setLocationLabel(result.label);
         setQuery(result.label);
+        setSelectedPlace(null);
         setLocationStatus(`Using ${result.label}`);
       } catch {
         setLocationStatus("Location search failed. Please try again.");
@@ -384,15 +455,22 @@ export default function Home() {
             <div className="partner-search" id="partner-search">
               <div className="partner-search-heading"><p>Or find a mechanic if you already know what you need.</p><span>Search trusted independent EV specialists near you.</span></div>
             <form className="search" onSubmit={search}>
-              <label>
-                <span>Location</span>
-                <input
-                  aria-label="Location"
-                  placeholder="City, state, or ZIP"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                />
-              </label>
+               <label className="location-field">
+                 <span>Location</span>
+                 <input
+                   aria-label="Location"
+                   aria-autocomplete="list"
+                   aria-controls="location-suggestions"
+                   aria-expanded={suggestions.length > 0}
+                   aria-activedescendant={activeSuggestion >= 0 ? `location-suggestion-${activeSuggestion}` : undefined}
+                   placeholder="City, state, or ZIP"
+                   value={query}
+                   onChange={(event) => { setQuery(event.target.value); setSelectedPlace(null); }}
+                   onKeyDown={locationKeyDown}
+                   onBlur={() => window.setTimeout(() => { setSuggestions([]); setActiveSuggestion(-1); }, 150)}
+                 />
+                 {suggestions.length > 0 && <ul className="location-suggestions" id="location-suggestions" role="listbox" aria-label="Location suggestions">{suggestions.map((suggestion, index) => <li key={suggestion.placeId} id={`location-suggestion-${index}`} role="option" aria-selected={index === activeSuggestion}><button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => void selectPlace(suggestion)}>{suggestion.label}</button></li>)}</ul>}
+               </label>
               <label>
                 <span>Year</span>
                 <select
@@ -460,8 +538,8 @@ export default function Home() {
                   ))}
                 </select>
               </label>
-              <button className="search-button" type="submit" disabled={isGeocoding}>
-                {isGeocoding ? "Finding location..." : <>Find a mechanic <span>→</span></>}
+               <button className="search-button" type="submit" disabled={isGeocoding || isSelectingPlace}>
+                 {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
               </button>
             </form>
             </div>

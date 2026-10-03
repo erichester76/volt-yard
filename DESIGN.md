@@ -38,8 +38,8 @@ Partner eligibility for managed-service claims additionally requires a published
 
 ### Find A Partner
 
-1. A visitor grants browser location or submits city, state, or ZIP.
-2. Text locations go through `/api/geocode`; browser coordinates are used directly.
+1. A visitor grants browser location, selects a city, ZIP, or address suggestion, or submits a manual location.
+2. Places suggestions and place-coordinate resolution go through `/api/places/autocomplete`; manual text falls back to `/api/geocode`; browser coordinates are used directly.
 3. The home page calls the bounded `nearby_shops` RPC with filters and a maximum of 50 results.
 4. Only published partners with coordinates can be returned. Visitors can open a public profile and use listed contact methods.
 

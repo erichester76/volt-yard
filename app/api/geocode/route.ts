@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { applicationOrigin, boundedText } from "@/lib/api-validation";
+import { boundedText, isApplicationOrigin } from "@/lib/api-validation";
 
 export const runtime = "nodejs";
 
@@ -36,7 +36,7 @@ function rateLimited(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== applicationOrigin(request))
+  if (origin && !isApplicationOrigin(origin, request))
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   if (rateLimited(request))
     return NextResponse.json({ error: "Too many location searches. Please wait a moment." }, { status: 429 });

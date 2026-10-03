@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { applicationOrigin, boundedText, idempotencyKey, isUuid, optionalUuid } from "../lib/api-validation";
+import { applicationOrigin, boundedText, idempotencyKey, isApplicationOrigin, isUuid, optionalUuid } from "../lib/api-validation";
 
 test("validates IDs and bounded request values", () => {
   assert.equal(isUuid("4d99c636-47d7-4aea-9a80-57099612483c"), true);
@@ -20,7 +20,7 @@ test("accepts only safe idempotency keys and origins", () => {
   if (previous === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = previous;
 });
 
-test("uses Vercel's production hostname when no canonical origin is configured", () => {
+test("uses Vercel's deployment hostname when no canonical origin is configured", () => {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
   const vercelEnv = process.env.VERCEL_ENV;
   const vercelUrl = process.env.VERCEL_URL;
@@ -31,4 +31,25 @@ test("uses Vercel's production hostname when no canonical origin is configured",
   if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
   if (vercelEnv === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = vercelEnv;
   if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
+});
+
+test("allows the configured origin and exact Vercel deployment hostname", () => {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+  const vercelEnv = process.env.VERCEL_ENV;
+  const vercelUrl = process.env.VERCEL_URL;
+  process.env.NEXT_PUBLIC_APP_URL = "https://voltyard.example";
+  try {
+    for (const [environment, hostname] of [["production", "volt-yard.vercel.app"], ["preview", "volt-yard-git-main-team.vercel.app"]]) {
+      process.env.VERCEL_ENV = environment;
+      process.env.VERCEL_URL = hostname;
+      const request = new Request(`https://${hostname}/api/geocode`);
+      assert.equal(isApplicationOrigin("https://voltyard.example", request), true);
+      assert.equal(isApplicationOrigin(`https://${hostname}`, request), true);
+      assert.equal(isApplicationOrigin("https://other-deployment.vercel.app", request), false);
+    }
+  } finally {
+    if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
+    if (vercelEnv === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = vercelEnv;
+    if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
+  }
 });
