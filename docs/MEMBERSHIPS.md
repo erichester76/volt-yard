@@ -13,15 +13,17 @@ The marketing copy also describes persistent case history and priority service c
 ## Setup
 
 1. Apply all migrations in timestamp order. The membership and issue schema begins in `20261002000005_add_memberships_and_issue_workflow.sql` and is hardened by later migrations.
-2. Configure `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and an appropriate `NEXT_PUBLIC_APP_URL`.
+2. Configure `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_MEMBER_PRICE_ID`, `STRIPE_PREMIUM_PRICE_ID`, and an appropriate `NEXT_PUBLIC_APP_URL`. Optionally configure `STRIPE_BILLING_PORTAL_CONFIGURATION_ID` with a Billing Portal configuration that permits subscription updates and cancellation.
 3. Register `/api/stripe/webhook` for the Stripe events listed in `.env.example`.
 4. Use `/admin/memberships` only for internal demo-tier overrides and recording expert payout records. Stripe webhook events remain the source of truth for Stripe-created and updated subscriptions.
 
 ## Membership Lifecycle
 
-`POST /api/membership/checkout` creates a Stripe subscription Checkout Session for Member or Premium using server-defined monthly price data. Subscription event metadata identifies the requested tier and user. The verified webhook upserts `membership_subscriptions` and updates `profiles.membership_tier` to the paid tier only while the Stripe subscription is `active` or `trialing`; other statuses return the profile to Free.
+`POST /api/membership/checkout` maps each user to one Stripe customer, queries that customer's current Stripe subscription, and creates Checkout only when no current membership exists. An atomic, 30-minute Checkout claim prevents concurrent sessions for the same customer. The same plan is rejected. A different plan opens Stripe Billing Portal when `STRIPE_BILLING_PORTAL_CONFIGURATION_ID` is set; without it, the endpoint updates the existing subscription to the configured target Price ID. `POST /api/membership/portal` opens Billing Portal for payment-method changes. `POST /api/membership/cancel` opens Billing Portal when configured; otherwise it safely schedules cancellation at the current billing period end.
 
-The endpoint requires a valid bearer session and an `Idempotency-Key`. The checked-in membership page does not send the header, so its browser checkout action is currently rejected until the client is updated.
+Subscription event metadata identifies the requested tier and user. The verified webhook remains the source of truth: it upserts `membership_subscriptions` and updates `profiles.membership_tier` to the paid tier only while the Stripe subscription is `active` or `trialing`; other statuses return the profile to Free. Apply `20261003000003_add_membership_billing_customers.sql` before deploying this flow; it backfills existing Stripe customer mappings.
+
+Checkout requires a valid bearer session and an `Idempotency-Key`; the portal endpoint requires the same bearer session. The browser membership page supplies these headers and exposes a Manage membership action for paid tiers.
 
 ## Issue Workflow
 

@@ -33,8 +33,11 @@ export async function POST(request: NextRequest) {
       const userId = subscription.metadata.user_id;
       if (!userId || (tier !== "member" && tier !== "premium")) throw new Error("Subscription metadata is missing or invalid.");
       const active = subscription.status === "active" || subscription.status === "trialing";
-      const { error } = await admin.from("membership_subscriptions").upsert({ user_id: userId, tier, status: subscription.status, stripe_customer_id: typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id, stripe_subscription_id: subscription.id, source: "stripe" }, { onConflict: "user_id" });
+      const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
+      const { error } = await admin.from("membership_subscriptions").upsert({ user_id: userId, tier, status: subscription.status, stripe_customer_id: customerId, stripe_subscription_id: subscription.id, source: "stripe" }, { onConflict: "user_id" });
       if (error) throw error;
+      const { error: customerError } = await admin.from("membership_billing_customers").upsert({ user_id: userId, stripe_customer_id: customerId, checkout_started_at: null, stripe_checkout_session_id: null }, { onConflict: "user_id" });
+      if (customerError) throw customerError;
       const { error: profileError } = await admin.from("profiles").update({ membership_tier: active ? tier : "free" }).eq("id", userId);
       if (profileError) throw profileError;
     } else {
