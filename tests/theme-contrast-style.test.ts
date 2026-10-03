@@ -18,21 +18,42 @@ function contrast(foreground: string, background: string) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-test("catalog actions and community card links retain dark-theme contrast", () => {
+test("primary buttons and community card links retain theme contrast", () => {
   const light = css.match(/:root \{([\s\S]*?)\n\}/)?.[1];
   const dark = css.match(/:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)?.[1];
   assert.ok(light);
   assert.ok(dark);
 
   for (const theme of [light, dark]) {
-    const background = declaration(theme, "--catalog-action-background");
-    const foreground = declaration(theme, "--catalog-action-foreground");
+    const background = declaration(theme, "--button-primary-background");
+    const foreground = declaration(theme, "--button-primary-foreground");
     assert.ok(background);
     assert.ok(foreground);
     assert.ok(contrast(foreground, background) >= 4.5);
   }
 
-  assert.match(css, /\.catalog-card button \{[^}]*background: var\(--catalog-action-background\);[^}]*color: var\(--catalog-action-foreground\);/);
+  assert.equal(declaration(light, "--button-primary-background"), declaration(light, "--acid"));
+  assert.equal(declaration(dark, "--button-primary-background"), declaration(dark, "--acid"));
+
+  assert.match(css, /\.catalog-card button \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
   assert.match(css, /\.topic-card-footer a,/);
   assert.match(css, /\.topic-card-footer a,[\s\S]*?color: var\(--community-card-link\);/);
+});
+
+test("primary and secondary button tokens are explicit and accessible in each theme", () => {
+  const light = css.match(/:root \{([\s\S]*?)\n\}/)?.[1];
+  const dark = css.match(/:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)?.[1];
+  assert.ok(light);
+  assert.ok(dark);
+
+  for (const theme of [light, dark]) {
+    const background = declaration(theme, "--button-secondary-background");
+    const foreground = declaration(theme, "--button-secondary-foreground");
+    assert.ok(background);
+    assert.ok(foreground);
+    assert.ok(contrast(foreground, background) >= 4.5);
+  }
+
+  assert.match(css, /\.heading-accent \{[^}]*font-family: "Playfair Display"[^}]*color: var\(--acid\);/);
+  assert.match(css, /\.inline-cta\.secondary-action \{[^}]*background: var\(--button-secondary-background\);[^}]*color: var\(--button-secondary-foreground\);/);
 });
