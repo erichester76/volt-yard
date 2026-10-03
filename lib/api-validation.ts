@@ -20,6 +20,11 @@ export function idempotencyKey(request: Request) {
   return value && /^[A-Za-z0-9_-]{16,128}$/.test(value) ? value : null;
 }
 
+export function bearerToken(request: Request) {
+  const match = /^Bearer ([^\s]{1,4096})$/i.exec(request.headers.get("authorization") ?? "");
+  return match ? match[1] : null;
+}
+
 function canonicalOrigin(value: string | undefined, allowLocalhost = false) {
   if (!value) return null;
   try {
