@@ -60,8 +60,8 @@ create policy "Owners read their shops" on public.shops for select using (owner_
 -- Never expose ownership, insurance, licensing, or internal workflow fields to the directory.
 drop policy if exists "Public can read published shops" on public.shops;
 create or replace view public.public_shop_profiles with (security_invoker = false) as
-  select id, name, address, city, state, postal_code, phone, website, description, hours,
-    bay_count, years_in_business, latitude, longitude, service_territory, partner_type_id, type.name as partner_type_name, created_at, updated_at
+  select shop.id, shop.name, shop.address, shop.city, shop.state, shop.postal_code, shop.phone, shop.website, shop.description, shop.hours,
+    shop.bay_count, shop.years_in_business, shop.latitude, shop.longitude, shop.service_territory, shop.partner_type_id, type.name as partner_type_name, shop.created_at, shop.updated_at
   from public.shops shop join public.partner_types type on type.id = shop.partner_type_id where shop.is_published;
 revoke all on public.public_shop_profiles from public;
 grant select on public.public_shop_profiles to anon, authenticated;
