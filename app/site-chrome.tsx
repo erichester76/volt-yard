@@ -30,9 +30,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const [themeReady, setThemeReady] = useState(false);
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("volt-yard-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setDark(savedTheme ? savedTheme === "dark" : prefersDark);
+    setDark(document.documentElement.dataset.theme === "dark");
     setThemeReady(true);
   }, []);
 
