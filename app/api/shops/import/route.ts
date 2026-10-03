@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/supabase";
+import { boundedText } from "@/lib/api-validation";
 
 export const runtime = "nodejs";
 type Draft = { owner_id: null; name: string; address: string | null; city: string; state: string | null; phone: string | null; website: string | null; latitude: number; longitude: number; source: string; source_id: string; imported_at: string; is_published: false };
@@ -11,14 +12,15 @@ function responseError(error: unknown) { return NextResponse.json({ error: error
 
 export async function POST(request: NextRequest) {
   if (!authorized(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const body = await request.json() as RequestBody;
-  if (!Number.isFinite(body.latitude) || !Number.isFinite(body.longitude)) return NextResponse.json({ error: "latitude and longitude are required." }, { status: 400 });
+  const body = await request.json().catch(() => null) as RequestBody | null;
+  const query = boundedText(body?.query, 120);
+  if (!body || !Number.isFinite(body.latitude) || !Number.isFinite(body.longitude) || body.latitude! < -90 || body.latitude! > 90 || body.longitude! < -180 || body.longitude! > 180 || query === undefined || (body.provider !== undefined && !["google", "yelp", "overpass"].includes(body.provider))) return NextResponse.json({ error: "Provide a valid provider, coordinates, and query within 120 characters." }, { status: 400 });
   const latitude = body.latitude!; const longitude = body.longitude!; const radius = Math.min(Math.max(body.radiusMeters || 50000, 1), 50000); const importedAt = new Date().toISOString();
   try {
     let rows: Draft[] = [];
     if (body.provider === "yelp") {
       if (!process.env.YELP_API_KEY) return NextResponse.json({ error: "YELP_API_KEY is not configured." }, { status: 500 });
-      const params = new URLSearchParams({ term: body.query || "electric vehicle repair", latitude: String(latitude), longitude: String(longitude), radius: String(Math.min(radius, 40000)), limit: "50" });
+      const params = new URLSearchParams({ term: query || "electric vehicle repair", latitude: String(latitude), longitude: String(longitude), radius: String(Math.min(radius, 40000)), limit: "50" });
       const response = await fetch(`https://api.yelp.com/v3/businesses/search?${params}`, { headers: { Authorization: `Bearer ${process.env.YELP_API_KEY}` } });
       if (!response.ok) throw new Error(`Yelp request failed (${response.status}).`);
       const data = await response.json() as { businesses: Array<{ id: string; name: string; coordinates: { latitude: number; longitude: number }; location: { address1?: string; city?: string; state?: string }; phone?: string; url?: string }> };
@@ -35,7 +37,7 @@ export async function POST(request: NextRequest) {
       });
     } else {
       if (!process.env.GOOGLE_MAPS_API_KEY) return NextResponse.json({ error: "GOOGLE_MAPS_API_KEY is not configured." }, { status: 500 });
-      const response = await fetch("https://places.googleapis.com/v1/places:searchText", { method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY, "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri,places.addressComponents" }, body: JSON.stringify({ textQuery: body.query || "electric vehicle repair", pageSize: 20, locationRestriction: { circle: { center: { latitude, longitude }, radius } } }) });
+      const response = await fetch("https://places.googleapis.com/v1/places:searchText", { method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY, "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location,places.nationalPhoneNumber,places.websiteUri,places.addressComponents" }, body: JSON.stringify({ textQuery: query || "electric vehicle repair", pageSize: 20, locationRestriction: { circle: { center: { latitude, longitude }, radius } } }) });
       if (!response.ok) throw new Error(`Google Places request failed (${response.status}).`);
       const data = await response.json() as { places?: Array<{ id: string; displayName?: { text: string }; formattedAddress?: string; location?: { latitude: number; longitude: number }; nationalPhoneNumber?: string; websiteUri?: string; addressComponents?: Array<{ longText: string; types: string[] }> }> };
       rows = (data.places ?? []).flatMap((shop) => !shop.id || !shop.displayName?.text || !shop.location ? [] : [{ owner_id: null, name: shop.displayName.text, address: shop.formattedAddress ?? null, city: addressPart(shop.addressComponents, "locality") ?? "Unknown", state: addressPart(shop.addressComponents, "administrative_area_level_1") ?? null, phone: shop.nationalPhoneNumber ?? null, website: shop.websiteUri ?? null, latitude: shop.location.latitude, longitude: shop.location.longitude, source: "google_places", source_id: shop.id, imported_at: importedAt, is_published: false }]);

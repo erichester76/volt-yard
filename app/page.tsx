@@ -111,7 +111,12 @@ export default function Home() {
     latitude: number;
     longitude: number;
   } | null>(null);
-  const [manualLocation, setManualLocation] = useState<string | null>(null);
+  const [browserLocation, setBrowserLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
+  const [locationLabel, setLocationLabel] = useState("your location");
+  const [isGeocoding, setIsGeocoding] = useState(false);
   const [locationStatus, setLocationStatus] = useState(
     isSupabaseConfigured
       ? "Finding your location..."
@@ -132,10 +137,12 @@ export default function Home() {
     }
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocation({
+        const currentLocation = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        });
+        };
+        setBrowserLocation(currentLocation);
+        setLocation(currentLocation);
         setQuery("Current location");
         setLocationStatus("Using your current location");
       },
@@ -145,7 +152,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isSupabaseConfigured || (!location && !manualLocation)) return;
+    if (!isSupabaseConfigured || !location) return;
     const client = createBrowserSupabaseClient();
     const filters = {
       vehicle_make: make === "Any make" ? null : make,
@@ -168,17 +175,12 @@ export default function Home() {
     };
     setDirectoryFailed(false);
     setDirectoryStatus("Loading live shop listings...");
-    const request = manualLocation
-      ? client.rpc("shops_by_location", {
-          location_query: manualLocation,
-          ...filters,
-        })
-      : client.rpc("nearby_shops", {
-          search_latitude: location!.latitude,
-          search_longitude: location!.longitude,
-          radius_miles: radius,
-          ...filters,
-        });
+    const request = client.rpc("nearby_shops", {
+      search_latitude: location.latitude,
+      search_longitude: location.longitude,
+      radius_miles: radius,
+      ...filters,
+    });
     void (async () => {
       try {
         const { data, error } = await request;
@@ -203,14 +205,10 @@ export default function Home() {
         if (imageError)
           setDirectoryStatus("Live shop listings loaded without shop images.");
         const imageByShop = new Map<string, string>();
-        imageRows?.forEach((image) => {
+        const signedImages = await Promise.all((imageRows ?? []).map(async (image) => ({ image, url: (await client.storage.from("shop-images").createSignedUrl(image.storage_path, 3600)).data?.signedUrl })));
+        signedImages.forEach(({ image, url }) => {
           if (!imageByShop.has(image.shop_id))
-            imageByShop.set(
-              image.shop_id,
-              client.storage
-                .from("shop-images")
-                .getPublicUrl(image.storage_path).data.publicUrl,
-            );
+            if (url) imageByShop.set(image.shop_id, url);
         });
         setNearbyShops(
           nearby.map((shop) => ({
@@ -254,7 +252,6 @@ export default function Home() {
     };
   }, [
     location,
-    manualLocation,
     radius,
     make,
     model,
@@ -320,21 +317,45 @@ export default function Home() {
     });
   }, [make, year]);
 
-  function search(event: FormEvent) {
+  async function search(event: FormEvent) {
     event.preventDefault();
     const enteredLocation = query.trim();
     if (!enteredLocation || enteredLocation === "Current location") {
-      if (!location) {
+      if (!browserLocation) {
         setLocationStatus("Enter a city, state, or ZIP to search.");
         return;
       }
-      setManualLocation(null);
+      setLocation(browserLocation);
+      setLocationLabel("your location");
+      setQuery("Current location");
+      setLocationStatus("Using your current location");
     } else {
-      setLocation(null);
-      setManualLocation(enteredLocation);
-      setLocationStatus(
-        `Showing shops matching ${enteredLocation}; distance is unavailable without your location.`,
-      );
+      setIsGeocoding(true);
+      setLocationStatus("Finding that location...");
+      try {
+        const response = await fetch("/api/geocode", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: enteredLocation }),
+        });
+        const result = (await response.json().catch(() => null)) as
+          | { latitude: number; longitude: number; label: string }
+          | { error: string }
+          | null;
+        if (!response.ok || !result || !("latitude" in result)) {
+          setLocationStatus(result && "error" in result ? result.error : "Location search failed. Please try again.");
+          return;
+        }
+        setLocation({ latitude: result.latitude, longitude: result.longitude });
+        setLocationLabel(result.label);
+        setQuery(result.label);
+        setLocationStatus(`Using ${result.label}`);
+      } catch {
+        setLocationStatus("Location search failed. Please try again.");
+        return;
+      } finally {
+        setIsGeocoding(false);
+      }
     }
     setSearched(true);
     document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
@@ -437,12 +458,12 @@ export default function Home() {
                   ))}
                 </select>
               </label>
-              <button className="search-button" type="submit">
-                Find a mechanic <span>→</span>
+              <button className="search-button" type="submit" disabled={isGeocoding}>
+                {isGeocoding ? "Finding location..." : <>Find a mechanic <span>→</span></>}
               </button>
             </form>
             </div>
-            <p className="trust">
+            <p className="trust" role="status" aria-live="polite">
               {locationStatus} · choose a radius that works for your trip
             </p>
           </div>
@@ -455,7 +476,7 @@ export default function Home() {
               {searched ? "Your matches" : "Nearby shops"}
             </p>
             <h2>
-              {nearbyShops.length} EV service partners near {query === "Current location" ? "you" : query || "you"}
+               {nearbyShops.length} EV service partners near {locationLabel}
             </h2>
           </div>
           <label className="filter">

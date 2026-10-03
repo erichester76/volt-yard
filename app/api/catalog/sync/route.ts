@@ -5,6 +5,8 @@ import { createAdminSupabaseClient } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+const MAX_ZIP_BYTES = 25 * 1024 * 1024;
+const MAX_CSV_BYTES = 150 * 1024 * 1024;
 
 type EpaVehicle = { id: string; year: string; make: string; model: string; baseModel?: string; fuelType1?: string; fuelType2?: string; atvType?: string };
 
@@ -36,12 +38,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch("https://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip", { next: { revalidate: 0 } });
+    const response = await fetch("https://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip", { next: { revalidate: 0 }, signal: AbortSignal.timeout(45_000) });
     if (!response.ok) throw new Error(`EPA catalog request failed (${response.status}).`);
-    const zip = new AdmZip(Buffer.from(await response.arrayBuffer()));
+    const contentLength = Number(response.headers.get("content-length") ?? 0);
+    if (!Number.isFinite(contentLength) || contentLength > MAX_ZIP_BYTES) throw new Error("EPA catalog archive exceeds the allowed size.");
+    const archive = Buffer.from(await response.arrayBuffer());
+    if (archive.length > MAX_ZIP_BYTES) throw new Error("EPA catalog archive exceeds the allowed size.");
+    const zip = new AdmZip(archive);
     const file = zip.getEntry("vehicles.csv");
     if (!file) throw new Error("EPA catalog did not contain vehicles.csv.");
-    const vehicles = parse(zip.readAsText(file), { columns: true, skip_empty_lines: true }) as EpaVehicle[];
+    if (file.header.size <= 0 || file.header.size > MAX_CSV_BYTES) throw new Error("EPA catalog CSV exceeds the allowed size.");
+    const vehicles = parse(zip.readAsText(file), { columns: true, skip_empty_lines: true, max_record_size: 16_384, relax_column_count: false }) as EpaVehicle[];
     const includedYears = new Set(years.map(String));
     const rows = [...new Map(vehicles.flatMap((vehicle) => {
       const type = powertrain(vehicle);

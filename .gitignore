@@ -7,6 +7,13 @@ out/
 .env*
 !.env.example
 .supabase/
+supabase/.temp/
+supabase/migrations/supabase/.temp/
+
+# Test coverage and local tooling
+coverage/
+.turbo/
+*.tsbuildinfo
 
 # Logs and OS files
 *.log
