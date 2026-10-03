@@ -21,3 +21,4 @@ coverage/
 
 # Vercel local metadata
 .vercel/
+.vercel

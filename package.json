@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run check:deployment && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:deployment": "node scripts/check-deployment.mjs",
+    "test": "tsx --test tests/**/*.test.ts"
   },
   "dependencies": {
     "@supabase/server": "^1.9.0",
@@ -23,6 +25,7 @@
     "typescript": "5.7.2"
   },
   "devDependencies": {
-    "@types/adm-zip": "0.5.7"
+    "@types/adm-zip": "0.5.7",
+    "tsx": "^4.20.6"
   }
 }

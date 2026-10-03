@@ -179,6 +179,8 @@ export default function Home() {
       search_latitude: location.latitude,
       search_longitude: location.longitude,
       radius_miles: radius,
+      result_limit: 50,
+      result_offset: 0,
       ...filters,
     });
     void (async () => {
