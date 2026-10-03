@@ -1189,7 +1189,7 @@ footer button {
 .catalog-card h2, .job-card h2 { font-size: 25px; letter-spacing: -0.04em; }
 .catalog-card > p:not(.eyebrow), .catalog-card small, .job-card > p:not(.eyebrow) { color: var(--muted); line-height: 1.5; }
 .catalog-card footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 21px; height: auto; }
-.catalog-card button, .checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--ink); color: var(--cream); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
+.catalog-card button, .checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--ink); color: white; padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
 .login-prompt { display: flex; gap: 9px; align-items: center; padding: 15px; margin-bottom: 24px; background: #e5eadf; }
 .login-prompt input, .checkout-card input, .checkout-card select, .checkout-card textarea { border: 1px solid #ccd5cc; background: #fffefa; padding: 10px; font: 13px "DM Sans"; width: 100%; }
 .cart-layout { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; }
@@ -1324,7 +1324,6 @@ footer button {
 .topic-card h2 { margin: 0 0 11px; font-size: 25px; line-height: 1.05; letter-spacing: -.045em; }
 .topic-card h2 a,
 .topic-card > a,
-.topic-card-footer a,
 .pathway-grid a,
 .back-link,
 .reading > a:not(.inline-cta) { color: var(--ink); font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 3px; }
