@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { createAdminSupabaseClient } from "@/lib/supabase";
-import { applicationOrigin, boundedText, idempotencyKey, isUuid, optionalUuid } from "@/lib/api-validation";
+import { createAdminSupabaseClient, createUserSupabaseClient } from "@/lib/supabase";
+import { applicationOrigin, bearerToken, boundedText, idempotencyKey, isUuid, optionalUuid } from "@/lib/api-validation";
 
 export const runtime = "nodejs";
 
@@ -14,8 +14,7 @@ type CartItem = {
 export async function POST(request: NextRequest) {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeKey) return NextResponse.json({ error: "Stripe is not configured." }, { status: 503 });
-  const authorization = request.headers.get("authorization");
-  const token = authorization?.replace(/^Bearer\s+/i, "");
+  const token = bearerToken(request);
   if (!token) return NextResponse.json({ error: "Sign in to check out." }, { status: 401 });
 
   const admin = createAdminSupabaseClient();
@@ -61,7 +60,8 @@ export async function POST(request: NextRequest) {
     })) return NextResponse.json({ error: "One or more services are not compatible with the selected vehicle." }, { status: 400 });
   }
 
-  const { data: orderId, error: orderError } = await admin.rpc("create_checkout_order", {
+  // The RPC derives ownership from auth.uid(), so it must receive the verified caller's JWT.
+  const { data: orderId, error: orderError } = await createUserSupabaseClient(token).rpc("create_checkout_order", {
     p_cart_id: cartId, p_vehicle_id: vehicleId, p_location_text: locationText, p_notes: notes, p_idempotency_key: key,
   });
   if (orderError || !orderId) return NextResponse.json({ error: "Could not start checkout." }, { status: 500 });

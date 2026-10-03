@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { randomUUID } from "node:crypto";
 import test from "node:test";
-import { applicationOrigin, boundedText, idempotencyKey, isApplicationOrigin, isUuid, optionalUuid } from "../lib/api-validation";
+import { applicationOrigin, bearerToken, boundedText, idempotencyKey, isApplicationOrigin, isUuid, optionalUuid } from "../lib/api-validation";
 
 test("validates IDs and bounded request values", () => {
   assert.equal(isUuid("4d99c636-47d7-4aea-9a80-57099612483c"), true);
@@ -13,11 +14,20 @@ test("validates IDs and bounded request values", () => {
 
 test("accepts only safe idempotency keys and origins", () => {
   assert.equal(idempotencyKey(new Request("https://example.test", { headers: { "idempotency-key": "A".repeat(16) } })), "A".repeat(16));
+  const key = randomUUID();
+  assert.equal(idempotencyKey(new Request("https://example.test", { headers: { "idempotency-key": key } })), key);
   assert.equal(idempotencyKey(new Request("https://example.test", { headers: { "idempotency-key": "short" } })), null);
   const previous = process.env.NEXT_PUBLIC_APP_URL;
   process.env.NEXT_PUBLIC_APP_URL = "http://untrusted.example";
   assert.equal(applicationOrigin(new Request("https://request.example/route")), "https://request.example");
   if (previous === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = previous;
+});
+
+test("accepts a single bounded bearer token and rejects malformed authorization", () => {
+  assert.equal(bearerToken(new Request("https://example.test", { headers: { authorization: "Bearer verified.token.value" } })), "verified.token.value");
+  assert.equal(bearerToken(new Request("https://example.test", { headers: { authorization: "Basic credentials" } })), null);
+  assert.equal(bearerToken(new Request("https://example.test", { headers: { authorization: "Bearer two tokens" } })), null);
+  assert.equal(bearerToken(new Request("https://example.test", { headers: { authorization: `Bearer ${"a".repeat(4097)}` } })), null);
 });
 
 test("uses only trusted Vercel origins when no canonical origin is configured", () => {
