@@ -111,6 +111,7 @@ export default function Home() {
   const [nearbyShops, setNearbyShops] = useState<Shop[]>([]);
   const [location, setLocation] = useState<Coordinates | null>(null);
   const [browserLocation, setBrowserLocation] = useState<Coordinates | null>(null);
+  const [isCurrentLocationQuery, setIsCurrentLocationQuery] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceSuggestion | null>(null);
   const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([]);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
@@ -127,6 +128,7 @@ export default function Home() {
       ? "Loading live shop listings..."
       : "Shop listings are unavailable.",
   );
+  const [directoryLoaded, setDirectoryLoaded] = useState(false);
   const [directoryFailed, setDirectoryFailed] = useState(false);
   const [reloadDirectory, setReloadDirectory] = useState(0);
   useEffect(() => {
@@ -144,6 +146,7 @@ export default function Home() {
         setBrowserLocation(currentLocation);
         setLocation(currentLocation);
         setQuery("Current location");
+        setIsCurrentLocationQuery(true);
         setLocationStatus("Using your current location");
       },
       () => setLocationStatus("Enter a city, state, or ZIP to search."),
@@ -170,9 +173,11 @@ export default function Home() {
         hint: error.hint,
       });
       setNearbyShops([]);
+      setDirectoryLoaded(false);
       setDirectoryFailed(true);
       setDirectoryStatus(directoryErrorMessage(error));
     };
+    setDirectoryLoaded(false);
     setDirectoryFailed(false);
     setDirectoryStatus("Loading live shop listings...");
     const request = client.rpc("nearby_shops", {
@@ -192,6 +197,7 @@ export default function Home() {
           return;
         }
         const nearby = (data as NearbyShop[] | null) ?? [];
+        setDirectoryLoaded(true);
         const { data: imageRows, error: imageError } = nearby.length
           ? await client
               .from("shop_images")
@@ -321,7 +327,11 @@ export default function Home() {
 
   useEffect(() => {
     const input = query.trim();
-    if (input.length < 2 || selectedPlace?.label === query) {
+    if (
+      isCurrentLocationQuery ||
+      input.length < 2 ||
+      selectedPlace?.label === query
+    ) {
       setSuggestions([]);
       setActiveSuggestion(-1);
       return;
@@ -342,7 +352,7 @@ export default function Home() {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [query, selectedPlace]);
+  }, [query, selectedPlace, isCurrentLocationQuery]);
 
   async function selectPlace(suggestion: PlaceSuggestion) {
     setSuggestions([]);
@@ -359,6 +369,7 @@ export default function Home() {
       setLocation({ latitude: result.latitude, longitude: result.longitude });
       setLocationLabel(result.label);
       setQuery(result.label);
+      setIsCurrentLocationQuery(false);
       setSelectedPlace({ placeId: suggestion.placeId, label: result.label });
       setLocationStatus(`Using ${result.label}`);
       setSearched(true);
@@ -391,7 +402,7 @@ export default function Home() {
     const enteredLocation = query.trim();
     if (selectedPlace?.label === enteredLocation && location) {
       setLocationStatus(`Using ${locationLabel}`);
-    } else if (!enteredLocation || enteredLocation === "Current location") {
+    } else if (!enteredLocation || isCurrentLocationQuery) {
       if (!browserLocation) {
         setLocationStatus("Enter a city, state, or ZIP to search.");
         return;
@@ -399,6 +410,7 @@ export default function Home() {
       setLocation(browserLocation);
         setLocationLabel("your location");
         setQuery("Current location");
+        setIsCurrentLocationQuery(true);
         setSelectedPlace(null);
       setLocationStatus("Using your current location");
     } else {
@@ -421,6 +433,7 @@ export default function Home() {
         setLocation({ latitude: result.latitude, longitude: result.longitude });
         setLocationLabel(result.label);
         setQuery(result.label);
+        setIsCurrentLocationQuery(false);
         setSelectedPlace(null);
         setLocationStatus(`Using ${result.label}`);
       } catch {
@@ -465,9 +478,15 @@ export default function Home() {
                    aria-activedescendant={activeSuggestion >= 0 ? `location-suggestion-${activeSuggestion}` : undefined}
                    placeholder="City, state, or ZIP"
                    value={query}
-                   onChange={(event) => { setQuery(event.target.value); setSelectedPlace(null); }}
-                   onKeyDown={locationKeyDown}
-                   onBlur={() => window.setTimeout(() => { setSuggestions([]); setActiveSuggestion(-1); }, 150)}
+                    onChange={(event) => { setQuery(event.target.value); setIsCurrentLocationQuery(false); setSelectedPlace(null); }}
+                    onKeyDown={locationKeyDown}
+                    onFocus={() => {
+                      if (isCurrentLocationQuery) {
+                        setQuery("");
+                        setIsCurrentLocationQuery(false);
+                      }
+                    }}
+                    onBlur={() => window.setTimeout(() => { setSuggestions([]); setActiveSuggestion(-1); }, 150)}
                  />
                  {suggestions.length > 0 && <ul className="location-suggestions" id="location-suggestions" role="listbox" aria-label="Location suggestions">{suggestions.map((suggestion, index) => <li key={suggestion.placeId} id={`location-suggestion-${index}`} role="option" aria-selected={index === activeSuggestion}><button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => void selectPlace(suggestion)}>{suggestion.label}</button></li>)}</ul>}
                </label>
@@ -714,6 +733,11 @@ export default function Home() {
               >
                 Clear filters
               </button>
+              {directoryLoaded && radius < 200 && (
+                <button type="button" onClick={() => setRadius(200)}>
+                  Search within 200 miles
+                </button>
+              )}
             </div>
           )}
       </section>
