@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
+import { HeadingAccent } from "@/app/heading-accent";
 import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
@@ -142,7 +143,7 @@ export default function ProfilePage() {
   return (
     <main className="profile-page wrap">
       <p className="eyebrow">Customer profile</p>
-      <h1>Your account.</h1>
+      <h1><HeadingAccent>Your</HeadingAccent> account.</h1>
       <section>
         <h2>Signed in as</h2>
         <p>{email || "Loading account..."}</p>

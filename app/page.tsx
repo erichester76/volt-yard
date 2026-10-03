@@ -2,6 +2,7 @@
 
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "next/link";
+import { HeadingAccent } from "@/app/heading-accent";
 import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
@@ -455,7 +456,7 @@ export default function Home() {
           <div>
             <p className="eyebrow">Let us get you help</p>
             <h1>
-              <i>Diagnose</i> an issue.
+              <HeadingAccent>Diagnose</HeadingAccent> an issue.
             </h1>
             <p className="intro">
               Search proven solutions, tap into a knowledgeable EV community,

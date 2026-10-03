@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HeadingAccent } from "@/app/heading-accent";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
@@ -219,7 +220,7 @@ export default function IssuesPage() {
       <header className="content-head">
         <div>
           <p className="eyebrow">Guided issue workflow</p>
-          <h1>Start with what your vehicle is telling you.</h1>
+          <h1><HeadingAccent>Start</HeadingAccent> with what your vehicle is telling you.</h1>
           <p>{sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."}</p>
         </div>
       </header>

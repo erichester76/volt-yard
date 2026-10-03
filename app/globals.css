@@ -14,9 +14,11 @@
   --danger: #9d3c2c;
   --hero: #17283a;
   --hero-ink: #f7f9fa;
-  --catalog-action-background: #17283a;
-  --catalog-action-foreground: #f8fafb;
   --community-card-link: #17283a;
+  --button-primary-background: #e96b4e;
+  --button-primary-foreground: #172723;
+  --button-secondary-background: #ccd9e2;
+  --button-secondary-foreground: #17283a;
 }
 :root[data-theme="dark"] {
   --ink: #edf4ec;
@@ -31,9 +33,11 @@
   --danger: #f38b72;
   --hero: #0e1c19;
   --hero-ink: #edf4ec;
-  --catalog-action-background: #d6ff35;
-  --catalog-action-foreground: #172723;
   --community-card-link: #edf4ec;
+  --button-primary-background: #d6ff35;
+  --button-primary-foreground: #172723;
+  --button-secondary-background: #4a4f4d;
+  --button-secondary-foreground: #edf4ec;
 }
 * {
   box-sizing: border-box;
@@ -76,9 +80,9 @@ body {
 .footer-content nav a { color: var(--ink); font-size: 12px; font-weight: 600; text-decoration: none; }
 .sign-in-backdrop { position: fixed; z-index: 5; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(16, 30, 26, .75); }
 .sign-in-dialog { position: relative; width: min(430px, 100%); padding: 38px; background: var(--surface); color: var(--ink); }
-.sign-in-dialog h2 { margin: 0 0 11px; font-size: 34px; letter-spacing: -.05em; }.sign-in-dialog > p:not(.eyebrow) { color: var(--muted); font-size: 14px; line-height: 1.5; }.sign-in-dialog label { display: block; margin: 22px 0 13px; font-size: 12px; font-weight: 600; }.sign-in-dialog input { display: block; width: 100%; margin-top: 6px; padding: 11px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font: 13px "DM Sans"; }.sign-in-dialog > button[type="submit"] { border: 0; width: 100%; padding: 13px; background: var(--ink); color: var(--cream); font: 600 13px "DM Sans"; cursor: pointer; }.sign-in-dialog button:disabled { cursor: wait; opacity: .65; }.auth-links { display: grid; gap: 4px; margin-top: 14px; }.auth-links button { width: fit-content; padding: 4px 0; border: 0; background: transparent; color: var(--muted); font: 600 12px "DM Sans"; text-decoration: underline; cursor: pointer; }
+.sign-in-dialog h2 { margin: 0 0 11px; font-size: 34px; letter-spacing: -.05em; }.sign-in-dialog > p:not(.eyebrow) { color: var(--muted); font-size: 14px; line-height: 1.5; }.sign-in-dialog label { display: block; margin: 22px 0 13px; font-size: 12px; font-weight: 600; }.sign-in-dialog input { display: block; width: 100%; margin-top: 6px; padding: 11px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font: 13px "DM Sans"; }.sign-in-dialog > button[type="submit"] { border: 0; width: 100%; padding: 13px; background: var(--button-primary-background); color: var(--button-primary-foreground); font: 600 13px "DM Sans"; cursor: pointer; }.sign-in-dialog button:disabled { cursor: wait; opacity: .65; }.auth-links { display: grid; gap: 4px; margin-top: 14px; }.auth-links button { width: fit-content; padding: 4px 0; border: 0; background: transparent; color: var(--muted); font: 600 12px "DM Sans"; text-decoration: underline; cursor: pointer; }
 .profile-page { padding-top: 76px; padding-bottom: 90px; }.profile-page h1 { margin-bottom: 32px; }.profile-page section { max-width: 560px; padding: 25px; border: 1px solid var(--line); background: #fffefa; color: #172723; }.profile-page section p { color: #53635c; line-height: 1.5; }
-.tier-grid, .pathway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 30px 0 60px; }.tier-card, .pathway-grid article, .expert-answer { border: 1px solid var(--line); padding: 24px; background: #fffefa; color: #172723; }.tier-card.active { border-top: 5px solid var(--acid); }.tier-card h2, .pathway-grid h2 { font-size: 28px; }.tier-card p, .pathway-grid p, .expert-answer p { color: #53635c; line-height: 1.5; }.tier-card button, .pathway-grid button, .topic-card button { border: 0; padding: 11px 14px; background: var(--ink); color: white; font: 600 12px "DM Sans"; cursor: pointer; }.pathway-grid { grid-template-columns: repeat(2, 1fr); }.pathway-grid a { color: var(--ink); font-weight: 600; }.issue-reading { padding-bottom: 10px; }.expert-answer { max-width: 720px; margin: 26px 0; }
+.tier-grid, .pathway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 30px 0 60px; }.tier-card, .pathway-grid article, .expert-answer { border: 1px solid var(--line); padding: 24px; background: #fffefa; color: #172723; }.tier-card.active { border-top: 5px solid var(--acid); }.tier-card h2, .pathway-grid h2 { font-size: 28px; }.tier-card p, .pathway-grid p, .expert-answer p { color: #53635c; line-height: 1.5; }.tier-card button, .pathway-grid button, .topic-card button { border: 0; padding: 11px 14px; background: var(--button-primary-background); color: var(--button-primary-foreground); font: 600 12px "DM Sans"; cursor: pointer; }.pathway-grid { grid-template-columns: repeat(2, 1fr); }.pathway-grid a { color: var(--ink); font-weight: 600; }.issue-reading { padding-bottom: 10px; }.expert-answer { max-width: 720px; margin: 26px 0; }
 @media (max-width: 700px) { .tier-grid, .pathway-grid { grid-template-columns: 1fr; } }
 /* Legacy page headers are replaced visually by the shared site header. */
 .portal > header, .shop-detail > .nav, .commerce > .commerce-nav { display: none; }
@@ -173,11 +177,7 @@ h1 {
   margin-bottom: 25px;
   font-weight: 600;
 }
-h1 i {
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 600;
-  color: var(--acid);
-}
+.heading-accent { font-family: "Playfair Display", Georgia, serif; font-weight: 600; color: var(--acid); }
 .intro {
   font-size: 18px;
   line-height: 1.55;
@@ -197,8 +197,8 @@ h1 i {
   font-weight: 600;
 }
 .hero-actions .hero-primary-action {
-  background: var(--acid);
-  color: var(--acid-ink);
+  background: var(--button-primary-background);
+  color: var(--button-primary-foreground);
   padding: 12px 16px;
   text-decoration: none;
 }
@@ -247,8 +247,8 @@ h1 i {
 }
 .search-button {
   border: 0;
-  background: var(--acid);
-  color: var(--acid-ink);
+  background: var(--button-primary-background);
+  color: var(--button-primary-foreground);
   padding: 0 20px;
   font: 600 12px "DM Sans";
   white-space: nowrap;
@@ -569,8 +569,8 @@ footer button {
 .profile-form button,
 .success button {
   border: 0;
-  background: var(--ink);
-  color: #fff;
+  background: var(--button-primary-background);
+  color: var(--button-primary-foreground);
   padding: 14px 18px;
   font: 600 13px "DM Sans";
   cursor: pointer;
@@ -961,8 +961,8 @@ footer button {
 }
 .admin-shop button {
   border: 0;
-  background: var(--ink);
-  color: white;
+  background: var(--button-primary-background);
+  color: var(--button-primary-foreground);
   padding: 11px 15px;
   font: 600 12px "DM Sans";
   cursor: pointer;
@@ -1034,11 +1034,12 @@ footer button {
 .admin-shop button {
   width: 100%;
   margin-top: 6px;
-  background: var(--ink);
+  background: var(--button-primary-background);
   transition: background 0.2s;
 }
 .admin-shop button:hover {
-  background: #39574a;
+  background: var(--button-secondary-background);
+  color: var(--button-secondary-foreground);
 }
 .shop-thumb {
   width: 50px;
@@ -1222,8 +1223,8 @@ footer button {
 .catalog-card h2, .job-card h2 { font-size: 25px; letter-spacing: -0.04em; }
 .catalog-card > p:not(.eyebrow), .catalog-card small, .job-card > p:not(.eyebrow) { color: var(--muted); line-height: 1.5; }
 .catalog-card footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 21px; height: auto; }
-.catalog-card button { border: 0; background: var(--catalog-action-background); color: var(--catalog-action-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
-.checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--ink); color: white; padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
+.catalog-card button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
+.checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
 .login-prompt { display: flex; gap: 9px; align-items: center; padding: 15px; margin-bottom: 24px; background: #e5eadf; }
 .login-prompt input, .checkout-card input, .checkout-card select, .checkout-card textarea { border: 1px solid #ccd5cc; background: #fffefa; padding: 10px; font: 13px "DM Sans"; width: 100%; }
 .cart-layout { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; }
@@ -1240,7 +1241,7 @@ footer button {
 .admin-catalog-form label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 14px; }
 .admin-catalog-form input:not([type="checkbox"]), .admin-catalog-form select, .admin-catalog-form textarea { width: 100%; border: 1px solid #ccd5cc; background: #fffefa; padding: 10px; font: 13px "DM Sans"; margin-top: 6px; }
 .admin-catalog-form textarea { min-height: 76px; resize: vertical; }
-.admin-catalog-form button, .admin-catalog-list button { border: 0; background: var(--ink); color: white; padding: 10px 13px; font: 600 12px "DM Sans"; cursor: pointer; }
+.admin-catalog-form button, .admin-catalog-list button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 10px 13px; font: 600 12px "DM Sans"; cursor: pointer; }
 .form-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 20px; }
 .form-heading h2, .admin-catalog-list h2 { font-size: 22px; letter-spacing: -.04em; margin: 0; }
 .admin-catalog-form .text-button { background: none; color: var(--ink); padding: 0; text-decoration: underline; }
@@ -1301,8 +1302,8 @@ footer button {
 .admin-catalog-list button {
   display: inline-block;
   border: 0;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--button-primary-background);
+  color: var(--button-primary-foreground);
   padding: 11px 14px;
   font: 600 12px "DM Sans", sans-serif;
   text-decoration: none;
@@ -1314,7 +1315,8 @@ footer button {
 .topic-card > button:hover,
 .tier-card button:hover,
 .pathway-grid button:hover,
-.job-card button:hover { background: var(--acid); color: var(--acid-ink); }
+.job-card button:hover { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
+.inline-cta.secondary-action { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
 .directory-status { min-height: 19px; margin: 0 0 20px; color: var(--muted); font-size: 13px; }
 
 .community-form {
@@ -1454,7 +1456,7 @@ footer button {
 .profile-vehicle-form label { display: grid; gap: 7px; color: var(--ink); font-size: 11px; font-weight: 600; }
 .profile-vehicle-form select { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 0; background: var(--cream); color: var(--ink); padding: 10px 11px; font: 13px "DM Sans", sans-serif; }
 .profile-vehicle-form select:disabled { cursor: not-allowed; opacity: .6; }
-.profile-vehicle-form button { border: 0; background: var(--acid); color: var(--acid-ink); min-height: 39px; padding: 10px 14px; font: 600 12px "DM Sans", sans-serif; white-space: nowrap; cursor: pointer; }
+.profile-vehicle-form button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); min-height: 39px; padding: 10px 14px; font: 600 12px "DM Sans", sans-serif; white-space: nowrap; cursor: pointer; }
 .profile-vehicle-form button:disabled { cursor: wait; opacity: .65; }
 
 .portal { padding-top: 56px; padding-bottom: 80px; }
