@@ -8,6 +8,8 @@ import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
+const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? "0.1.1";
+const buildCommit = process.env.NEXT_PUBLIC_BUILD_COMMIT ?? "local";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -201,7 +203,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       {children}
       <footer className="site-footer">
         <div className="wrap footer-content">
-          <div><Link className="brand" href="/"><span className="mark">V</span> volt yard</Link><p>Independent EV service, connected.</p></div>
+          <div><Link className="brand" href="/"><span className="mark">V</span> volt yard</Link><p>Independent EV service, connected.</p><span className="version-crumb" aria-label={`Application version ${appVersion}, build ${buildCommit}`}>v{appVersion} / {buildCommit}</span></div>
             <nav aria-label="Footer navigation"><Link href="/issues">Diagnose</Link><Link href="/membership">Membership</Link><Link href="/community">Community</Link><Link href="/catalog">Services &amp; upgrades</Link><a href="mailto:hello@voltyard.com">Contact</a></nav>
         </div>
       </footer>
