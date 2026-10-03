@@ -30,18 +30,28 @@ function canonicalOrigin(value: string | undefined, allowLocalhost = false) {
   return null;
 }
 
+function vercelDeploymentOrigin() {
+  if (process.env.VERCEL_ENV !== "production" && process.env.VERCEL_ENV !== "preview") return null;
+  const vercelUrl = process.env.VERCEL_URL;
+  if (!vercelUrl || !/^[a-z0-9][a-z0-9.-]*$/i.test(vercelUrl)) return null;
+  return canonicalOrigin(`https://${vercelUrl}`);
+}
+
 export function applicationOrigin(request: Request) {
   const configured = canonicalOrigin(process.env.NEXT_PUBLIC_APP_URL, process.env.NODE_ENV !== "production");
   if (configured) return configured;
 
   // Vercel provides this deployment hostname without a scheme. Do not derive a
-  // production checkout origin from a request-controlled Host header.
-  const vercelUrl = process.env.VERCEL_ENV === "production" ? process.env.VERCEL_URL : undefined;
-  if (vercelUrl && /^[a-z0-9][a-z0-9.-]*$/i.test(vercelUrl)) {
-    const vercelOrigin = canonicalOrigin(`https://${vercelUrl}`);
-    if (vercelOrigin) return vercelOrigin;
-  }
+  // checkout origin from a request-controlled Host header.
+  const deploymentOrigin = vercelDeploymentOrigin();
+  if (deploymentOrigin) return deploymentOrigin;
 
   if (process.env.NODE_ENV === "production") throw new Error("Configure NEXT_PUBLIC_APP_URL with the canonical application origin.");
   return new URL(request.url).origin;
+}
+
+export function isApplicationOrigin(origin: string, request: Request) {
+  const configured = canonicalOrigin(process.env.NEXT_PUBLIC_APP_URL, process.env.NODE_ENV !== "production");
+  const deploymentOrigin = vercelDeploymentOrigin();
+  return origin === configured || origin === deploymentOrigin || origin === applicationOrigin(request);
 }

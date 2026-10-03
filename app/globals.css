@@ -787,6 +787,33 @@ footer button {
 .search label:first-child {
   grid-column: 1/-1;
 }
+.location-field { position: relative; }
+.location-suggestions {
+  position: absolute;
+  z-index: 3;
+  top: calc(100% + 4px);
+  left: -1px;
+  right: -1px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 16%, transparent);
+}
+.location-suggestions button {
+  width: 100%;
+  border: 0;
+  padding: 9px;
+  background: transparent;
+  color: var(--ink);
+  font: 500 13px "DM Sans", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.location-suggestions [aria-selected="true"] button,
+.location-suggestions button:hover,
+.location-suggestions button:focus-visible { background: var(--acid); color: var(--acid-ink); outline: 0; }
 .search-button {
   min-height: 48px;
 }
