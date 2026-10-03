@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HeadingAccent } from "@/app/heading-accent";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { defaultLocale, localeFromPath } from "@/lib/i18n";
+import { useLocalizedContent } from "@/lib/localized-content";
 
 const tiers = [{ key: "free", name: "Free", price: "$0", copy: "Start a case, use DIY guides, and read the community." }, { key: "member", name: "Member", price: "$9/mo", copy: "Persistent case history and full community participation." }, { key: "premium", name: "Premium", price: "$19/mo", copy: "Priority service context and paid expert-response opportunities." }];
 export default function MembershipPage() {
+  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const t = useLocalizedContent(locale);
   const [tier, setTier] = useState("free"); const [message, setMessage] = useState("");
   useEffect(() => { if (!isSupabaseConfigured) return; const db = createBrowserSupabaseClient(); db.auth.getUser().then(async ({ data }) => { if (!data.user) return; const { data: profile } = await db.from("profiles").select("membership_tier").eq("id", data.user.id).maybeSingle(); setTier(profile?.membership_tier ?? "free"); }); }, []);
   async function checkout(next: string) { if (!isSupabaseConfigured) return setMessage("Configure Supabase and Stripe to subscribe."); const db = createBrowserSupabaseClient(); const { data } = await db.auth.getSession(); if (!data.session) return setMessage("Sign in, then choose a tier."); setMessage("Opening secure checkout..."); const response = await fetch("/api/membership/checkout", { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${data.session.access_token}` }, body: JSON.stringify({ tier: next }) }); const result = await response.json(); if (result.url) window.location.assign(result.url); else setMessage(result.error || "Checkout could not be started."); }

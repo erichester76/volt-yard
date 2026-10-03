@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { authRedirectUrl } from "@/lib/auth-redirect";
+import { defaultLocale, localeFromPath } from "@/lib/i18n";
+import { useLocalizedContent } from "@/lib/localized-content";
 
 type Product = { id: string; slug: string; name: string; description: string; price_cents: number; category: { name: string } | null; product_vehicle_compatibility: { vehicle: { make: string; model: string; model_year: number } | null }[] };
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 
 export default function CatalogPage() {
+  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const t = useLocalizedContent(locale);
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
@@ -47,5 +51,5 @@ export default function CatalogPage() {
     const { error } = await createBrowserSupabaseClient().auth.signInWithOtp({ email, options: { emailRedirectTo: authRedirectUrl(window.location.origin, "/catalog") } });
     setMessage(error ? error.message : "Check your email for a secure sign-in link, then add your package.");
   }
-  return <main className="commerce wrap"><header className="commerce-head"><p className="eyebrow">Services & upgrades</p><h1>Care, lined up.</h1><p>Choose a service or upgrade from Volt Yard. After payment, compatible independent installers can claim the request.</p></header>{message && <p className="form-message">{message}</p>}{needsLogin && <form className="login-prompt" onSubmit={sendLogin}><strong>Sign in to save a cart</strong><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /><button>Send sign-in link</button></form>}<section className="catalog-grid">{products.map((product) => { const compatibility = product.product_vehicle_compatibility.map((row) => row.vehicle && `${row.vehicle.model_year} ${row.vehicle.make} ${row.vehicle.model}`).filter(Boolean); return <article className="catalog-card" key={product.id}><p className="eyebrow">{product.category?.name ?? "Services & upgrades"}</p><h2>{product.name}</h2><p>{product.description}</p><small>{compatibility.length ? `Compatible: ${compatibility.join(", ")}` : "Compatible with eligible EVs"}</small><footer><strong>{money(product.price_cents)}</strong><button onClick={() => add(product.id)}>Add to cart</button></footer></article>; })}{!products.length && !message && <p className="empty-copy">Services and upgrades are coming soon. Check back shortly.</p>}</section></main>;
+  return <main className="commerce wrap"><header className="commerce-head"><p className="eyebrow">{t("catalog.eyebrow", "Services & upgrades")}</p><h1>{t("catalog.title", "Care, lined up.")}</h1><p>Choose a service or upgrade from Volt Yard. After payment, compatible independent installers can claim the request.</p></header>{message && <p className="form-message">{message}</p>}{needsLogin && <form className="login-prompt" onSubmit={sendLogin}><strong>Sign in to save a cart</strong><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /><button>Send sign-in link</button></form>}<section className="catalog-grid">{products.map((product) => { const compatibility = product.product_vehicle_compatibility.map((row) => row.vehicle && `${row.vehicle.model_year} ${row.vehicle.make} ${row.vehicle.model}`).filter(Boolean); return <article className="catalog-card" key={product.id}><p className="eyebrow">{product.category?.name ?? "Services & upgrades"}</p><h2>{product.name}</h2><p>{product.description}</p><small>{compatibility.length ? `Compatible: ${compatibility.join(", ")}` : "Compatible with eligible EVs"}</small><footer><strong>{money(product.price_cents)}</strong><button onClick={() => add(product.id)}>Add to cart</button></footer></article>; })}{!products.length && !message && <p className="empty-copy">Services and upgrades are coming soon. Check back shortly.</p>}</section></main>;
 }

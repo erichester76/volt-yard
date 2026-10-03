@@ -4,6 +4,8 @@ import Link from "next/link";
 import { HeadingAccent } from "@/app/heading-accent";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { defaultLocale, localeFromPath } from "@/lib/i18n";
+import { useLocalizedContent } from "@/lib/localized-content";
 
 type Case = {
   id: string;
@@ -21,6 +23,8 @@ type GarageVehicle = {
 };
 
 export default function IssuesPage() {
+  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const t = useLocalizedContent(locale);
   const [sourceTopicId, setSourceTopicId] = useState<string | null>(null);
   const [cases, setCases] = useState<Case[]>([]);
   const [message, setMessage] = useState("");
@@ -219,8 +223,8 @@ export default function IssuesPage() {
     <main className="content-page wrap">
       <header className="content-head">
         <div>
-          <p className="eyebrow">Guided issue workflow</p>
-          <h1><HeadingAccent>Start</HeadingAccent> with what your vehicle is telling you.</h1>
+          <p className="eyebrow">{t("issues.eyebrow", "Guided issue workflow")}</p>
+          <h1><HeadingAccent>{t("issues.title", "Start with what your vehicle is telling you.")}</HeadingAccent></h1>
           <p>{sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."}</p>
         </div>
       </header>
