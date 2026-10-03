@@ -27,3 +27,14 @@ export function createAdminSupabaseClient() {
 
   return createClient(url, secretKey, { auth: { persistSession: false } });
 }
+
+export function createUserSupabaseClient(accessToken: string) {
+  if (!url || !publishableKey) {
+    throw new Error("Supabase is not configured. Add the public Supabase environment variables.");
+  }
+
+  return createClient(url, publishableKey, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    global: { headers: { Authorization: `Bearer ${accessToken}` } },
+  });
+}
