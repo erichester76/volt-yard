@@ -7,9 +7,11 @@ Volt Yard is deployed as a Next.js application on Vercel with Supabase as its ba
 1. Review all pending files in `supabase/migrations/` and apply them to the target project in timestamp order. The current latest migration is `20261003000001_bound_directory_rpc_results.sql`.
 2. Confirm PostgREST has refreshed its schema after the migration. Migrations that alter API-visible schema should issue `notify pgrst, 'reload schema';`; run the notification manually only when needed.
 3. In Vercel production, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-4. Immediately set `NEXT_PUBLIC_APP_URL` in Vercel Production to the canonical HTTPS origin without a path or trailing slash. This is the required reliable production configuration for Checkout return URLs and origin validation. As a constrained fallback, Vercel origins use `VERCEL_PROJECT_PRODUCTION_URL` when available and the exact `VERCEL_URL`; request Host and arbitrary origins are never trusted. Geocoding accepts the canonical origin and those exact Vercel origins.
-5. In Supabase Auth, configure the production origin and applicable return URLs for confirmation, password reset, and email-link sign-in.
-6. Run:
+4. Set `NEXT_PUBLIC_APP_URL` in Vercel Production to the canonical HTTPS origin without a path or trailing slash. Production builds reject a missing, HTTP, path-bearing, or trailing-slash value. Server-side return URLs use this value; request Host and arbitrary origins are never trusted.
+5. In Supabase **Auth > URL Configuration**, set **Site URL** to that same canonical HTTPS origin. Do not leave it at `http://localhost:3000`: Supabase uses Site URL when an email callback URL is absent or rejected.
+6. Add `https://YOUR_PRODUCTION_DOMAIN/**` to Supabase **Redirect URLs**. This application returns email confirmations, password resets, and magic links to the current route, so the allow-list must cover every application path. Add `http://localhost:3000/**` for local development. If preview deployments use authentication, add each approved preview origin explicitly or use a narrowly scoped Supabase-supported Vercel preview pattern.
+7. Send a production magic link and confirm it returns to the production domain. If it returns to Site URL instead, verify the exact callback origin is present in Redirect URLs.
+8. Run:
 
    ```sh
    npm test

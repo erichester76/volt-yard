@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { authRedirectUrl } from "@/lib/auth-redirect";
 import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
 
 type Account = { email: string; isAdmin: boolean } | null;
@@ -127,7 +128,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
 
     setSubmitting(true);
     const auth = createBrowserSupabaseClient().auth;
-    const redirectTo = `${window.location.origin}${pathname}`;
+    // Browser origin prevents a build-time local URL from being used in email links.
+    const redirectTo = authRedirectUrl(window.location.origin, pathname);
     let error: { message: string } | null = null;
     let successMessage = "";
 
