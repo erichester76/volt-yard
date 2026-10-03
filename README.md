@@ -43,7 +43,7 @@ The repository does not include a Supabase local-development configuration or se
 
 3. Apply every file in `supabase/migrations/` to the target Supabase database in lexicographic timestamp order. Use the Supabase CLI against a linked project or the Supabase SQL editor. Do not apply migrations by copying application code into the database and do not reorder, edit, or delete an already-applied migration.
 
-4. In Supabase Auth, enable Email and Email/password, enable email confirmation if desired, and add `http://localhost:3000` plus the relevant in-app return paths to Auth redirect URLs.
+4. In Supabase Auth, enable Email and Email/password, enable email confirmation if desired, then open **Auth > URL Configuration**. Set **Site URL** to the canonical production HTTPS origin (not `localhost`), and add `http://localhost:3000/**` to **Redirect URLs** for local development. Add `https://YOUR_PRODUCTION_DOMAIN/**` before testing confirmation, password-reset, or magic-link email flows in production.
 
 5. Start the app:
 
@@ -60,7 +60,7 @@ The directory is visible only when the public Supabase variables are present. Se
 | `NEXT_PUBLIC_SUPABASE_URL` | application | Public Supabase URL. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | application | Browser-safe Supabase publishable key. |
 | `SUPABASE_SECRET_KEY` | server-side catalog sync, imports, checkout, Stripe webhooks | Server-only Supabase secret key. |
-| `NEXT_PUBLIC_APP_URL` | production origin and Checkout return URLs | Required Vercel production configuration. Set the canonical HTTPS origin, with no path or trailing slash; local default is `http://localhost:3000`. |
+| `NEXT_PUBLIC_APP_URL` | canonical production origin and server-side return URLs | Required Vercel production configuration. Set the canonical HTTPS origin, with no path or trailing slash; local default is `http://localhost:3000`. Browser auth always uses the current browser origin. |
 | `GOOGLE_MAPS_API_KEY` | `/api/geocode`, `/api/places/autocomplete`; Google imports | Server-only. Enable Geocoding API and Places API (New). |
 | `YELP_API_KEY` | Yelp imports | Server-only. |
 | `CRON_SECRET` | catalog sync and partner imports | Sent as `Authorization: Bearer <secret>`. |
@@ -90,7 +90,7 @@ npm test
 npm run build
 ```
 
-`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run build` runs the deployment configuration check and `next build`. The production-only configuration check runs when `VERCEL_ENV=production`; it requires the two public Supabase variables and rejects recognized secrets named `NEXT_PUBLIC_*`.
+`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run build` runs the deployment configuration check and `next build`. The production-only configuration check runs when `VERCEL_ENV=production`; it requires the public Supabase variables and a canonical HTTPS `NEXT_PUBLIC_APP_URL`, and rejects recognized secrets named `NEXT_PUBLIC_*`.
 
 CI runs `npm ci`, `npm test`, and `npm run build` on pull requests and pushes to `main`.
 
