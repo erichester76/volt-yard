@@ -60,7 +60,7 @@ The directory is visible only when the public Supabase variables are present. Se
 | `NEXT_PUBLIC_SUPABASE_URL` | application | Public Supabase URL. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | application | Browser-safe Supabase publishable key. |
 | `SUPABASE_SECRET_KEY` | server-side catalog sync, imports, checkout, Stripe webhooks | Server-only Supabase secret key. |
-| `NEXT_PUBLIC_APP_URL` | custom-domain/non-Vercel checkout origins | Canonical origin, no path or trailing slash. Local default is `http://localhost:3000`. |
+| `NEXT_PUBLIC_APP_URL` | production origin and Checkout return URLs | Required Vercel production configuration. Set the canonical HTTPS origin, with no path or trailing slash; local default is `http://localhost:3000`. |
 | `GOOGLE_MAPS_API_KEY` | `/api/geocode`, `/api/places/autocomplete`; Google imports | Server-only. Enable Geocoding API and Places API (New). |
 | `YELP_API_KEY` | Yelp imports | Server-only. |
 | `CRON_SECRET` | catalog sync and partner imports | Sent as `Authorization: Bearer <secret>`. |

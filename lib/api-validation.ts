@@ -30,28 +30,31 @@ function canonicalOrigin(value: string | undefined, allowLocalhost = false) {
   return null;
 }
 
-function vercelDeploymentOrigin() {
-  if (process.env.VERCEL_ENV !== "production" && process.env.VERCEL_ENV !== "preview") return null;
-  const vercelUrl = process.env.VERCEL_URL;
-  if (!vercelUrl || !/^[a-z0-9][a-z0-9.-]*$/i.test(vercelUrl)) return null;
-  return canonicalOrigin(`https://${vercelUrl}`);
+function vercelOrigin(value: string | undefined) {
+  if (!value) return null;
+  const configuredOrigin = canonicalOrigin(value);
+  if (configuredOrigin) return configuredOrigin;
+  if (!/^[a-z0-9][a-z0-9.-]*$/i.test(value)) return null;
+  return canonicalOrigin(`https://${value}`);
+}
+
+function trustedApplicationOrigins() {
+  return [
+    canonicalOrigin(process.env.NEXT_PUBLIC_APP_URL, process.env.NODE_ENV !== "production"),
+    vercelOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL),
+    vercelOrigin(process.env.VERCEL_URL),
+  ].filter((origin): origin is string => origin !== null);
 }
 
 export function applicationOrigin(request: Request) {
-  const configured = canonicalOrigin(process.env.NEXT_PUBLIC_APP_URL, process.env.NODE_ENV !== "production");
-  if (configured) return configured;
-
-  // Vercel provides this deployment hostname without a scheme. Do not derive a
-  // checkout origin from a request-controlled Host header.
-  const deploymentOrigin = vercelDeploymentOrigin();
-  if (deploymentOrigin) return deploymentOrigin;
+  const [origin] = trustedApplicationOrigins();
+  if (origin) return origin;
 
   if (process.env.NODE_ENV === "production") throw new Error("Configure NEXT_PUBLIC_APP_URL with the canonical application origin.");
   return new URL(request.url).origin;
 }
 
 export function isApplicationOrigin(origin: string, request: Request) {
-  const configured = canonicalOrigin(process.env.NEXT_PUBLIC_APP_URL, process.env.NODE_ENV !== "production");
-  const deploymentOrigin = vercelDeploymentOrigin();
-  return origin === configured || origin === deploymentOrigin || origin === applicationOrigin(request);
+  if (trustedApplicationOrigins().includes(origin)) return true;
+  return process.env.NODE_ENV !== "production" && origin === new URL(request.url).origin;
 }

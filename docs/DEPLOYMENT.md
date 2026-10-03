@@ -7,7 +7,7 @@ Volt Yard is deployed as a Next.js application on Vercel with Supabase as its ba
 1. Review all pending files in `supabase/migrations/` and apply them to the target project in timestamp order. The current latest migration is `20261003000001_bound_directory_rpc_results.sql`.
 2. Confirm PostgREST has refreshed its schema after the migration. Migrations that alter API-visible schema should issue `notify pgrst, 'reload schema';`; run the notification manually only when needed.
 3. In Vercel production, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-4. Set `NEXT_PUBLIC_APP_URL` to the canonical HTTPS origin without a path or trailing slash for a custom domain or non-Vercel deployment. Vercel production and preview deployments may derive their origin from `VERCEL_URL`, but an explicit custom-domain origin is preferred. Geocoding accepts requests from that canonical origin and the exact Vercel deployment hostname.
+4. Immediately set `NEXT_PUBLIC_APP_URL` in Vercel Production to the canonical HTTPS origin without a path or trailing slash. This is the required reliable production configuration for Checkout return URLs and origin validation. As a constrained fallback, Vercel origins use `VERCEL_PROJECT_PRODUCTION_URL` when available and the exact `VERCEL_URL`; request Host and arbitrary origins are never trusted. Geocoding accepts the canonical origin and those exact Vercel origins.
 5. In Supabase Auth, configure the production origin and applicable return URLs for confirmation, password reset, and email-link sign-in.
 6. Run:
 

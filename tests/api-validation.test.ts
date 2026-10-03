@@ -20,17 +20,27 @@ test("accepts only safe idempotency keys and origins", () => {
   if (previous === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = previous;
 });
 
-test("uses Vercel's deployment hostname when no canonical origin is configured", () => {
+test("uses only trusted Vercel origins when no canonical origin is configured", () => {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
-  const vercelEnv = process.env.VERCEL_ENV;
+  const nodeEnv = process.env.NODE_ENV;
+  const projectProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
   const vercelUrl = process.env.VERCEL_URL;
   delete process.env.NEXT_PUBLIC_APP_URL;
-  process.env.VERCEL_ENV = "production";
-  process.env.VERCEL_URL = "volt-yard.vercel.app";
-  assert.equal(applicationOrigin(new Request("https://untrusted.example/route")), "https://volt-yard.vercel.app");
-  if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
-  if (vercelEnv === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = vercelEnv;
-  if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
+  process.env.NODE_ENV = "production";
+  process.env.VERCEL_PROJECT_PRODUCTION_URL = "https://volt-yard.vercel.app";
+  process.env.VERCEL_URL = "volt-yard-git-main-team.vercel.app";
+  try {
+    const request = new Request("https://attacker.example/route");
+    assert.equal(applicationOrigin(request), "https://volt-yard.vercel.app");
+    assert.equal(isApplicationOrigin("https://volt-yard.vercel.app", request), true);
+    assert.equal(isApplicationOrigin("https://volt-yard-git-main-team.vercel.app", request), true);
+    assert.equal(isApplicationOrigin("https://attacker.example", request), false);
+  } finally {
+    if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
+    if (nodeEnv === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = nodeEnv;
+    if (projectProductionUrl === undefined) delete process.env.VERCEL_PROJECT_PRODUCTION_URL; else process.env.VERCEL_PROJECT_PRODUCTION_URL = projectProductionUrl;
+    if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
+  }
 });
 
 test("allows the configured origin and exact Vercel deployment hostname", () => {
