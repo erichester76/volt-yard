@@ -19,3 +19,16 @@ test("accepts only safe idempotency keys and origins", () => {
   assert.equal(applicationOrigin(new Request("https://request.example/route")), "https://request.example");
   if (previous === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = previous;
 });
+
+test("uses Vercel's production hostname when no canonical origin is configured", () => {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+  const vercelEnv = process.env.VERCEL_ENV;
+  const vercelUrl = process.env.VERCEL_URL;
+  delete process.env.NEXT_PUBLIC_APP_URL;
+  process.env.VERCEL_ENV = "production";
+  process.env.VERCEL_URL = "volt-yard.vercel.app";
+  assert.equal(applicationOrigin(new Request("https://untrusted.example/route")), "https://volt-yard.vercel.app");
+  if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
+  if (vercelEnv === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = vercelEnv;
+  if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
+});

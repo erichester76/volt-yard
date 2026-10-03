@@ -1,7 +1,7 @@
 # Commerce MVP setup
 
 1. Apply all migrations in timestamp order, including `20261003000000_security_hardening.sql`.
-2. Add `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and `NEXT_PUBLIC_APP_URL` from `.env.example` to the deployment environment. The two Stripe keys are server-only.
+2. Add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` to the deployment environment. The two Stripe keys are server-only. Set `NEXT_PUBLIC_APP_URL` to the canonical HTTPS custom-domain origin; Vercel production otherwise derives the deployment origin from `VERCEL_URL`.
 3. In Stripe, register `https://YOUR_DOMAIN/api/stripe/webhook` for `checkout.session.completed` and `checkout.session.async_payment_succeeded`, then use its signing secret for `STRIPE_WEBHOOK_SECRET`.
 4. For local webhook testing, run `stripe listen --forward-to localhost:3000/api/stripe/webhook` and use the printed signing secret.
 
