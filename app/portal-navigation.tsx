@@ -6,7 +6,8 @@ export function AdminNavigation() {
       <Link href="/admin">Shop approvals &amp; change requests</Link>
       <Link href="/admin/catalog">Services &amp; catalog</Link>
       <Link href="/admin/community">Community moderation</Link>
-      <Link href="/admin/memberships">Memberships &amp; expert payouts</Link>
+       <Link href="/admin/memberships">Memberships &amp; expert payouts</Link>
+       <Link href="/admin/translations">Translations</Link>
     </nav>
   );
 }

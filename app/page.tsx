@@ -3,6 +3,8 @@
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { HeadingAccent } from "@/app/heading-accent";
+import { defaultLocale, localeFromPath } from "@/lib/i18n";
+import { useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
@@ -97,6 +99,8 @@ function directoryErrorMessage(error: DirectoryRpcError) {
 }
 
 export default function Home() {
+  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const t = useLocalizedContent(locale);
   const [make, setMake] = useState("Any make");
   const [year, setYear] = useState("Any year");
   const [model, setModel] = useState("Any model");
@@ -454,22 +458,20 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="wrap hero-grid">
           <div>
-            <p className="eyebrow">Let us get you help</p>
+            <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
             <h1 className="hero-action-heading hero-action-heading-primary">
-              <HeadingAccent>Diagnose</HeadingAccent> an issue.
+              <HeadingAccent>{t("home.title", "Diagnose an issue.")}</HeadingAccent>
             </h1>
             <p className="intro">
-              Search proven solutions, tap into a knowledgeable EV community,
-              or get a remote diagnosis from a mechanic. Visit a shop only if
-              you need to.
+              {t("home.intro", "Search proven solutions, tap into a knowledgeable EV community, or get a remote diagnosis from a mechanic. Visit a shop only if you need to.")}
             </p>
             <div className="hero-actions">
-              <Link className="hero-primary-action" href="/issues">Diagnose an issue <span>→</span></Link>
+              <Link className="hero-primary-action" href="/issues">{t("home.diagnose_cta", "Diagnose an issue")} <span>→</span></Link>
             </div>
             <div className="partner-search" id="partner-search">
               <div className="partner-search-heading">
                 <h2 className="hero-action-heading hero-action-heading-secondary">
-                  Find a mechanic if you already know what you need.
+                  {t("home.find_title", "Find a mechanic if you already know what you need.")}
                 </h2>
                 <p>Search trusted independent EV specialists near you.</p>
               </div>

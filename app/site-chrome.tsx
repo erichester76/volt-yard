@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { authRedirectUrl } from "@/lib/auth-redirect";
 import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
+import { localeFromPath, localePath } from "@/lib/i18n";
+import { useLocalizedContent } from "@/lib/localized-content";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
@@ -15,6 +17,14 @@ const buildCommit = process.env.NEXT_PUBLIC_BUILD_COMMIT ?? "local";
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const locale = localeFromPath(pathname);
+  const t = useLocalizedContent(locale);
+  const localHref = (path: string) => localePath(locale, path);
+  const switchLocale = (nextLocale: typeof locale) => {
+    document.cookie = `volt-yard-locale=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    const path = pathname.replace(/^\/(en|de|fr|es)(?=\/|$)/, "") || "/";
+    window.location.assign(localePath(nextLocale, path));
+  };
   const [account, setAccount] = useState<Account>(null);
   const [cartCount, setCartCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -163,7 +173,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   async function signOut() {
     if (isSupabaseConfigured) await createBrowserSupabaseClient().auth.signOut();
     setAccountOpen(false);
-    router.push("/");
+    router.push(localHref("/"));
     router.refresh();
   }
 
@@ -171,19 +181,20 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     <div className="site-shell">
       <header className="site-header">
         <div className="wrap site-nav">
-          <Link className="brand" href="/" onClick={() => setMenuOpen(false)}><span className="mark">V</span> volt yard</Link>
+          <Link className="brand" href={localHref("/")} onClick={() => setMenuOpen(false)}><span className="mark">V</span> volt yard</Link>
           <nav className={menuOpen ? "consumer-nav is-open" : "consumer-nav"} aria-label="Primary navigation">
-            <Link href="/issues" onClick={() => setMenuOpen(false)}>Diagnose</Link>
-            <Link href="/#results" onClick={() => setMenuOpen(false)}>Shops</Link>
-            <Link href="/catalog" onClick={() => setMenuOpen(false)}>Services &amp; upgrades</Link>
-            <Link href="/community" onClick={() => setMenuOpen(false)}>Community</Link>
+             <Link href={localHref("/issues")} onClick={() => setMenuOpen(false)}>{t("chrome.nav.diagnose", "Diagnose")}</Link>
+             <Link href={`${localHref("/")}#results`} onClick={() => setMenuOpen(false)}>{t("chrome.nav.shops", "Shops")}</Link>
+             <Link href={localHref("/catalog")} onClick={() => setMenuOpen(false)}>{t("chrome.nav.services", "Services & upgrades")}</Link>
+             <Link href={localHref("/community")} onClick={() => setMenuOpen(false)}>{t("chrome.nav.community", "Community")}</Link>
           </nav>
-          <div className="site-actions">
-            <button className="icon-button" type="button" onClick={() => setDark((value) => !value)} aria-label={dark ? "Use light mode" : "Use dark mode"}>{dark ? <SunIcon /> : <MoonIcon />}</button>
-            <Link className="cart-link" href="/cart" aria-label={`Cart and orders, ${cartCount} items`}><CartIcon /><span className="action-label">Cart</span>{cartCount > 0 && <span className="cart-count">{cartCount}</span>}</Link>
+           <div className="site-actions">
+             <label className="locale-switcher"><span className="sr-only">Language</span><select value={locale} onChange={(event) => switchLocale(event.target.value as typeof locale)} aria-label="Language"><option value="en">EN</option><option value="de">DE</option><option value="fr">FR</option><option value="es">ES</option></select></label>
+             <button className="icon-button" type="button" onClick={() => setDark((value) => !value)} aria-label={dark ? "Use light mode" : "Use dark mode"}>{dark ? <SunIcon /> : <MoonIcon />}</button>
+             <Link className="cart-link" href={localHref("/cart")} aria-label={`Cart and orders, ${cartCount} items`}><CartIcon /><span className="action-label">{t("chrome.action.cart", "Cart")}</span>{cartCount > 0 && <span className="cart-count">{cartCount}</span>}</Link>
             {account ? (
               <div className="account-control">
-                <button className="account-button" type="button" onClick={() => setAccountOpen((value) => !value)} aria-expanded={accountOpen}><UserIcon /><span className="action-label">Profile</span></button>
+                 <button className="account-button" type="button" onClick={() => setAccountOpen((value) => !value)} aria-expanded={accountOpen}><UserIcon /><span className="action-label">{t("chrome.action.profile", "Profile")}</span></button>
                 {accountOpen && <div className="account-menu">
                   <p>{account.email}</p>
                    <Link href="/profile" onClick={() => setAccountOpen(false)}>My profile</Link>
@@ -195,16 +206,16 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                   <button type="button" onClick={signOut}>Log out</button>
                 </div>}
               </div>
-            ) : <button className="sign-in-button" type="button" onClick={() => openAuth()}><UserIcon /><span className="action-label">Sign in</span></button>}
-            <button className="menu-button" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle navigation" aria-expanded={menuOpen}>Menu</button>
+             ) : <button className="sign-in-button" type="button" onClick={() => openAuth()}><UserIcon /><span className="action-label">{t("chrome.action.sign_in", "Sign in")}</span></button>}
+             <button className="menu-button" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{t("chrome.action.menu", "Menu")}</button>
           </div>
         </div>
       </header>
       {children}
       <footer className="site-footer">
         <div className="wrap footer-content">
-          <div><Link className="brand" href="/"><span className="mark">V</span> volt yard</Link><p>Independent EV service, connected.</p><span className="version-crumb" aria-label={`Application version ${appVersion}, build ${buildCommit}`}>v{appVersion} / {buildCommit}</span></div>
-            <nav aria-label="Footer navigation"><Link href="/issues">Diagnose</Link><Link href="/membership">Membership</Link><Link href="/community">Community</Link><Link href="/catalog">Services &amp; upgrades</Link><a href="mailto:hello@voltyard.com">Contact</a></nav>
+           <div><Link className="brand" href={localHref("/")}><span className="mark">V</span> volt yard</Link><p>{t("chrome.footer.tagline", "Independent EV service, connected.")}</p><span className="version-crumb" aria-label={`Application version ${appVersion}, build ${buildCommit}`}>v{appVersion} / {buildCommit}</span></div>
+             <nav aria-label="Footer navigation"><Link href={localHref("/issues")}>{t("chrome.nav.diagnose", "Diagnose")}</Link><Link href={localHref("/membership")}>Membership</Link><Link href={localHref("/community")}>{t("chrome.nav.community", "Community")}</Link><Link href={localHref("/catalog")}>{t("chrome.nav.services", "Services & upgrades")}</Link><a href="mailto:hello@voltyard.com">Contact</a></nav>
         </div>
       </footer>
       {signInOpen && <div className="sign-in-backdrop" role="presentation" onClick={closeAuth}><form className="sign-in-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title" onSubmit={authenticate} onClick={(event) => event.stopPropagation()}><button className="close" type="button" onClick={closeAuth} aria-label="Close sign in" disabled={submitting}>×</button><p className="eyebrow">Customer, mechanic, or administrator</p><h2 id="auth-title">{authMode === "sign-up" ? "Create your account." : authMode === "reset" ? "Reset your password." : authMode === "new-password" ? "Set a new password." : authMode === "magic-link" ? "Email sign-in link." : "Sign in to Volt Yard."}</h2><p>{authMode === "sign-up" ? "Use an email and password to create your account." : authMode === "reset" ? "Enter your email and we will send a reset link." : authMode === "new-password" ? "Enter and confirm a new password." : authMode === "magic-link" ? "Prefer passwordless sign-in? We will send a secure link." : "Sign in with your email and password."}</p>{authMode !== "new-password" && <label>Email<input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" disabled={submitting} /></label>}{(authMode === "sign-in" || authMode === "sign-up" || authMode === "new-password") && <label>Password<input required type="password" minLength={6} autoComplete={authMode === "sign-in" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} disabled={submitting} /></label>}{(authMode === "sign-up" || authMode === "new-password") && <label>Confirm password<input required type="password" minLength={6} autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} disabled={submitting} /></label>}{message && <p className={messageTone === "success" ? "form-message auth-success" : "form-message"} role={messageTone === "error" ? "alert" : "status"}>{message}</p>}<button type="submit" disabled={submitting}>{submitting ? "Please wait..." : authMode === "sign-up" ? "Create account" : authMode === "reset" ? "Send reset link" : authMode === "new-password" ? "Update password" : authMode === "magic-link" ? "Send sign-in link" : "Sign in"}</button>{authMode === "sign-in" && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("reset")} disabled={submitting}>Forgot password?</button><button type="button" onClick={() => switchAuthMode("magic-link")} disabled={submitting}>Use a magic link instead</button><button type="button" onClick={() => switchAuthMode("sign-up")} disabled={submitting}>Create an account</button></div>}{authMode === "sign-up" && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("sign-in")} disabled={submitting}>Already have an account? Sign in</button><button type="button" onClick={() => switchAuthMode("magic-link")} disabled={submitting}>Use a magic link instead</button></div>}{(authMode === "reset" || authMode === "magic-link") && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("sign-in")} disabled={submitting}>Back to password sign in</button><button type="button" onClick={() => switchAuthMode("sign-up")} disabled={submitting}>Create an account</button></div>}</form></div>}
