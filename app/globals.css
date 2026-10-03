@@ -65,6 +65,7 @@ body {
 .footer-content { min-height: 138px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .footer-content > div { display: flex; align-items: center; gap: 20px; }
 .footer-content p { margin: 0; color: var(--muted); font-size: 12px; }
+.version-crumb { color: var(--muted); font: 11px "DM Mono"; letter-spacing: .02em; }
 .footer-content nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 17px; }
 .footer-content nav a { color: var(--ink); font-size: 12px; font-weight: 600; text-decoration: none; }
 .sign-in-backdrop { position: fixed; z-index: 5; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(16, 30, 26, .75); }
@@ -703,6 +704,7 @@ footer button {
   .footer-content, .footer-content > div { align-items: flex-start; flex-direction: column; }
   .footer-content { padding-top: 30px; padding-bottom: 30px; }
   .footer-content > div { gap: 10px; }
+  .version-crumb { font-size: 10px; }
   .footer-content nav { justify-content: flex-start; gap: 12px 17px; }
 }
 @media (max-width: 420px) {

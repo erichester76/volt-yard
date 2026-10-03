@@ -9,5 +9,6 @@
 7. Verify `shop-images` is private after the migration. Published images are read through short-lived signed URLs; application uploads remain private until approval.
 8. Production builds run `npm run check:deployment` automatically. It fails only when required public Supabase configuration is missing or a recognized secret is named `NEXT_PUBLIC_*`. Preview and local builds skip this production-only gate.
 9. Before releases run `npm test`, `npm audit --omit=dev`, `npm run build`, and a duplicate checkout request using the same `Idempotency-Key`.
+10. The shared footer displays the package semver and a public build identifier. Vercel uses `VERCEL_GIT_COMMIT_SHA`; GitHub builds use `GITHUB_SHA`; other builds display `local`. Only a validated, truncated Git SHA is exposed to the browser.
 
 The EPA ZIP importer has size limits and a timeout, but still uses a Vercel function. Monitor duration and memory; move ingestion to a queued worker if the source dataset grows. Installer and expert payouts are recording workflows only and do not initiate transfers.
