@@ -1,0 +1,111 @@
+# Volt Yard
+
+Volt Yard is a Next.js application for finding independent EV service partners and coordinating EV ownership help. The current MVP includes a searchable partner directory, administrator-reviewed partner profiles, a services catalog and Stripe Checkout integration, customer issue cases, memberships, a moderated community, expert-response opportunities, and partner work queues.
+
+The product is backed by Supabase Auth, Postgres, Storage, and Row Level Security (RLS). Vercel is the checked-in deployment target.
+
+## Product Scope
+
+- Visitors can locate published partners by browser location or a geocoded city, state, or ZIP, then filter by vehicle, capability, partner type, and radius.
+- Account holders can save vehicles, create issue cases, use issue pathways, and request a service-case snapshot.
+- Partners submit profile changes and images for administrator approval. Only approved published profiles appear in the directory.
+- Administrators review partner submissions, manage catalog and community data, moderate member contributions, assign demo membership tiers, and record expert payouts.
+- Paid members can submit community topics and replies; Member and Premium users can vote. Premium users can create paid expert opportunities.
+- The catalog supports carts and server-side Stripe Checkout order creation. A paid webhook converts the cart and offers matching requests to eligible published partners.
+
+See [DESIGN.md](DESIGN.md) for journeys, information architecture, roles, and architecture boundaries. See [Commerce](docs/COMMERCE.md), [Memberships](docs/MEMBERSHIPS.md), and [Deployment](docs/DEPLOYMENT.md) for operational detail.
+
+## Prerequisites
+
+- Node.js 24, matching CI.
+- npm.
+- A Supabase project with Email Auth enabled.
+- A Google Cloud project with Geocoding API enabled for location text search. Google Places API (New) is needed only for Google partner imports.
+- Stripe test or live credentials for commerce and memberships.
+
+The repository does not include a Supabase local-development configuration or seed file. Local application development normally uses a configured Supabase project; schema changes remain versioned SQL migrations.
+
+## Local Development
+
+1. Install dependencies:
+
+   ```sh
+   npm ci
+   ```
+
+2. Create `.env.local` from `.env.example` and set at least:
+
+   ```dotenv
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
+
+3. Apply every file in `supabase/migrations/` to the target Supabase database in lexicographic timestamp order. Use the Supabase CLI against a linked project or the Supabase SQL editor. Do not apply migrations by copying application code into the database and do not reorder, edit, or delete an already-applied migration.
+
+4. In Supabase Auth, enable Email and Email/password, enable email confirmation if desired, and add `http://localhost:3000` plus the relevant in-app return paths to Auth redirect URLs.
+
+5. Start the app:
+
+   ```sh
+   npm run dev
+   ```
+
+The directory is visible only when the public Supabase variables are present. Server integrations fail closed when their own credentials are absent.
+
+## Environment Variables
+
+| Variable | Required for | Notes |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | application | Public Supabase URL. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | application | Browser-safe Supabase publishable key. |
+| `SUPABASE_SECRET_KEY` | server-side catalog sync, imports, checkout, Stripe webhooks | Server-only Supabase secret key. |
+| `NEXT_PUBLIC_APP_URL` | custom-domain/non-Vercel checkout origins | Canonical origin, no path or trailing slash. Local default is `http://localhost:3000`. |
+| `GOOGLE_MAPS_API_KEY` | `/api/geocode`; Google imports | Server-only. Enable Geocoding API; enable Places API (New) for Google imports. |
+| `YELP_API_KEY` | Yelp imports | Server-only. |
+| `CRON_SECRET` | catalog sync and partner imports | Sent as `Authorization: Bearer <secret>`. |
+| `STRIPE_SECRET_KEY` | service and membership Checkout; webhook verification | Server-only. |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook verification | Server-only endpoint signing secret. |
+
+Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose a Supabase secret key to browser code.
+
+## Database Migrations
+
+`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261003000001_bound_directory_rpc_results.sql`; it bounds public directory RPC inputs and pagination.
+
+Before applying to a shared environment:
+
+1. Review the SQL and its RLS, trigger, RPC, and data-backfill effects.
+2. Apply pending files in timestamp order with the same migration tool used by the environment.
+3. Confirm the migration history and reload PostgREST schema when the migration does not already issue `notify pgrst, 'reload schema';`.
+4. Deploy code that depends on the schema only after the schema is available.
+5. Exercise the affected user journey with an appropriate authenticated role.
+
+Do not use application startup to change schema. For a corrective change, add a new migration; do not rewrite migration history that may have been applied.
+
+## Testing And Build
+
+```sh
+npm test
+npm run build
+```
+
+`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run build` runs the deployment configuration check and `next build`. The production-only configuration check runs when `VERCEL_ENV=production`; it requires the two public Supabase variables and rejects recognized secrets named `NEXT_PUBLIC_*`.
+
+CI runs `npm ci`, `npm test`, and `npm run build` on pull requests and pushes to `main`.
+
+## Deployment
+
+Vercel deploys this Next.js application. `vercel.json` schedules `GET /api/catalog/sync` monthly at `06:00 UTC` on the first day of the month. The route imports EPA FuelEconomy vehicle records for the current year and the preceding 19 years by default.
+
+Follow [Deployment](docs/DEPLOYMENT.md) before a release. In short: apply migrations, configure Vercel and Supabase Auth origins, configure the Stripe webhook, validate production configuration, and run tests and a production build.
+
+## Known MVP Limits And Risks
+
+- Installer and expert payouts are recorded manually. No Stripe Connect transfer or other automated payout is implemented.
+- `issue_cases.external_context` is reserved for a future vehicle or telemetry integration. Tessie is not integrated.
+- The checked-in cart and membership pages call checkout endpoints without the required `Idempotency-Key` header. Both endpoints reject such requests, so browser-initiated checkout currently needs a client fix before it is operational.
+- The EPA importer runs in a Vercel function with a 60-second maximum duration and archive/CSV size limits. If the source grows or imports become unreliable, move ingestion to a queued worker.
+- Catalog synchronization and partner import routes are authenticated machine endpoints; they have no administrator UI. The current import payload omits the required `partner_type_id`, so imports need correction and environment-level verification before they can be used as draft ingestion.
+- The admin review page uses public image URLs even though `shop-images` is intentionally private. Submitted-image preview needs validation/correction without weakening the Storage policy.
+- Tests cover selected validation and fail-closed paths only. They do not provide end-to-end coverage for Supabase RLS, Stripe webhooks, partner approval, or payment fulfillment.
