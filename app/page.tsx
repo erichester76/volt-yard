@@ -455,7 +455,7 @@ export default function Home() {
         <div className="wrap hero-grid">
           <div>
             <p className="eyebrow">Let us get you help</p>
-            <h1>
+            <h1 className="hero-action-heading hero-action-heading-primary">
               <HeadingAccent>Diagnose</HeadingAccent> an issue.
             </h1>
             <p className="intro">
@@ -467,7 +467,12 @@ export default function Home() {
               <Link className="hero-primary-action" href="/issues">Diagnose an issue <span>→</span></Link>
             </div>
             <div className="partner-search" id="partner-search">
-              <div className="partner-search-heading"><p>Or find a mechanic if you already know what you need.</p><span>Search trusted independent EV specialists near you.</span></div>
+              <div className="partner-search-heading">
+                <h2 className="hero-action-heading hero-action-heading-secondary">
+                  Find a mechanic if you already know what you need.
+                </h2>
+                <p>Search trusted independent EV specialists near you.</p>
+              </div>
             <form className="search" onSubmit={search}>
                <label className="location-field">
                  <span>Location</span>
@@ -746,17 +751,17 @@ export default function Home() {
         <div className="wrap how-grid">
           <div>
             <p className="eyebrow">Made for the road ahead</p>
-            <h2>Good service should feel simple.</h2>
+            <h2>Everything your EV needs, together.</h2>
           </div>
           <div className="steps">
             <p>
-              <b>01</b> Tell us your car and what it needs.
+              <b>01</b> Learn from the community and diagnose with clarity.
             </p>
             <p>
-              <b>02</b> Find partners who actually work on it.
+              <b>02</b> Find trusted partners, services, and upgrades.
             </p>
             <p>
-              <b>03</b> Book with confidence and get back out there.
+              <b>03</b> Keep your EV performing at its best.
             </p>
           </div>
         </div>
