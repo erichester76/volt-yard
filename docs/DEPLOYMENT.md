@@ -20,12 +20,12 @@ Volt Yard is deployed as a Next.js application on Vercel with Supabase as its ba
    ```
 
    `npm run check:migrations` validates checked-in filename format and duplicate timestamps only. It cannot establish remote migration status. Apply pending migrations in timestamp order, confirm the resulting history, and verify PostgREST has refreshed its schema. Migrations that alter API-visible schema should issue `notify pgrst, 'reload schema';`; run the notification manually only when needed. The current latest checked-in migration is `20261004000006_update_home_try_cta.sql`.
-3. In Vercel Production, set every required variable in `.env.example`, including `SUPABASE_SECRET_KEY`, `GOOGLE_MAPS_API_KEY`, `YELP_API_KEY`, `CRON_SECRET`, Stripe keys and Price IDs. Set `NEXT_PUBLIC_APP_URL` to the canonical HTTPS origin without a path or trailing slash. Run `npm run preflight:production` in a controlled environment with production-shaped values; it validates names and value formats only and does not contact any provider.
+3. In Vercel Production, set the required Supabase, app-origin, Google, and cron variables in `.env.example`. `YELP_API_KEY` is required only for Yelp imports. Stripe is an all-or-nothing integration: set its secret, webhook secret, and both Price IDs before enabling checkout or memberships. Set `NEXT_PUBLIC_APP_URL` to the canonical HTTPS origin without a path or trailing slash. Run `npm run preflight:production` in a controlled environment with production-shaped values; it validates names and value formats only and does not contact any provider.
 4. In Supabase **Auth > URL Configuration**, set **Site URL** to the exact `NEXT_PUBLIC_APP_URL`. Add `https://YOUR_PRODUCTION_DOMAIN/**` to **Redirect URLs**, plus `http://localhost:3000/**` for local development. Explicitly allow only approved preview origins if previews use authentication.
 5. Deploy to a preview and exercise authentication, public directory search, image access, and a role-appropriate protected action. Promote only the approved production deployment.
 6. Send a production magic link and confirm it returns to the production domain. If it returns to Site URL instead, verify the exact callback origin is present in Redirect URLs.
 
-`npm run build` invokes `check:deployment`. In a Vercel production build it requires the full production configuration and rejects recognized server secrets named `NEXT_PUBLIC_*`. CI runs the same preflight using non-secret fixture values.
+`npm run build` invokes `check:deployment`. In a Vercel production build it requires core platform configuration, rejects recognized server secrets named `NEXT_PUBLIC_*`, and rejects a partial Stripe configuration. CI runs the same preflight using non-secret fixture values.
 
 ## Server Integration Configuration
 
