@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { HeadingAccent } from "@/app/heading-accent";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
@@ -222,7 +221,7 @@ export default function IssuesPage() {
 
   return (
     <main className="content-page wrap">
-      <PageHeader className="content-head" eyebrow={t("issues.eyebrow", "Guided issue workflow")} title={<HeadingAccent>{t("issues.title", "Start with what your vehicle is telling you.")}</HeadingAccent>} intro={sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."} />
+      <PageHeader className="content-head" eyebrow={t("issues.eyebrow", "Guided issue workflow")} title={t("issues.title", "Start with what your vehicle is telling you.")} intro={sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."} />
       <form className="community-form issue-form" onSubmit={create}>
         {garage.length > 0 && <label>Your saved vehicles<select value={garageVehicleId} onChange={(event) => { setGarageVehicleId(event.target.value); const vehicle = garage.find((item) => item.id === event.target.value)?.vehicle; if (vehicle) chooseVehicle(vehicle); }}><option value="">Choose a saved vehicle or change below</option>{garage.map((item) => item.vehicle && <option key={item.id} value={item.id}>{item.vehicle.model_year} {item.vehicle.make} {item.vehicle.model}</option>)}</select></label>}
         <div className="form-row">
