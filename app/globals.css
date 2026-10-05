@@ -46,6 +46,7 @@
   --surface-muted: #20352f;
   --surface-strong: #2a443b;
   --acid: #d6ff35;
+  --orange: #d6ff35;
   --acid-ink: #172723;
   --danger: #f38b72;
   --hero: #0e1c19;
@@ -55,6 +56,8 @@
   --button-primary-foreground: #172723;
   --button-secondary-background: #4a4f4d;
   --button-secondary-foreground: #edf4ec;
+  --header-accent-background: #d6ff35;
+  --header-accent-foreground: #172723;
 }
 * {
   box-sizing: border-box;
