@@ -74,6 +74,9 @@ The directory is visible only when the public Supabase variables are present. Se
 | `CRON_SECRET` | catalog sync and partner imports | Sent as `Authorization: Bearer <secret>`. |
 | `STRIPE_SECRET_KEY` | service and membership Checkout; webhook verification | Server-only. |
 | `STRIPE_WEBHOOK_SECRET` | Stripe webhook verification | Server-only endpoint signing secret. |
+| `STRIPE_MEMBER_PRICE_ID` | Member membership Checkout and server-mediated changes | Server-only recurring Stripe Price ID. |
+| `STRIPE_PREMIUM_PRICE_ID` | Premium membership Checkout and server-mediated changes | Server-only recurring Stripe Price ID. |
+| `STRIPE_BILLING_PORTAL_CONFIGURATION_ID` | optional membership self-service | Server-only Billing Portal configuration; enables plan changes and cancellation in Stripe. |
 
 Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose a Supabase secret key to browser code.
 

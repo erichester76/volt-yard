@@ -32,6 +32,8 @@ Volt Yard is deployed as a Next.js application on Vercel with Supabase as its ba
 | EPA vehicle synchronization and protected imports | `CRON_SECRET` |
 | Service Checkout and memberships | `STRIPE_SECRET_KEY` |
 | Stripe webhook verification | `STRIPE_WEBHOOK_SECRET` |
+| Membership plans | `STRIPE_MEMBER_PRICE_ID`, `STRIPE_PREMIUM_PRICE_ID` |
+| Membership Billing Portal (optional) | `STRIPE_BILLING_PORTAL_CONFIGURATION_ID` |
 
 All values in this table are server-only. Do not place them in `NEXT_PUBLIC_*` variables, browser code, screenshots, logs, or repository files. Each integration returns an error rather than silently running without its required configuration.
 
@@ -43,7 +45,9 @@ All values in this table are server-only. Do not place them in `NEXT_PUBLIC_*` v
 4. Keep the endpoint publicly reachable and do not introduce middleware that consumes the request body before signature verification.
 5. Test a valid event and a duplicate event. The application records events in `stripe_event_ledger`, ignores already processed events, and returns HTTP 500 when processing fails so Stripe can retry.
 
-Checkout and membership routes require a caller-provided `Idempotency-Key` header containing 16-128 URL-safe characters. The checked-in browser clients currently omit this header, so production checkout requires that client gap to be corrected and verified before it can be used.
+6. Create recurring Stripe Prices for Member and Premium, and set their IDs in `STRIPE_MEMBER_PRICE_ID` and `STRIPE_PREMIUM_PRICE_ID`.
+7. Optionally create a Billing Portal configuration that allows subscription cancellation and plan changes, then set `STRIPE_BILLING_PORTAL_CONFIGURATION_ID`. Without it, the application uses server-mediated plan changes and schedules cancellation at the current billing-period end.
+8. Checkout and membership routes require a caller-provided `Idempotency-Key` header containing 16-128 URL-safe characters. The browser client supplies one for every Checkout request.
 
 ## Scheduled And Manual Operations
 
