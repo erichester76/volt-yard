@@ -36,6 +36,16 @@ test("authored page headers and actions use shared semantic primitives", () => {
   assert.match(css, /\.button,[\s\S]*?font: var\(--action-font\);/);
 });
 
+test("dark theme accent tokens do not inherit the light salmon palette", () => {
+  const dark = css.match(/:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)?.[1];
+  assert.ok(dark);
+
+  assert.doesNotMatch(dark, /#(?:e96b4e|c95439|f3b2a2)\b/i);
+  for (const token of ["--acid", "--orange", "--button-primary-background", "--header-accent-background"]) {
+    assert.match(dark, new RegExp(`${token}: #d6ff35;`));
+  }
+});
+
 test("home hero applies the shared primary and secondary heading roles", () => {
   assert.match(home, /className="heading-primary hero-action-heading hero-action-heading-primary"/);
   assert.match(home, /className="heading-secondary hero-action-heading hero-action-heading-secondary"/);
