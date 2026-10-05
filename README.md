@@ -13,7 +13,7 @@ The product is backed by Supabase Auth, Postgres, Storage, and Row Level Securit
 - Paid members can submit community topics and replies; Member and Premium users can vote. Premium users can create paid expert opportunities.
 - The catalog supports carts and server-side Stripe Checkout order creation. A paid webhook converts the cart and offers matching requests to eligible published partners.
 
-See [DESIGN.md](DESIGN.md) for journeys, information architecture, roles, and architecture boundaries. See [Commerce](docs/COMMERCE.md), [Memberships](docs/MEMBERSHIPS.md), and [Deployment](docs/DEPLOYMENT.md) for operational detail.
+See [DESIGN.md](DESIGN.md) for journeys, information architecture, roles, and architecture boundaries. See [Commerce](docs/COMMERCE.md), [Memberships](docs/MEMBERSHIPS.md), [Deployment](docs/DEPLOYMENT.md), and [Release notes](docs/RELEASE_NOTES.md) for operational detail.
 
 ## Localization
 
@@ -82,7 +82,7 @@ Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose
 
 ## Database Migrations
 
-`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261004000005_localize_home_diagnose_panels.sql`; it seeds localized home pathway-panel copy while preserving English fallbacks in the application.
+`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261004000006_update_home_try_cta.sql`; it updates localized home CTA copy while preserving English fallbacks in the application.
 
 Before applying to a shared environment:
 
@@ -98,12 +98,13 @@ Do not use application startup to change schema. For a corrective change, add a 
 
 ```sh
 npm test
+npm run check:migrations
 npm run build
 ```
 
-`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run build` runs the deployment configuration check and `next build`. The production-only configuration check runs when `VERCEL_ENV=production`; it requires the public Supabase variables and a canonical HTTPS `NEXT_PUBLIC_APP_URL`, and rejects recognized secrets named `NEXT_PUBLIC_*`.
+`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run check:migrations` validates local migration filename integrity, not remote status. `npm run build` runs the deployment configuration check and `next build`. The production configuration preflight runs when `VERCEL_ENV=production`, or explicitly with `npm run preflight:production`; it requires the complete production integration configuration, validates safe value shapes, and rejects recognized secrets named `NEXT_PUBLIC_*`. It does not validate credentials or live services.
 
-CI runs `npm ci`, `npm test`, and `npm run build` on pull requests and pushes to `main`.
+CI runs migration integrity and production configuration preflight with non-secret fixture values, then `npm test` and `npm run build` on pull requests and pushes to `main`.
 
 ## Deployment
 
@@ -115,7 +116,6 @@ Follow [Deployment](docs/DEPLOYMENT.md) before a release. In short: apply migrat
 
 - Installer and expert payouts are recorded manually. No Stripe Connect transfer or other automated payout is implemented.
 - `issue_cases.external_context` is reserved for a future vehicle or telemetry integration. Tessie is not integrated.
-- The checked-in cart and membership pages call checkout endpoints without the required `Idempotency-Key` header. Both endpoints reject such requests, so browser-initiated checkout currently needs a client fix before it is operational.
 - The EPA importer runs in a Vercel function with a 60-second maximum duration and archive/CSV size limits. If the source grows or imports become unreliable, move ingestion to a queued worker.
 - Catalog synchronization and partner import routes are authenticated machine endpoints; they have no administrator UI. The current import payload omits the required `partner_type_id`, so imports need correction and environment-level verification before they can be used as draft ingestion.
 - The admin review page uses public image URLs even though `shop-images` is intentionally private. Submitted-image preview needs validation/correction without weakening the Storage policy.

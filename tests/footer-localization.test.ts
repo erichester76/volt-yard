@@ -10,7 +10,7 @@ test("shared footer copy uses localized content with English fallbacks", () => {
   assert.match(chrome, /aria-label=\{t\("chrome\.footer\.navigation", "Footer navigation"\)\}/);
   assert.match(chrome, /t\("chrome\.footer\.membership", "Membership"\)/);
   assert.match(chrome, /t\("chrome\.footer\.contact", "Contact"\)/);
-  assert.match(chrome, /NEXT_PUBLIC_APP_VERSION \?\? "0\.1\.2"/);
+  assert.match(chrome, /NEXT_PUBLIC_APP_VERSION \?\? "1\.0\.0"/);
   assert.match(chrome, /v\{appVersion\} \/ \{buildCommit\}/);
   assert.doesNotMatch(chrome, /t\("chrome\.footer\.version/);
 });

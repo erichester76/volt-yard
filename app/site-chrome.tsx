@@ -12,7 +12,7 @@ import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
-const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? "0.1.2";
+const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
 const buildCommit = process.env.NEXT_PUBLIC_BUILD_COMMIT ?? "local";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {

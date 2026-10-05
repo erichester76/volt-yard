@@ -1,6 +1,6 @@
 {
   "name": "volt-yard",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "check:deployment": "node scripts/check-deployment.mjs",
+    "preflight:production": "node scripts/check-deployment.mjs --production",
+    "check:migrations": "node scripts/check-migrations.mjs",
     "test": "tsx --test tests/**/*.test.ts"
   },
   "dependencies": {
