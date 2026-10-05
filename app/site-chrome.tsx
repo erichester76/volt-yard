@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { FormEvent, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { authRedirectUrl } from "@/lib/auth-redirect";
 import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
-import { localeFromPath, localePath } from "@/lib/i18n";
-import { useLocalizedContent } from "@/lib/localized-content";
+import { localePath, localePathname } from "@/lib/i18n";
+import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
@@ -17,12 +17,12 @@ const buildCommit = process.env.NEXT_PUBLIC_BUILD_COMMIT ?? "local";
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const locale = localeFromPath(pathname);
+  const locale = useLocale();
   const t = useLocalizedContent(locale);
-  const localHref = (path: string) => localePath(locale, path);
+  const localHref = (path: string) => path;
   const switchLocale = (nextLocale: typeof locale) => {
     document.cookie = `volt-yard-locale=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax`;
-    const path = pathname.replace(/^\/(en|de|fr|es)(?=\/|$)/, "") || "/";
+    const path = localePathname(pathname);
     window.location.assign(localePath(nextLocale, path));
   };
   const [account, setAccount] = useState<Account>(null);
@@ -197,12 +197,12 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
                  <button className="account-button" type="button" onClick={() => setAccountOpen((value) => !value)} aria-expanded={accountOpen}><UserIcon /><span className="action-label">{t("chrome.action.profile", "Profile")}</span></button>
                 {accountOpen && <div className="account-menu">
                   <p>{account.email}</p>
-                   <Link href="/profile" onClick={() => setAccountOpen(false)}>My profile</Link>
-                   <Link href="/membership" onClick={() => setAccountOpen(false)}>Membership</Link>
-                    <Link href="/portal" onClick={() => setAccountOpen(false)}>Partner portal</Link>
-                    <Link href="/installer/work" onClick={() => setAccountOpen(false)}>Mechanic work queue</Link>
-                    <Link href="/expert-work" onClick={() => setAccountOpen(false)}>Expert jobs</Link>
-                   {account.isAdmin && <Link href="/admin" onClick={() => setAccountOpen(false)}>Administration</Link>}
+                    <Link href="/profile" onClick={() => setAccountOpen(false)}>My profile</Link>
+                    <Link href="/membership" onClick={() => setAccountOpen(false)}>Membership</Link>
+                     <Link href="/portal" onClick={() => setAccountOpen(false)}>Partner portal</Link>
+                     <Link href="/installer/work" onClick={() => setAccountOpen(false)}>Mechanic work queue</Link>
+                     <Link href="/expert-work" onClick={() => setAccountOpen(false)}>Expert jobs</Link>
+                    {account.isAdmin && <Link href="/admin" onClick={() => setAccountOpen(false)}>Administration</Link>}
                   <button type="button" onClick={signOut}>Log out</button>
                 </div>}
               </div>

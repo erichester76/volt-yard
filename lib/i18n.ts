@@ -16,10 +16,17 @@ export function negotiateLocale(acceptLanguage: string | null, saved?: string): 
 }
 
 export function localePath(locale: Locale, path = "/"): string {
-  return `/${locale}${path === "/" ? "" : path.startsWith("/") ? path : `/${path}`}`;
+  const [, pathname = "/", suffix = ""] = path.match(/^([^?#]*)(.*)$/) ?? [];
+  const normalizedPath = pathname === "/" ? "" : pathname.startsWith("/") ? pathname : `/${pathname}`;
+  return `/${locale}${normalizedPath}${suffix}`;
 }
 
 export function localeFromPath(pathname: string): Locale {
   const locale = pathname.split("/")[1];
   return isLocale(locale) ? locale : defaultLocale;
+}
+
+export function localePathname(pathname: string): string {
+  const withoutLocale = pathname.replace(/^\/(en|de|fr|es)(?=\/|$)/, "");
+  return withoutLocale || "/";
 }

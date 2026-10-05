@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
-import SiteChrome from "./site-chrome";
 
 const themeScript = `
   var storedTheme;
@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   description: "Find an independent EV mechanic near you."
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head><body><SiteChrome>{children}</SiteChrome></body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const locale = (await headers()).get("x-volt-yard-locale") ?? "en";
+  return <html lang={locale} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head><body>{children}</body></html>;
 }
