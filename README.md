@@ -19,9 +19,9 @@ See [DESIGN.md](DESIGN.md) for journeys, information architecture, roles, and ar
 
 Public pages are locale-prefixed: `/en`, `/de`, `/fr`, and `/es`. Requests to an unprefixed page redirect to the saved `volt-yard-locale` cookie or to the first supported browser language, falling back to English. The language control changes the cookie and retains the current route. Locale-prefixed routes are the indexable URLs; unprefixed URLs redirect and therefore are not competing canonical content.
 
-Shared authored interface copy lives in `public.localized_content`, seeded by `20261003000002_add_localized_content.sql`. Administrators edit and publish it at `/[locale]/admin/translations`; each locale route reads only published entries during server rendering and uses the embedded English fallback when a key is unpublished or unavailable. Content keys are stable contracts, not user-facing text. Locale-prefixed pages set their document language and publish locale-specific canonical and hreflang alternate metadata.
+Selected authored copy lives in `public.localized_content`, seeded by `20261003000002_add_localized_content.sql`. Administrators edit and publish it at `/[locale]/admin/translations`; each locale route reads only published entries during server rendering and uses the embedded English fallback when a key is unpublished or unavailable. RLS permits public reads only for published entries and administrator-managed writes; trusted server work uses the service role. Content keys are stable contracts, not user-facing text. Locale-prefixed pages set their document language and publish locale-specific canonical and hreflang alternate metadata.
 
-Localization applies to Volt Yard-authored UI and shared marketing/workflow copy. It intentionally does not translate user-generated community posts or issue cases, shop/product/category/capability records, user profile data, proper names, addresses, vehicle makes/models, warning codes, prices, dates supplied by users, or other technical identifiers. Dynamic records need their own editorial localization workflow before they can be translated safely.
+Localization is currently selective: it covers site navigation and footer copy, the landing-page hero, and designated eyebrow/title copy on the issues, catalog, community, membership, partner portal, and admin pages. It does not yet translate the rest of the page UI, forms, validation and status messages, checkout/account flows, or other hard-coded interface text. It also intentionally does not translate user-generated community posts or issue cases, shop/product/category/capability records, user profile data, proper names, addresses, vehicle makes/models, warning codes, prices, dates supplied by users, or other technical identifiers. Dynamic records need their own editorial localization workflow before they can be translated safely.
 
 ## Prerequisites
 
@@ -82,7 +82,7 @@ Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose
 
 ## Database Migrations
 
-`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261003000001_bound_directory_rpc_results.sql`; it bounds public directory RPC inputs and pagination.
+`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261004000000_harden_localized_content_privileges.sql`; it applies explicit least-privilege table grants for localized content while preserving its RLS policies.
 
 Before applying to a shared environment:
 
