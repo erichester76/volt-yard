@@ -33,5 +33,6 @@ jobs:
           STRIPE_WEBHOOK_SECRET: whsec_ci_fixture
           STRIPE_MEMBER_PRICE_ID: price_ci_member
           STRIPE_PREMIUM_PRICE_ID: price_ci_premium
+      - run: npm run lint
       - run: npm test
       - run: npm run build

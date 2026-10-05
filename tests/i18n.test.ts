@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { NextRequest } from "next/server";
-import { middleware } from "../middleware";
+import { proxy } from "../proxy";
 import { localeFromPath, localePath, localePathname, negotiateLocale } from "../lib/i18n";
 import { localeMetadata } from "../lib/locale-metadata";
 import { publishedLocalizedContent } from "../lib/localized-content-server";
@@ -21,14 +21,14 @@ test("builds locale-prefixed paths without duplicate slashes", () => {
 
 test("redirects bare paths using the saved locale before browser negotiation", () => {
   const cookieRequest = new NextRequest("https://voltyard.test/issues", { headers: { cookie: "volt-yard-locale=es", "accept-language": "de-DE,de;q=0.9" } });
-  assert.equal(middleware(cookieRequest).headers.get("location"), "https://voltyard.test/es/issues");
+  assert.equal(proxy(cookieRequest).headers.get("location"), "https://voltyard.test/es/issues");
 
   const browserRequest = new NextRequest("https://voltyard.test/catalog", { headers: { "accept-language": "fr-CA,fr;q=0.9" } });
-  assert.equal(middleware(browserRequest).headers.get("location"), "https://voltyard.test/fr/catalog");
+  assert.equal(proxy(browserRequest).headers.get("location"), "https://voltyard.test/fr/catalog");
 });
 
 test("passes locale context through prefixed navigation requests", () => {
-  const response = middleware(new NextRequest("https://voltyard.test/de/issues"));
+  const response = proxy(new NextRequest("https://voltyard.test/de/issues"));
   assert.equal(response.headers.get("x-middleware-next"), "1");
   assert.equal(response.headers.get("location"), null);
 });
@@ -37,7 +37,7 @@ test("preserves route navigation details while adding or reading locales", () =>
   assert.equal(localePath("de", "catalog?sort=price#details"), "/de/catalog?sort=price#details");
   assert.equal(localeFromPath("/fr/community/topic"), "fr");
   assert.equal(localeFromPath("/unknown/community"), "en");
-  const response = middleware(new NextRequest("https://voltyard.test/cart?cancelled=1", { headers: { "accept-language": "es" } }));
+  const response = proxy(new NextRequest("https://voltyard.test/cart?cancelled=1", { headers: { "accept-language": "es" } }));
   assert.equal(response.headers.get("location"), "https://voltyard.test/es/cart?cancelled=1");
 });
 

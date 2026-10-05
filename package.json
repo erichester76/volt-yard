@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "npm run check:deployment && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "check:deployment": "node scripts/check-deployment.mjs",
     "preflight:production": "node scripts/check-deployment.mjs --production",
     "check:migrations": "node scripts/check-migrations.mjs",
@@ -20,7 +20,7 @@
     "@types/react-dom": "19.0.2",
     "adm-zip": "^0.6.1",
     "csv-parse": "^7.0.3",
-    "next": "^15.5.13",
+    "next": "^16.3.8",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "stripe": "^23.0.0",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/adm-zip": "0.5.7",
+    "eslint-config-next": "^16.3.8",
     "tsx": "^4.20.6"
   }
 }
