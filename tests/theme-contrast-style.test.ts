@@ -56,7 +56,7 @@ test("primary and secondary button tokens are explicit and accessible in each th
 
   assert.match(css, /\.heading-accent \{[^}]*font-family: "Playfair Display"[^}]*color: var\(--heading-accent-color\);/);
   assert.match(css, /\.heading-accent-italic \{[^}]*font-style: italic;/);
-  assert.match(css, /\.search-button \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
+  assert.match(css, /\.button--primary,[\s\S]*?\.action-link--primary \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
   assert.match(css, /\.inline-cta\.secondary-action \{[^}]*background: var\(--button-secondary-background\);[^}]*color: var\(--button-secondary-foreground\);/);
 });
 

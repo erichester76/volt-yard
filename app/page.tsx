@@ -3,6 +3,7 @@
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "@/app/locale-link";
 import { LocalizedHeadingAccent } from "@/app/heading-accent";
+import { ActionLink, Button } from "@/app/page-primitives";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
@@ -455,8 +456,8 @@ export default function Home() {
   return (
     <main>
       <section className="hero" id="top">
-        <div className="wrap hero-grid">
-          <div>
+          <div className="wrap hero-grid">
+            <div>
             <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
             <h1 className="heading-primary hero-action-heading hero-action-heading-primary">
               <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
@@ -579,16 +580,16 @@ export default function Home() {
                   ))}
                 </select>
               </label>
-               <button className="search-button" type="submit" disabled={isGeocoding || isSelectingPlace}>
+                    <Button className="hero-panel-action" type="submit" disabled={isGeocoding || isSelectingPlace}>
                   {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
-              </button>
-                </form>
-                <p className="trust" role="status" aria-live="polite">
-                  {locationStatus} · choose a radius that works for your trip
-                </p>
-              </section>
+                    </Button>
+                  </form>
+                </section>
+              </div>
+              <p className="trust" role="status" aria-live="polite">
+                {locationStatus} · choose a radius that works for your trip
+              </p>
             </div>
-          </div>
         </div>
       </section>
       <section className="results wrap" id="results">
