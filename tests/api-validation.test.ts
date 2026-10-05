@@ -46,7 +46,7 @@ test("uses only trusted Vercel origins when no canonical origin is configured", 
   const projectProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
   const vercelUrl = process.env.VERCEL_URL;
   delete process.env.NEXT_PUBLIC_APP_URL;
-  process.env.NODE_ENV = "production";
+  Reflect.set(process.env, "NODE_ENV", "production");
   process.env.VERCEL_PROJECT_PRODUCTION_URL = "https://volt-yard.vercel.app";
   process.env.VERCEL_URL = "volt-yard-git-main-team.vercel.app";
   try {
@@ -57,7 +57,7 @@ test("uses only trusted Vercel origins when no canonical origin is configured", 
     assert.equal(isApplicationOrigin("https://attacker.example", request), false);
   } finally {
     if (appUrl === undefined) delete process.env.NEXT_PUBLIC_APP_URL; else process.env.NEXT_PUBLIC_APP_URL = appUrl;
-    if (nodeEnv === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = nodeEnv;
+    if (nodeEnv === undefined) Reflect.deleteProperty(process.env, "NODE_ENV"); else Reflect.set(process.env, "NODE_ENV", nodeEnv);
     if (projectProductionUrl === undefined) delete process.env.VERCEL_PROJECT_PRODUCTION_URL; else process.env.VERCEL_PROJECT_PRODUCTION_URL = projectProductionUrl;
     if (vercelUrl === undefined) delete process.env.VERCEL_URL; else process.env.VERCEL_URL = vercelUrl;
   }

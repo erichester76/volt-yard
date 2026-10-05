@@ -19,5 +19,20 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm run check:migrations
+      - run: npm run preflight:production
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://ci-project.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_ci_fixture
+          SUPABASE_SECRET_KEY: sb_secret_ci_fixture
+          NEXT_PUBLIC_APP_URL: https://ci.voltyard.example
+          GOOGLE_MAPS_API_KEY: AIzaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          YELP_API_KEY: ci-yelp-fixture
+          CRON_SECRET: 0123456789abcdef0123456789abcdef
+          STRIPE_SECRET_KEY: sk_test_ci_fixture
+          STRIPE_WEBHOOK_SECRET: whsec_ci_fixture
+          STRIPE_MEMBER_PRICE_ID: price_ci_member
+          STRIPE_PREMIUM_PRICE_ID: price_ci_premium
+      - run: npm run lint
       - run: npm test
       - run: npm run build

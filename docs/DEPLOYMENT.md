@@ -2,24 +2,30 @@
 
 Volt Yard is deployed as a Next.js application on Vercel with Supabase as its backend. Migrations must be available before application code that depends on them.
 
-## Before Deployment
+## Release Procedure
 
-1. Review all pending files in `supabase/migrations/` and apply them to the target project in timestamp order. The current latest migration is `20261003000001_bound_directory_rpc_results.sql`.
-2. Confirm PostgREST has refreshed its schema after the migration. Migrations that alter API-visible schema should issue `notify pgrst, 'reload schema';`; run the notification manually only when needed.
-3. In Vercel production, set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-4. Set `NEXT_PUBLIC_APP_URL` in Vercel Production to the canonical HTTPS origin without a path or trailing slash. Production builds reject a missing, HTTP, path-bearing, or trailing-slash value. Server-side return URLs use this value; request Host and arbitrary origins are never trusted.
-5. In Supabase **Auth > URL Configuration**, set **Site URL** to that same canonical HTTPS origin. Do not leave it at `http://localhost:3000`: Supabase uses Site URL when an email callback URL is absent or rejected.
-6. Add `https://YOUR_PRODUCTION_DOMAIN/**` to Supabase **Redirect URLs**. This application returns email confirmations, password resets, and magic links to the current route, so the allow-list must cover every application path. Add `http://localhost:3000/**` for local development. If preview deployments use authentication, add each approved preview origin explicitly or use a narrowly scoped Supabase-supported Vercel preview pattern.
-7. Send a production magic link and confirm it returns to the production domain. If it returns to Site URL instead, verify the exact callback origin is present in Redirect URLs.
-8. Run:
+1. Run the repository checks:
 
    ```sh
+   npm run check:migrations
    npm test
    npm audit --omit=dev
    npm run build
    ```
 
-`npm run build` invokes `check:deployment`. In a Vercel production build it requires the public Supabase values and fails when recognized server secrets use a `NEXT_PUBLIC_*` name. Preview and local builds skip that production-only gate.
+2. Review the pending SQL, then compare local history with the linked non-production or production target before applying anything:
+
+   ```sh
+   supabase migration list --linked
+   ```
+
+   `npm run check:migrations` validates checked-in filename format and duplicate timestamps only. It cannot establish remote migration status. Apply pending migrations in timestamp order, confirm the resulting history, and verify PostgREST has refreshed its schema. Migrations that alter API-visible schema should issue `notify pgrst, 'reload schema';`; run the notification manually only when needed. The current latest checked-in migration is `20261004000006_update_home_try_cta.sql`.
+3. In Vercel Production, set every required variable in `.env.example`, including `SUPABASE_SECRET_KEY`, `GOOGLE_MAPS_API_KEY`, `YELP_API_KEY`, `CRON_SECRET`, Stripe keys and Price IDs. Set `NEXT_PUBLIC_APP_URL` to the canonical HTTPS origin without a path or trailing slash. Run `npm run preflight:production` in a controlled environment with production-shaped values; it validates names and value formats only and does not contact any provider.
+4. In Supabase **Auth > URL Configuration**, set **Site URL** to the exact `NEXT_PUBLIC_APP_URL`. Add `https://YOUR_PRODUCTION_DOMAIN/**` to **Redirect URLs**, plus `http://localhost:3000/**` for local development. Explicitly allow only approved preview origins if previews use authentication.
+5. Deploy to a preview and exercise authentication, public directory search, image access, and a role-appropriate protected action. Promote only the approved production deployment.
+6. Send a production magic link and confirm it returns to the production domain. If it returns to Site URL instead, verify the exact callback origin is present in Redirect URLs.
+
+`npm run build` invokes `check:deployment`. In a Vercel production build it requires the full production configuration and rejects recognized server secrets named `NEXT_PUBLIC_*`. CI runs the same preflight using non-secret fixture values.
 
 ## Server Integration Configuration
 
@@ -49,6 +55,13 @@ All values in this table are server-only. Do not place them in `NEXT_PUBLIC_*` v
 7. Optionally create a Billing Portal configuration that allows subscription cancellation and plan changes, then set `STRIPE_BILLING_PORTAL_CONFIGURATION_ID`. Without it, the application uses server-mediated plan changes and schedules cancellation at the current billing-period end.
 8. Checkout and membership routes require a caller-provided `Idempotency-Key` header containing 16-128 URL-safe characters. The browser client supplies one for every Checkout request.
 
+## Vercel And Google
+
+1. Confirm the production domain is assigned, HTTPS is active, and Vercel Production environment variables are scoped to Production rather than Preview.
+2. Confirm `vercel.json` still schedules `/api/catalog/sync` at the intended cadence. Invoke the protected route manually only with `CRON_SECRET`; verify the Vercel cron invocation after release.
+3. Restrict `GOOGLE_MAPS_API_KEY` to the production domain/server workloads as appropriate, enable Geocoding API and Places API (New), and verify a location search and autocomplete request. Restrict and verify the Yelp key if partner imports will be used.
+4. Do not put server-only values in Vercel build logs, preview variables, browser bundles, issue attachments, or release notes.
+
 ## Scheduled And Manual Operations
 
 - Vercel Cron invokes `GET /api/catalog/sync` at `06:00 UTC` on the first day of every month. It sends Vercel's cron authorization; configure `CRON_SECRET` consistently with the route's bearer-token requirement if invoking it manually.
@@ -62,6 +75,14 @@ All values in this table are server-only. Do not place them in `NEXT_PUBLIC_*` v
 3. Verify an authenticated customer, a paid member, a Premium member, a partner, and an administrator each see only their intended data/actions.
 4. Verify Stripe webhook signature rejection, successful payment fulfillment, duplicate-event handling, and a duplicate checkout request with the same idempotency key.
 5. Verify the footer version/build identifier is expected. It exposes only package semver and a validated truncated Git SHA from Vercel or GitHub, otherwise `local`.
+
+## Rollback
+
+1. Stop promotion and disable affected Vercel routes or provider integrations when a security, payment, or data-integrity issue is detected.
+2. Redeploy the last known-good Vercel production deployment. Confirm its environment-variable scope and build identifier before promoting it.
+3. Do not roll back Supabase by editing or deleting migration history. Use a new corrective migration, or perform a reviewed database restore when the incident requires it.
+4. For Stripe incidents, disable the affected webhook endpoint or payment Price in Stripe as appropriate, retain `stripe_event_ledger`, and reconcile any events received during the incident before re-enabling traffic.
+5. Record the incident, affected release/build identifier, migrations, provider actions, data repair, and re-release verification.
 
 ## Current Operational Limits
 
