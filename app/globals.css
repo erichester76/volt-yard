@@ -1630,6 +1630,51 @@ textarea:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
 .action-link:hover { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
 .button:disabled { cursor: wait; opacity: .65; }
 
+/* Homepage paths share the action and surface tokens while preserving their priority. */
+.hero-grid { max-width: 1180px; }
+.hero-action-panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.hero-action-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 30px;
+  border: 1px solid color-mix(in srgb, var(--hero-ink) 26%, transparent);
+  background: color-mix(in srgb, var(--hero-ink) 5%, transparent);
+}
+.hero-diagnose-panel { border-top: 5px solid var(--button-primary-background); }
+.hero-diagnose-panel .eyebrow { margin-bottom: 20px; }
+.hero-diagnose-panel .intro { margin-bottom: 36px; }
+.hero-diagnose-panel .hero-actions { margin: auto 0 0; }
+.hero-actions .action-link { gap: 4px; }
+.partner-search { max-width: none; border-top: 1px solid color-mix(in srgb, var(--hero-ink) 26%, transparent); padding-top: 20px; }
+.hero-action-panel.partner-search { padding: 30px; }
+.partner-search .search {
+  max-width: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.partner-search .search label:first-child,
+.partner-search .search-button { grid-column: 1 / -1; }
+.partner-search .trust { margin-top: auto; }
+
+@media (max-width: 800px) {
+  .hero-action-panels { grid-template-columns: 1fr; }
+  .hero-action-panel { padding: 26px; }
+  .hero-action-panel.partner-search { padding: 26px; }
+}
+
+@media (max-width: 490px) {
+  .hero-action-panel { padding: 20px; }
+  .hero-action-panel.partner-search { padding: 20px; }
+  .partner-search .search { grid-template-columns: 1fr; }
+  .partner-search .search label:first-child,
+  .partner-search .search-button { grid-column: auto; }
+}
+
 /* Legacy class names remain aliases while routes are migrated. */
 .inline-cta { min-height: 39px; padding: var(--action-padding); font: var(--action-font); }
 .inline-cta.secondary-action { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
