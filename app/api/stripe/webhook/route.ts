@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createAdminSupabaseClient } from "@/lib/supabase";
+import { isHandledStripeWebhookEvent, membershipWebhookUpdate, paidOrderWebhookUpdate } from "@/lib/stripe-webhook";
 
 export const runtime = "nodejs";
 
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
     console.warn("Rejected Stripe webhook signature", error);
     return NextResponse.json({ error: "Invalid signature." }, { status: 400 });
   }
-  if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded" && event.type !== "customer.subscription.created" && event.type !== "customer.subscription.updated" && event.type !== "customer.subscription.deleted") return NextResponse.json({ received: true });
+  if (!isHandledStripeWebhookEvent(event.type)) return NextResponse.json({ received: true });
   const admin = createAdminSupabaseClient();
   const { error: ledgerInsertError } = await admin.from("stripe_event_ledger").upsert(
     { event_id: event.id, event_type: event.type, payload: event }, { onConflict: "event_id", ignoreDuplicates: true },
@@ -29,27 +30,23 @@ export async function POST(request: NextRequest) {
   try {
     if (event.type.startsWith("customer.subscription.")) {
       const subscription = event.data.object as Stripe.Subscription;
-      const tier = subscription.metadata.membership_tier;
-      const userId = subscription.metadata.user_id;
-      if (!userId || (tier !== "member" && tier !== "premium")) throw new Error("Subscription metadata is missing or invalid.");
-      const active = subscription.status === "active" || subscription.status === "trialing";
-      const customerId = typeof subscription.customer === "string" ? subscription.customer : subscription.customer.id;
-      const { error } = await admin.from("membership_subscriptions").upsert({ user_id: userId, tier, status: subscription.status, stripe_customer_id: customerId, stripe_subscription_id: subscription.id, source: "stripe" }, { onConflict: "user_id" });
+      const update = membershipWebhookUpdate(subscription);
+      if (!update) throw new Error("Subscription metadata is missing or invalid.");
+      const { error } = await admin.from("membership_subscriptions").upsert({ user_id: update.userId, tier: update.tier, status: update.status, stripe_customer_id: update.customerId, stripe_subscription_id: update.subscriptionId, source: "stripe" }, { onConflict: "user_id" });
       if (error) throw error;
-      const { error: customerError } = await admin.from("membership_billing_customers").upsert({ user_id: userId, stripe_customer_id: customerId, checkout_started_at: null, stripe_checkout_session_id: null }, { onConflict: "user_id" });
+      const { error: customerError } = await admin.from("membership_billing_customers").upsert({ user_id: update.userId, stripe_customer_id: update.customerId, checkout_started_at: null, stripe_checkout_session_id: null }, { onConflict: "user_id" });
       if (customerError) throw customerError;
-      const { error: profileError } = await admin.from("profiles").update({ membership_tier: active ? tier : "free" }).eq("id", userId);
+      const { error: profileError } = await admin.from("profiles").update({ membership_tier: update.profileTier }).eq("id", update.userId);
       if (profileError) throw profileError;
     } else {
       const session = event.data.object as Stripe.Checkout.Session;
-      if (session.payment_status === "paid" && session.mode !== "subscription") {
-        const orderId = session.metadata?.order_id || session.client_reference_id;
-        if (!orderId) throw new Error("Order reference missing.");
-        const paymentIntent = typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null;
-        const { data: order, error } = await admin.from("orders").update({ status: "paid", paid_at: new Date().toISOString(), stripe_payment_intent_id: paymentIntent }).eq("id", orderId).eq("stripe_checkout_session_id", session.id).neq("status", "paid").select("id").maybeSingle();
+      const update = paidOrderWebhookUpdate(session);
+      if (session.payment_status === "paid" && session.mode !== "subscription" && !update) throw new Error("Order reference missing.");
+      if (update) {
+        const { data: order, error } = await admin.from("orders").update({ status: "paid", paid_at: new Date().toISOString(), stripe_payment_intent_id: update.paymentIntent }).eq("id", update.orderId).eq("stripe_checkout_session_id", update.sessionId).neq("status", "paid").select("id").maybeSingle();
         if (error) throw error;
         if (!order) {
-          const { data: existing, error: existingError } = await admin.from("orders").select("status").eq("id", orderId).eq("stripe_checkout_session_id", session.id).maybeSingle();
+          const { data: existing, error: existingError } = await admin.from("orders").select("status").eq("id", update.orderId).eq("stripe_checkout_session_id", update.sessionId).maybeSingle();
           if (existingError || existing?.status !== "paid") throw new Error("Order does not match this checkout session.");
         }
       }

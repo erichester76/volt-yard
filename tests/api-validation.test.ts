@@ -30,6 +30,16 @@ test("accepts a single bounded bearer token and rejects malformed authorization"
   assert.equal(bearerToken(new Request("https://example.test", { headers: { authorization: `Bearer ${"a".repeat(4097)}` } })), null);
 });
 
+test("checkout requests require independently valid bearer and idempotency headers", () => {
+  const url = "https://example.test/api/checkout";
+  const key = "checkout_request_0001";
+  const authenticated = new Request(url, { headers: { authorization: "Bearer session-token", "idempotency-key": key } });
+  assert.equal(bearerToken(authenticated), "session-token");
+  assert.equal(idempotencyKey(authenticated), key);
+  assert.equal(bearerToken(new Request(url, { headers: { "idempotency-key": key } })), null);
+  assert.equal(idempotencyKey(new Request(url, { headers: { authorization: "Bearer session-token" } })), null);
+});
+
 test("uses only trusted Vercel origins when no canonical origin is configured", () => {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL;
   const nodeEnv = process.env.NODE_ENV;

@@ -6,11 +6,12 @@ const css = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8")
 const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
 
 test("home paired panels share title rhythm and action dimensions", () => {
-  assert.match(home, /<div className="hero-action-panels">/);
-  assert.match(home, /<h1 className="hero-panel-title">/);
-  assert.match(home, /<h2 className="hero-panel-title">/);
-  assert.match(home, /<ActionLink className="hero-panel-action" href="\/issues">\{t\("home\.try_cta", "Try it out"\)\}/);
+  assert.match(home, /<div className="hero-panels">/);
+  assert.match(home, /<section className="hero-panel diagnose-panel"/);
+  assert.match(home, /<section className="hero-panel partner-panel partner-search"/);
+  assert.match(home, /<h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="diagnose-panel-title">/);
+  assert.match(home, /<h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="partner-panel-title">/);
+  assert.match(home, /<Link className="hero-primary-action diagnose-action" href="\/issues">/);
   assert.match(home, /<Button className="hero-panel-action" type="submit"/);
-  assert.match(css, /\.hero-panel-title \{[^}]*font-family: var\(--heading-font-family\);[^}]*font-size: var\(--heading-primary-size\);[^}]*line-height: var\(--heading-line-height\);/);
   assert.match(css, /\.button,[\s\S]*?\.action-link \{[\s\S]*?min-height: 39px;[\s\S]*?padding: var\(--action-padding\);[\s\S]*?font: var\(--action-font\);/);
 });

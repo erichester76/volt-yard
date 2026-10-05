@@ -9,4 +9,9 @@ test("builds auth redirects from the supplied browser origin", () => {
 
 test("does not allow auth redirects to leave the application origin", () => {
   assert.throws(() => authRedirectUrl("https://voltyard.example", "https://attacker.example"));
+  assert.throws(() => authRedirectUrl("https://voltyard.example", "//attacker.example/login"));
+});
+
+test("keeps valid query and fragment navigation on the application origin", () => {
+  assert.equal(authRedirectUrl("https://voltyard.example", "/membership?success=1#plans"), "https://voltyard.example/membership?success=1#plans");
 });
