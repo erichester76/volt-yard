@@ -2,6 +2,7 @@
 
 import Link from "@/app/locale-link";
 import { FormEvent, useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import { usePathname, useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { authRedirectUrl } from "@/lib/auth-redirect";
@@ -11,7 +12,7 @@ import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
-const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? "0.1.1";
+const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? "0.1.2";
 const buildCommit = process.env.NEXT_PUBLIC_BUILD_COMMIT ?? "local";
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -55,31 +56,33 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     let active = true;
-    async function loadAccount() {
-      const { data } = await db.auth.getUser();
-      if (!active) return;
-      if (!data.user) {
+    let requestVersion = 0;
+    async function loadAccount(user?: User | null) {
+      const version = ++requestVersion;
+      const currentUser = user === undefined ? (await db.auth.getUser()).data.user : user;
+      if (!active || version !== requestVersion) return;
+      if (!currentUser) {
         setAccount(null);
         setCartCount(0);
         return;
       }
       const [{ data: profile }, { data: cart }] = await Promise.all([
-        db.from("profiles").select("is_admin").eq("id", data.user.id).maybeSingle(),
-        db.from("carts").select("cart_items(quantity)").eq("user_id", data.user.id).eq("status", "active").maybeSingle(),
+        db.from("profiles").select("is_admin").eq("id", currentUser.id).maybeSingle(),
+        db.from("carts").select("cart_items(quantity)").eq("user_id", currentUser.id).eq("status", "active").maybeSingle(),
       ]);
-      if (!active) return;
-      setAccount({ email: data.user.email ?? "Account", isAdmin: profile?.is_admin === true });
+      if (!active || version !== requestVersion) return;
+      setAccount({ email: currentUser.email ?? "Account", isAdmin: profile?.is_admin === true });
       setCartCount((cart?.cart_items ?? []).reduce((total, item) => total + item.quantity, 0));
     }
     void loadAccount();
-    const { data: listener } = db.auth.onAuthStateChange((event) => {
+    const { data: listener } = db.auth.onAuthStateChange((event, session) => {
       if (event === "PASSWORD_RECOVERY") {
         setAuthMode("new-password");
         setMessageTone("success");
         setMessage("Choose a new password for your account.");
         setSignInOpen(true);
       }
-      void loadAccount();
+      void loadAccount(session?.user ?? null);
     });
     const openRequestedAuth = (event: Event) => {
       const mode = (event as CustomEvent<{ mode?: AuthMode }>).detail?.mode ?? "sign-in";
@@ -91,12 +94,13 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       setSignInOpen(true);
     };
     window.addEventListener("volt-yard-open-auth", openRequestedAuth);
-    window.addEventListener("volt-yard-cart-updated", loadAccount);
+    const reloadAccount = () => { void loadAccount(); };
+    window.addEventListener("volt-yard-cart-updated", reloadAccount);
     return () => {
       active = false;
       listener.subscription.unsubscribe();
       window.removeEventListener("volt-yard-open-auth", openRequestedAuth);
-      window.removeEventListener("volt-yard-cart-updated", loadAccount);
+      window.removeEventListener("volt-yard-cart-updated", reloadAccount);
     };
   }, []);
 
@@ -215,7 +219,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <footer className="site-footer">
         <div className="wrap footer-content">
            <div><Link className="brand" href={localHref("/")}><span className="mark">V</span> volt yard</Link><p>{t("chrome.footer.tagline", "Independent EV service, connected.")}</p><span className="version-crumb" aria-label={`Application version ${appVersion}, build ${buildCommit}`}>v{appVersion} / {buildCommit}</span></div>
-             <nav aria-label="Footer navigation"><Link href={localHref("/issues")}>{t("chrome.nav.diagnose", "Diagnose")}</Link><Link href={localHref("/membership")}>Membership</Link><Link href={localHref("/community")}>{t("chrome.nav.community", "Community")}</Link><Link href={localHref("/catalog")}>{t("chrome.nav.services", "Services & upgrades")}</Link><a href="mailto:hello@voltyard.com">Contact</a></nav>
+              <nav aria-label={t("chrome.footer.navigation", "Footer navigation")}><Link href={localHref("/issues")}>{t("chrome.nav.diagnose", "Diagnose")}</Link><Link href={localHref("/membership")}>{t("chrome.footer.membership", "Membership")}</Link><Link href={localHref("/community")}>{t("chrome.nav.community", "Community")}</Link><Link href={localHref("/catalog")}>{t("chrome.nav.services", "Services & upgrades")}</Link><a href="mailto:hello@voltyard.com">{t("chrome.footer.contact", "Contact")}</a></nav>
         </div>
       </footer>
       {signInOpen && <div className="sign-in-backdrop" role="presentation" onClick={closeAuth}><form className="sign-in-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title" onSubmit={authenticate} onClick={(event) => event.stopPropagation()}><button className="close" type="button" onClick={closeAuth} aria-label="Close sign in" disabled={submitting}>×</button><p className="eyebrow">Customer, mechanic, or administrator</p><h2 id="auth-title">{authMode === "sign-up" ? "Create your account." : authMode === "reset" ? "Reset your password." : authMode === "new-password" ? "Set a new password." : authMode === "magic-link" ? "Email sign-in link." : "Sign in to Volt Yard."}</h2><p>{authMode === "sign-up" ? "Use an email and password to create your account." : authMode === "reset" ? "Enter your email and we will send a reset link." : authMode === "new-password" ? "Enter and confirm a new password." : authMode === "magic-link" ? "Prefer passwordless sign-in? We will send a secure link." : "Sign in with your email and password."}</p>{authMode !== "new-password" && <label>Email<input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" disabled={submitting} /></label>}{(authMode === "sign-in" || authMode === "sign-up" || authMode === "new-password") && <label>Password<input required type="password" minLength={6} autoComplete={authMode === "sign-in" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} disabled={submitting} /></label>}{(authMode === "sign-up" || authMode === "new-password") && <label>Confirm password<input required type="password" minLength={6} autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} disabled={submitting} /></label>}{message && <p className={messageTone === "success" ? "form-message auth-success" : "form-message"} role={messageTone === "error" ? "alert" : "status"}>{message}</p>}<button type="submit" disabled={submitting}>{submitting ? "Please wait..." : authMode === "sign-up" ? "Create account" : authMode === "reset" ? "Send reset link" : authMode === "new-password" ? "Update password" : authMode === "magic-link" ? "Send sign-in link" : "Sign in"}</button>{authMode === "sign-in" && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("reset")} disabled={submitting}>Forgot password?</button><button type="button" onClick={() => switchAuthMode("magic-link")} disabled={submitting}>Use a magic link instead</button><button type="button" onClick={() => switchAuthMode("sign-up")} disabled={submitting}>Create an account</button></div>}{authMode === "sign-up" && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("sign-in")} disabled={submitting}>Already have an account? Sign in</button><button type="button" onClick={() => switchAuthMode("magic-link")} disabled={submitting}>Use a magic link instead</button></div>}{(authMode === "reset" || authMode === "magic-link") && <div className="auth-links"><button type="button" onClick={() => switchAuthMode("sign-in")} disabled={submitting}>Back to password sign in</button><button type="button" onClick={() => switchAuthMode("sign-up")} disabled={submitting}>Create an account</button></div>}</form></div>}
