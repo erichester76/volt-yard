@@ -1,22 +1,25 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 export const isSupabaseConfigured = Boolean(url && publishableKey);
 
+let browserClient: SupabaseClient<any> | undefined;
+
 export function createBrowserSupabaseClient() {
   if (!url || !publishableKey) {
     throw new Error("Supabase is not configured. Add the public Supabase environment variables.");
   }
 
-  return createClient(url, publishableKey, {
+  browserClient ??= createClient(url, publishableKey, {
     auth: {
       autoRefreshToken: true,
       detectSessionInUrl: true,
       persistSession: true,
     },
   });
+  return browserClient;
 }
 
 export function createAdminSupabaseClient() {

@@ -35,6 +35,8 @@ export default function IssuesPage() {
   const [models, setModels] = useState<string[]>([]);
   const [garage, setGarage] = useState<GarageVehicle[]>([]);
   const [garageVehicleId, setGarageVehicleId] = useState("");
+  const [userId, setUserId] = useState<string | null | undefined>(undefined);
+  const [workspaceVersion, setWorkspaceVersion] = useState(0);
   const pendingSave = useRef(false);
   const pendingVehicle = useRef<{ year: string; make: string; model: string } | null>(null);
 
@@ -44,76 +46,75 @@ export default function IssuesPage() {
     setModel(vehicle.model);
   }
 
-  async function loadGarage() {
-    const db = createBrowserSupabaseClient();
-    const { data: auth } = await db.auth.getUser();
-    if (!auth.user) {
-      setGarage([]);
-      setGarageVehicleId("");
-      return;
-    }
-    const { data, error } = await db
-      .from("profile_vehicles")
-      .select("id,vehicle:vehicle_catalog(id,model_year,make,model)")
-      .order("created_at", { ascending: false });
-    if (error) return setMessage(error.message);
-    const vehicles = (data ?? []) as unknown as GarageVehicle[];
-    setGarage(vehicles);
-    if (vehicles[0]?.vehicle && !year && !make && !model) {
-      setGarageVehicleId(vehicles[0].id);
-      chooseVehicle(vehicles[0].vehicle);
-    }
-  }
-
-  const load = async () => {
-    if (!isSupabaseConfigured)
-      return setMessage("Issue workspace is not configured.");
-    const db = createBrowserSupabaseClient();
-    const [{ data: auth }, vehicleResult] = await Promise.all([
-      db.auth.getUser(),
-      db
-        .from("vehicle_catalog")
-        .select("model_year")
-        .order("model_year", { ascending: false })
-        .limit(5000),
-    ]);
-    if (auth.user) {
-      const caseResult = await db
-        .from("issue_cases")
-        .select("id,title,status,vehicle_year,vehicle_make,vehicle_model,created_at")
-        .order("updated_at", { ascending: false });
-      setCases((caseResult.data ?? []) as Case[]);
-      if (caseResult.error) setMessage(caseResult.error.message);
-      await loadGarage();
-    }
-    if (vehicleResult.error) setMessage("Vehicle options are temporarily unavailable.");
-    else
-      setYears(
-        [...new Set(vehicleResult.data?.map((vehicle) => vehicle.model_year) ?? [])].sort(
-          (a, b) => b - a,
-        ),
-      );
-  };
-
   useEffect(() => {
     setSourceTopicId(new URLSearchParams(window.location.search).get("source_topic"));
-    void load();
   }, []);
 
   useEffect(() => {
-    if (!isSupabaseConfigured) return;
+    if (!isSupabaseConfigured) {
+      setMessage("Issue workspace is not configured.");
+      return;
+    }
     const db = createBrowserSupabaseClient();
-    const { data: listener } = db.auth.onAuthStateChange((event) => {
+    let active = true;
+    const syncUser = (id: string | null) => {
+      if (active) setUserId(id);
+    };
+    void db.auth.getSession().then(({ data }) => syncUser(data.session?.user.id ?? null));
+    const { data: listener } = db.auth.onAuthStateChange((event, session) => {
+      syncUser(session?.user.id ?? null);
       if (event === "SIGNED_IN") {
-        void loadGarage();
         if (pendingSave.current && pendingVehicle.current) {
           pendingSave.current = false;
           void saveVehicle(pendingVehicle.current);
         }
       }
     });
-    return () => listener.subscription.unsubscribe();
+    return () => {
+      active = false;
+      listener.subscription.unsubscribe();
+    };
   }, []);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    const db = createBrowserSupabaseClient();
+    let active = true;
+    void db.from("vehicle_catalog").select("model_year").order("model_year", { ascending: false }).limit(5000).then(({ data, error }) => {
+      if (!active) return;
+      if (error) setMessage("Vehicle options are temporarily unavailable.");
+      else setYears([...new Set(data?.map((vehicle) => vehicle.model_year) ?? [])].sort((a, b) => b - a));
+    });
+    return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
+    if (userId === undefined) return;
+    if (!userId) {
+      setCases([]);
+      setGarage([]);
+      setGarageVehicleId("");
+      return;
+    }
+    const db = createBrowserSupabaseClient();
+    let active = true;
+    void Promise.all([
+      db.from("issue_cases").select("id,title,status,vehicle_year,vehicle_make,vehicle_model,created_at").order("updated_at", { ascending: false }),
+      db.from("profile_vehicles").select("id,vehicle:vehicle_catalog(id,model_year,make,model)").order("created_at", { ascending: false }),
+    ]).then(([caseResult, garageResult]) => {
+      if (!active) return;
+      if (caseResult.error) setMessage(caseResult.error.message);
+      else setCases((caseResult.data ?? []) as Case[]);
+      if (garageResult.error) return setMessage(garageResult.error.message);
+      const vehicles = (garageResult.data ?? []) as unknown as GarageVehicle[];
+      setGarage(vehicles);
+      if (vehicles[0]?.vehicle && !year && !make && !model) {
+        setGarageVehicleId(vehicles[0].id);
+        chooseVehicle(vehicles[0].vehicle);
+      }
+    });
+    return () => { active = false; };
+  }, [userId, workspaceVersion]);
 
   useEffect(() => {
     setMakes([]);
@@ -188,7 +189,7 @@ export default function IssuesPage() {
     if (error) return setMessage(error.message);
     pendingVehicle.current = null;
     setMessage("Vehicle saved to your profile.");
-    await loadGarage();
+    setWorkspaceVersion((version) => version + 1);
   }
 
   async function create(event: FormEvent<HTMLFormElement>) {

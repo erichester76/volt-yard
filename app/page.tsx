@@ -2,7 +2,7 @@
 
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "@/app/locale-link";
-import { HeadingAccent } from "@/app/heading-accent";
+import { LocalizedHeadingAccent } from "@/app/heading-accent";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
@@ -458,8 +458,8 @@ export default function Home() {
         <div className="wrap hero-grid">
           <div>
             <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
-            <h1 className="hero-action-heading hero-action-heading-primary">
-              <HeadingAccent>{t("home.title", "Diagnose an issue.")}</HeadingAccent>
+            <h1 className="heading-primary hero-action-heading hero-action-heading-primary">
+              <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
             </h1>
             <p className="intro">
               {t("home.intro", "Search proven solutions, tap into a knowledgeable EV community, or get a remote diagnosis from a mechanic. Visit a shop only if you need to.")}
@@ -469,7 +469,7 @@ export default function Home() {
             </div>
             <div className="partner-search" id="partner-search">
               <div className="partner-search-heading">
-                <h2 className="hero-action-heading hero-action-heading-secondary">
+                <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary">
                   {t("home.find_title", "Find a mechanic if you already know what you need.")}
                 </h2>
                 <p>Search trusted independent EV specialists near you.</p>
@@ -565,7 +565,7 @@ export default function Home() {
                 </select>
               </label>
                <button className="search-button" type="submit" disabled={isGeocoding || isSelectingPlace}>
-                 {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
+                  {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
               </button>
             </form>
             </div>

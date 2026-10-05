@@ -21,7 +21,7 @@ Public pages are locale-prefixed: `/en`, `/de`, `/fr`, and `/es`. Requests to an
 
 Selected authored copy lives in `public.localized_content`, seeded by `20261003000002_add_localized_content.sql`. Administrators edit and publish it at `/[locale]/admin/translations`; each locale route reads only published entries during server rendering and uses the embedded English fallback when a key is unpublished or unavailable. RLS permits public reads only for published entries and administrator-managed writes; trusted server work uses the service role. Content keys are stable contracts, not user-facing text. Locale-prefixed pages set their document language and publish locale-specific canonical and hreflang alternate metadata.
 
-Localization is currently selective: it covers site navigation and footer copy, the landing-page hero, and designated eyebrow/title copy on the issues, catalog, community, membership, partner portal, and admin pages. It does not yet translate the rest of the page UI, forms, validation and status messages, checkout/account flows, or other hard-coded interface text. It also intentionally does not translate user-generated community posts or issue cases, shop/product/category/capability records, user profile data, proper names, addresses, vehicle makes/models, warning codes, prices, dates supplied by users, or other technical identifiers. Dynamic records need their own editorial localization workflow before they can be translated safely.
+Localization is currently selective: it covers site navigation and all authored shared footer copy except the version/build identifier, the landing-page hero, and designated eyebrow/title copy on the issues, catalog, community, membership, partner portal, and admin pages. It does not yet translate the rest of the page UI, forms, validation and status messages, checkout/account flows, or other hard-coded interface text. It also intentionally does not translate user-generated community posts or issue cases, shop/product/category/capability records, user profile data, proper names, addresses, vehicle makes/models, warning codes, prices, dates supplied by users, or other technical identifiers. Dynamic records need their own editorial localization workflow before they can be translated safely.
 
 ## Prerequisites
 
@@ -82,7 +82,7 @@ Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose
 
 ## Database Migrations
 
-`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261004000000_harden_localized_content_privileges.sql`; it applies explicit least-privilege table grants for localized content while preserving its RLS policies.
+`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261004000002_localize_shared_footer.sql`; it seeds localized shared-footer copy while preserving English fallbacks in the application.
 
 Before applying to a shared environment:
 
