@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 type Resource = { title: string; body: string; type: string; video_url: string | null; published_at: string | null };

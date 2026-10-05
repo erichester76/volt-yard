@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { AdminNavigation } from "@/app/portal-navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";

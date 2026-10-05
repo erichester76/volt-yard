@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { HeadingAccent } from "@/app/heading-accent";
 import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
