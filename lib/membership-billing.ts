@@ -12,3 +12,13 @@ export function membershipPriceId(tier: MembershipTier) {
 export function isCurrentMembershipStatus(status: string) {
   return status === "active" || status === "trialing" || status === "past_due" || status === "unpaid";
 }
+
+export function isEntitledMembershipStatus(status: string) {
+  return status === "active" || status === "trialing";
+}
+
+export function membershipSubscriptionClaims(metadata: Record<string, string> | null | undefined) {
+  const userId = metadata?.user_id;
+  const tier = metadata?.membership_tier;
+  return userId && isMembershipTier(tier) ? { userId, tier } : null;
+}
