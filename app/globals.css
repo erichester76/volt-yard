@@ -32,6 +32,10 @@
   --heading-on-hero-color: var(--hero-ink);
   --heading-secondary-on-hero-color: #bdc8c2;
   --heading-gap: 12px;
+  --header-accent-background: #f3b2a2;
+  --header-accent-foreground: #172723;
+  --action-font: 600 12px "DM Sans", Arial, sans-serif;
+  --action-padding: 11px 14px;
 }
 :root[data-theme="dark"] {
   --ink: #edf4ec;
@@ -1572,6 +1576,79 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
 
+/* Shared authored-page hierarchy and actions. Page-specific selectors inherit these
+   tokens rather than introducing white/black header or button treatments. */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  max-width: 900px;
+  padding: 0 0 34px 18px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  border-left: 4px solid var(--header-accent-background);
+}
+.page-header > div:first-child { max-width: 680px; }
+.page-header .eyebrow {
+  width: fit-content;
+  padding: 4px 6px;
+  margin: 0 0 14px;
+  background: var(--header-accent-background);
+  color: var(--header-accent-foreground);
+}
+.portal-head .eyebrow,
+.shop-hero .eyebrow,
+.checkout-success .eyebrow {
+  width: fit-content;
+  padding: 4px 6px;
+  margin-bottom: 14px;
+  background: var(--header-accent-background);
+  color: var(--header-accent-foreground);
+}
+.page-header h1 { margin-bottom: 16px; }
+.page-header-intro { margin: 0; color: var(--muted); line-height: 1.6; }
+.page-header-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.button,
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 39px;
+  border: 0;
+  padding: var(--action-padding);
+  font: var(--action-font);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button--primary,
+.action-link--primary { background: var(--button-primary-background); color: var(--button-primary-foreground); }
+.button--secondary,
+.action-link--secondary { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
+.button:not(:disabled):hover,
+.action-link:hover { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
+.button:disabled { cursor: wait; opacity: .65; }
+
+/* Legacy class names remain aliases while routes are migrated. */
+.inline-cta { min-height: 39px; padding: var(--action-padding); font: var(--action-font); }
+.inline-cta.secondary-action { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
+.catalog-card button,
+.checkout-card button,
+.job-card button,
+.login-prompt button,
+.community-form button,
+.topic-card > button,
+.tier-card button,
+.pathway-grid button,
+.admin-catalog-form button,
+.admin-catalog-list button,
+.profile-vehicle-form button {
+  min-height: 39px;
+  padding: var(--action-padding);
+  font: var(--action-font);
+}
+
 @media (max-width: 700px) {
   .content-page, .commerce, .profile-page { padding-top: 44px; padding-bottom: 60px; }
   .content-head { display: block; padding-bottom: 26px; }
@@ -1596,4 +1673,6 @@ textarea:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
   .topic-actions { align-items: flex-start; flex-direction: column; }
   .thread-reply { margin-left: min(calc(var(--reply-depth) * 16px), 48px); padding-left: 11px; gap: 10px; }
   .thread-reply .vote-controls { align-self: flex-start; }
+  .page-header { display: block; padding: 0 0 26px 14px; }
+  .page-header-actions { margin-top: 16px; }
 }

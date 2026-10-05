@@ -5,6 +5,7 @@ import { HeadingAccent } from "@/app/heading-accent";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
+import { Button, PageHeader } from "@/app/page-primitives";
 
 type Case = {
   id: string;
@@ -221,13 +222,7 @@ export default function IssuesPage() {
 
   return (
     <main className="content-page wrap">
-      <header className="content-head">
-        <div>
-          <p className="eyebrow">{t("issues.eyebrow", "Guided issue workflow")}</p>
-          <h1><HeadingAccent>{t("issues.title", "Start with what your vehicle is telling you.")}</HeadingAccent></h1>
-          <p>{sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."}</p>
-        </div>
-      </header>
+      <PageHeader className="content-head" eyebrow={t("issues.eyebrow", "Guided issue workflow")} title={<HeadingAccent>{t("issues.title", "Start with what your vehicle is telling you.")}</HeadingAccent>} intro={sourceTopicId ? "This case will retain the community thread when you request service." : "Capture symptoms once, then choose research, DIY, community, an expert, or local service without losing the context."} />
       <form className="community-form issue-form" onSubmit={create}>
         {garage.length > 0 && <label>Your saved vehicles<select value={garageVehicleId} onChange={(event) => { setGarageVehicleId(event.target.value); const vehicle = garage.find((item) => item.id === event.target.value)?.vehicle; if (vehicle) chooseVehicle(vehicle); }}><option value="">Choose a saved vehicle or change below</option>{garage.map((item) => item.vehicle && <option key={item.id} value={item.id}>{item.vehicle.model_year} {item.vehicle.make} {item.vehicle.model}</option>)}</select></label>}
         <div className="form-row">
@@ -253,11 +248,11 @@ export default function IssuesPage() {
             </select>
           </label>
         </div>
-        <button type="button" onClick={() => void saveVehicle()} disabled={!year || !make || !model}>Save vehicle to profile</button>
+        <Button type="button" onClick={() => void saveVehicle()} disabled={!year || !make || !model}>Save vehicle to profile</Button>
         <label>What is happening?<input required minLength={4} name="title" placeholder="Charging stops at 80%" /></label>
         <label>Symptoms and timeline<textarea required minLength={10} name="symptoms" placeholder="When it happens, warnings, weather, and what you have tried." /></label>
         <label>Warning codes (optional)<input name="codes" placeholder="Any dashboard messages or codes" /></label>
-        <button type="submit">Create issue case</button>
+        <Button type="submit">Create issue case</Button>
       </form>
       <p className="directory-status">{message}</p>
       <section className="topic-list">
