@@ -59,3 +59,20 @@ test("primary and secondary button tokens are explicit and accessible in each th
   assert.match(css, /\.search-button \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
   assert.match(css, /\.inline-cta\.secondary-action \{[^}]*background: var\(--button-secondary-background\);[^}]*color: var\(--button-secondary-foreground\);/);
 });
+
+test("the homepage Diagnose CTA uses its explicit accessible theme tokens", () => {
+  const light = css.match(/:root \{([\s\S]*?)\n\}/)?.[1];
+  const dark = css.match(/:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)?.[1];
+  assert.ok(light);
+  assert.ok(dark);
+
+  for (const theme of [light, dark]) {
+    const background = declaration(theme, "--diagnose-cta-background");
+    const foreground = declaration(theme, "--diagnose-cta-foreground");
+    assert.ok(background);
+    assert.ok(foreground);
+    assert.ok(contrast(foreground, background) >= 4.5);
+  }
+
+  assert.match(css, /\.hero-actions \.diagnose-action \{[^}]*background: var\(--diagnose-cta-background\);[^}]*color: var\(--diagnose-cta-foreground\);/);
+});
