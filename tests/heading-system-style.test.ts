@@ -36,9 +36,8 @@ test("authored page headers and actions use shared semantic primitives", () => {
   assert.match(css, /\.button,[\s\S]*?font: var\(--action-font\);/);
 });
 
-test("home hero applies the shared primary and secondary heading roles", () => {
-  assert.match(home, /className="heading-primary hero-action-heading hero-action-heading-primary"/);
-  assert.match(home, /className="heading-secondary hero-action-heading hero-action-heading-secondary"/);
-  assert.match(css, /\.hero-action-heading-primary \{[^}]*color: var\(--heading-on-hero-color\); \}/);
-  assert.match(css, /\.hero-action-heading-secondary \{ color: var\(--heading-secondary-on-hero-color\); \}/);
+test("home hero applies one shared title role to both action panels", () => {
+  assert.match(home, /<h1 className="hero-panel-title">/);
+  assert.match(home, /<h2 className="hero-panel-title">/);
+  assert.match(css, /\.hero-panel-title \{[^}]*font-family: var\(--heading-font-family\);[^}]*font-size: var\(--heading-primary-size\);[^}]*line-height: var\(--heading-line-height\);/);
 });

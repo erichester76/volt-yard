@@ -3,6 +3,7 @@
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "@/app/locale-link";
 import { LocalizedHeadingAccent } from "@/app/heading-accent";
+import { ActionLink, Button } from "@/app/page-primitives";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
@@ -455,26 +456,29 @@ export default function Home() {
   return (
     <main>
       <section className="hero" id="top">
-        <div className="wrap hero-grid">
-          <div>
+          <div className="wrap hero-grid">
+            <div>
             <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
-            <h1 className="heading-primary hero-action-heading hero-action-heading-primary">
-              <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
-            </h1>
-            <p className="intro">
-              {t("home.intro", "Search proven solutions, tap into a knowledgeable EV community, or get a remote diagnosis from a mechanic. Visit a shop only if you need to.")}
-            </p>
-            <div className="hero-actions">
-              <Link className="hero-primary-action" href="/issues">{t("home.diagnose_cta", "Diagnose an issue")} <span>→</span></Link>
-            </div>
-            <div className="partner-search" id="partner-search">
-              <div className="partner-search-heading">
-                <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary">
-                  {t("home.find_title", "Find a mechanic if you already know what you need.")}
-                </h2>
-                <p>Search trusted independent EV specialists near you.</p>
-              </div>
-            <form className="search" onSubmit={search}>
+              <div className="hero-action-panels">
+                <section className="hero-action-panel hero-action-panel-primary">
+                  <h1 className="hero-panel-title">
+                    <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
+                  </h1>
+                  <p className="intro">
+                    {t("home.intro", "Search proven solutions, tap into a knowledgeable EV community, or get a remote diagnosis from a mechanic. Visit a shop only if you need to.")}
+                  </p>
+                  <div className="hero-actions">
+                    <ActionLink className="hero-panel-action" href="/issues">{t("home.try_cta", "Try it out")} <span>→</span></ActionLink>
+                  </div>
+                </section>
+                <section className="hero-action-panel partner-search" id="partner-search">
+                  <div className="partner-search-heading">
+                    <h2 className="hero-panel-title">
+                      {t("home.find_title", "Find a mechanic if you already know what you need.")}
+                    </h2>
+                    <p>Search trusted independent EV specialists near you.</p>
+                  </div>
+                  <form className="search" onSubmit={search}>
                <label className="location-field">
                  <span>Location</span>
                  <input
@@ -564,15 +568,16 @@ export default function Home() {
                   ))}
                 </select>
               </label>
-               <button className="search-button" type="submit" disabled={isGeocoding || isSelectingPlace}>
+                    <Button className="hero-panel-action" type="submit" disabled={isGeocoding || isSelectingPlace}>
                   {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
-              </button>
-            </form>
+                    </Button>
+                  </form>
+                </section>
+              </div>
+              <p className="trust" role="status" aria-live="polite">
+                {locationStatus} · choose a radius that works for your trip
+              </p>
             </div>
-            <p className="trust" role="status" aria-live="polite">
-              {locationStatus} · choose a radius that works for your trip
-            </p>
-          </div>
         </div>
       </section>
       <section className="results wrap" id="results">
