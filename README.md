@@ -102,7 +102,7 @@ npm run check:migrations
 npm run build
 ```
 
-`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run check:migrations` validates local migration filename integrity, not remote status. `npm run build` runs the deployment configuration check and `next build`. The production configuration preflight runs when `VERCEL_ENV=production`, or explicitly with `npm run preflight:production`; it requires the complete production integration configuration, validates safe value shapes, and rejects recognized secrets named `NEXT_PUBLIC_*`. It does not validate credentials or live services.
+`npm test` runs Node tests for request validation and the geocoding route's fail-closed behavior. `npm run check:migrations` validates local migration filename integrity, not remote status. `npm run build` runs the deployment configuration check and `next build`. The production configuration preflight runs when `VERCEL_ENV=production`, or explicitly with `npm run preflight:production`; it requires core platform configuration, validates safe value shapes, rejects partial Stripe configuration, and rejects recognized secrets named `NEXT_PUBLIC_*`. Yelp and the complete Stripe group are optional. It does not validate credentials or live services.
 
 CI runs migration integrity and production configuration preflight with non-secret fixture values, then `npm test` and `npm run build` on pull requests and pushes to `main`.
 

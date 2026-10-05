@@ -11,14 +11,12 @@ const required = [
   "SUPABASE_SECRET_KEY",
   "NEXT_PUBLIC_APP_URL",
   "GOOGLE_MAPS_API_KEY",
-  "YELP_API_KEY",
   "CRON_SECRET",
-  "STRIPE_SECRET_KEY",
-  "STRIPE_WEBHOOK_SECRET",
-  "STRIPE_MEMBER_PRICE_ID",
-  "STRIPE_PREMIUM_PRICE_ID",
 ];
 const missing = required.filter((name) => !process.env[name]?.trim());
+const stripeVariables = ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "STRIPE_MEMBER_PRICE_ID", "STRIPE_PREMIUM_PRICE_ID"];
+const configuredStripeVariables = stripeVariables.filter((name) => process.env[name]?.trim());
+const incompleteStripeVariables = configuredStripeVariables.length ? stripeVariables.filter((name) => !process.env[name]?.trim()) : [];
 const invalid = [];
 const value = (name) => process.env[name]?.trim() ?? "";
 const canonicalHttpsOrigin = (input) => {
@@ -43,11 +41,12 @@ for (const name of ["STRIPE_MEMBER_PRICE_ID", "STRIPE_PREMIUM_PRICE_ID"]) {
 }
 
 const exposedSecrets = Object.keys(process.env).filter((name) => /^NEXT_PUBLIC_.*(?:SECRET|PRIVATE|WEBHOOK|CRON|YELP|STRIPE)/i.test(name));
-if (missing.length || invalid.length || exposedSecrets.length) {
+if (missing.length || incompleteStripeVariables.length || invalid.length || exposedSecrets.length) {
   if (missing.length) console.error(`Missing production environment variables: ${missing.join(", ")}`);
+  if (incompleteStripeVariables.length) console.error(`Incomplete Stripe configuration: ${incompleteStripeVariables.join(", ")}`);
   for (const message of invalid) console.error(message);
   if (exposedSecrets.length) console.error(`Secret variables must not use NEXT_PUBLIC_: ${exposedSecrets.join(", ")}`);
   process.exit(1);
 }
 
-console.log("Production configuration shape preflight passed. It does not verify provider credentials or live services.");
+console.log("Production configuration shape preflight passed. Stripe and Yelp are optional; it does not verify provider credentials or live services.");
