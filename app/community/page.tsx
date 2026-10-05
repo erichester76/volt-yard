@@ -1,17 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { FormEvent, useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
-import { defaultLocale, localeFromPath } from "@/lib/i18n";
-import { useLocalizedContent } from "@/lib/localized-content";
+import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Category = { id: string; name: string; slug: string; description: string | null };
 type Topic = { id: string; slug: string; title: string; body: string; score: number; is_pinned: boolean; created_at: string; community_categories: Category | null };
 const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 export default function CommunityPage() {
-  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const locale = useLocale();
   const t = useLocalizedContent(locale);
   const [topics, setTopics] = useState<Topic[]>([]); const [categories, setCategories] = useState<Category[]>([]); const [status, setStatus] = useState("Loading conversations..."); const [title, setTitle] = useState(""); const [body, setBody] = useState(""); const [categoryId, setCategoryId] = useState(""); const [filter, setFilter] = useState(""); const [showForm, setShowForm] = useState(false);
   const load = async () => { if (!isSupabaseConfigured) return setStatus("Community is not configured."); const db = createBrowserSupabaseClient(); const [categoryResult, topicResult] = await Promise.all([db.from("community_categories").select("id,name,slug,description").eq("active", true).order("sort_order").order("name"), db.from("community_topics").select("id,slug,title,body,score,is_pinned,created_at,community_categories(id,name,slug,description)").in("moderation_state", ["published", "locked"]).order("is_pinned", { ascending: false }).order("score", { ascending: false }).order("last_activity_at", { ascending: false })]); if (categoryResult.error || topicResult.error) return setStatus((categoryResult.error || topicResult.error)?.message ?? "Conversations could not be loaded."); const loadedCategories = (categoryResult.data ?? []) as Category[]; setCategories(loadedCategories); setCategoryId((value) => value || loadedCategories[0]?.id || ""); setTopics((topicResult.data ?? []) as unknown as Topic[]); setStatus(""); };

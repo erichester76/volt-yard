@@ -1,10 +1,9 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { HeadingAccent } from "@/app/heading-accent";
-import { defaultLocale, localeFromPath } from "@/lib/i18n";
-import { useLocalizedContent } from "@/lib/localized-content";
+import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
@@ -99,7 +98,7 @@ function directoryErrorMessage(error: DirectoryRpcError) {
 }
 
 export default function Home() {
-  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const locale = useLocale();
   const t = useLocalizedContent(locale);
   const [make, setMake] = useState("Any make");
   const [year, setYear] = useState("Any year");

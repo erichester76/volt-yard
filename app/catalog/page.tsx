@@ -1,17 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { authRedirectUrl } from "@/lib/auth-redirect";
-import { defaultLocale, localeFromPath } from "@/lib/i18n";
-import { useLocalizedContent } from "@/lib/localized-content";
+import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Product = { id: string; slug: string; name: string; description: string; price_cents: number; category: { name: string } | null; product_vehicle_compatibility: { vehicle: { make: string; model: string; model_year: number } | null }[] };
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 
 export default function CatalogPage() {
-  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const locale = useLocale();
   const t = useLocalizedContent(locale);
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState("");

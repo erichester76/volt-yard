@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/app/locale-link";
 import { HeadingAccent } from "@/app/heading-accent";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
-import { defaultLocale, localeFromPath } from "@/lib/i18n";
-import { useLocalizedContent } from "@/lib/localized-content";
+import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 type Case = {
   id: string;
@@ -23,7 +22,7 @@ type GarageVehicle = {
 };
 
 export default function IssuesPage() {
-  const locale = typeof window === "undefined" ? defaultLocale : localeFromPath(window.location.pathname);
+  const locale = useLocale();
   const t = useLocalizedContent(locale);
   const [sourceTopicId, setSourceTopicId] = useState<string | null>(null);
   const [cases, setCases] = useState<Case[]>([]);

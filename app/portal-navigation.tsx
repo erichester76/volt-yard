@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/app/locale-link";
 
 export function AdminNavigation() {
   return (
