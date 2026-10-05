@@ -459,26 +459,38 @@ export default function Home() {
           <div className="wrap hero-grid">
             <div>
             <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
-              <div className="hero-action-panels">
-                <section className="hero-action-panel hero-action-panel-primary">
-                  <h1 className="hero-panel-title">
-                    <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
-                  </h1>
-                  <p className="intro">
-                    {t("home.intro", "Search proven solutions, tap into a knowledgeable EV community, or get a remote diagnosis from a mechanic. Visit a shop only if you need to.")}
-                  </p>
-                  <div className="hero-actions">
-                    <ActionLink className="hero-panel-action" href="/issues">{t("home.try_cta", "Try it out")} <span>→</span></ActionLink>
-                  </div>
-                </section>
-                <section className="hero-action-panel partner-search" id="partner-search">
-                  <div className="partner-search-heading">
-                    <h2 className="hero-panel-title">
-                      {t("home.find_title", "Find a mechanic if you already know what you need.")}
-                    </h2>
-                    <p>Search trusted independent EV specialists near you.</p>
-                  </div>
-                  <form className="search" onSubmit={search}>
+            <h1 className="heading-primary hero-action-heading hero-action-heading-primary">
+              <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
+            </h1>
+            <p className="intro">
+              {t("home.intro", "Keep the details of an EV issue together as you move from a question to the right kind of help.")}
+            </p>
+            <div className="hero-panels">
+              <section className="hero-panel diagnose-panel" aria-labelledby="diagnose-panel-title">
+                <p className="eyebrow">{t("home.diagnose_eyebrow", "The Volt Yard difference")}</p>
+                <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="diagnose-panel-title">
+                  {t("home.diagnose_title", "Support that stays with the issue.")}
+                </h2>
+                <p className="panel-intro">{t("home.diagnose_intro", "Start with guided issue context, then keep one support loop from answers to experts to a service partner.")}</p>
+                <ul className="diagnose-paths">
+                  <li>{t("home.diagnose_answers", "Guided context makes the next step clearer.")}</li>
+                  <li>{t("home.diagnose_expertise", "Answers, community, experts, and service stay connected.")}</li>
+                  <li>{t("home.diagnose_handoff", "Members save issue history; Premium adds priority context and expert-response options.")}</li>
+                </ul>
+                <div className="hero-actions">
+                  <Link className="hero-primary-action diagnose-action" href="/issues">{t("home.diagnose_cta", "Try it out")} <span>→</span></Link>
+                  <Link className="membership-cue" href="/membership">{t("home.diagnose_membership", "Explore Member and Premium support.")}</Link>
+                </div>
+              </section>
+              <section className="hero-panel partner-panel partner-search" id="partner-search" aria-labelledby="partner-panel-title">
+              <div className="partner-search-heading">
+                <p className="eyebrow">{t("home.find_eyebrow", "Just need a shop?")}</p>
+                <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="partner-panel-title">
+                  {t("home.find_title", "Find an EV service partner.")}
+                </h2>
+                <p>{t("home.find_intro", "No pressure. Search independent shops and service partners near you when you already know what you need.")}</p>
+              </div>
+                <form className="search" onSubmit={search}>
                <label className="location-field">
                  <span>Location</span>
                  <input
