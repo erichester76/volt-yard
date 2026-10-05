@@ -6,6 +6,7 @@ import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
 } from "@/lib/supabase";
+import { Button, PageHeader } from "@/app/page-primitives";
 
 type Category = {
   id: string;
@@ -197,23 +198,12 @@ export default function CommunityPage() {
     : topics;
   return (
     <main className="content-page wrap">
-      <header className="content-head community-head">
-        <div>
-          <p className="eyebrow">Volt Yard community</p>
-          <h1>Ask owners who have been there.</h1>
-          <p>
-            Compare notes, learn what is normal, and know when it is time to
-            bring in a specialist.
-          </p>
-        </div>
-        <button
-          className="inline-cta"
+      <PageHeader className="content-head community-head" eyebrow="Volt Yard community" title="Ask owners who have been there." intro="Compare notes, learn what is normal, and know when it is time to bring in a specialist." actions={<Button
           onClick={() => setShowForm((value) => !value)}
           aria-expanded={showForm}
         >
           Ask the community
-        </button>
-      </header>
+        </Button>} />
       {showForm && (
         <form className="community-form" onSubmit={publish}>
           <label>
@@ -252,7 +242,7 @@ export default function CommunityPage() {
               placeholder="Include your vehicle, symptoms, and what you have already checked."
             />
           </label>
-          <button type="submit">Submit question</button>
+          <Button type="submit">Submit question</Button>
         </form>
       )}
       <div className="community-toolbar">

@@ -3,6 +3,7 @@
 import Link from "@/app/locale-link";
 import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { PageHeader } from "@/app/page-primitives";
 
 type Resource = { id: string; slug: string; title: string; summary: string; published_at: string | null; type: string };
 const labels: Record<string, string> = { article: "Journal", video: "Video tutorial", release_note: "Release note" };
@@ -17,5 +18,5 @@ export default function ResourceIndex({ type, eyebrow, title, intro }: { type: "
       setItems((data ?? []) as Resource[]); setStatus("");
     });
   }, [type]);
-  return <main className="content-page wrap"><header className="content-head"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{intro}</p></header><p className="directory-status">{status}</p><section className="resource-grid">{items.map((item) => <article className="resource-card" key={item.id}><p className="eyebrow">{labels[item.type]} · {item.published_at ? new Date(item.published_at).toLocaleDateString() : "New"}</p><h2>{item.title}</h2><p>{item.summary}</p><Link href={`/library/${item.slug}`}>Read more <span>→</span></Link></article>)}</section>{!status && !items.length && <p className="empty-copy">Nothing published here yet.</p>}</main>;
+  return <main className="content-page wrap"><PageHeader className="content-head" eyebrow={eyebrow} title={title} intro={intro} /><p className="directory-status">{status}</p><section className="resource-grid">{items.map((item) => <article className="resource-card" key={item.id}><p className="eyebrow">{labels[item.type]} · {item.published_at ? new Date(item.published_at).toLocaleDateString() : "New"}</p><h2>{item.title}</h2><p>{item.summary}</p><Link href={`/library/${item.slug}`}>Read more <span>→</span></Link></article>)}</section>{!status && !items.length && <p className="empty-copy">Nothing published here yet.</p>}</main>;
 }

@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Link from "@/app/locale-link";
 import { HeadingAccent } from "@/app/heading-accent";
+import { ActionLink, Button, PageHeader } from "@/app/page-primitives";
 import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
@@ -142,14 +143,13 @@ export default function ProfilePage() {
 
   return (
     <main className="profile-page wrap">
-      <p className="eyebrow">Customer profile</p>
-      <h1><HeadingAccent>Your</HeadingAccent> account.</h1>
+      <PageHeader eyebrow="Customer profile" title={<><HeadingAccent>Your</HeadingAccent> account.</>} />
       <section>
         <h2>Signed in as</h2>
         <p>{email || "Loading account..."}</p>
         <form className="community-form" onSubmit={save}>
           <label>Display name<input value={name} maxLength={120} onChange={(event) => setName(event.target.value)} placeholder="How the community should know you" /></label>
-          <button type="submit">Save profile</button>
+          <Button type="submit">Save profile</Button>
         </form>
         <p>Membership: <b>{tier}</b>. <Link href="/membership">View plans and options</Link></p>
       </section>
@@ -159,7 +159,7 @@ export default function ProfilePage() {
             <p className="eyebrow">Your garage</p>
             <h2>Vehicles</h2>
           </div>
-          {vehicles.length > 0 && <Link className="inline-cta" href="/issues">Diagnose an issue</Link>}
+          {vehicles.length > 0 && <ActionLink href="/issues">Diagnose an issue</ActionLink>}
         </div>
         <form className="profile-vehicle-form" onSubmit={addVehicle}>
           <label>
@@ -183,7 +183,7 @@ export default function ProfilePage() {
               {models.map((option) => <option key={option} value={option}>{option}</option>)}
             </select>
           </label>
-          <button type="submit" disabled={addingVehicle}>{addingVehicle ? "Adding..." : "Add vehicle"}</button>
+          <Button type="submit" disabled={addingVehicle}>{addingVehicle ? "Adding..." : "Add vehicle"}</Button>
         </form>
         {vehicles.length > 0 ? (
           <div className="profile-vehicle-list">
@@ -200,7 +200,7 @@ export default function ProfilePage() {
         ) : (
           <div className="profile-vehicle-empty">
             <p>No saved vehicles yet. Start a diagnosis to add one to your garage.</p>
-            <Link className="inline-cta" href="/issues">Diagnose an issue</Link>
+            <ActionLink href="/issues">Diagnose an issue</ActionLink>
           </div>
         )}
       </section>
