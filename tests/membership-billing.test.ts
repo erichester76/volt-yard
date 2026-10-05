@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isCurrentMembershipStatus, isMembershipTier, membershipPriceId } from "../lib/membership-billing";
+import { isCurrentMembershipStatus, isEntitledMembershipStatus, isMembershipTier, membershipPriceId, membershipSubscriptionClaims } from "../lib/membership-billing";
 
 test("membership billing accepts only paid tiers and configured prices", () => {
   const memberPrice = process.env.STRIPE_MEMBER_PRICE_ID;
@@ -22,4 +22,16 @@ test("membership billing accepts only paid tiers and configured prices", () => {
 test("membership billing treats billable subscription states as current", () => {
   for (const status of ["active", "trialing", "past_due", "unpaid"]) assert.equal(isCurrentMembershipStatus(status), true);
   for (const status of ["canceled", "incomplete", "incomplete_expired", "paused"]) assert.equal(isCurrentMembershipStatus(status), false);
+});
+
+test("membership claims require a known tier and Stripe user identifier", () => {
+  assert.deepEqual(membershipSubscriptionClaims({ user_id: "user-1", membership_tier: "member" }), { userId: "user-1", tier: "member" });
+  assert.deepEqual(membershipSubscriptionClaims({ user_id: "user-1", membership_tier: "premium" }), { userId: "user-1", tier: "premium" });
+  assert.equal(membershipSubscriptionClaims({ user_id: "user-1", membership_tier: "free" }), null);
+  assert.equal(membershipSubscriptionClaims({ membership_tier: "member" }), null);
+});
+
+test("only active and trialing subscriptions grant membership access", () => {
+  for (const status of ["active", "trialing"]) assert.equal(isEntitledMembershipStatus(status), true);
+  for (const status of ["past_due", "unpaid", "canceled", "paused"]) assert.equal(isEntitledMembershipStatus(status), false);
 });

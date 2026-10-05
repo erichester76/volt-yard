@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { NextRequest } from "next/server";
 import { middleware } from "../middleware";
-import { localePath, localePathname, negotiateLocale } from "../lib/i18n";
+import { localeFromPath, localePath, localePathname, negotiateLocale } from "../lib/i18n";
 import { localeMetadata } from "../lib/locale-metadata";
 import { publishedLocalizedContent } from "../lib/localized-content-server";
 
@@ -31,6 +31,14 @@ test("passes locale context through prefixed navigation requests", () => {
   const response = middleware(new NextRequest("https://voltyard.test/de/issues"));
   assert.equal(response.headers.get("x-middleware-next"), "1");
   assert.equal(response.headers.get("location"), null);
+});
+
+test("preserves route navigation details while adding or reading locales", () => {
+  assert.equal(localePath("de", "catalog?sort=price#details"), "/de/catalog?sort=price#details");
+  assert.equal(localeFromPath("/fr/community/topic"), "fr");
+  assert.equal(localeFromPath("/unknown/community"), "en");
+  const response = middleware(new NextRequest("https://voltyard.test/cart?cancelled=1", { headers: { "accept-language": "es" } }));
+  assert.equal(response.headers.get("location"), "https://voltyard.test/es/cart?cancelled=1");
 });
 
 test("builds locale-specific canonical and hreflang metadata", () => {
