@@ -169,6 +169,37 @@ Deliverables:
 
 **Streamlined specialty/infrastructure launch:** verify the business-specific credentials and insurance; build a scope, compatibility, service-area, portfolio, and warranty/disclosure profile; configure contact/lead routing; establish a member offer; create social/email launch assets; and review results after 30/60/90 days. Add a technical event or more intensive training only when it supports the partner class.
 
+### Premises Branding and Local Presence
+
+The physical partner network should be visible where owners make service decisions. Public directory status alone is insufficient. Certified and Verified partners receive class-appropriate premises branding and local launch support as part of the launch program; Network Leaders can receive larger co-marketing activations.
+
+**Partner premises kit:**
+
+- Certified Partner window decal or door mark, with a QR code to the live profile, stated service scope, and member offer where applicable.
+- Reception/counter signage, service-advisor one-sheet, and optional waiting-area member/issue-flow material.
+- Exterior signage only where permitted by property owner, landlord, local sign code, and the shop's existing brand standards.
+- Specialty and Infrastructure partners receive a distinct Verified Specialty/Infrastructure mark, never a repair-certification mark.
+- Partner profile, social launch, local press/community assets, and post-event content use the same approved brand language and disclosed status.
+
+The mark is a revocable, non-transferable license. It may be used only while the partner is active and in good standing, must be removed promptly on suspension/termination, and cannot be altered, sub-licensed, used on unrelated locations, or presented as an Amped Up Network warranty or ownership relationship. The partner agreement must define artwork approval, installation/removal responsibility, replacement cost, audit rights, and treatment of pre-existing signage.
+
+### Field and Place-Based Market Launch
+
+Use high-intent local presence to introduce a new market: owners should repeatedly encounter Amped Up Network near charging, EV events, partner shops, and relevant travel/ownership touchpoints. The objective is to build local awareness and member acquisition around a real, available partner network, not to advertise before supply can fulfill demand.
+
+Potential tactics:
+
+- Billboards, digital out-of-home, and geofenced/mobile placements on EV commuter corridors and near charging destinations.
+- Approved signage or media placements at charging locations, EV-friendly retail centers, parking facilities, and event venues.
+- Amped Up Network staff-led pop-ups near charging destinations: owner education, issue-tracker demonstrations, partner launch offers, and event/member enrollment.
+- Co-hosted partner open houses, cars-and-coffee, technical sessions, test/demo days, and inspection campaigns.
+- Member/referral cards, QR-coded leave-behinds, and local creator/community content captured at approved activations.
+- Partner-premises signage that converts existing shop traffic into members and gives Amped Up members a recognizable in-person trust signal.
+
+Charging locations, including Tesla Supercharger sites, are not public canvassing rights. Pop-ups, signage, sampling, filming, parking-lot activation, and data capture require the applicable property-owner, site-operator, event, municipal, and platform permissions. Do not station staff, distribute material, obstruct stalls/traffic, imply Tesla or site-operator endorsement, or collect contact information without consent. Where direct activation is not permitted, use approved adjacent venues, paid media inventory, local-event partnerships, or digital geofencing that complies with applicable platform and privacy rules.
+
+Run each activation as a measured campaign with a named supply partner, explicit budget, permitted location, safety plan, staff training, QR/referral code, privacy notice, lead owner, and post-campaign review. Track impressions where available, scans, sign-ups, paid conversions, partner requests, completed work, event attendance, cost per qualified member, and 90-day retained-member value. Do not measure success by foot traffic alone.
+
 ### Ongoing Shop Membership
 
 | Plan | Planning price | Includes |
@@ -498,12 +529,13 @@ The business should remain asset-light. The largest needs are people, launch ope
 | Founder/operations and partner success | $90,000-$180,000/year | Assessment, training, launch, customer escalation, and partner retention. |
 | Engineering/product maintenance | $30,000-$120,000/year | Depends on founder capability and contractor use; current app provides a base. |
 | Legal, insurance, compliance, accounting | $20,000-$50,000 first year | Franchise analysis, marketplace/referral review, contracts, privacy, terms, and coverage. |
-| Local marketing and events | $25,000-$75,000/year | Co-funded where possible; track by partner and member acquisition. |
+| Local marketing, events, and activations | $25,000-$75,000/year | Co-funded where possible; includes partner launches, event production, staff activations, and local creator/community work. Track by partner and member acquisition. |
+| Place-based media and premises branding | $20,000-$100,000/year | Billboards/digital out-of-home, approved charging-area or adjacent-location media, partner window/counter kits, sign production, installation, and replacement. Treat partner kits as a launch-program cost or separately priced add-on. |
 | Content and social production | $40,000-$150,000/year | Producer/editor, photography, video, copy, design, event capture, distribution, and paid-social testing. Distinct from paid media and event costs. |
 | Content equipment and software | $10,000-$30,000 first year | Cameras, audio, lighting, editing workstation, storage, design/editing tools, and asset management. Rent specialty equipment when possible. |
 | Software, payments, data, tools | $12,000-$30,000/year | Hosting, communications, analytics, design, CRM, and payment costs. |
 | Working-capital reserve | $25,000-$75,000 | Refunds, vendor terms, partner payouts on managed services, and slow collections. |
-| **Indicative partner-hosted capital need** | **$252,000-$710,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
+| **Indicative partner-hosted capital need** | **$272,000-$810,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
 
 ### Do We Need A Loan?
 
@@ -600,6 +632,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Measure attributed match-to-completion conversion and customer outcomes.
 - Introduce a single managed service only after scope, partner payout, support burden, and margin are proven.
 - Test one Avants or comparable community pilot and one product/vendor offer.
+- Test one permitted place-based activation and one partner-premises branding kit; retain only channels with measurable qualified-member and partner-work outcomes.
 - Decide whether to add shops in the same metro or replicate the playbook elsewhere only after partner and member retention meet thresholds.
 
 ## Operating Metrics
@@ -620,6 +653,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Managed-service gross margin after all direct costs.
 - Product/vendor revenue with explicit attribution and support cost.
 - Technical-college participation, candidate introductions, work-based-learning participation, and partner-reported hiring outcomes.
+- Place-based activation and premises-branding cost per qualified member, member activation, partner request, completed work, and 90-day retained-member value.
 
 ### Community Trust
 
