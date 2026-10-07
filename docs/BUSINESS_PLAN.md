@@ -504,9 +504,9 @@ Guardrails:
 
 No one revenue line should carry the business. Shop subscription and consumer membership create stability; managed services and completed bookings prove value; vendor and B2B arrangements expand acquisition and margin after trust exists.
 
-## Illustrative First-Market Economics
+## Illustrative Mature First-Market Run Rate
 
-These assumptions model one EV-dense metropolitan market after initial activation. They are not a forecast and exclude taxes, payment processing, refunds, chargebacks, labor, overhead, and acquisition spend.
+These assumptions model one EV-dense metropolitan market at a mature operating run rate after initial activation. They are not a first-year cash forecast and exclude taxes, payment processing, refunds, chargebacks, labor, overhead, and acquisition spend. The 12-month founder-led cash burn-down below models the actual launch ramp.
 
 | Assumption | Value |
 | --- | ---: |
@@ -572,6 +572,8 @@ This is a directional planning case, not an external forecast.
 - Event cost, attendance, member acquisition, and downstream repair conversion.
 
 ## HQ Capital and Financing
+
+The editable operating model is maintained in [AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx](AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx). It contains the founder-led 12-month cash ramp, funding waterfall, and mature-market run-rate calculations. Update its highlighted assumptions before making capital decisions.
 
 ### Near-Term Capital Needs
 
