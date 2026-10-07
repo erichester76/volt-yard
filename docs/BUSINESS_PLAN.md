@@ -16,7 +16,7 @@ Before public launch, complete trademark, domain, social-handle, state corporate
 
 ## Thesis
 
-Independent EV owners need trustworthy help between an observed issue and a successful repair. Independent shops need qualified EV demand, credible differentiation, and a way to build durable relationships with owners. Amped Up Network provides the connective layer:
+Independent EV owners need trustworthy help between an observed issue and a successful repair or ownership service. Independent repair, infrastructure, specialty, and aftermarket partners need qualified EV demand, credible differentiation, and a way to build durable relationships with owners. Amped Up Network provides the connective layer:
 
 ```text
 Issue and vehicle context -> trusted guidance -> qualified shop match -> repair outcome -> verified community intelligence
@@ -108,12 +108,26 @@ Avoid the following until counsel approves a compliant structure:
 
 ## Partner Program
 
+### Partner Classes
+
+Amped Up Network should serve the broader EV ownership ecosystem, not only mechanical repair shops. Partner requirements, customer promises, onboarding scope, and pricing must match the risk and operational complexity of the service.
+
+| Partner class | Examples | Customer-facing status | Launch/onboarding scope |
+| --- | --- | --- | --- |
+| Core EV Repair | Independent repair, diagnostics, battery/thermal, collision, body, tires, alignment, and dealer-adjacent fixed operations. | Verified Partner or Amped Up Certified. | Full readiness assessment, certification evidence, training, detailed capability profile, issue/match workflow, launch offer, event, and 30/60/90-day review. |
+| EV Infrastructure | Licensed electricians, charger installers, solar/storage providers, and charging-service businesses. | Verified Infrastructure Partner; a future specialized certification only after standards are defined. | License/insurance/scope verification, service-area and permit-process profile, lead workflow, basic customer-experience training, and optional event/launch campaign. |
+| Vehicle Appearance and Protection | Window tint, wraps, paint protection film, detailing, coatings, wheels/tires, glass, interior, and accessories. | Verified Specialty Partner. | Business/insurance/scope verification, portfolio/profile production, member offer, booking/contact flow, and social launch. |
+| Aftermarket and Performance | Suspension, brakes, wheels, audio, lighting, fabrication, accessories, overlanding, and vehicle customization. | Verified Specialty Partner. | Business/safety/scope verification, vehicle compatibility and warranty disclosures, portfolio/profile production, member offer, and social launch. |
+| Product, Service, and Community Vendors | Parts, equipment, insurance, roadside, towing, transport, car clubs, events, and education providers. | Approved Ecosystem Partner. | Commercial, support, and brand review; defined offer; tracking; privacy/disclosure review; co-marketing only where useful. |
+
+“Certified” is reserved for the high-trust EV repair path until the network has a separately validated standard for another class. A licensed electrician or excellent wrap shop should not be represented as EV-repair certified merely because it is listed in the network.
+
 ### Partner States
 
 | State | Qualification | Customer-facing promise | Commercial terms |
 | --- | --- | --- | --- |
 | Listed | Claimable profile and basic business verification. | Directory presence only. | Free or low-cost. |
-| Verified Partner | Business, insurance, named staff, capabilities, service area, and baseline terms verified. | Verified information, not a quality claim. | Monthly membership. |
+| Verified Partner (class-specific) | Business, insurance, named staff, capabilities, service area, and baseline terms verified for the partner class. | Verified information and stated scope, not a quality claim. | Monthly membership. |
 | Amped Up Certified | Passes technical, safety, training, warranty, outcome, and customer-experience standards. | EV-capable, monitored partner with documented escalation path. | Monthly membership plus completed-booking fee where used. |
 | Network Leader | Sustained Certified outcomes plus education, events, and constructive community participation. | Regional leader and event host. | Higher membership tier and co-marketing options. |
 
@@ -136,9 +150,9 @@ Do not publish a single opaque score. Publish what the shop can do, evidence-bac
 
 ### Required Partner Launch Program
 
-Every active paid partner completes a productized launch program before its public certified-network launch. This is onboarding and marketing work, not a purchase of certification.
+Core EV Repair partners complete the full productized launch program before their public certified-network launch. This is onboarding and marketing work, not a purchase of certification. Infrastructure and specialty partners complete a streamlined launch matched to their service and risk profile.
 
-Amped Up Electric Garage completes this program first as the founding-partner pilot. Record its costs, staff hours, conversion, exceptions, member feedback, and remediation needs so the launch program is priced and scoped from operating evidence before it is sold widely.
+Amped Up Electric Garage completes the full program first as the founding-partner pilot. Record its costs, staff hours, conversion, exceptions, member feedback, and remediation needs so the launch program is priced and scoped from operating evidence before it is sold widely.
 
 **Planning price:** $3,000-$6,000 one time, excluding venue, catering, paid-media, and other third-party event costs. A founding cohort can receive a limited discount in exchange for feedback, case studies, and permission to use approved launch assets.
 
@@ -153,15 +167,24 @@ Deliverables:
 7. Co-branded email, social, community, and local press launch assets.
 8. A 30/60/90-day performance review covering qualified requests, completed work, feedback, issue outcomes, response time, and member conversion.
 
+**Streamlined specialty/infrastructure launch:** verify the business-specific credentials and insurance; build a scope, compatibility, service-area, portfolio, and warranty/disclosure profile; configure contact/lead routing; establish a member offer; create social/email launch assets; and review results after 30/60/90 days. Add a technical event or more intensive training only when it supports the partner class.
+
 ### Ongoing Shop Membership
 
 | Plan | Planning price | Includes |
 | --- | ---: | --- |
-| Verified Partner | $199/month | Verified listing, limited analytics, community access, and readiness path. |
+| Verified Specialty / Infrastructure Partner | $149-$249/month | Verified listing, portfolio/scope profile, member offer, limited analytics, community access, and appropriate lead routing. |
 | Certified Partner | $499/month | Certification review, priority matching, performance dashboard, partner support, community expert eligibility, and revalidation. |
 | Network Leader | $999/month | Certified Partner benefits plus regional co-marketing, event support, enhanced profile, and advisory-council eligibility. |
 
 Prices are hypotheses to validate. Do not sell a plan with unsupported features. Early shops may receive founding pricing for a stated term, never a perpetual undisclosed discount.
+
+| Launch track | Planning price | Intended partner classes |
+| --- | ---: | --- |
+| Full Certified Partner Launch | $3,000-$6,000 one time | Core EV Repair. |
+| Infrastructure Partner Launch | $1,500-$3,000 one time | Electricians, charger installers, and related infrastructure providers; higher end applies when license/permit/service-area workflow work is substantial. |
+| Specialty Partner Launch | $750-$2,000 one time | Tint, wrap, detail, aftermarket, wheel/tire, and similar providers. |
+| Ecosystem Partner Activation | $500-$1,500 one time | Vendors, clubs, education, or service partners; may be waived when a vendor funds a member offer or event. |
 
 ## Consumer Memberships
 
@@ -186,6 +209,58 @@ Community is not an unmoderated marketing channel for shops. It produces trusted
 - Member questions, case pathways, accepted matches, completed work, and verified outcomes should improve the directory's matching and certification evidence.
 - Reward useful participation with profile prominence, event eligibility, membership credits, or fixed expert fees; do not pay a percentage of work won from an answer.
 - Maintain moderation, conflict-of-interest rules, escalation, and a process to correct unsafe or inaccurate content.
+
+### Issue -> Community -> Expert -> Shop Matching -> Outcome Loop
+
+This loop is the core product flywheel, not four disconnected features. It gives an owner progressively more specific help while preserving privacy and making expert/shop participation economically worthwhile.
+
+```text
+Private issue case
+  -> de-identified community learning
+  -> paid expert guidance when uncertainty or risk remains
+  -> ranked shop/service matching with owner-controlled case-context handoff
+  -> verified repair/outcome
+  -> anonymized insight that improves future issue, community, expert, and matching paths
+```
+
+**1. Private issue case: the structured starting point**
+
+An owner records vehicle, symptoms, warning codes, timing, prior work, photos/documents where supported, and safety context. The case remains owner-controlled and private by default. Amped Up Network does not automatically diagnose the vehicle. The product recommends appropriate next paths based on the information given: urgent/safety guidance, education, community comparison, an expert opportunity, shop/service matching, or a managed inspection.
+
+**2. Community: compare experience before buying help**
+
+The owner may create or join a moderated, de-identified community topic that carries only the needed vehicle and symptom context. Community contributions help the owner recognize common patterns, identify useful questions for a shop, understand owner experiences, and learn when professional service is prudent. Community is free/member value, not a substitute for qualified advice on safety-critical work. Helpful conversations become structured resources after moderation; unsafe advice is corrected or removed.
+
+**3. Expert: paid, accountable escalation**
+
+When the owner needs a qualified interpretation of the issue context, a Premium/Care member can purchase or use a benefit credit for an expert opportunity. The complete private case context is disclosed only to the assigned eligible expert. The expert responds to bounded questions, identifies information that should be collected, explains safe next steps, and recommends the appropriate service type. Expert guidance is educational and documented; it is not a remote diagnosis, repair authorization, or repair guarantee.
+
+**4. Shop/service matching and handoff: act on the guidance**
+
+Matching ranks eligible partners by the owner's location, vehicle, stated capability, service type, availability when known, certification/verification status, relevant verified outcomes, and the owner's stated preference. It must not rank a partner higher because it pays more, sponsors the platform, or supplied the expert answer. The owner chooses a suitable Certified, Infrastructure, or Specialty Partner, or a bounded managed service. The handoff preserves relevant case context with the owner's permission so the owner does not have to repeat the story. The owner remains free to choose any provider; the responding expert is not automatically assigned the repair.
+
+**5. Outcome: close the loop and improve trust**
+
+After a service interaction, the owner records whether the issue was resolved, what service was performed, and optional satisfaction/warranty feedback. For network-attributed work, Amped Up Network requests verified feedback and monitors serious complaints. Aggregated, non-identifying outcome data improves issue pathways, community resources, expert guidance, shop capability evidence, and future matching. It does not become a public diagnostic database or expose a member's case history.
+
+**Value and revenue at each step**
+
+| Step | Owner value | Partner value | Amped Up Network value |
+| --- | --- | --- | --- |
+| Issue | Organized ownership record and an appropriate next step. | Better-qualified future request context. | Free-account activation and structured demand intelligence. |
+| Community | Peer experience and useful questions before spending money. | Earned reputation through disclosed, helpful participation. | Member retention and moderated knowledge assets. |
+| Expert | Accountable paid guidance when peer learning is insufficient. | Direct expert payout, reputation, and a separate relationship from repair routing. | Premium/Care value and platform margin. |
+| Service handoff | Appropriate local service without repeating context. | Qualified, permissioned request or managed-service work. | Shop membership, managed-service margin, or completed-booking fee. |
+| Outcome | Resolution record and a route for escalation. | Verified feedback and performance insight. | Certification evidence, better matching, and durable trust. |
+
+**Product requirements for the loop**
+
+- Owner-controlled privacy settings and an explicit de-identification/share decision at each transition.
+- Case-to-community topic creation that strips contact, VIN, address, invoice, and other sensitive data by default.
+- Clear safety escalation and “seek immediate professional help” states; never ask the community to resolve high-voltage or safety-critical work.
+- Expert assignment/claim rules, response SLA, payment/payout record, quality review, dispute flow, and conflict disclosure.
+- Consent-based case-context sharing to a selected partner, with a versioned snapshot so later edits do not change what was sent.
+- Outcome capture, verified review solicitation, warranty/dispute tracking, and aggregated analytics with minimum sample sizes.
 
 ### Partner Expert Revenue
 
@@ -333,8 +408,8 @@ Guardrails:
 
 | Revenue line | Buyer | Timing | Planning economics |
 | --- | --- | --- | --- |
-| Partner Launch Program | Shop | One time | $3,000-$6,000 per launch, plus pass-through event costs. |
-| Shop network membership | Shop | Monthly recurring | $199 / $499 / $999 by tier. |
+| Partner Launch Program | Shop | One time | $3,000-$6,000 full repair launch; $1,500-$3,000 infrastructure launch; $750-$2,000 specialty launch; plus pass-through event costs. |
+| Shop network membership | Shop | Monthly recurring | $149-$249 specialty/infrastructure; $499 Certified; $999 Network Leader. |
 | Completed qualified booking | Certified shop | Per completed job | $25-$75 fixed fee, subject to legal review and attribution rules. |
 | Managed service margin | Customer order | Per order | Retail price less partner payout, payment fees, support, refunds, and acquisition cost. |
 | Consumer membership | EV owner | Monthly/annual recurring | $9/month Member; $19-$29/month Premium/Care. |
@@ -352,10 +427,11 @@ These assumptions model one EV-dense metropolitan market after initial activatio
 | Assumption | Value |
 | --- | ---: |
 | Certified shops | 10 |
-| Verified shops | 5 |
+| Verified specialty/infrastructure partners | 5 |
 | Certified Partner price | $499/month |
-| Verified Partner price | $199/month |
-| Average launch fee across 15 shops | $4,000 |
+| Verified specialty/infrastructure price | $199/month |
+| Full repair-partner launches | 10 at $4,000 |
+| Specialty/infrastructure launches | 5 at $1,500 |
 | Consumer members | 400 |
 | Consumer annualized membership revenue | $99/member |
 | Completed tracked bookings | 12/shop/month across Certified shops |
@@ -364,15 +440,15 @@ These assumptions model one EV-dense metropolitan market after initial activatio
 
 | Revenue line | Calculation | Year-one revenue |
 | --- | --- | ---: |
-| Partner launches | 15 x $4,000 | $60,000 |
+| Partner launches | (10 x $4,000) + (5 x $1,500) | $47,500 |
 | Certified memberships | 10 x $499 x 12 | $59,880 |
-| Verified memberships | 5 x $199 x 12 | $11,940 |
+| Verified specialty/infrastructure memberships | 5 x $199 x 12 | $11,940 |
 | Consumer memberships | 400 x $99 | $39,600 |
 | Completed-booking fees | 10 x 12 x 12 x $40 | $57,600 |
 | Vendor/local campaigns | 4 x $3,000 | $12,000 |
-| **Illustrative gross revenue** |  | **$241,020** |
+| **Illustrative gross revenue** |  | **$228,520** |
 
-The prior $181,000 example excluded the launch fee. This fuller first-market model includes it. It still excludes managed-service margin, expert-work margin, B2B contracts, and product revenue, so those should be treated as upside only after proven delivery.
+The prior $181,000 example excluded the launch fee. This fuller first-market model includes launch fees differentiated by partner type. It still excludes managed-service margin, expert-work margin, B2B contracts, and product revenue, so those should be treated as upside only after proven delivery.
 
 ### Illustrative Year Two, Same-Market Expansion
 
@@ -381,8 +457,9 @@ This is a directional planning case, not an external forecast.
 | Assumption | Value |
 | --- | ---: |
 | Certified shops | 20 |
-| Verified shops | 10 |
-| New partner launches | 15 at $4,000 |
+| Verified specialty/infrastructure partners | 10 |
+| New repair-partner launches | 10 at $4,000 |
+| New specialty/infrastructure launches | 5 at $1,500 |
 | Consumer members | 1,200 at $99/year |
 | Completed bookings | 15/certified shop/month at $40 |
 | Managed-service contribution margin | $36,000/year |
@@ -390,14 +467,14 @@ This is a directional planning case, not an external forecast.
 
 | Revenue line | Year-two revenue |
 | --- | ---: |
-| Partner launches | $60,000 |
+| Partner launches | $47,500 |
 | Certified memberships | $119,760 |
-| Verified memberships | $23,880 |
+| Verified specialty/infrastructure memberships | $23,880 |
 | Consumer memberships | $118,800 |
 | Completed-booking fees | $144,000 |
 | Managed-service margin | $36,000 |
 | Vendor/B2B revenue | $36,000 |
-| **Illustrative gross revenue** | **$538,440** |
+| **Illustrative gross revenue** | **$525,940** |
 
 ### Unit-Economics Questions To Validate
 
@@ -482,10 +559,12 @@ Debt can be considered for facility equipment only after utilization and recurri
 1. Define and contract the partner program, certification rubric, mark usage, launch deliverables, revalidation, remediation, suspension, and appeals.
 2. Add partner status/plan data and evidence workflows for training, safety, insurance, warranty, capabilities, certification decisions, and performance review.
 3. Add attribution and outcome tracking: referred, contacted, booked, completed, amount optional, feedback, dispute, warranty outcome, and source.
-4. Add a partner dashboard for launch checklist, profile completeness, requests, response metrics, verified feedback, and invoices.
-5. Repair the browser checkout idempotency-header gap before offering paid catalog services or relying on managed-service revenue.
-6. Define customer-support and dispute escalation operations before using the Certified label.
-7. Establish a privacy/data-sharing policy for shops, members, community content, and aggregated issue intelligence.
+4. Add the owner-controlled issue-to-community-to-expert-to-shop-matching workflow: de-identification, share consent, expert assignment, service handoff snapshots, and outcome capture.
+5. Define transparent matching criteria that rank service fit and verified outcomes, not partner payment, sponsorship, or expert-answer affiliation.
+6. Add a partner dashboard for launch checklist, profile completeness, requests, response metrics, verified feedback, and invoices.
+7. Repair the browser checkout idempotency-header gap before offering paid catalog services or relying on managed-service revenue.
+8. Define customer-support and dispute escalation operations before using the Certified label.
+9. Establish a privacy/data-sharing policy for shops, members, community content, education partners, and aggregated issue intelligence.
 
 ### Later-Stage Product Work
 
@@ -508,8 +587,8 @@ Debt can be considered for facility equipment only after utilization and recurri
 
 ### Phase 2: Founding Partner Cohort (60-150 Days)
 
-- Recruit 6-10 founding shops; charge a discounted but real launch fee where possible.
-- Run readiness assessments, training, profile production, and remediation.
+- Recruit 6-10 founding Core EV Repair shops and 3-5 founding specialty/infrastructure partners; charge a discounted but real launch fee where possible.
+- Run the full readiness, training, profile-production, and remediation process for repair shops and the streamlined process for specialty/infrastructure partners.
 - Launch 2-4 certified partners only when evidence supports the designation.
 - Form the founding-market advisory council, issue its charter, and begin quarterly sessions before expanding partner recruitment.
 - Hold initial events and test the inspection/education offer with defined capacity.
@@ -528,6 +607,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 ### Supply Quality
 
 - Active Certified and Verified shops by market and capability.
+- Active specialty, infrastructure, and ecosystem partners by market and service class.
 - Certification pass, remediation, suspension, and renewal rates.
 - Shop response time, match acceptance, completion, no-show, and capacity rates.
 - Verified NPS, repeat issue rate, complaint/escalation rate, and warranty resolution time.
@@ -539,6 +619,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Qualified request-to-booking and booking-to-completion conversion.
 - Managed-service gross margin after all direct costs.
 - Product/vendor revenue with explicit attribution and support cost.
+- Technical-college participation, candidate introductions, work-based-learning participation, and partner-reported hiring outcomes.
 
 ### Community Trust
 
