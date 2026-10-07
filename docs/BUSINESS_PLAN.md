@@ -260,6 +260,41 @@ Proposed pilot:
 
 Do not bundle memberships permanently or represent either organization as endorsing the other until an executed agreement defines customer support, branding, data, benefit funding, and renewal treatment.
 
+### Technical College and Workforce Partnerships
+
+Each launch market should identify local community colleges, technical colleges, and automotive/electrification training programs as education and staffing partners. The objective is not to outsource Amped Up Network certification to a school. It is to expand the EV technician pipeline, give partners access to relevant training and candidates, and create a credible local education presence.
+
+Value for schools:
+
+- Shop advisory input on current EV diagnostic, high-voltage safety, charging, thermal-management, and customer-service skills.
+- Guest instructors, shop tours, equipment demonstrations, case-study content, and employer participation in career events.
+- Defined work-based learning, internship, apprenticeship, or shadowing opportunities with participating partners where available.
+- A local employer network for graduates, without promising placement or hiring outcomes.
+
+Value for Certified Partners:
+
+- Curated access to EV-relevant continuing education and instructor-led training opportunities.
+- An opt-in candidate pipeline for internships, apprenticeships, entry-level roles, and experienced-technician recruiting.
+- Opportunities to host tours, teach a technical session, provide equipment access, and help shape local curriculum advisory work.
+- A credible recruiting and retention benefit that is distinct from generic directory marketing.
+
+Initial partnership structure:
+
+1. Select one education partner per founding market and identify a named workforce-program contact.
+2. Create a non-exclusive memorandum of understanding that defines program purpose, branding, data privacy, safety, insurance, supervision, and points of contact.
+3. Establish a quarterly employer/educator working session, separate from the shop advisory council, to discuss skills gaps and training needs at an aggregate level.
+4. Publish an opt-in opportunity board for participating Certified Partners and students/graduates who explicitly consent to sharing contact information.
+5. Pilot one technical session, one shop tour or career event, and one work-based-learning pathway before representing the program as a staffing benefit.
+6. Track training attendance, candidate introductions, interviews, placements when voluntarily reported, retention, and partner satisfaction.
+
+Guardrails:
+
+- Schools retain curriculum, student, and employment decisions; shops retain all hiring decisions.
+- Amped Up Network must not promise employment, placement, wages, training completion, or certification eligibility through participation.
+- Student safety, supervision, insurance, wage/hour rules, background requirements, and high-voltage access must be documented by the school and the hosting shop before on-site work.
+- Do not charge students for access to employer opportunities. Any employer-paid placement or recruiting fee requires legal review before launch.
+- Protect student and candidate data. Share only opt-in information for an agreed purpose; do not expose issue-case, customer, or shop performance data to schools.
+
 ## Revenue Model
 
 | Revenue line | Buyer | Timing | Planning economics |
@@ -432,6 +467,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Interview 15-25 shops and 30-50 EV owners; validate pain, willingness to pay, service demand, and event interest.
 - Draft certification rubric, partner agreement, launch checklist, member promise, and escalation playbook.
 - Obtain franchise, referral-fee, marketplace/payment, privacy, warranty, insurance, and local-regulatory legal review.
+- Identify one local technical-college or workforce-training partner and scope the initial training and candidate-pipeline pilot.
 - Choose 3-5 bounded managed services for research, but launch no more than one or two.
 
 ### Phase 2: Founding Partner Cohort (60-150 Days)
