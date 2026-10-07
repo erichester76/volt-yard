@@ -96,6 +96,7 @@ Avoid the following until counsel approves a compliant structure:
 - A credible earned certification and public capability profile.
 - Training, readiness assessment, launch marketing, member acquisition support, and local events.
 - Community reputation through verified expert participation.
+- Direct payout opportunities for qualified paid expert responses, independent of any subsequent repair work.
 - Issue and outcome intelligence that identifies common local/model-specific needs.
 - A repeat-customer relationship that remains with the shop after the first match.
 
@@ -186,7 +187,28 @@ Community is not an unmoderated marketing channel for shops. It produces trusted
 - Reward useful participation with profile prominence, event eligibility, membership credits, or fixed expert fees; do not pay a percentage of work won from an answer.
 - Maintain moderation, conflict-of-interest rules, escalation, and a process to correct unsafe or inaccurate content.
 
-Existing product support: paid members can participate in a moderated community; Premium members can open paid expert opportunities; shop owners can claim eligible work; expert payouts are currently recorded manually.
+### Partner Expert Revenue
+
+Certified Partners can earn direct revenue by providing paid expert responses and short-form remote ownership guidance through the community. This makes expert participation a legitimate revenue source for the shop, while the network rewards accurate help rather than only repair conversion.
+
+Initial product shape:
+
+- A Premium/Care member posts a paid expert opportunity from an owned issue case, with vehicle, symptoms, history, and bounded questions.
+- An eligible verified expert from a Certified Partner claims the opportunity under published response-time and quality rules.
+- The expert provides educational guidance, recommended next steps, and appropriate safety limitations. It is not a remote diagnosis, repair authorization, or guarantee.
+- The customer can rate the response and choose a local shop separately. The responding shop may disclose its own availability but cannot receive preferred routing or a repair commission because it answered the question.
+- Amped Up Network charges the customer a published opportunity price, retains a disclosed platform margin, and pays the shop/expert a fixed payout after the response is accepted or the dispute window closes.
+
+Planning economics for an expert opportunity:
+
+| Item | Planning range | Notes |
+| --- | ---: | --- |
+| Customer price | $39-$79 | Price varies by response scope and service level; test willingness to pay. |
+| Partner/expert payout | $25-$50 | Paid to the participating shop, which determines internal technician compensation. |
+| Amped Up Network gross margin before payment/support costs | $14-$29 | Funds platform, moderation, payment fees, dispute handling, and quality assurance. |
+| Premium/Care member benefit | Credit or discounted opportunity | Treat the credit as a defined cost of the membership tier, with unused-credit and renewal rules. |
+
+The initial application already supports paid expert opportunities, shop-owner claims, responses, and administrative payout records. Before charging customers at scale, add a published service scope, response SLA, pricing/payout configuration, acceptance/dispute flow, conflict disclosure, tax/payment workflow, and quality review. Automated payouts should remain deferred until agreements, tax treatment, refund handling, and provider verification are operational.
 
 ## Service and Transaction Strategy
 
