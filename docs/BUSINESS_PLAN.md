@@ -499,7 +499,7 @@ Guardrails:
 | Consumer membership | EV owner | Monthly/annual recurring | $9/month Member; $19-$29/month Premium/Care. |
 | Membership-bundle margin | EV owner | Monthly/annual recurring | Enthusiast / Partner Perks price less Avants or direct-vendor benefit cost, support, and acquisition cost. |
 | Expert opportunity platform margin | Customer order | Per opportunity | Only after payout, tax, service scope, and quality controls are operational. |
-| Vendor/product revenue | Vendor or customer | Per sale/campaign | Affiliate/wholesale margin, sponsored offer, or funded campaign. |
+| Vendor/product revenue | Vendor or customer | Per sale/campaign | Affiliate/wholesale margin, sponsored offer, or funded campaign; campaign delivery cost is modeled separately. |
 | B2B network access | Organization | Contract recurring | Later-stage referral, co-branded directory, or member-benefit agreement. |
 
 No one revenue line should carry the business. Shop subscription and consumer membership create stability; managed services and completed bookings prove value; vendor and B2B arrangements expand acquisition and margin after trust exists.
