@@ -317,9 +317,11 @@ The business should remain asset-light. The largest needs are people, launch ope
 | Engineering/product maintenance | $30,000-$120,000/year | Depends on founder capability and contractor use; current app provides a base. |
 | Legal, insurance, compliance, accounting | $20,000-$50,000 first year | Franchise analysis, marketplace/referral review, contracts, privacy, terms, and coverage. |
 | Local marketing and events | $25,000-$75,000/year | Co-funded where possible; track by partner and member acquisition. |
+| Content and social production | $40,000-$150,000/year | Producer/editor, photography, video, copy, design, event capture, distribution, and paid-social testing. Distinct from paid media and event costs. |
+| Content equipment and software | $10,000-$30,000 first year | Cameras, audio, lighting, editing workstation, storage, design/editing tools, and asset management. Rent specialty equipment when possible. |
 | Software, payments, data, tools | $12,000-$30,000/year | Hosting, communications, analytics, design, CRM, and payment costs. |
 | Working-capital reserve | $25,000-$75,000 | Refunds, vendor terms, partner payouts on managed services, and slow collections. |
-| **Indicative lean capital need** | **$202,000-$530,000** | Before founder draws beyond the operating assumption and before expansion to another market. |
+| **Indicative partner-hosted capital need** | **$252,000-$710,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
 
 ### Do We Need A Loan?
 
@@ -331,6 +333,32 @@ Not necessarily at launch. A conventional loan is a poor first source for unprov
 4. Use debt only for predictable uses with clear repayment capacity, such as receivables/working capital or equipment that Amped Up Network owns and can secure. Do not borrow heavily to subsidize shop launches, speculative events, or inventory.
 
 Before seeking a loan, build a 13-week cash forecast with actual timing for launch-fee collections, annual subscriptions, Stripe settlement, partner payouts, payroll/contractors, refunds, insurance, and event deposits. The threshold question is cash-flow coverage, not whether the annual projection is positive.
+
+### Engineering and Content Facility
+
+The network does not need a dedicated facility to prove the first-market directory, certification, or managed-service model. Amped Up Electric Garage and other founding partners can host inspections, technical sessions, training, and launch events. Use that lower-risk model first.
+
+A dedicated facility becomes valuable when it can reliably serve several functions that partners cannot: engineering and product testing, standardized training, media production, vehicle demonstrations, member events, and operational prototyping. It should not be acquired merely to make the brand appear established.
+
+| Facility component | Planning range | Notes |
+| --- | ---: | --- |
+| Light industrial/studio occupancy | $60,000-$240,000/year | Lease, common-area charges, utilities, basic insurance, and location-dependent taxes. Validate with local quotes; this is highly market-sensitive. |
+| Initial fit-out and safety infrastructure | $30,000-$150,000 one time | Electrical work, ventilation, secure storage, lighting, work surfaces, fire/safety equipment, signage, network, and permitting. |
+| Engineering/test equipment | $25,000-$150,000 one time | Diagnostic tools, high-voltage safety equipment, charging/test equipment, measurement tools, and secure data/equipment storage. Do not duplicate equipment a certified shop already provides without a testing need. |
+| Facility staff or contracted technical lead | $80,000-$180,000/year | Responsible for testing protocols, safety, equipment, demonstrations, and vendor/product evaluation. |
+| Studio/event equipment increment | $15,000-$75,000 one time | Permanent lighting, audio, backdrop, set pieces, livestream, furniture, event supplies, and production storage. |
+| Incremental facility insurance, maintenance, and contingency | $25,000-$75,000/year | Includes maintenance, security, compliance, equipment calibration, and unexpected facility expenses. |
+| **Indicative added facility commitment** | **$235,000-$870,000 first year** | Add to the partner-hosted model; excludes vehicle inventory and major construction. |
+
+Facility stage gates:
+
+1. Do not sign a lease until founding shops are active, at least one repeatable managed service is proven, and partner-hosted events have demonstrated demand.
+2. Require a written facility operating plan that allocates time and cost across testing, training, content, member events, and revenue-generating services.
+3. Set utilization targets before committing: paid training days, sponsored/vendor test programs, production days, member events, and managed-service support activity.
+4. Prefer short lease terms, expansion options, shared industrial/studio space, or a sublease for the first facility.
+5. Treat vehicles used for testing or content as separately budgeted assets with title, insurance, depreciation, safety, and usage controls. Do not hide them in a general facility budget.
+
+Debt can be considered for facility equipment only after utilization and recurring cash flow support repayment. Avoid using debt for open-ended lease exposure, speculative fit-out, unsold vehicle inventory, or a permanent content team before the distribution engine proves repeatable.
 
 ## Product Roadmap and Current-State Alignment
 
