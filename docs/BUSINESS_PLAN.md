@@ -6,9 +6,9 @@ This is an internal operating plan for building Amped Up Network into a trusted 
 
 ## Working Brand
 
-Use **Amped Up Network** as the working brand for this plan. It describes a network of EV owners, independent service partners, community experts, and ecosystem vendors without implying a physical garage chain, an exclusive territory, or a franchise.
+Use **Amped Up Network** as the working brand for this plan. It describes a network of EV owners, independent service partners, community experts, and ecosystem vendors without implying a physical garage chain, an exclusive territory, or a franchise. The network begins with a six-month, four-discipline local validation council: a brick-and-mortar EV repair shop, a mobile EV mechanic, an EV-infrastructure electrician, and a vehicle wrap/tint shop.
 
-**Amped Up Electric Garage** is the intended founding shop and first founding network partner, not the network's primary name. It gives the network a real operating reference point: the first site to complete the launch program, meet the certification evidence requirements, host events, and validate member services. It must be held to the same published standards, review process, match-routing rules, and escalation process as every other partner.
+**Amped Up Electric Garage** is the intended founding shop and first paid founding network partner, not the network's primary name. It gives the network a real operating reference point: the first site to complete the launch program, meet the certification evidence requirements, host events, and validate member services. It must be held to the same published standards, review process, match-routing rules, and escalation process as every other partner.
 
 Keep the organizations commercially and operationally distinct. Amped Up Network is the independent platform and certification brand; Amped Up Electric Garage is an independent service provider within that network. They share common ownership; disclose that relationship in directory profiles, member communication, public methodology, and any matching logic. Do not give the founding shop undisclosed preferential placement or exempt it from certification review.
 
@@ -22,7 +22,7 @@ Independent EV owners need trustworthy help between an observed issue and a succ
 Issue and vehicle context -> trusted guidance -> qualified shop match -> repair outcome -> verified community intelligence
 ```
 
-The community is the trust and data layer. Certification makes local supply dependable. Membership makes ownership support recurring. Managed services and qualified completed bookings create transaction revenue. The product remains EV-focused; it is not a generic mechanic directory.
+The community is the trust and data layer. Certification makes local supply dependable. Membership makes ownership support recurring. Managed services and qualified completed bookings create transaction revenue. Before charging shops, the four-discipline validation council reviews aggregate trial data with the network to test these assumptions across repair, mobile service, charging infrastructure, and vehicle appearance/protection. The product remains EV-focused; it is not a generic mechanic directory.
 
 ## Operating Model
 
@@ -34,10 +34,11 @@ Amped Up Network is initially an independent network company, not a member-owned
 - Customers pay for ownership support, trusted matching, service benefits, and community access.
 - The platform earns from subscriptions, productized launch services, managed services, and completed matched work.
 - A founding-market advisory council should influence standards, roadmap priorities, and regional programming without receiving ownership or operational control in the first phase.
+- The first council is an unpaid, four-discipline validation group: brick-and-mortar repair, mobile repair, EV infrastructure, and wrap/tint. It provides operational feedback from the start of the directory trial; it is not a substitute for the later paid-partner assessment.
 
 ### Founder-Led Operating Advantage
 
-The first-market plan benefits from unusual founder capacity: the founder is the lead mechanic at Amped Up Electric Garage and an experienced multi-business operator. That allows the founding shop to serve as the first operational testbed, while the founder leads partner assessment, technical standards, launch design, early sales, and product prioritization without immediately hiring separate leadership for each function.
+The first-market plan benefits from unusual founder capacity: the founder is the lead mechanic at Amped Up Electric Garage and an experienced multi-business operator. That allows the founding shop to serve as the first operational testbed, while the founder leads partner assessment, technical standards, launch design, early sales, and product prioritization without immediately hiring separate leadership for each function. The validation council adds independent brick-and-mortar, mobile, electrical-infrastructure, and wrap/tint perspectives before those standards or offers are sold.
 
 The initial content operation can also use family video-editing capacity for short-form social, event capture, partner launch assets, and member education. Use written scopes, compensation terms, asset ownership/IP assignments, publication approval, and privacy rules even when work is performed by family members. Reduced cash cost is an advantage, but the plan should still track actual hours and the market replacement cost of founder/family labor so the model can be staffed realistically as it grows.
 
@@ -49,6 +50,7 @@ During the six-month validation phase, form an interim founding-market advisory 
 
 - Founding term: 12 months from the market's public launch, then transition to elected/rotating seats.
 - Validation seats: one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop. Select participants for relevant EV experience, willingness to share operational feedback, and absence of unresolved safety, licensing, or consumer-protection concerns.
+- Validation cadence: monthly facilitated review of aggregate trial data and a documented decision log for directory taxonomy, handoffs, expert-work rules, education, and later partner requirements.
 - One seat and one vote per eligible shop, regardless of size, revenue, or ownership interest.
 - Include one non-shop member representative once the market has a meaningful paid-member base; until then, use a customer advisory panel or quarterly owner interviews.
 - Meetings: quarterly strategy sessions plus limited working groups for certification standards, member experience, events, and local partnerships.
@@ -123,6 +125,8 @@ Avoid the following until counsel approves a compliant structure:
 
 Amped Up Network should serve the broader EV ownership ecosystem, not only mechanical repair shops. Partner requirements, customer promises, onboarding scope, and pricing must match the risk and operational complexity of the service.
 
+The six-month validation council deliberately spans the first four service classes below: brick-and-mortar Core EV Repair, mobile repair within that class, EV Infrastructure, and Vehicle Appearance and Protection. Its trial feedback and aggregate demand data set the order in which later paid partner offerings, service categories, and certification evidence are developed. Council participation does not create a public quality endorsement or bypass the class-specific requirements below.
+
 | Partner class | Examples | Customer-facing status | Launch/onboarding scope |
 | --- | --- | --- | --- |
 | Core EV Repair | Independent repair, diagnostics, battery/thermal, collision, body, tires, alignment, and dealer-adjacent fixed operations. | Verified Partner or Amped Up Certified. | Full readiness assessment, certification evidence, training, detailed capability profile, issue/match workflow, launch offer, event, and 30/60/90-day review. |
@@ -137,7 +141,7 @@ Amped Up Network should serve the broader EV ownership ecosystem, not only mecha
 
 | State | Qualification | Customer-facing promise | Commercial terms |
 | --- | --- | --- | --- |
-| Listed | Claimable profile and basic business verification. | Directory presence only. | Free or low-cost. |
+| Listed | Claimable profile and basic business verification. | Directory presence only. During validation, use `Community Listed` or `Unclaimed` language rather than implying partner status. | Free or low-cost. |
 | Verified Partner (class-specific) | Business, insurance, named staff, capabilities, service area, and baseline terms verified for the partner class. | Verified information and stated scope, not a quality claim. | Monthly membership. |
 | Amped Up Certified | Passes technical, safety, training, warranty, outcome, and customer-experience standards. | EV-capable, monitored partner with documented escalation path. | Monthly membership plus completed-booking fee where used. |
 | Network Leader | Sustained Certified outcomes plus education, events, and constructive community participation. | Regional leader and event host. | Higher membership tier and co-marketing options. |
@@ -157,13 +161,13 @@ The first version should assess and then periodically revalidate:
 - Availability, match acceptance, response time, and capacity reliability.
 - Accurate, disclosed community expertise and event/education contribution.
 
-Do not publish a single opaque score. Publish what the shop can do, evidence-backed certifications, supported vehicles, warranty policy, and verified outcomes in plain language.
+Do not publish a single opaque score. Publish what the shop can do, evidence-backed certifications, supported vehicles, warranty policy, and verified outcomes in plain language. Use validation-council feedback to test whether the evidence requirements are practical for brick-and-mortar and mobile repair work without relaxing licensing, safety, or consumer-protection requirements; electricians and wrap/tint shops remain subject to their own class-specific evidence.
 
 ### Required Partner Launch Program
 
 Core EV Repair partners complete the full productized launch program before their public certified-network launch. This is onboarding and marketing work, not a purchase of certification. Infrastructure and specialty partners complete a streamlined launch matched to their service and risk profile.
 
-Amped Up Electric Garage completes the full program first as the founding-partner pilot. Record its costs, staff hours, conversion, exceptions, member feedback, and remediation needs so the launch program is priced and scoped from operating evidence before it is sold widely.
+Amped Up Electric Garage completes the full program first as the founding-partner pilot. Record its costs, staff hours, conversion, exceptions, member feedback, and remediation needs so the launch program is priced and scoped from operating evidence before it is sold widely. During the prior validation window, the four council participants review the proposed repair, mobile-service, electrician, and wrap/tint workflows against aggregate trial demand; they do not receive the launch program, certification, or a commercial commitment merely for advising.
 
 **Planning price:** $3,000-$6,000 one time, excluding venue, catering, paid-media, and other third-party event costs. A founding cohort can receive a limited discount in exchange for feedback, case studies, and permission to use approved launch assets.
 
@@ -196,14 +200,14 @@ The mark is a revocable, non-transferable license. It may be used only while the
 
 ### Field and Place-Based Market Launch
 
-Use high-intent local presence to introduce a new market: owners should repeatedly encounter Amped Up Network near charging, EV events, partner shops, and relevant travel/ownership touchpoints. The objective is to build local awareness and member acquisition around a real, available partner network, not to advertise before supply can fulfill demand.
+Use high-intent local presence to introduce a new market: owners should repeatedly encounter Amped Up Network near charging, EV events, council-participant businesses, and relevant travel/ownership touchpoints. During the validation window, use only accurately labeled directory listings and consented, co-hosted education/community activity with the four council participants; do not present them as Certified or paid partners. The objective is to build local awareness and member acquisition around a real, available service ecosystem, then activate paid partner marketing only after supply can fulfill demand.
 
 Potential tactics:
 
 - Billboards, digital out-of-home, and geofenced/mobile placements on EV commuter corridors and near charging destinations.
 - Approved signage or media placements at charging locations, EV-friendly retail centers, parking facilities, and event venues.
 - Amped Up Network staff-led pop-ups near charging destinations: owner education, issue-tracker demonstrations, partner launch offers, and event/member enrollment.
-- Co-hosted partner open houses, cars-and-coffee, technical sessions, test/demo days, and inspection campaigns.
+- Co-hosted council/partner open houses, cars-and-coffee, technical sessions, test/demo days, and inspection campaigns, with each participant's actual status disclosed.
 - Member/referral cards, QR-coded leave-behinds, and local creator/community content captured at approved activations.
 - Partner-premises signage that converts existing shop traffic into members and gives Amped Up members a recognizable in-person trust signal.
 
@@ -233,6 +237,8 @@ Prices are hypotheses to validate. Do not sell a plan with unsupported features.
 ## Consumer Memberships
 
 Existing application tiers are Free, Member ($9/month), and Premium ($19/month). The future commercial offer should preserve a free entry point and evolve benefits only after operational support is ready.
+
+For the six-month validation period, sell a limited Founding Early-Access membership at $99/year rather than advertising the full Member promise. It provides the garage and issue record, moderated community participation, directory browsing, early Connected Garage beta eligibility where available, and disclosed founding benefits. An early-access member may purchase a separately priced expert opportunity when offered. The membership does not promise certified matching, partner discounts, appointment availability, or access to services that the four-person council has not yet validated.
 
 | Tier | Planning price | Core benefits |
 | --- | ---: | --- |
@@ -288,9 +294,9 @@ Do not interpret an alert as a confirmed fault or automatically recommend a repa
 
 ## Community and Expert Strategy
 
-Community is not an unmoderated marketing channel for shops. It produces trusted owner support and structured issue intelligence.
+Community is not an unmoderated marketing channel for shops. It produces trusted owner support and structured issue intelligence. During validation, the brick-and-mortar repair, mobile mechanic, electrician, and wrap/tint council participants help test category vocabulary, safe handoff questions, and owner education needs from aggregate data; they do not use the community to solicit work or receive favored matching.
 
-- Shops may earn verified expert identities after certification or separate qualification.
+- Shops may earn verified expert identities after certification or separate qualification. Before paid partner launch, a council participant may be separately qualified for a bounded expert opportunity under the same identity, disclosure, safety, response-time, and quality rules; council membership alone is not qualification.
 - Expert answers must disclose affiliation, distinguish education from diagnosis, and avoid off-platform solicitation.
 - Shops cannot claim or answer their own open match requests in a way that bypasses neutral routing.
 - Member questions, case pathways, accepted matches, completed work, and verified outcomes should improve the directory's matching and certification evidence.
@@ -351,12 +357,12 @@ After a service interaction, the owner records whether the issue was resolved, w
 
 ### Partner Expert Revenue
 
-Certified Partners can earn direct revenue by providing paid expert responses and short-form remote ownership guidance through the community. This makes expert participation a legitimate revenue source for the shop, while the network rewards accurate help rather than only repair conversion.
+Certified Partners can earn direct revenue by providing paid expert responses and short-form remote ownership guidance through the community. During the validation period, separately qualified council participants may also earn the same fixed expert payout for accepted, bounded guidance. This makes expert participation a legitimate revenue source while the network rewards accurate help rather than only repair conversion, without turning council membership into a repair-routing advantage.
 
 Initial product shape:
 
-- A Premium/Care member posts a paid expert opportunity from an owned issue case, with vehicle, symptoms, history, and bounded questions.
-- An eligible verified expert from a Certified Partner claims the opportunity under published response-time and quality rules.
+- A Premium/Care member, or a Founding Early-Access member during validation, posts a separately priced paid expert opportunity from an owned issue case, with vehicle, symptoms, history, and bounded questions.
+- An eligible verified expert from a Certified Partner, or a separately qualified validation-council participant before paid partner launch, claims the opportunity under published response-time and quality rules.
 - The expert provides educational guidance, recommended next steps, and appropriate safety limitations. It is not a remote diagnosis, repair authorization, or guarantee.
 - The customer can rate the response and choose a local shop separately. The responding shop may disclose its own availability but cannot receive preferred routing or a repair commission because it answered the question.
 - Amped Up Network charges the customer a published opportunity price, retains a disclosed platform margin, and pays the shop/expert a fixed payout after the response is accepted or the dispute window closes.
@@ -495,13 +501,14 @@ Guardrails:
 
 | Revenue line | Buyer | Timing | Planning economics |
 | --- | --- | --- | --- |
+| Founding Early-Access membership | EV owner | Six-month validation only | $99/year for the bounded early-access promise; no partner-dependent benefit is included until supply exists. |
 | Partner Launch Program | Shop | One time | $3,000-$6,000 full repair launch; $1,500-$3,000 infrastructure launch; $750-$2,000 specialty launch; plus pass-through event costs. |
 | Shop network membership | Shop | Monthly recurring | $149-$249 specialty/infrastructure; $499 Certified; $999 Network Leader. |
 | Completed qualified booking | Certified, specialty, or infrastructure partner | Per completed job | Class-specific fixed fee, subject to legal review and attribution rules. |
 | Managed service margin | Customer order | Per order | Retail price less partner payout, payment fees, support, refunds, and acquisition cost. |
 | Consumer membership | EV owner | Monthly/annual recurring | $9/month Member; $19-$29/month Premium/Care. |
 | Membership-bundle margin | EV owner | Monthly/annual recurring | Enthusiast / Partner Perks price less Avants or direct-vendor benefit cost, support, and acquisition cost. |
-| Expert opportunity platform margin | Customer order | Per opportunity | Only after payout, tax, service scope, and quality controls are operational. |
+| Expert opportunity platform margin | Customer order | Per opportunity | Begins with separately qualified council participants during validation, then Certified Partners, only after payout, tax, service scope, and quality controls are operational. |
 | Vendor/product revenue | Vendor or customer | Per sale/campaign | Affiliate/wholesale margin, sponsored offer, or funded campaign; campaign delivery cost is modeled separately. |
 | B2B network access | Organization | Contract recurring | Later-stage referral, co-branded directory, or member-benefit agreement. |
 
@@ -575,6 +582,7 @@ This is a directional planning case, not an external forecast.
 - Weighted average contribution per completed booking by service mix, calculated after direct technician and parts cost but before fixed shop overhead and Amped Up fees.
 - Average managed-service gross margin after payment fees, payout, refund, and support cost.
 - Consumer acquisition cost, free-to-paid conversion, annual retention, and support cost by tier.
+- Founding Early-Access acquisition, activation, renewal intent, and the extent to which the four council disciplines can satisfy the request categories created during validation without an implied referral or quality guarantee.
 - Avants or direct-vendor benefit cost per activated member, activation/use rate, incremental retention, and net margin for the Enthusiast / Partner Perks tier.
 - Community/expert moderation cost and expert-response quality.
 - Event cost, attendance, member acquisition, and downstream repair conversion.
@@ -654,15 +662,16 @@ Debt can be considered for facility equipment only after utilization and recurri
 
 ### Required Before Paid Partner Launch
 
-1. Define and contract the partner program, certification rubric, mark usage, launch deliverables, revalidation, remediation, suspension, and appeals.
-2. Add partner status/plan data and evidence workflows for training, safety, insurance, warranty, capabilities, certification decisions, and performance review.
-3. Add attribution and outcome tracking: referred, contacted, booked, completed, amount optional, feedback, dispute, warranty outcome, and source.
-4. Add the owner-controlled issue-to-community-to-expert-to-shop-matching workflow: de-identification, share consent, expert assignment, service handoff snapshots, and outcome capture.
-5. Define transparent matching criteria that rank service fit and verified outcomes, not partner payment, sponsorship, or expert-answer affiliation.
-6. Add a partner dashboard for launch checklist, profile completeness, requests, response metrics, verified feedback, and invoices.
-7. Repair the browser checkout idempotency-header gap before offering paid catalog services or relying on managed-service revenue.
-8. Define customer-support and dispute escalation operations before using the Certified label.
-9. Establish a privacy/data-sharing policy for shops, members, community content, education partners, and aggregated issue intelligence.
+1. Run the six-month validation dashboard with the four seed council disciplines: repair, mobile repair, EV infrastructure, and wrap/tint. Report only aggregate, non-identifying demand, handoff, expert, and outcome data to the council.
+2. Define and contract the partner program, certification rubric, mark usage, launch deliverables, revalidation, remediation, suspension, and appeals.
+3. Add partner status/plan data and evidence workflows for training, safety, insurance, warranty, capabilities, certification decisions, and performance review.
+4. Add attribution and outcome tracking: referred, contacted, booked, completed, amount optional, feedback, dispute, warranty outcome, and source.
+5. Add the owner-controlled issue-to-community-to-expert-to-shop-matching workflow: de-identification, share consent, expert assignment, service handoff snapshots, and outcome capture.
+6. Define transparent matching criteria that rank service fit and verified outcomes, not partner payment, sponsorship, or expert-answer affiliation.
+7. Add a partner dashboard for launch checklist, profile completeness, requests, response metrics, verified feedback, and invoices.
+8. Repair the browser checkout idempotency-header gap before offering paid catalog services or relying on managed-service revenue.
+9. Define customer-support and dispute escalation operations before using the Certified label.
+10. Establish a privacy/data-sharing policy for shops, members, community content, education partners, and aggregated issue intelligence.
 
 ### Later-Stage Product Work
 
@@ -685,7 +694,7 @@ Run the public product for six months before selling paid shop-partner membershi
 - Keep all customer contact and issue information private by default. A user may generate a service summary and choose to share it with a listed shop; do not send unsolicited customer referrals or data without explicit consent.
 - Offer a limited Founding Early-Access membership at $99/year. It includes the issue tracker, garage/service record, moderated community participation, early Connected Garage beta eligibility where available, and future-network founding benefits. It does not promise discounts, certified matching, or shop availability that does not yet exist.
 - Recruit verified community experts early, including qualified local shops, and offer paid expert opportunities before the paid partner program starts. Experts earn the disclosed fixed payout for accepted guidance but receive no certification, preferential ranking, paid referral, or implied shop-partner status.
-- Recruit one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop as unpaid seed participants on the interim advisory council. Review aggregate, non-identifying trial data with them on a regular cadence and use the feedback to refine directory categories, owner handoffs, expert workflows, certification standards, and the paid-partner offer.
+- Recruit one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop as unpaid seed participants on the interim advisory council. Hold monthly reviews of aggregate, non-identifying trial data and use the feedback to refine directory categories, owner handoffs, expert workflows, certification standards, and the paid-partner offer.
 - Use the six-month directory, issue, telemetry, community, expert, and service-summary data to identify the highest-value repair and ownership jobs, then recruit the first paid partners against demonstrated local demand.
 - The founder takes no draw during this validation phase. The financial model starts founder compensation only during the paid partner rollout, after the validation exit criteria are met and committed capital supports it.
 
