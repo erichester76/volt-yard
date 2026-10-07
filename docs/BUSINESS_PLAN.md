@@ -568,6 +568,7 @@ This is a directional planning case, not an external forecast.
 - Cost and staff hours to assess, train, launch, and support one partner.
 - Partner acquisition cost, launch-to-Certified conversion, and 12-month partner retention.
 - Qualified request-to-completed-work conversion and defensible attribution window.
+- Weighted average contribution per completed booking by service mix, calculated after direct technician and parts cost but before fixed shop overhead and Amped Up fees.
 - Average managed-service gross margin after payment fees, payout, refund, and support cost.
 - Consumer acquisition cost, free-to-paid conversion, annual retention, and support cost by tier.
 - Avants or direct-vendor benefit cost per activated member, activation/use rate, incremental retention, and net margin for the Enthusiast / Partner Perks tier.
