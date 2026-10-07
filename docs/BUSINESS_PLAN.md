@@ -33,7 +33,29 @@ Amped Up Network is initially an independent network company, not a member-owned
 - Shops pay for assessed launch services and ongoing network membership; certification is earned, monitored, and revocable.
 - Customers pay for ownership support, trusted matching, service benefits, and community access.
 - The platform earns from subscriptions, productized launch services, managed services, and completed matched work.
-- An elected shop advisory council should influence standards, roadmap priorities, and regional programming without receiving ownership or control in the first phase.
+- A founding-market advisory council should influence standards, roadmap priorities, and regional programming without receiving ownership or operational control in the first phase.
+
+### Founding-Market Advisory Council
+
+Each launch market should form an advisory council as the founding shop cohort comes online. Every shop accepted as a **Founding Certified Partner** in that market receives one initial council seat for the founding term. This makes early partners active builders of the network rather than passive directory customers.
+
+**Planning structure:**
+
+- Founding term: 12 months from the market's public launch, then transition to elected/rotating seats.
+- One seat and one vote per eligible shop, regardless of size, revenue, or ownership interest.
+- Include one non-shop member representative once the market has a meaningful paid-member base; until then, use a customer advisory panel or quarterly owner interviews.
+- Meetings: quarterly strategy sessions plus limited working groups for certification standards, member experience, events, and local partnerships.
+- Amped Up Network retains final decision-making authority, certification independence, platform ownership, budgeting, partner approval/suspension, and compliance responsibility.
+- Participation is voluntary and does not create equity, a franchise territory, a right to continued certification, a promise of referral volume, or authority to bind the company.
+
+The council's role is to advise on:
+
+- The practicality and clarity of EV certification requirements, training, and remediation.
+- Local owner needs, event programming, and member benefits.
+- Roadmap priorities, launch-program improvements, service ideas, and vendor/community partnership opportunities.
+- Aggregate, non-identifying issue trends and opportunities for owner education.
+
+The council must not discuss, recommend, or coordinate shop pricing, labor rates, discounts, capacity allocation, territories, customer allocation, bids, wages, supplier terms, or other competitively sensitive business decisions. Use a written charter, confidentiality terms, conflict disclosures, agendas, minutes, and an Amped Up Network facilitator. Counsel should review the charter as part of the program-structure review.
 
 ### Legal Boundary
 
@@ -417,6 +439,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Recruit 6-10 founding shops; charge a discounted but real launch fee where possible.
 - Run readiness assessments, training, profile production, and remediation.
 - Launch 2-4 certified partners only when evidence supports the designation.
+- Form the founding-market advisory council, issue its charter, and begin quarterly sessions before expanding partner recruitment.
 - Hold initial events and test the inspection/education offer with defined capacity.
 - Enroll 100-250 founding members through owner communities, partner shops, and events.
 
