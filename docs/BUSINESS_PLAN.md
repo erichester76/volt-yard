@@ -37,7 +37,19 @@ Amped Up Network is initially an independent network company, not a member-owned
 
 ### Legal Boundary
 
-Do not characterize this as a franchise or sell it as one without franchise counsel. A trademark license, substantial control or assistance, and a required payment may create franchise obligations regardless of contract labels. State law can impose broader requirements. Counsel must review the partner agreement, certification rules, training, mark usage, fees, territory language, earnings statements, and sales process before launch.
+Do not characterize this as a franchise or sell it as one without franchise counsel. A trademark license, substantial control or assistance, and a required payment may create franchise obligations regardless of contract labels. State law can impose broader requirements.
+
+Counsel's approval is for the program structure, not for individual partner applications. Before the first paid launch, a qualified business/franchise attorney must review and approve:
+
+- The partner agreement, Partner Launch Program statement of work, ongoing membership terms, certification agreement, mark-license terms, and any regional or Network Leader terms.
+- Certification, remediation, suspension, revalidation, and appeals rules, including how Amped Up Electric Garage is treated when it shares ownership with the network.
+- Training, support, quality standards, brand-use rules, and all operating requirements to confirm they do not create unintended franchise control or disclosure obligations.
+- All required and optional fees: launch fees, subscriptions, completed-booking fees, managed-service margins, event charges, product/affiliate revenue, and any member or shop rebates/credits.
+- Sales materials, presentations, website copy, case studies, financial illustrations, earnings/booking statements, and the shop-recruitment process; no financial performance representation is permitted without legal clearance.
+- Consumer and shop terms for directory matching, managed services, expert work, booking attribution, refunds, disputes, warranties, liability allocation, insurance, and partner payouts.
+- Federal, state, and local rules affecting referral fees, auto-repair advertising, fee splitting, consumer memberships, warranty/service-contract boundaries, privacy, payment processing, tax, and required disclosures.
+
+After this initial review, operational staff may apply the approved standards to individual shops. Material changes to fees, mandatory operating requirements, trademark use, territory practices, managed-service scope, or financial claims require counsel's re-review before release.
 
 Avoid the following until counsel approves a compliant structure:
 
