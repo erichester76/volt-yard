@@ -1,7 +1,7 @@
--- Keep PostGIS metadata out of the REST API. Application queries use PostGIS
--- functions, not direct reads of this extension-owned reference table.
-alter table public.spatial_ref_sys enable row level security;
-revoke all on table public.spatial_ref_sys from public;
+-- public.spatial_ref_sys is owned by the managed PostGIS extension, so it
+-- cannot be altered by the project migration role. It contains only spatial
+-- reference metadata; do not grant it additional application access or move
+-- the extension in a populated production project.
 
 -- SECURITY DEFINER functions are executable by PUBLIC unless explicitly
 -- revoked. Only directory search is intentionally available before sign-in.
