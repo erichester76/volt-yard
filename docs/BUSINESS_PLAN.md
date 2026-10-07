@@ -35,6 +35,12 @@ Amped Up Network is initially an independent network company, not a member-owned
 - The platform earns from subscriptions, productized launch services, managed services, and completed matched work.
 - A founding-market advisory council should influence standards, roadmap priorities, and regional programming without receiving ownership or operational control in the first phase.
 
+### Founder-Led Operating Advantage
+
+The first-market plan benefits from unusual founder capacity: the founder is the lead mechanic at Amped Up Electric Garage and an experienced multi-business operator. That allows the founding shop to serve as the first operational testbed, while the founder leads partner assessment, technical standards, launch design, early sales, and product prioritization without immediately hiring separate leadership for each function.
+
+The initial content operation can also use family video-editing capacity for short-form social, event capture, partner launch assets, and member education. Use written scopes, compensation terms, asset ownership/IP assignments, publication approval, and privacy rules even when work is performed by family members. Reduced cash cost is an advantage, but the plan should still track actual hours and the market replacement cost of founder/family labor so the model can be staffed realistically as it grows.
+
 ### Founding-Market Advisory Council
 
 Each launch market should form an advisory council as the founding shop cohort comes online. Every shop accepted as a **Founding Certified Partner** in that market receives one initial council seat for the founding term. This makes early partners active builders of the network rather than passive directory customers.
@@ -201,6 +207,8 @@ Potential tactics:
 Charging locations, including Tesla Supercharger sites, are not public canvassing rights. Pop-ups, signage, sampling, filming, parking-lot activation, and data capture require the applicable property-owner, site-operator, event, municipal, and platform permissions. Do not station staff, distribute material, obstruct stalls/traffic, imply Tesla or site-operator endorsement, or collect contact information without consent. Where direct activation is not permitted, use approved adjacent venues, paid media inventory, local-event partnerships, or digital geofencing that complies with applicable platform and privacy rules.
 
 Run each activation as a measured campaign with a named supply partner, explicit budget, permitted location, safety plan, staff training, QR/referral code, privacy notice, lead owner, and post-campaign review. Track impressions where available, scans, sign-ups, paid conversions, partner requests, completed work, event attendance, cost per qualified member, and 90-day retained-member value. Do not measure success by foot traffic alone.
+
+Year-one event policy: prefer shop-hosted technical sessions, small owner meetups, and vendor/partner co-funded activations. Set a modest pre-approved cash cap per event, require a named acquisition or partner-launch goal, and recover costs through a launch fee, sponsor, vendor contribution, ticket, or measurable member value where appropriate. Defer self-funded large car shows, multi-day productions, and high-cost venue commitments until prior events show repeatable conversion and sponsorship demand.
 
 ### Ongoing Shop Membership
 
@@ -567,21 +575,21 @@ This is a directional planning case, not an external forecast.
 
 ### Near-Term Capital Needs
 
-The business should remain asset-light. The largest needs are people, launch operations, customer acquisition, legal/compliance, and working capital for managed-service timing, not owned repair bays or inventory.
+The business should remain asset-light. The largest needs are targeted legal/compliance work, launch operations, selective engineering, member acquisition, and working capital for managed-service timing, not owned repair bays or inventory. The base case below assumes founder-led operations, Amped Up Electric Garage as the first testbed, constrained contractor engineering, family-assisted production, and partner-hosted/co-funded events. It measures expected cash need, not the full replacement value of that labor.
 
 | Use | Lean first-market planning range | Notes |
 | --- | ---: | --- |
-| Founder/operations and partner success | $90,000-$180,000/year | Assessment, training, launch, customer escalation, and partner retention. |
-| Engineering/product maintenance | $30,000-$120,000/year | Depends on founder capability and contractor use; current app provides a base. |
+| Founder/operations and partner success | $30,000-$90,000/year | Founder-led assessment, standards, launch, sales, customer escalation, and partner retention; includes a modest draw/targeted operating support, not market-rate replacement cost. |
+| Engineering/product maintenance | $10,000-$50,000/year | Scope contractors to security, payment, workflow, and integration milestones; defer nonessential custom features. |
 | Legal, insurance, compliance, accounting | $20,000-$50,000 first year | Franchise analysis, marketplace/referral review, contracts, privacy, terms, and coverage. |
-| Local marketing, events, and activations | $25,000-$75,000/year | Co-funded where possible; includes partner launches, event production, staff activations, and local creator/community work. Track by partner and member acquisition. |
-| Place-based media and premises branding | $20,000-$100,000/year | Billboards/digital out-of-home, approved charging-area or adjacent-location media, partner window/counter kits, sign production, installation, and replacement. Treat partner kits as a launch-program cost or separately priced add-on. |
-| Content and social production | $40,000-$150,000/year | Producer/editor, photography, video, copy, design, event capture, distribution, and paid-social testing. Distinct from paid media and event costs. |
-| Content equipment and software | $10,000-$30,000 first year | Cameras, audio, lighting, editing workstation, storage, design/editing tools, and asset management. Rent specialty equipment when possible. |
-| Connected-vehicle data, security, and support | $20,000-$75,000/year | Tessie/provider fees, secure telemetry storage/processing, consent/revocation/audit work, alert-quality operations, and Tesla-first support. Validate vendor pricing before committing. |
+| Local marketing, events, and activations | $10,000-$35,000/year | Use partner-hosted, vendor-supported, RSVP-gated events with defined acquisition goals. Avoid self-funded large car shows in year one. |
+| Place-based media and premises branding | $10,000-$50,000/year | Start with partner window/counter kits, QR assets, approved local placements, and small digital out-of-home tests. Add billboards only after a market has supply and attributable conversion. |
+| Content and social production | $8,000-$40,000/year | Family-assisted editing plus targeted photography, copy, design, event capture, distribution, and paid-social tests. Excludes imputed family labor cost. |
+| Content equipment and software | $5,000-$20,000 first year | Cameras, audio, lighting, editing workstation, storage, design/editing tools, and asset management. Rent specialty equipment when possible. |
+| Connected-vehicle data, security, and support | $5,000-$25,000/year | Small Tesla-first pilot only: provider fees, secure telemetry storage/processing, consent/revocation/audit work, and support. Expand only after pilot value is proven. |
 | Software, payments, data, tools | $12,000-$30,000/year | Hosting, communications, analytics, design, CRM, and payment costs. |
-| Working-capital reserve | $25,000-$75,000 | Refunds, vendor terms, partner payouts on managed services, and slow collections. |
-| **Indicative partner-hosted capital need** | **$292,000-$885,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
+| Working-capital reserve | $15,000-$50,000 | Refunds, vendor terms, partner payouts on managed services, and slow collections. |
+| **Indicative founder-led, partner-hosted cash need** | **$125,000-$440,000** | Excludes a dedicated facility and the market replacement cost of founder/family labor. Partner launch fees and annual subscriptions should offset this need as early as possible. |
 
 ### Do We Need A Loan?
 
