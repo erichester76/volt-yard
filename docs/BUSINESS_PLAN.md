@@ -99,6 +99,8 @@ Avoid the following until counsel approves a compliant structure:
 - An optional Connected Garage that combines owner-provided vehicle details, photos, documents, and service history with consented Tesla telemetry through Tessie; other makes receive a lighter owner-record and future OBD-II path.
 - A path from uncertainty to the right level of help: self-service learning, community experience, paid expert input, certified shop match, or managed service.
 - EV-specific shop capability data rather than generic star ratings.
+- Clear EV-infrastructure discovery: licensed electrician/installer scope, service area, charger/solar-storage compatibility where stated, permit-process information, and an owner-controlled request handoff for charging work.
+- Clear appearance/protection discovery: tint, wrap, paint-protection-film, detailing, coating, wheel/tire, glass, interior, and accessory scope, portfolio, warranty/disclosure information, and an owner-controlled contact or booking handoff.
 - Transparent service terms and a documented escalation path when a partner experience goes wrong.
 - Relevant local community, events, and partner offers.
 
