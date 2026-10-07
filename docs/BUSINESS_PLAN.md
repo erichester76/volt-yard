@@ -69,7 +69,7 @@ Counsel's approval is for the program structure, not for individual partner appl
 - All required and optional fees: launch fees, subscriptions, completed-booking fees, managed-service margins, event charges, product/affiliate revenue, and any member or shop rebates/credits.
 - Sales materials, presentations, website copy, case studies, financial illustrations, earnings/booking statements, and the shop-recruitment process; no financial performance representation is permitted without legal clearance.
 - Consumer and shop terms for directory matching, managed services, expert work, booking attribution, refunds, disputes, warranties, liability allocation, insurance, and partner payouts.
-- Federal, state, and local rules affecting referral fees, auto-repair advertising, fee splitting, consumer memberships, warranty/service-contract boundaries, privacy, payment processing, tax, and required disclosures.
+- Federal, state, and local rules affecting referral fees, auto-repair advertising, fee splitting, consumer memberships, warranty/service-contract boundaries, connected-vehicle and OBD-II data, privacy, payment processing, tax, and required disclosures.
 
 After this initial review, operational staff may apply the approved standards to individual shops. Material changes to fees, mandatory operating requirements, trademark use, territory practices, managed-service scope, or financial claims require counsel's re-review before release.
 
@@ -85,6 +85,7 @@ Avoid the following until counsel approves a compliant structure:
 ### EV Owners
 
 - A vehicle-aware record of issues, symptoms, prior service, and repair context.
+- An optional Connected Garage that combines owner-provided vehicle details, photos, documents, and service history with consented Tesla telemetry through Tessie; other makes receive a lighter owner-record and future OBD-II path.
 - A path from uncertainty to the right level of help: self-service learning, community experience, paid expert input, certified shop match, or managed service.
 - EV-specific shop capability data rather than generic star ratings.
 - Transparent service terms and a documented escalation path when a partner experience goes wrong.
@@ -93,6 +94,7 @@ Avoid the following until counsel approves a compliant structure:
 ### Shops
 
 - Qualified local EV demand with case context, rather than low-intent directory leads.
+- A permissioned pre-visit service snapshot with relevant owner notes, photos, prior work, and telemetry context, reducing intake friction and repeat explanation.
 - A credible earned certification and public capability profile.
 - Training, readiness assessment, launch marketing, member acquisition support, and local events.
 - Community reputation through verified expert participation.
@@ -229,6 +231,49 @@ Existing application tiers are Free, Member ($9/month), and Premium ($19/month).
 | Enthusiast / Partner Perks | TBD | Premium/Care benefits plus an included or member-priced Avants membership, or equivalent negotiated national automotive-discount benefits. Launch only with executed partner agreements and positive unit economics. |
 
 Membership does not cover repair bills, promise appointment availability, guarantee a diagnosis, or create an insurance/warranty product. A licensed third party must bear any repair-cost risk.
+
+### Connected Garage and Vehicle Intelligence
+
+Connected Garage is the long-term product differentiator. It makes Amped Up Network useful between repairs by bringing vehicle information, ownership records, photos, documents, and owner goals into one place. The connected-data strategy is **Tesla-first**: Tesla owners who explicitly connect through Tessie can add consented telemetry and event data. Other makes retain the same owner-record, photo, document, service-timeline, reminders, community, expert, and shop-matching experience, with a future opt-in OBD-II path rather than an assumed equivalent OEM API. The product should help an owner notice, document, and prepare for an issue; it must not claim to diagnose a vehicle, replace manufacturer alerts, or control the vehicle.
+
+**Owner experience:**
+
+- A persistent vehicle timeline combining manually entered service, receipts, photos, inspection reports, warranties, tire/brake/charging notes, and permitted connected-vehicle events.
+- Tesla-first connected data through Tessie for owners who consent. For non-Tesla vehicles, begin with manual records and supported public/vehicle data; evaluate opt-in OBD-II adapter/app integrations only after data quality, vehicle compatibility, safety, privacy, and support requirements are proven.
+- Configurable reminders and attention signals based on owner-selected mileage, time, usage, alert, or service thresholds.
+- An alert/threshold can create a **private issue draft**, never an automatic repair order or public community post. The owner reviews, adds context/photos, and chooses whether to dismiss, track, ask the community, request expert help, or seek a shop match.
+- A case capture flow that makes it easy to attach photos, video, screenshots, invoices, and an owner description at the time the issue occurs.
+- A portable, owner-controlled service record that remains useful even when no repair is needed.
+
+**Partner experience:**
+
+- With explicit owner permission, a selected partner receives a purpose-limited pre-visit snapshot: the stated concern, relevant history, permitted photos/documents, and only the telemetry context needed for that service conversation.
+- Better context can shorten intake, help the shop prepare appropriate tools/parts/questions, and reduce duplicated diagnosis effort. It does not substitute for the shop's inspection or give the shop ongoing access to the owner's connected vehicle.
+- Aggregated, non-identifying trends can inform training, service design, and issue education only after privacy review and minimum-sample thresholds are met.
+
+**Illustrative attention-signal categories:**
+
+- Tesla/manufacturer-connected-service alerts that the owner has authorized Amped Up Network to receive through the provider, starting with Tesla through Tessie.
+- Owner-authorized OBD-II fault/health data for supported non-Tesla vehicles only after a separate integration and validation program is complete.
+- Time, mileage, usage, tire, brake, HVAC/thermal, charging, or inspection reminders based on documented service rules.
+- Owner-defined goals, such as a pre-trip review, pre-warranty-expiration review, seasonal readiness check, or a reminder to document a recurring symptom.
+
+Do not interpret an alert as a confirmed fault or automatically recommend a repair. Each rule needs a documented source, supported-vehicle scope, severity handling, owner-facing explanation, and a review process. Safety-critical prompts must direct the owner to the vehicle manufacturer, roadside support, emergency services, or qualified in-person service as appropriate.
+
+**Data and trust boundary:**
+
+- Tessie is the initial Tesla integration provider, not a source of unlimited data rights. Confirm provider terms, supported fields, rate limits, security requirements, commercial terms, and revocation behavior before product commitment. Treat each future OBD-II provider, adapter, or vehicle-data source as a separate vendor/security review.
+- Use explicit, granular consent for connection, collection, notification, case use, community de-identification, and each shop handoff. The owner can disconnect, revoke a shop snapshot, export records where feasible, and request deletion subject to legal/operational retention requirements.
+- Never request or store Tesla account credentials directly. Use the provider's supported authorization flow and store the minimum scoped tokens/data required.
+- Default to data minimization, encryption in transit and at rest, access logs, short-lived/expiring partner shares, retention limits, and strict role-based access. Raw telemetry must not be visible to a shop, vendor, or community by default.
+- Do not sell identifiable vehicle, location, driving, charging, or issue data. Do not use telemetry to rank partners, set prices, make insurance decisions, or target members without separate, clear permission.
+
+**Commercial role:**
+
+- Connected Garage is a strong Premium/Care benefit and may justify annual retention even in years without a repair.
+- It can improve conversion to expert guidance, managed inspections, and appropriate partner matching, but it is not itself a lead-generation product for shops.
+- Shops receive better permissioned context as part of network value, not a raw-data subscription or an entitlement to customer telemetry.
+- Initial economics must include provider/API cost, secure storage/processing, support, privacy/compliance, and alert-quality operations before placing it behind a paid tier.
 
 ## Community and Expert Strategy
 
@@ -533,9 +578,10 @@ The business should remain asset-light. The largest needs are people, launch ope
 | Place-based media and premises branding | $20,000-$100,000/year | Billboards/digital out-of-home, approved charging-area or adjacent-location media, partner window/counter kits, sign production, installation, and replacement. Treat partner kits as a launch-program cost or separately priced add-on. |
 | Content and social production | $40,000-$150,000/year | Producer/editor, photography, video, copy, design, event capture, distribution, and paid-social testing. Distinct from paid media and event costs. |
 | Content equipment and software | $10,000-$30,000 first year | Cameras, audio, lighting, editing workstation, storage, design/editing tools, and asset management. Rent specialty equipment when possible. |
+| Connected-vehicle data, security, and support | $20,000-$75,000/year | Tessie/provider fees, secure telemetry storage/processing, consent/revocation/audit work, alert-quality operations, and Tesla-first support. Validate vendor pricing before committing. |
 | Software, payments, data, tools | $12,000-$30,000/year | Hosting, communications, analytics, design, CRM, and payment costs. |
 | Working-capital reserve | $25,000-$75,000 | Refunds, vendor terms, partner payouts on managed services, and slow collections. |
-| **Indicative partner-hosted capital need** | **$272,000-$810,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
+| **Indicative partner-hosted capital need** | **$292,000-$885,000** | Assumes events, assessments, and content are hosted at partner facilities; excludes a dedicated facility. |
 
 ### Do We Need A Loan?
 
@@ -605,6 +651,8 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Price-range tooling only for bounded services with high-quality data; do not launch a generic EV repair estimator without reliable inputs.
 - Co-branded partner APIs and B2B directory access only after internal matching and support work reliably.
 - Regional member benefits and club integrations after a market has sufficient partner density.
+- Tesla-first Connected Garage through Tessie, starting with secure owner consent, vehicle timeline, owner-controlled alert/threshold drafts, photos/documents, and permissioned pre-visit snapshots. Launch only after provider, privacy, security, retention, safety, and support requirements are validated.
+- Non-Tesla OBD-II integration only after the Tesla-first model proves value and each hardware/provider, supported vehicle, data quality, consent, safety, and support boundary is separately validated. Do not treat an OBD-II code as a diagnosis.
 
 ## First 12 Months
 
@@ -633,6 +681,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Introduce a single managed service only after scope, partner payout, support burden, and margin are proven.
 - Test one Avants or comparable community pilot and one product/vendor offer.
 - Test one permitted place-based activation and one partner-premises branding kit; retain only channels with measurable qualified-member and partner-work outcomes.
+- Run a limited Tesla Connected Garage pilot with explicit consent, manual alert review, privacy/support monitoring, and no automated repair orders.
 - Decide whether to add shops in the same metro or replicate the playbook elsewhere only after partner and member retention meet thresholds.
 
 ## Operating Metrics
@@ -654,6 +703,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Product/vendor revenue with explicit attribution and support cost.
 - Technical-college participation, candidate introductions, work-based-learning participation, and partner-reported hiring outcomes.
 - Place-based activation and premises-branding cost per qualified member, member activation, partner request, completed work, and 90-day retained-member value.
+- Connected Garage opt-in, active use, alert-draft review, dismissal/escalation, issue-to-outcome conversion, provider cost per active vehicle, retention lift, consent revocation, and privacy/security incident rates.
 
 ### Community Trust
 
