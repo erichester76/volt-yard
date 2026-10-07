@@ -709,6 +709,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Free-to-paid member conversion, annual member retention, and revenue per member.
 - Partner launch revenue, monthly recurring partner revenue, and partner retention.
 - Qualified request-to-booking and booking-to-completion conversion.
+- Completed attributable bookings per qualified Certified Partner over the trailing two-month measurement window, with a separate qualification-delay assumption for newly launched shops.
 - Managed-service gross margin after all direct costs.
 - Product/vendor revenue with explicit attribution and support cost.
 - Technical-college participation, candidate introductions, work-based-learning participation, and partner-reported hiring outcomes.
