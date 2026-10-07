@@ -578,7 +578,9 @@ This is a directional planning case, not an external forecast.
 
 ## HQ Capital and Financing
 
-The editable operating model is maintained in [AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx](AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx). It contains the founder-led 12-month cash ramp, funding waterfall, and mature-market run-rate calculations. Update its highlighted assumptions before making capital decisions.
+The editable operating model is maintained in [AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx](AMPED_UP_NETWORK_FINANCIAL_MODEL.xlsx). Its `6 Month Validation` sheet models the directory-and-community phase before paid shop partnerships; the existing 12-month cash ramp, funding waterfall, and mature-market run-rate sheets model the partner rollout and scaled case. Update highlighted assumptions before making capital decisions.
+
+The default validation case assumes no founder draw, 160 founding early-access memberships at $99/year, 45 paid expert opportunities, and no shop launch, membership, booking, or certification revenue. It forecasts approximately $54,600 of cash costs, $18,500 of early-access and expert revenue, and $36,100 of net cash burn. With the editable $15,000 reserve and 10% contingency, it implies about $56,200 of committed validation capital before the partner rollout. These are planning defaults, not forecasts.
 
 ### Near-Term Capital Needs
 
@@ -586,7 +588,7 @@ The business should remain asset-light. The largest needs are targeted legal/com
 
 | Use | Lean first-market planning range | Notes |
 | --- | ---: | --- |
-| Founder/operations and partner success | $30,000-$90,000/year | Founder-led assessment, standards, launch, sales, customer escalation, and partner retention; includes a modest draw/targeted operating support, not market-rate replacement cost. |
+| Founder/operations and partner success | $30,000-$90,000/year | Starts only in the paid partner rollout after the validation gate. Covers founder-led assessment, standards, launch, sales, customer escalation, and partner retention; includes a modest draw/targeted operating support, not market-rate replacement cost. |
 | Engineering/product maintenance | $10,000-$50,000/year | Scope contractors to security, payment, workflow, and integration milestones; defer nonessential custom features. |
 | Legal, insurance, compliance, accounting | $20,000-$50,000 first year | Franchise analysis, marketplace/referral review, contracts, privacy, terms, and coverage. |
 | Local marketing, events, and activations | $10,000-$35,000/year | Use partner-hosted, vendor-supported, RSVP-gated events with defined acquisition goals. Avoid self-funded large car shows in year one. |
@@ -671,7 +673,27 @@ Debt can be considered for facility equipment only after utilization and recurri
 
 ## First 12 Months
 
-### Phase 1: Design the Market (0-60 Days)
+### Phase 0: Directory and Community Validation (Months 0-6)
+
+Run the public product for six months before selling paid shop-partner memberships. The goal is to validate demand, issue/service mix, market density, member willingness to pay, expert-work quality, and the eventual partner ROI with evidence rather than assumptions.
+
+- Populate the directory as `Community Listed` or `Unclaimed`; do not call a shop Verified, Certified, recommended, or a partner without that relationship and evidence.
+- Let businesses claim and correct profiles at no cost. Maintain source/date accuracy and a correction/removal path.
+- Keep all customer contact and issue information private by default. A user may generate a service summary and choose to share it with a listed shop; do not send unsolicited customer referrals or data without explicit consent.
+- Offer a limited Founding Early-Access membership at $99/year. It includes the issue tracker, garage/service record, moderated community participation, early Connected Garage beta eligibility where available, and future-network founding benefits. It does not promise discounts, certified matching, or shop availability that does not yet exist.
+- Recruit verified community experts early, including qualified local shops, and offer paid expert opportunities before the paid partner program starts. Experts earn the disclosed fixed payout for accepted guidance but receive no certification, preferential ranking, paid referral, or implied shop-partner status.
+- Use the six-month directory, issue, telemetry, community, expert, and service-summary data to identify the highest-value repair and ownership jobs, then recruit the first paid partners against demonstrated local demand.
+- The founder takes no draw during this validation phase. The financial model starts founder compensation only during the paid partner rollout, after the validation exit criteria are met and committed capital supports it.
+
+**Validation exit criteria:**
+
+- At least 100-200 paid founding members or an evidence-backed path to that level at acceptable acquisition cost.
+- At least 20-30 qualified, permissioned service requests per prospective Core EV Repair shop within a two-month period, with a credible path to 12 completed bookings.
+- A documented service mix and shop-reported contribution margin that supports partner ROI after launch, membership, and booking fees.
+- Reliable expert response quality, response time, dispute handling, and owner willingness to pay.
+- Enough local supply interest to form a 3-5 shop unpaid design cohort before asking anyone to purchase a Partner Launch Program.
+
+### Phase 1: Partner Model Preparation (Months 4-6, Parallel)
 
 - Select one EV-dense metro and one initial customer segment.
 - Interview 15-25 shops and 30-50 EV owners; validate pain, willingness to pay, service demand, and event interest.
@@ -680,7 +702,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Identify one local technical-college or workforce-training partner and scope the initial training and candidate-pipeline pilot.
 - Choose 3-5 bounded managed services for research, but launch no more than one or two.
 
-### Phase 2: Founding Partner Cohort (60-150 Days)
+### Phase 2: Founding Partner Cohort (Months 7-12)
 
 - Recruit 6-10 founding Core EV Repair shops and 3-5 founding specialty/infrastructure partners; charge a discounted but real launch fee where possible.
 - Run the full readiness, training, profile-production, and remediation process for repair shops and the streamlined process for specialty/infrastructure partners.
@@ -689,7 +711,7 @@ Debt can be considered for facility equipment only after utilization and recurri
 - Hold initial events and test the inspection/education offer with defined capacity.
 - Enroll 100-250 founding members through owner communities, partner shops, and events.
 
-### Phase 3: Prove Repeatability (150-365 Days)
+### Phase 3: Prove Repeatability (After Month 12)
 
 - Operate the 30/60/90-day partner review process and remove/rework weak experiences quickly.
 - Measure attributed match-to-completion conversion and customer outcomes.
