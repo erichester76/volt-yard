@@ -566,6 +566,7 @@ This is a directional planning case, not an external forecast.
 ### Unit-Economics Questions To Validate
 
 - Cost and staff hours to assess, train, launch, and support one partner.
+- Cash onboarding/delivery cost by full Certified Partner versus specialty/infrastructure partner, separate from the price charged for each launch track.
 - Partner acquisition cost, launch-to-Certified conversion, and 12-month partner retention.
 - Qualified request-to-completed-work conversion and defensible attribution window.
 - Weighted average contribution per completed booking by service mix, calculated after direct technician and parts cost but before fixed shop overhead and Amped Up fees.
