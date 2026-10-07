@@ -43,16 +43,18 @@ The initial content operation can also use family video-editing capacity for sho
 
 ### Founding-Market Advisory Council
 
-Each launch market should form an advisory council as the founding shop cohort comes online. Every shop accepted as a **Founding Certified Partner** in that market receives one initial council seat for the founding term. This makes early partners active builders of the network rather than passive directory customers.
+During the six-month validation phase, form an interim founding-market advisory council with four unpaid seed participants: one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop. They are design collaborators, not Certified Partners, and help interpret trial results before the paid partner program exists. Once the founding shop cohort comes online, the council expands and every shop accepted as a **Founding Certified Partner** in that market receives one initial council seat for the founding term. This makes early partners active builders of the network rather than passive directory customers.
 
 **Planning structure:**
 
 - Founding term: 12 months from the market's public launch, then transition to elected/rotating seats.
+- Validation seats: one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop. Select participants for relevant EV experience, willingness to share operational feedback, and absence of unresolved safety, licensing, or consumer-protection concerns.
 - One seat and one vote per eligible shop, regardless of size, revenue, or ownership interest.
 - Include one non-shop member representative once the market has a meaningful paid-member base; until then, use a customer advisory panel or quarterly owner interviews.
 - Meetings: quarterly strategy sessions plus limited working groups for certification standards, member experience, events, and local partnerships.
 - Amped Up Network retains final decision-making authority, certification independence, platform ownership, budgeting, partner approval/suspension, and compliance responsibility.
 - Participation is voluntary and does not create equity, a franchise territory, a right to continued certification, a promise of referral volume, or authority to bind the company.
+- An interim validation seat does not confer certification, paid-partner status, preferential directory ranking or matching, a future council seat, or a waiver of the later partner assessment.
 
 The council's role is to advise on:
 
@@ -60,6 +62,7 @@ The council's role is to advise on:
 - Local owner needs, event programming, and member benefits.
 - Roadmap priorities, launch-program improvements, service ideas, and vendor/community partnership opportunities.
 - Aggregate, non-identifying issue trends and opportunities for owner education.
+- Aggregate trial data: directory claims/corrections, permissioned service-request volume and fit, customer handoff friction, expert-response quality, and the service categories that warrant deeper validation.
 
 The council must not discuss, recommend, or coordinate shop pricing, labor rates, discounts, capacity allocation, territories, customer allocation, bids, wages, supplier terms, or other competitively sensitive business decisions. Use a written charter, confidentiality terms, conflict disclosures, agendas, minutes, and an Amped Up Network facilitator. Counsel should review the charter as part of the program-structure review.
 
@@ -682,6 +685,7 @@ Run the public product for six months before selling paid shop-partner membershi
 - Keep all customer contact and issue information private by default. A user may generate a service summary and choose to share it with a listed shop; do not send unsolicited customer referrals or data without explicit consent.
 - Offer a limited Founding Early-Access membership at $99/year. It includes the issue tracker, garage/service record, moderated community participation, early Connected Garage beta eligibility where available, and future-network founding benefits. It does not promise discounts, certified matching, or shop availability that does not yet exist.
 - Recruit verified community experts early, including qualified local shops, and offer paid expert opportunities before the paid partner program starts. Experts earn the disclosed fixed payout for accepted guidance but receive no certification, preferential ranking, paid referral, or implied shop-partner status.
+- Recruit one brick-and-mortar EV repair shop, one mobile EV mechanic, one EV-infrastructure electrician, and one vehicle wrap/tint shop as unpaid seed participants on the interim advisory council. Review aggregate, non-identifying trial data with them on a regular cadence and use the feedback to refine directory categories, owner handoffs, expert workflows, certification standards, and the paid-partner offer.
 - Use the six-month directory, issue, telemetry, community, expert, and service-summary data to identify the highest-value repair and ownership jobs, then recruit the first paid partners against demonstrated local demand.
 - The founder takes no draw during this validation phase. The financial model starts founder compensation only during the paid partner rollout, after the validation exit criteria are met and committed capital supports it.
 
@@ -707,7 +711,7 @@ Run the public product for six months before selling paid shop-partner membershi
 - Recruit 6-10 founding Core EV Repair shops and 3-5 founding specialty/infrastructure partners; charge a discounted but real launch fee where possible.
 - Run the full readiness, training, profile-production, and remediation process for repair shops and the streamlined process for specialty/infrastructure partners.
 - Launch 2-4 certified partners only when evidence supports the designation.
-- Form the founding-market advisory council, issue its charter, and begin quarterly sessions before expanding partner recruitment.
+- Expand the interim advisory council into the founding-market council, issue its charter, and begin quarterly sessions before expanding partner recruitment.
 - Hold initial events and test the inspection/education offer with defined capacity.
 - Enroll 100-250 founding members through owner communities, partner shops, and events.
 
