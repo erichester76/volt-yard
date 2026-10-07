@@ -139,9 +139,9 @@ body {
   place-items: center;
   width: 26px;
   height: 26px;
-  background: var(--ink);
+  background: var(--acid);
   border-radius: 50%;
-  color: var(--acid);
+  color: var(--acid-ink);
   font-size: 15px;
   font-family: Georgia;
 }
@@ -401,8 +401,9 @@ h3 { font-size: var(--heading-tertiary-size); }
   gap: 18px;
 }
 .shop-card {
-  border: 1px solid var(--line);
-  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--line) 78%, var(--acid));
+  border-top: 4px solid var(--acid);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 93%, var(--acid)), var(--surface));
   padding: 25px;
   transition:
     transform 0.2s,
@@ -423,8 +424,8 @@ h3 { font-size: var(--heading-tertiary-size); }
   place-items: center;
   width: 42px;
   height: 42px;
-  background: var(--surface-strong);
-  color: var(--ink);
+  background: var(--acid);
+  color: var(--acid-ink);
   font: 700 20px Georgia;
   border-radius: 50%;
 }
@@ -1230,20 +1231,25 @@ footer button {
 }
 .card-groups {
   display: grid;
-  gap: 7px;
+  gap: 8px;
   margin-top: 14px;
-  padding: 11px 0;
+  padding: 10px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface-muted) 78%, var(--surface));
 }
 .card-group {
   display: grid;
   grid-template-columns: 92px minmax(0, 1fr);
   gap: 9px;
   align-items: baseline;
+  padding: 8px 9px;
+  border-left: 3px solid var(--acid);
+  background: var(--surface);
   font-size: 12px;
   line-height: 1.35;
 }
+.card-group--credentials { border-left-color: var(--header-accent-background); }
 .card-group-label {
   font:
     500 10px "DM Mono",
@@ -1261,13 +1267,14 @@ footer button {
   margin-left: 3px;
   padding: 0 4px;
   border-radius: 9px;
-  background: #e5eadf;
-  color: var(--ink);
+  background: var(--acid);
+  color: var(--acid-ink);
   font:
     500 10px "DM Mono",
     monospace;
   letter-spacing: 0;
 }
+.card-group--credentials .card-group-label b { background: var(--header-accent-background); color: var(--header-accent-foreground); }
 .card-group > span:last-child {
   min-width: 0;
   overflow-wrap: anywhere;

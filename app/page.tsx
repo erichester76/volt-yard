@@ -458,12 +458,12 @@ export default function Home() {
       <section className="hero" id="top">
           <div className="wrap hero-grid">
             <div>
-            <p className="eyebrow">{t("home.eyebrow", "Let us get you help")}</p>
+            <p className="eyebrow">{t("home.eyebrow", "The independent EV ownership network")}</p>
             <h1 className="heading-primary hero-action-heading hero-action-heading-primary">
-              <LocalizedHeadingAccent text={t("home.title", "{{accent}} an issue.")} accent={t("home.title_accent", "Diagnose")} />
+              <LocalizedHeadingAccent text={t("home.title", "Everything EV, {{accent}} together.")} accent={t("home.title_accent", "all")} />
             </h1>
             <p className="intro">
-              {t("home.intro", "Keep the details of an EV issue together as you move from a question to the right kind of help.")}
+              {t("home.intro", "Find trusted service, join a club of owners, trade real-world advice, and explore upgrades in one connected place.")}
             </p>
             <div className="hero-panels">
               <section className="hero-panel diagnose-panel" aria-labelledby="diagnose-panel-title">
@@ -484,11 +484,10 @@ export default function Home() {
               </section>
               <section className="hero-panel partner-panel partner-search" id="partner-search" aria-labelledby="partner-panel-title">
               <div className="partner-search-heading">
-                <p className="eyebrow">{t("home.find_eyebrow", "Just need a shop?")}</p>
-                <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="partner-panel-title">
-                  {t("home.find_title", "Find an EV service partner.")}
+                <h2 className="hero-panel-title partner-panel-title" id="partner-panel-title">
+                  {t("home.find_title", "Find a mechanic if you already know what you need.")}
                 </h2>
-                <p>{t("home.find_intro", "No pressure. Search independent shops and service partners near you when you already know what you need.")}</p>
+                <p>{t("home.find_intro", "Search trusted independent EV specialists near you.")}</p>
               </div>
                 <form className="search" onSubmit={search}>
                <label className="location-field">
@@ -685,7 +684,7 @@ export default function Home() {
                 {(services.length > 0 || certifications.length > 0) && (
                   <div className="card-groups">
                     {services.length > 0 && (
-                      <div className="card-group">
+                      <div className="card-group card-group--services">
                         <span className="card-group-label">
                           Services <b>{services.length}</b>
                         </span>
@@ -698,7 +697,7 @@ export default function Home() {
                       </div>
                     )}
                     {certifications.length > 0 && (
-                      <div className="card-group">
+                      <div className="card-group card-group--credentials">
                         <span className="card-group-label">
                           Credentials <b>{certifications.length}</b>
                         </span>
