@@ -121,6 +121,35 @@ Avoid the following until counsel approves a compliant structure:
 - Co-branded education, local events, product offers, and managed-service opportunities.
 - Aggregated, non-identifying ownership and issue trends where permitted.
 
+## Competitive Landscape
+
+Amped Up Network competes for attention and trust at several points in the ownership journey. The primary alternative is often not another EV network: it is an owner searching Google, asking a local group, calling a dealer, or doing nothing. The strategy must therefore offer better context, clearer scope, and a safer handoff, not merely another list of businesses.
+
+### General Repair and Local-Service Alternatives
+
+| Alternative | What the owner uses it for | Strength | Gap Amped Up Must Address |
+| --- | --- | --- | --- |
+| Google Maps, Apple Maps, Yelp, and search advertising | Finding nearby shops, installers, tint/wrap businesses, reviews, hours, and phone numbers. | Habit, reach, local search placement, and large review volume. | Generic categories and reviews rarely establish EV capability, service fit, permissioned issue context, or repair outcome. Profiles must be more useful than a search result. |
+| General repair directories and referral programs, including RepairPal-style networks and roadside/insurer programs | Finding a repair option or obtaining a price/coverage signal. | Existing consumer awareness, broad shop supply, and in some cases warranty or roadside distribution. | Often weak on EV-specific technical scope, independent owner records, neutral expert guidance, and non-repair needs such as charging or appearance. |
+| Dealers, OEM service networks, and manufacturer apps | Warranty work, recalls, manufacturer diagnostics, roadside help, and familiar service scheduling. | Vehicle-specific tools, OEM authority, and direct owner relationship. | May have distance, availability, price, or independent-service limitations. Amped Up must complement, not disparage, OEM service and route owners back to it when appropriate. |
+| Local discovery and word of mouth: Facebook groups, Nextdoor, Reddit, clubs, and creators | Peer recommendations, urgent questions, and local reputation. | High trust within a community and real local context. | Anecdotal advice can be stale, undisclosed, unsafe, or not tied to a documented service scope or outcome. |
+| Mobile mechanic and local-service marketplaces | Convenience for routine work or an at-home assessment. | Convenience, scheduling, and potentially fast response. | EV safety, insurance, vehicle-support scope, high-voltage limits, and escalations need clearer evidence than a generic mobile-service listing. |
+
+### EV-Specific Alternatives
+
+| Alternative | What it does well | Strategic implication |
+| --- | --- | --- |
+| OEM and EV-brand service ecosystems, including Tesla Service and Mobile Service where available | Vehicle-specific diagnosis, recall/warranty handling, software access, parts, roadside support, and owner communications. | Never imply that an independent alternative replaces OEM safety, warranty, recall, or emergency guidance. Capture the independent and ownership-support gaps only where the network has verified capability. |
+| EV owner communities, forums, and model-specific groups | Deep model knowledge, fast peer response, owner-created troubleshooting history, and social trust. | The moderated issue/community layer must preserve this usefulness while adding de-identification, safety escalation, expert accountability, and outcomes. |
+| Charging and installer discovery, including utility lists, OEM-recommended installers, Qmerit-style networks, and solar/energy marketplaces | Charger-install expertise, incentive/permit knowledge, utility relationships, and installation lead flow. | The electrician profile must state license, geography, service area, vehicle/charger compatibility where confirmed, permit-process role, and scope limits. Do not claim to replace utility or manufacturer programs. |
+| EV data, battery-report, and ownership apps, including Tessie and Recurrent-style services | Vehicle telemetry, battery/ownership information, alerts, and model-specific insights. | Connected Garage must be owner-controlled and useful without becoming a telemetry resale product. Provider dependence, consent, and data-quality limitations are core risks. |
+| Specialty manufacturer installer locators and local appearance shops, including tint, wrap, PPF, coating, and accessory networks | Brand-specific installer discovery, portfolios, product warranties, and visual proof of work. | The wrap/tint profile needs stronger local EV fit, compatibility/warranty disclosure, ownership context, and member/community value than a generic installer locator. |
+| EV-focused independent repair shops and regional specialist networks | Existing technical reputation, direct customer relationships, and local word of mouth. | Certification must be evidence-based and materially useful. A fee alone will not overcome an established specialist's reputation or justify switching tools. |
+
+### Strategic Position
+
+Amped Up should not try to outspend search platforms, replace OEM service, or become a generic lead marketplace. Its defensible position is the owner-controlled record and workflow connecting EV issue context, moderated community learning, bounded expert guidance, transparent service capability, consented handoff, and outcome feedback across repair, mobile service, charging infrastructure, and appearance/protection. The six-month trial must prove that this workflow creates more useful owner decisions and better qualified requests than a generic directory before monetizing shops.
+
 ## Partner Program
 
 ### Partner Classes
@@ -588,6 +617,24 @@ This is a directional planning case, not an external forecast.
 - Avants or direct-vendor benefit cost per activated member, activation/use rate, incremental retention, and net margin for the Enthusiast / Partner Perks tier.
 - Community/expert moderation cost and expert-response quality.
 - Event cost, attendance, member acquisition, and downstream repair conversion.
+
+## Risks and Mitigations
+
+| Risk | Why it matters | Mitigation and validation gate |
+| --- | --- | --- |
+| No local density or weak owner willingness to pay | A broad directory without recurring, high-intent use cannot support $99 early access or partner fees. | Start in one EV-dense market; measure paid-member acquisition, active issue cases, expert purchases, and permissioned service requests by service class. Do not sell the paid partner program before the six-month exit criteria are met. |
+| Supply does not see enough ROI | Shops can continue to rely on search, referrals, direct social, and OEM overflow without paying the network. | Use the four seed council disciplines to validate request volume, fit, handoff quality, and outcomes. Sell a paid launch only with transparent evidence, not booking promises; retain a partner only when contribution and support burden support the fee. |
+| Incumbent discovery platforms capture the customer journey | Search engines, reviews, OEM apps, charging networks, and manufacturer locators may remain easier or more trusted. | Build pages and handoffs that add EV-specific capability, scope, owner context, consent, and outcome value. Treat search and community channels as acquisition inputs, not enemies; test whether profiles convert better than generic links. |
+| Disintermediation after the first handoff | An owner and shop may form a direct relationship, leaving little ongoing platform revenue. | Price recurring value around the owner record, community, benefits, expert access, verified outcomes, and partner tools rather than expecting perpetual referral fees. Track repeat member use and partner retention separately from booking fees. |
+| Certification or listing creates a misleading quality/safety impression | An incorrect recommendation, unsafe service, or overstated credential can harm owners and the brand. | Keep `Community Listed`, Verified, and Certified meanings distinct; verify class-specific evidence; use revalidation, complaints, suspension, and escalation. Do not certify electricians or wrap/tint shops under repair standards. |
+| Founder/common-ownership conflict | Amped Up Electric Garage could appear to receive undisclosed ranking, referrals, or council influence. | Disclose common ownership; publish neutral ranking and recusal rules; log decisions; apply the same evidence and escalation process to the founding shop; include independent council perspectives. |
+| Referral, franchise, fee-splitting, advertising, licensing, and insurance exposure | The commercial structure can be regulated differently by state and service class, particularly repair and electrical work. | Obtain counsel review before paid launch; keep fees fixed where approved, avoid control of ordinary shop operations, require proper licenses/insurance, and use clear owner/shop terms. Do not make legal compliance a self-attestation only. |
+| Council antitrust or confidentiality failure | Competing shops could exchange pricing, capacity, customer, or other sensitive information in the advisory forum. | Use a written charter, independent facilitator, agendas, minutes, conflicts process, and aggregate non-identifying data only. Prohibit discussion of prices, labor rates, capacity allocation, territories, bids, wages, and customer allocation. |
+| Privacy, cybersecurity, and third-party data-provider dependence | Connected Garage and expert/service handoffs involve sensitive vehicle, location, contact, and potentially telemetry data; Tessie and future providers can change access or terms. | Minimize data, obtain granular consent, use expiring purpose-limited shares, secure tokens and access logs, maintain deletion/revocation processes, and preserve a useful manual-record experience if a provider is unavailable. |
+| Expert guidance causes harm or is treated as a diagnosis | Remote advice may be wrong, incomplete, or used for high-voltage/safety-critical decisions. | Keep scope educational and bounded; require qualifications, disclosures, response rules, moderation, quality review, disputes, and urgent-safety escalation. Never create an automatic repair order from telemetry or expert guidance. |
+| Service delivery, payment, refund, and attribution disputes | Managed services and completed-booking fees create customer-support, payout, and dispute obligations. | Start with direct shop payment for generic referrals and one bounded managed service only after scope, payout, Stripe idempotency, support, refund, and attribution rules are tested. Keep manual payout controls until operations mature. |
+| Acquisition cost and content burn outpace early revenue | The six-month validation period can consume capital before partner revenue exists. | Keep the founder draw at zero during validation; use the editable validation model, monthly cash review, low-cost content capacity, small campaign tests, and a reserve. Stop or narrow channels that do not produce qualified members or useful demand data. |
+| Reputational harm from inaccurate listings, reviews, or community content | Stale scope, false claims, undisclosed affiliation, or unsafe advice can erode trust quickly. | Offer claims/corrections/removal, date/source records, moderation, conflict disclosures, verification refreshes, and documented escalation. Do not present anecdotal community advice as a network recommendation. |
 
 ## HQ Capital and Financing
 
