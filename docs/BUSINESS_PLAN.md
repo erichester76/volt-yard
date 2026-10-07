@@ -171,7 +171,7 @@ Existing application tiers are Free, Member ($9/month), and Premium ($19/month).
 | Free | $0 | Garage, issue cases, resources, directory browsing, and public community reading. |
 | Member | $9/month or $99/year | Community participation, issue history, certified-shop matching, saved service context, partner offers, and event access where offered. |
 | Premium / Care | $19-$29/month or $199-$249/year | Member benefits plus paid expert opportunities or included expert reviews, priority match support, repair-plan/estimate interpretation, and an annual EV-readiness benefit when supply exists. |
-| Enthusiast add-on | TBD | Event/community privileges and third-party club benefits. Do not launch as a separate tier until the partner inventory is real. |
+| Enthusiast / Partner Perks | TBD | Premium/Care benefits plus an included or member-priced Avants membership, or equivalent negotiated national automotive-discount benefits. Launch only with executed partner agreements and positive unit economics. |
 
 Membership does not cover repair bills, promise appointment availability, guarantee a diagnosis, or create an insurance/warranty product. A licensed third party must bear any repair-cost risk.
 
@@ -251,12 +251,24 @@ Requirements: disclosed commercial relationship, defined customer support owner,
 
 Avants is an adjacent enthusiast-community partner, not a repair-network replacement. Its public model includes membership tiers, local events, a national and regional partner-discount network, editorial content, and automotive-brand partnerships.
 
+The primary partnership opportunity is to make Avants' member value part of an Amped Up Network consumer offer. An Amped Up member should be able to access the automotive ownership savings Avants has already assembled, such as its publicized Discount Tire and Michelin discounts, rather than requiring Amped Up to recreate the entire benefit set before launch.
+
+Potential commercial structures, in preferred order:
+
+1. **Bundled membership:** negotiate a group or wholesale price for Avants Core membership and include it in Amped Up's Enthusiast / Partner Perks tier. Amped Up pays Avants a per-member fee and prices the tier above its own service/support cost plus that benefit cost.
+2. **Member-priced add-on:** an Amped Up paid member receives a unique Avants enrollment offer, with a disclosed affiliate or revenue-share arrangement if negotiated. This has lower Amped Up cost exposure and is the best first pilot if a bundle price is unavailable.
+3. **Direct vendor equivalents:** negotiate Amped Up's own offers with Discount Tire, Michelin, and other relevant vendors. These offers can complement or eventually replace the Avants bundle only after direct agreements are executed; do not claim access to an Avants or vendor discount without authorization.
+4. **Reciprocal distribution:** separately offer Avants members an Amped Up trial, a directory/issue-tracker benefit, or a defined inspection offer. This can coexist with any of the consumer-benefit structures above.
+
+Treat an included Avants membership as a cost of goods sold for the applicable Amped Up tier, not as generic marketing spend. The tier needs a signed partner price, benefit-activation process, support responsibility, renewal/cancellation treatment, geographic eligibility, and a margin target before it is advertised.
+
 Proposed pilot:
 
 1. Co-host a regional EV ownership technical session at a Certified Partner shop.
-2. Give Avants members a limited Amped Up Network Member trial or a defined directory/issue-tracker benefit.
-3. Offer an Avants-specific diagnostic/inspection promotion with a clear shop-funded or vendor-funded budget.
-4. Track trial activation, appointment requests, completed work, attendance, member retention, and partner NPS for 90 days.
+2. Negotiate a limited number of member-priced or bundled Avants Core activations for Amped Up Enthusiast / Partner Perks members.
+3. Give Avants members a limited Amped Up Network Member trial or a defined directory/issue-tracker benefit.
+4. Offer an Avants-specific diagnostic/inspection promotion with a clear shop-funded or vendor-funded budget.
+5. Track benefit activation, discount use where data is shared, trial activation, appointment requests, completed work, attendance, member retention, tier margin, and partner NPS for 90 days.
 
 Do not bundle memberships permanently or represent either organization as endorsing the other until an executed agreement defines customer support, branding, data, benefit funding, and renewal treatment.
 
@@ -304,6 +316,7 @@ Guardrails:
 | Completed qualified booking | Certified shop | Per completed job | $25-$75 fixed fee, subject to legal review and attribution rules. |
 | Managed service margin | Customer order | Per order | Retail price less partner payout, payment fees, support, refunds, and acquisition cost. |
 | Consumer membership | EV owner | Monthly/annual recurring | $9/month Member; $19-$29/month Premium/Care. |
+| Membership-bundle margin | EV owner | Monthly/annual recurring | Enthusiast / Partner Perks price less Avants or direct-vendor benefit cost, support, and acquisition cost. |
 | Expert opportunity platform margin | Customer order | Per opportunity | Only after payout, tax, service scope, and quality controls are operational. |
 | Vendor/product revenue | Vendor or customer | Per sale/campaign | Affiliate/wholesale margin, sponsored offer, or funded campaign. |
 | B2B network access | Organization | Contract recurring | Later-stage referral, co-branded directory, or member-benefit agreement. |
@@ -371,6 +384,7 @@ This is a directional planning case, not an external forecast.
 - Qualified request-to-completed-work conversion and defensible attribution window.
 - Average managed-service gross margin after payment fees, payout, refund, and support cost.
 - Consumer acquisition cost, free-to-paid conversion, annual retention, and support cost by tier.
+- Avants or direct-vendor benefit cost per activated member, activation/use rate, incremental retention, and net margin for the Enthusiast / Partner Perks tier.
 - Community/expert moderation cost and expert-response quality.
 - Event cost, attendance, member acquisition, and downstream repair conversion.
 
