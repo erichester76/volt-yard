@@ -494,7 +494,7 @@ Guardrails:
 | --- | --- | --- | --- |
 | Partner Launch Program | Shop | One time | $3,000-$6,000 full repair launch; $1,500-$3,000 infrastructure launch; $750-$2,000 specialty launch; plus pass-through event costs. |
 | Shop network membership | Shop | Monthly recurring | $149-$249 specialty/infrastructure; $499 Certified; $999 Network Leader. |
-| Completed qualified booking | Certified shop | Per completed job | $25-$75 fixed fee, subject to legal review and attribution rules. |
+| Completed qualified booking | Certified, specialty, or infrastructure partner | Per completed job | Class-specific fixed fee, subject to legal review and attribution rules. |
 | Managed service margin | Customer order | Per order | Retail price less partner payout, payment fees, support, refunds, and acquisition cost. |
 | Consumer membership | EV owner | Monthly/annual recurring | $9/month Member; $19-$29/month Premium/Care. |
 | Membership-bundle margin | EV owner | Monthly/annual recurring | Enthusiast / Partner Perks price less Avants or direct-vendor benefit cost, support, and acquisition cost. |
@@ -519,7 +519,9 @@ These assumptions model one EV-dense metropolitan market at a mature operating r
 | Consumer members | 400 |
 | Consumer annualized membership revenue | $99/member |
 | Completed tracked bookings | 12/shop/month across Certified shops |
-| Completed-booking fee | $40 |
+| Certified Partner completed-booking fee | $40 |
+| Specialty/infrastructure completed bookings | 4/qualified partner/2 months |
+| Specialty/infrastructure completed-booking fee | $25 |
 | Vendor/local campaign packages | 4/year at $3,000 |
 
 | Revenue line | Calculation | Year-one revenue |
@@ -528,9 +530,9 @@ These assumptions model one EV-dense metropolitan market at a mature operating r
 | Certified memberships | 10 x $499 x 12 | $59,880 |
 | Verified specialty/infrastructure memberships | 5 x $199 x 12 | $11,940 |
 | Consumer memberships | 400 x $99 | $39,600 |
-| Completed-booking fees | 10 x 12 x 12 x $40 | $57,600 |
+| Completed-booking fees | (10 x 12 x 12 x $40) + (5 x 4 / 2 x 12 x $25) | $60,600 |
 | Vendor/local campaigns | 4 x $3,000 | $12,000 |
-| **Illustrative gross revenue** |  | **$228,520** |
+| **Illustrative gross revenue** |  | **$231,520** |
 
 The prior $181,000 example excluded the launch fee. This fuller first-market model includes launch fees differentiated by partner type. It still excludes managed-service margin, expert-work margin, B2B contracts, and product revenue, so those should be treated as upside only after proven delivery.
 
@@ -546,6 +548,7 @@ This is a directional planning case, not an external forecast.
 | New specialty/infrastructure launches | 5 at $1,500 |
 | Consumer members | 1,200 at $99/year |
 | Completed bookings | 15/certified shop/month at $40 |
+| Specialty/infrastructure completed bookings | 4/qualified partner/2 months at $25 |
 | Managed-service contribution margin | $36,000/year |
 | Vendor/B2B revenue | $36,000/year |
 
@@ -555,10 +558,10 @@ This is a directional planning case, not an external forecast.
 | Certified memberships | $119,760 |
 | Verified specialty/infrastructure memberships | $23,880 |
 | Consumer memberships | $118,800 |
-| Completed-booking fees | $144,000 |
+| Completed-booking fees | $150,000 |
 | Managed-service margin | $36,000 |
 | Vendor/B2B revenue | $36,000 |
-| **Illustrative gross revenue** | **$525,940** |
+| **Illustrative gross revenue** | **$531,940** |
 
 ### Unit-Economics Questions To Validate
 
