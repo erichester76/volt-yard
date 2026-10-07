@@ -12,7 +12,7 @@ Use **Amped Up Network** as the working brand for this plan. It describes a netw
 
 Keep the organizations commercially and operationally distinct. Amped Up Network is the independent platform and certification brand; Amped Up Electric Garage is an independent service provider within that network. They share common ownership; disclose that relationship in directory profiles, member communication, public methodology, and any matching logic. Do not give the founding shop undisclosed preferential placement or exempt it from certification review.
 
-Before public launch, complete trademark, domain, social-handle, state corporate-name, and category-conflict clearance for Amped Up Network and Amped Up Electric Garage. Volt Yard is an internal placeholder only and has never been public. The initial launch setup must replace placeholder naming across the product, design system, domains, email, Stripe configuration, legal documents, and database-authored content before any public release.
+Before public launch, complete trademark, domain, social-handle, state corporate-name, and category-conflict clearance for Amped Up Network and Amped Up Electric Garage. Complete brand implementation across the product, design system, domains, email, Stripe configuration, legal documents, and database-authored content before public release.
 
 ## Thesis
 
