@@ -4,14 +4,16 @@ import test from "node:test";
 
 const css = readFileSync(new URL("../app/globals.css", import.meta.url), "utf8");
 const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+const shops = readFileSync(new URL("../app/shops/page.tsx", import.meta.url), "utf8");
+const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), "utf8");
 
-test("home paired panels share title rhythm and action dimensions", () => {
-  assert.match(home, /<div className="hero-panels">/);
-  assert.match(home, /<section className="hero-panel diagnose-panel"/);
-  assert.match(home, /<section className="hero-panel partner-panel partner-search"/);
-  assert.match(home, /<h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="diagnose-panel-title">/);
-  assert.match(home, /<h2 className="hero-panel-title partner-panel-title" id="partner-panel-title">/);
-  assert.match(home, /<Link className="hero-primary-action diagnose-action" href="\/issues">/);
-  assert.match(home, /<Button className="hero-panel-action" type="submit"/);
+test("home pathways and the standalone shops page preserve navigation and search", () => {
+  assert.match(home, /className="home-journey-steps"/);
+  assert.match(home, /className="home-pathway-grid"/);
+  assert.match(shops, /export default function ShopsPage/);
+  assert.match(shops, /<form className="search" onSubmit=\{search\}>/);
+  assert.match(shops, /createSignedUrl\(image\.storage_path, 3600\)/);
+  assert.match(shops, /aria-autocomplete="list"/);
+  assert.match(chrome, /href=\{localHref\("\/shops"\)\}/);
   assert.match(css, /\.button,[\s\S]*?\.action-link \{[\s\S]*?min-height: 39px;[\s\S]*?padding: var\(--action-padding\);[\s\S]*?font: var\(--action-font\);/);
 });
