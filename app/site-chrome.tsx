@@ -304,6 +304,20 @@ export default function SiteChrome({
             >
               {t("chrome.nav.community", "Community")}
             </Link>
+            {account && (
+              <div className="mobile-account-nav">
+                <p>{account.email}</p>
+                <Link href="/profile" onClick={() => setMenuOpen(false)}>
+                  My profile
+                </Link>
+                <Link href="/membership" onClick={() => setMenuOpen(false)}>
+                  Membership
+                </Link>
+                <button type="button" onClick={signOut}>
+                  Log out
+                </button>
+              </div>
+            )}
           </nav>
           <div className="site-actions">
             <label className="locale-switcher">
@@ -330,7 +344,7 @@ export default function SiteChrome({
               {dark ? <SunIcon /> : <MoonIcon />}
             </button>
             <Link
-              className="cart-link"
+              className={cartCount === 0 ? "cart-link cart-link--empty" : "cart-link"}
               href={localHref("/cart")}
               aria-label={`Cart and orders, ${cartCount} items`}
             >
