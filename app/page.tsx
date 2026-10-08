@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </section>
       <section className="home-pathways" id="owner-journeys"><div className="wrap">
-        <div className="home-section-heading home-pathways-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Start where you are")}</p><h2>{t("home.paths_title", "Tell us where to start. We'll take notes and guide you.")}</h2><p>{t("home.paths_intro", "Every journey connects your vehicle, questions, and progress to the next useful resource.")}</p></div>
+        <div className="home-section-heading home-pathways-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Start where you are")}</p><h2>{t("home.paths_title", "Tell us where to start. We'll keep notes and guide you through next steps.")}</h2><p>{t("home.paths_intro", "Every journey connects your vehicle, questions, and progress to the next useful resource.")}</p></div>
         <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, action, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{action} <span aria-hidden="true">→</span></Link></article>)}</div>
       </div></section>
     </main>
