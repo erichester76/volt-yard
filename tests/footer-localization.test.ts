@@ -6,9 +6,10 @@ const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), 
 const migration = readFileSync(new URL("../supabase/migrations/20261004000002_localize_shared_footer.sql", import.meta.url), "utf8");
 
 test("shared footer copy uses localized content with English fallbacks", () => {
-  assert.match(chrome, /t\(\s*"chrome\.footer\.tagline",\s*"Independent EV ownership, connected\.",?\s*\)/);
+  assert.match(chrome, /t\(\s*"chrome\.footer\.tagline",\s*"EV ownership, made easy\.",?\s*\)/);
   assert.match(chrome, /aria-label=\{t\("chrome\.footer\.navigation", "Footer navigation"\)\}/);
-  assert.match(chrome, /t\("chrome\.footer\.membership", "Membership"\)/);
+  assert.match(chrome, /href=\{localHref\("\/pricing"\)\}/);
+  assert.match(chrome, />\s*Pricing\s*</);
   assert.match(chrome, /t\("chrome\.footer\.contact", "Contact"\)/);
   assert.match(chrome, /NEXT_PUBLIC_APP_VERSION \?\? "1\.0\.0"/);
   assert.match(chrome, /v\{appVersion\} \/ \{buildCommit\}/);

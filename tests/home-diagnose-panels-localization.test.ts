@@ -3,24 +3,30 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
-const diagnoseMigration = readFileSync(new URL("../supabase/migrations/20261004000005_localize_home_diagnose_panels.sql", import.meta.url), "utf8");
-const homeMigration = readFileSync(new URL("../supabase/migrations/20261005000000_restore_home_mechanic_and_network_copy.sql", import.meta.url), "utf8");
+const migration = readFileSync(new URL("../supabase/migrations/20261008000003_localize_community_first_home.sql", import.meta.url), "utf8");
 
-test("home diagnose and partner panels use localized authored copy", () => {
-  assert.match(home, /className="hero-panels"/);
-  assert.match(home, /t\("home\.diagnose_cta", "Try it out"\)/);
-  assert.match(home, /t\("home\.diagnose_handoff", "Members save issue history; Premium adds priority context and expert-response options\."\)/);
-  assert.match(home, /t\("home\.find_title", "Find a mechanic if you already know what you need\."\)/);
-  assert.match(home, /t\("home\.find_intro", "Search trusted independent EV specialists near you\."\)/);
+test("home introduces the support pathway and offers the four primary owner journeys", () => {
+  assert.match(home, /home\.intro/);
+  assert.match(home, /className="hero-support-path"/);
+  assert.match(home, /home\.journey_guided/);
+  assert.match(home, /home\.journey_community/);
+  assert.match(home, /home\.journey_expert/);
+  assert.match(home, /home\.journey_service/);
+  assert.match(home, /"\/issues"/);
+  assert.match(home, /"\/tutorials"/);
+  assert.match(home, /"\/community"/);
+  assert.match(home, /"\/upgrades"/);
+  assert.doesNotMatch(home, /"\/pricing"/);
+  assert.doesNotMatch(home, /"\/shops"/);
 
-  for (const key of ["diagnose_eyebrow", "diagnose_title", "diagnose_intro", "diagnose_answers", "diagnose_expertise", "diagnose_handoff", "diagnose_cta", "diagnose_membership"]) {
+  for (const key of ["journey_guided", "journey_community", "journey_expert", "journey_service", "path_issue", "path_maintenance", "path_community", "path_catalog"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
-      assert.match(diagnoseMigration, new RegExp(`\\('home\\.${key}', '${locale}',`));
+      assert.match(migration, new RegExp(`\\('home\\.${key}','${locale}',`));
     }
   }
-  for (const key of ["find_title", "find_intro"]) {
-    for (const locale of ["en", "de", "fr", "es"]) {
-      assert.match(homeMigration, new RegExp(`\\('home\\.${key}', '${locale}',`));
-    }
-  }
+});
+
+test("home sends people from the hero directly to the owner pathways", () => {
+  assert.doesNotMatch(home, /home-journey/);
+  assert.match(home, /className="home-pathways"/);
 });

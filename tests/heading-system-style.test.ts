@@ -47,7 +47,8 @@ test("dark theme accent tokens use the Amped Up safety palette", () => {
   assert.match(dark, /--header-accent-background: #ffcb32;/);
 });
 
-test("home hero applies the shared primary and secondary heading roles", () => {
+test("home hero applies the shared primary heading role", () => {
   assert.match(home, /className="heading-primary hero-action-heading hero-action-heading-primary"/);
-  assert.match(home, /className="heading-secondary hero-action-heading hero-action-heading-secondary"/);
+  assert.match(css, /\.hero \.heading-primary \{ color: var\(--heading-on-hero-color\); \}/);
+  assert.match(css, /\.home-pathway-grid h3 \{[^}]*color: var\(--orange\);/);
 });

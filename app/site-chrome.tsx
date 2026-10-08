@@ -236,7 +236,7 @@ export default function SiteChrome({
             />
             <span className="brand-copy">
               <strong>Amped Up Network</strong>
-              <small>Independent EV ownership network</small>
+              <small>EV ownership, made easy.</small>
             </span>
           </Link>
           <nav
@@ -250,16 +250,22 @@ export default function SiteChrome({
               {t("chrome.nav.diagnose", "Diagnose")}
             </Link>
             <Link
-              href={`${localHref("/")}#results`}
+              href={localHref("/shops")}
               onClick={() => setMenuOpen(false)}
             >
               {t("chrome.nav.shops", "Shops")}
             </Link>
             <Link
-              href={localHref("/catalog")}
+              href={localHref("/services")}
               onClick={() => setMenuOpen(false)}
             >
-              {t("chrome.nav.services", "Services & upgrades")}
+              Services
+            </Link>
+            <Link
+              href={localHref("/upgrades")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Upgrades
             </Link>
             <Link
               href={localHref("/community")}
@@ -394,13 +400,13 @@ export default function SiteChrome({
               />
               <span className="brand-copy">
                 <strong>Amped Up Network</strong>
-                <small>Independent EV ownership network</small>
+                <small>EV ownership, made easy.</small>
               </span>
             </Link>
             <p>
               {t(
                 "chrome.footer.tagline",
-                "Independent EV ownership, connected.",
+                "EV ownership, made easy.",
               )}
             </p>
             <span
@@ -414,14 +420,17 @@ export default function SiteChrome({
             <Link href={localHref("/issues")}>
               {t("chrome.nav.diagnose", "Diagnose")}
             </Link>
-            <Link href={localHref("/membership")}>
-              {t("chrome.footer.membership", "Membership")}
+            <Link href={localHref("/pricing")}>
+              Pricing
             </Link>
             <Link href={localHref("/community")}>
               {t("chrome.nav.community", "Community")}
             </Link>
-            <Link href={localHref("/catalog")}>
-              {t("chrome.nav.services", "Services & upgrades")}
+            <Link href={localHref("/services")}>
+              Services
+            </Link>
+            <Link href={localHref("/upgrades")}>
+              Upgrades
             </Link>
             <a href="mailto:hello@voltyard.com">
               {t("chrome.footer.contact", "Contact")}

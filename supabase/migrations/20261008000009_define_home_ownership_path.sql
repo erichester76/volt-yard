@@ -1,0 +1,13 @@
+-- Explain the owner decision flow and its persistent context in every locale.
+insert into public.localized_content (content_key, locale, value) values
+  ('home.intro','en','Information moves with you from one step to the next, so you do not have to repeat yourself and can remember what worked last time.'),
+  ('home.intro','de','Informationen begleiten Sie von einem Schritt zum nächsten, damit Sie sich nicht wiederholen müssen und sich daran erinnern können, was zuletzt funktioniert hat.'),
+  ('home.intro','fr','Les informations vous accompagnent d''une étape à l''autre, pour éviter de vous répéter et vous souvenir de ce qui a fonctionné.'),
+  ('home.intro','es','La información avanza contigo de un paso al siguiente, para que no tengas que repetirla y puedas recordar qué funcionó la última vez.'),
+  ('home.journey_guided','en','Define what you are looking for: recommendations, upgrades, repairs, or maintenance.'),('home.journey_guided','de','Definieren Sie, wonach Sie suchen: Empfehlungen, Upgrades, Reparaturen oder Wartung.'),('home.journey_guided','fr','Définissez ce que vous recherchez : recommandations, améliorations, réparations ou entretien.'),('home.journey_guided','es','Define lo que buscas: recomendaciones, mejoras, reparaciones o mantenimiento.'),
+  ('home.journey_community','en','Decide what solution you need: advice, training, products, or services.'),('home.journey_community','de','Entscheiden Sie, welche Lösung Sie brauchen: Rat, Schulung, Produkte oder Services.'),('home.journey_community','fr','Décidez de la solution dont vous avez besoin : conseils, formation, produits ou services.'),('home.journey_community','es','Decide qué solución necesitas: consejos, formación, productos o servicios.'),
+  ('home.journey_expert','en','Choose where to get it: forums, community feedback, experts, or a mechanic.'),('home.journey_expert','de','Wählen Sie, wo Sie sie erhalten: Foren, Community-Feedback, Experten oder Fachbetriebe.'),('home.journey_expert','fr','Choisissez où l''obtenir : forums, retours de la communauté, experts ou mécaniciens.'),('home.journey_expert','es','Elige dónde obtenerla: foros, comentarios de la comunidad, expertos o un mecánico.'),
+  ('home.journey_service','en','Get to the right resource and keep the information for later.'),('home.journey_service','de','Gelangen Sie zur richtigen Ressource und bewahren Sie die Informationen für später auf.'),('home.journey_service','fr','Accédez à la bonne ressource et conservez les informations pour plus tard.'),('home.journey_service','es','Llega al recurso adecuado y conserva la información para más adelante.')
+on conflict (content_key, locale) do update set value = excluded.value;
+
+notify pgrst, 'reload schema';
