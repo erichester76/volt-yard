@@ -24,6 +24,15 @@ export default function Home() {
           <p className="eyebrow">{t("home.eyebrow", "EV ownership, made easy.")}</p>
           <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
           <p className="intro">{t("home.intro", "From question to next step, all in one place. Amped Up Network helps you move from a guided issue to community knowledge, expert context, and, only when hands-on service is needed, the right mechanic network.")}</p>
+          <div className="hero-support-path" aria-label={t("home.journey_title", "From question to next step, all in one place.")}>
+            <p>{t("home.journey_title", "From question to next step, all in one place.")}</p>
+            <ol>
+              <li><b>01</b><span>{t("home.journey_guided", "Describe what your vehicle is telling you with guided issue context.")}</span></li>
+              <li><b>02</b><span>{t("home.journey_community", "Learn from owners who have seen the same problem in the real world.")}</span></li>
+              <li><b>03</b><span>{t("home.journey_expert", "Bring in expert context when the answer needs more depth.")}</span></li>
+              <li><b>04</b><span>{t("home.journey_service", "Find a mechanic when hands-on service is the right next step.")}</span></li>
+            </ol>
+          </div>
         </div>
       </section>
       <section className="home-pathways"><div className="wrap">

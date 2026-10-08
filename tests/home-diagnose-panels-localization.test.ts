@@ -7,6 +7,11 @@ const migration = readFileSync(new URL("../supabase/migrations/20261008000003_lo
 
 test("home introduces the support pathway and offers every owner route", () => {
   assert.match(home, /home\.intro/);
+  assert.match(home, /className="hero-support-path"/);
+  assert.match(home, /home\.journey_guided/);
+  assert.match(home, /home\.journey_community/);
+  assert.match(home, /home\.journey_expert/);
+  assert.match(home, /home\.journey_service/);
   assert.match(home, /"\/issues"/);
   assert.match(home, /"\/tutorials"/);
   assert.match(home, /"\/pricing"/);
