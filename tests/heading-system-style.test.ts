@@ -50,4 +50,6 @@ test("dark theme accent tokens use the Amped Up safety palette", () => {
 test("home hero applies the shared primary heading role", () => {
   assert.match(home, /className="heading-primary hero-action-heading hero-action-heading-primary"/);
   assert.match(home, /<h2>\{t\("home\.paths_title"/);
+  assert.match(css, /\.hero \.heading-primary \{ color: var\(--heading-on-hero-color\); \}/);
+  assert.match(css, /\.home-pathway-grid h3 \{[^}]*color: var\(--orange\);/);
 });
