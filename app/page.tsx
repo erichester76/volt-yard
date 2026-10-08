@@ -27,10 +27,10 @@ export default function Home() {
           <div className="hero-support-path" aria-label={t("home.journey_title", "From question to next step, all in one place.")}>
             <p>{t("home.journey_title", "From question to next step, all in one place.")}</p>
             <ol>
-              <li><b>01</b><span>{t("home.journey_guided", "Describe what your vehicle is telling you with guided issue context.")}</span></li>
-              <li><b>02</b><span>{t("home.journey_community", "Learn from owners who have seen the same problem in the real world.")}</span></li>
-              <li><b>03</b><span>{t("home.journey_expert", "Bring in expert context when the answer needs more depth.")}</span></li>
-              <li><b>04</b><span>{t("home.journey_service", "Find a mechanic when hands-on service is the right next step.")}</span></li>
+              <li><b>01</b><span>{t("home.journey_guided", "Solve a current issue with guided support.")}</span></li>
+              <li><b>02</b><span>{t("home.journey_community", "Stay proactive with maintenance training and checklists.")}</span></li>
+              <li><b>03</b><span>{t("home.journey_expert", "Discover owner-tested upgrades and community favorites.")}</span></li>
+              <li><b>04</b><span>{t("home.journey_service", "Connect with owners, experts, and mechanics when you need hands-on help.")}</span></li>
             </ol>
           </div>
         </div>

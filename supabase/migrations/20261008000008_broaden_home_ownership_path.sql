@@ -1,0 +1,9 @@
+-- Represent the full ownership experience in the hero support path.
+insert into public.localized_content (content_key, locale, value) values
+  ('home.journey_guided','en','Solve a current issue with guided support.'),('home.journey_guided','de','Lösen Sie ein aktuelles Problem mit geführter Unterstützung.'),('home.journey_guided','fr','Résolvez un problème actuel avec un accompagnement guidé.'),('home.journey_guided','es','Resuelve un problema actual con apoyo guiado.'),
+  ('home.journey_community','en','Stay proactive with maintenance training and checklists.'),('home.journey_community','de','Bleiben Sie mit Wartungsschulungen und Checklisten proaktiv.'),('home.journey_community','fr','Restez proactif avec des formations et listes d''entretien.'),('home.journey_community','es','Sé proactivo con formación y listas de mantenimiento.'),
+  ('home.journey_expert','en','Discover owner-tested upgrades and community favorites.'),('home.journey_expert','de','Entdecken Sie von Eigentümern erprobte Upgrades und Community-Favoriten.'),('home.journey_expert','fr','Découvrez des améliorations testées par les propriétaires et les favoris de la communauté.'),('home.journey_expert','es','Descubre mejoras probadas por propietarios y favoritos de la comunidad.'),
+  ('home.journey_service','en','Connect with owners, experts, and mechanics when you need hands-on help.'),('home.journey_service','de','Verbinden Sie sich mit Eigentümern, Experten und Fachbetrieben, wenn praktische Hilfe nötig ist.'),('home.journey_service','fr','Entrez en contact avec des propriétaires, experts et mécaniciens lorsque vous avez besoin d''aide pratique.'),('home.journey_service','es','Conecta con propietarios, expertos y mecánicos cuando necesites ayuda presencial.')
+on conflict (content_key, locale) do update set value = excluded.value;
+
+notify pgrst, 'reload schema';
