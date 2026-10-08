@@ -15,4 +15,4 @@ export function proxy(request: NextRequest) {
   return NextResponse.redirect(url);
 }
 
-export const config = { matcher: ["/((?!api|_next|favicon.ico|robots.txt|sitemap.xml).*)"] };
+export const config = { matcher: ["/((?!api|_next|images|favicon.ico|robots.txt|sitemap.xml).*)"] };

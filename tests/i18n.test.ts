@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { NextRequest } from "next/server";
-import { proxy } from "../proxy";
+import { config, proxy } from "../proxy";
 import { localeFromPath, localePath, localePathname, negotiateLocale } from "../lib/i18n";
 import { localeMetadata } from "../lib/locale-metadata";
 import { publishedLocalizedContent } from "../lib/localized-content-server";
@@ -31,6 +31,10 @@ test("passes locale context through prefixed navigation requests", () => {
   const response = proxy(new NextRequest("https://voltyard.test/de/issues"));
   assert.equal(response.headers.get("x-middleware-next"), "1");
   assert.equal(response.headers.get("location"), null);
+});
+
+test("excludes static images from locale routing", () => {
+  assert.match(config.matcher[0], /images/);
 });
 
 test("preserves route navigation details while adding or reading locales", () => {
