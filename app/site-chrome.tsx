@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
@@ -12,6 +12,7 @@ import { authRedirectUrl } from "@/lib/auth-redirect";
 import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
 import { localePath, localePathname } from "@/lib/i18n";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
+import { isGatedPath, safeReturnTo } from "@/lib/account-gate";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
@@ -24,6 +25,7 @@ export default function SiteChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const locale = useLocale();
   const t = useLocalizedContent(locale);
@@ -34,11 +36,13 @@ export default function SiteChrome({
     window.location.assign(localePath(nextLocale, path));
   };
   const [account, setAccount] = useState<Account>(null);
+  const [accountReady, setAccountReady] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [authMode, setAuthMode] = useState<AuthMode>("sign-in");
+  const [returnTo, setReturnTo] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -60,7 +64,10 @@ export default function SiteChrome({
   }, [dark, themeReady]);
 
   useEffect(() => {
-    if (!isSupabaseConfigured) return;
+    if (!isSupabaseConfigured) {
+      setAccountReady(true);
+      return;
+    }
     const db = createBrowserSupabaseClient();
     let active = true;
     let requestVersion = 0;
@@ -72,6 +79,7 @@ export default function SiteChrome({
       if (!currentUser) {
         setAccount(null);
         setCartCount(0);
+        setAccountReady(true);
         return;
       }
       const [{ data: profile }, { data: cart }] = await Promise.all([
@@ -98,6 +106,7 @@ export default function SiteChrome({
           0,
         ),
       );
+      setAccountReady(true);
     }
     void loadAccount();
     const { data: listener } = db.auth.onAuthStateChange((event, session) => {
@@ -110,14 +119,8 @@ export default function SiteChrome({
       void loadAccount(session?.user ?? null);
     });
     const openRequestedAuth = (event: Event) => {
-      const mode =
-        (event as CustomEvent<{ mode?: AuthMode }>).detail?.mode ?? "sign-in";
-      setAuthMode(mode);
-      setMessage("");
-      setMessageTone("error");
-      setPassword("");
-      setConfirmPassword("");
-      setSignInOpen(true);
+      const detail = (event as CustomEvent<{ mode?: AuthMode; returnTo?: string }>).detail;
+      openAuth(detail?.mode ?? "sign-in", detail?.returnTo);
     };
     window.addEventListener("volt-yard-open-auth", openRequestedAuth);
     const reloadAccount = () => {
@@ -132,13 +135,35 @@ export default function SiteChrome({
     };
   }, []);
 
-  function openAuth(mode: AuthMode = "sign-in") {
+  function openAuth(mode: AuthMode = "sign-in", nextReturnTo?: string) {
     setAuthMode(mode);
+    setReturnTo(safeReturnTo(nextReturnTo) ?? null);
     setMessage("");
     setMessageTone("error");
     setPassword("");
     setConfirmPassword("");
     setSignInOpen(true);
+  }
+
+  useEffect(() => {
+    if (!accountReady || account || !isGatedPath(pathname)) return;
+    const query = searchParams.toString();
+    const intendedPath = `${pathname}${query ? `?${query}` : ""}${window.location.hash}`;
+    openAuth("sign-up", intendedPath);
+    router.replace(localePath(locale, "/"));
+  }, [account, accountReady, locale, pathname, router, searchParams]);
+
+  function gateNavigation(event: MouseEvent<HTMLDivElement>) {
+    if (account || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest("a[href]");
+    if (!(link instanceof HTMLAnchorElement) || link.target || link.hasAttribute("download")) return;
+    const url = new URL(link.href, window.location.origin);
+    if (url.origin !== window.location.origin || !isGatedPath(url.pathname)) return;
+    event.preventDefault();
+    setMenuOpen(false);
+    openAuth("sign-up", `${url.pathname}${url.search}${url.hash}`);
   }
 
   function switchAuthMode(mode: AuthMode) {
@@ -171,7 +196,7 @@ export default function SiteChrome({
     setSubmitting(true);
     const auth = createBrowserSupabaseClient().auth;
     // Browser origin prevents a build-time local URL from being used in email links.
-    const redirectTo = authRedirectUrl(window.location.origin, pathname);
+    const redirectTo = authRedirectUrl(window.location.origin, returnTo ?? `${pathname}${window.location.search}${window.location.hash}`);
     let error: { message: string } | null = null;
     let successMessage = "";
 
@@ -207,8 +232,14 @@ export default function SiteChrome({
     }
     setMessageTone("success");
     setMessage(successMessage);
-    if (authMode === "sign-in" || authMode === "new-password")
+    if (authMode === "sign-in" || authMode === "new-password") {
       setSignInOpen(false);
+      if (returnTo) {
+        setReturnTo(null);
+        setAccountReady(false);
+        router.push(returnTo);
+      }
+    }
   }
 
   async function signOut() {
@@ -220,7 +251,7 @@ export default function SiteChrome({
   }
 
   return (
-    <div className="site-shell">
+    <div className="site-shell" onClickCapture={gateNavigation}>
       <header className="site-header">
         <div className="wrap site-nav">
           <Link
@@ -231,13 +262,9 @@ export default function SiteChrome({
           >
             <img
               className="brand-logo"
-              src="/images/amped-up-electric-garage-logo.jpg"
+              src="/images/amped-up-electric-garage-logo.png"
               alt="Amped Up Electric Garage founding partner logo"
             />
-            <span className="brand-copy">
-              <strong>Amped Up Network</strong>
-              <small>EV ownership, made easy.</small>
-            </span>
           </Link>
           <nav
             className={menuOpen ? "consumer-nav is-open" : "consumer-nav"}
@@ -273,6 +300,20 @@ export default function SiteChrome({
             >
               {t("chrome.nav.community", "Community")}
             </Link>
+            {account && (
+              <div className="mobile-account-nav">
+                <p>{account.email}</p>
+                <Link href="/profile" onClick={() => setMenuOpen(false)}>
+                  My profile
+                </Link>
+                <Link href="/membership" onClick={() => setMenuOpen(false)}>
+                  Membership
+                </Link>
+                <button type="button" onClick={signOut}>
+                  Log out
+                </button>
+              </div>
+            )}
           </nav>
           <div className="site-actions">
             <label className="locale-switcher">
@@ -299,7 +340,7 @@ export default function SiteChrome({
               {dark ? <SunIcon /> : <MoonIcon />}
             </button>
             <Link
-              className="cart-link"
+              className={cartCount === 0 ? "cart-link cart-link--empty" : "cart-link"}
               href={localHref("/cart")}
               aria-label={`Cart and orders, ${cartCount} items`}
             >
@@ -395,7 +436,7 @@ export default function SiteChrome({
             >
               <img
                 className="brand-logo"
-                src="/images/amped-up-electric-garage-logo.jpg"
+                src="/images/amped-up-electric-garage-logo.png"
                 alt="Amped Up Electric Garage founding partner logo"
               />
               <span className="brand-copy">
@@ -403,12 +444,6 @@ export default function SiteChrome({
                 <small>EV ownership, made easy.</small>
               </span>
             </Link>
-            <p>
-              {t(
-                "chrome.footer.tagline",
-                "EV ownership, made easy.",
-              )}
-            </p>
             <span
               className="version-crumb"
               aria-label={`Application version ${appVersion}, build ${buildCommit}`}
@@ -432,7 +467,7 @@ export default function SiteChrome({
             <Link href={localHref("/upgrades")}>
               Upgrades
             </Link>
-            <a href="mailto:hello@voltyard.com">
+            <a href="mailto:hello@ampedupgarage.com">
               {t("chrome.footer.contact", "Contact")}
             </a>
           </nav>
@@ -475,7 +510,7 @@ export default function SiteChrome({
             </h2>
             <p>
               {authMode === "sign-up"
-                ? "Use an email and password to create your account."
+                ? "Create an account to preserve your vehicle, problem and case, post, and purchase history."
                 : authMode === "reset"
                   ? "Enter your email and we will send a reset link."
                   : authMode === "new-password"

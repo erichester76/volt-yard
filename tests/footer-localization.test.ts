@@ -5,8 +5,7 @@ import test from "node:test";
 const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), "utf8");
 const migration = readFileSync(new URL("../supabase/migrations/20261004000002_localize_shared_footer.sql", import.meta.url), "utf8");
 
-test("shared footer copy uses localized content with English fallbacks", () => {
-  assert.match(chrome, /t\(\s*"chrome\.footer\.tagline",\s*"EV ownership, made easy\.",?\s*\)/);
+test("shared footer keeps localized navigation and contact copy", () => {
   assert.match(chrome, /aria-label=\{t\("chrome\.footer\.navigation", "Footer navigation"\)\}/);
   assert.match(chrome, /href=\{localHref\("\/pricing"\)\}/);
   assert.match(chrome, />\s*Pricing\s*</);
@@ -16,8 +15,8 @@ test("shared footer copy uses localized content with English fallbacks", () => {
   assert.doesNotMatch(chrome, /t\("chrome\.footer\.version/);
 });
 
-test("footer translations are seeded for every supported locale", () => {
-  for (const key of ["tagline", "navigation", "membership", "contact"]) {
+test("footer navigation translations are seeded for every supported locale", () => {
+  for (const key of ["navigation", "membership", "contact"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
       assert.match(migration, new RegExp(`\\('chrome\\.footer\\.${key}', '${locale}',`));
     }
