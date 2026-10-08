@@ -7,8 +7,8 @@ import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabas
 
 const tiers = [
   { key: "free", name: "Free", price: "$0", copy: "Start a case, use DIY guides, and read the community." },
-  { key: "member", name: "Member", price: "$9/mo", copy: "Persistent case history and full community participation." },
-  { key: "premium", name: "Premium", price: "$19/mo", copy: "Priority service context and paid expert-response opportunities." },
+  { key: "member", name: "Member", price: "$9/mo", copy: "Persistent case history and full community participation. Future member discounts are planned and not yet available." },
+  { key: "premium", name: "Premium", price: "$19/mo", copy: "Priority service context and paid expert-response opportunities. Future member discounts are planned and not yet available." },
 ];
 
 export default function MembershipPlans({ management = false }: { management?: boolean }) {
