@@ -19,15 +19,15 @@ export default function Home() {
     <main className="community-home">
       <section className="hero community-home-hero">
         <div className="wrap">
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}")} accent={t("home.title_accent", "faster")} /></h1>
-          <p className="intro">{t("home.intro", "Information moves with you from one step to the next, so you do not have to repeat yourself and can remember what worked last time.")}</p>
-          <div className="hero-support-path" aria-label={t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}>
-            <p>{t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}</p>
+          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Your EV ownership network, {{accent}}")} accent={t("home.title_accent", "finally")} /></h1>
+          <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
+          <div className="hero-support-path" aria-label={t("home.journey_title", "More than a directory. More than a store. More than a forum.")}>
+            <p>{t("home.journey_title", "More than a directory. More than a store. More than a forum.")}</p>
             <ol>
-              <li><b>01</b><span>{t("home.journey_guided", "Define what you are looking for: recommendations, upgrades, repairs, or maintenance.")}</span></li>
-              <li><b>02</b><span>{t("home.journey_community", "Decide what solution you need: advice, training, products, or services.")}</span></li>
-              <li><b>03</b><span>{t("home.journey_expert", "Choose where to get it: forums, community feedback, experts, or a mechanic.")}</span></li>
-              <li><b>04</b><span>{t("home.journey_service", "Get to the right resource and keep the information for later.")}</span></li>
+              <li><b>01</b><span>{t("home.journey_guided", "Find EV-capable mechanics, alignment shops, electricians, and aftermarket specialists that are hard to discover elsewhere.")}</span></li>
+              <li><b>02</b><span>{t("home.journey_community", "Get focused recommendations, training, products, and services instead of piecing together social media and web searches.")}</span></li>
+              <li><b>03</b><span>{t("home.journey_expert", "Ask a community built for EV ownership, where owners and experts share practical knowledge.")}</span></li>
+              <li><b>04</b><span>{t("home.journey_service", "Carry your vehicle, problem, purchase, and post history forward so every next step starts with context.")}</span></li>
             </ol>
           </div>
         </div>
