@@ -265,10 +265,6 @@ export default function SiteChrome({
               src="/images/amped-up-electric-garage-logo.png"
               alt="Amped Up Electric Garage founding partner logo"
             />
-            <span className="brand-copy">
-              <strong>Amped Up Network</strong>
-              <small>EV ownership, made easy.</small>
-            </span>
           </Link>
           <nav
             className={menuOpen ? "consumer-nav is-open" : "consumer-nav"}
