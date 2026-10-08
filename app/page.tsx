@@ -23,7 +23,7 @@ export default function Home() {
       <section className="hero community-home-hero">
         <div className="wrap">
           <p className="eyebrow">{t("home.eyebrow", "The independent EV ownership network")}</p>
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Get to the useful answer, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
+          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
           <p className="intro">{t("home.intro", "Amped Up Network helps you move from a guided issue to community knowledge, expert context, and, only when hands-on service is needed, the right mechanic network.")}</p>
           <div className="hero-actions">
             <ActionLink href="/issues">{t("home.hero_cta", "Solve a current problem")} <span aria-hidden="true">→</span></ActionLink>
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </section>
       <section className="home-journey wrap" aria-labelledby="journey-title">
-        <div className="home-section-heading"><p className="eyebrow">{t("home.journey_eyebrow", "One support chain")}</p><h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="journey-title">{t("home.journey_title", "Keep the useful context moving.")}</h2></div>
+        <div className="home-section-heading"><p className="eyebrow">{t("home.journey_eyebrow", "One support chain")}</p><h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="journey-title">{t("home.journey_title", "From question to next step, all in one place.")}</h2></div>
         <ol className="home-journey-steps">
           <li><b>01</b><span>{t("home.journey_guided", "Describe what your vehicle is telling you with guided issue context.")}</span></li>
           <li><b>02</b><span>{t("home.journey_community", "Learn from owners who have seen the same problem in the real world.")}</span></li>
