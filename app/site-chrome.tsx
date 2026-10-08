@@ -473,7 +473,7 @@ export default function SiteChrome({
             <Link href={localHref("/upgrades")}>
               Upgrades
             </Link>
-            <a href="mailto:hello@voltyard.com">
+            <a href="mailto:hello@ampedupgarage.com">
               {t("chrome.footer.contact", "Contact")}
             </a>
           </nav>
