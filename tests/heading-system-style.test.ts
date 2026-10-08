@@ -47,7 +47,7 @@ test("dark theme accent tokens use the Amped Up safety palette", () => {
   assert.match(dark, /--header-accent-background: #ffcb32;/);
 });
 
-test("home hero applies the shared primary and secondary heading roles", () => {
+test("home hero applies the shared primary heading role", () => {
   assert.match(home, /className="heading-primary hero-action-heading hero-action-heading-primary"/);
-  assert.match(home, /className="heading-secondary hero-action-heading hero-action-heading-secondary"/);
+  assert.match(home, /<h2>\{t\("home\.paths_title"/);
 });

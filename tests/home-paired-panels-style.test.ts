@@ -7,8 +7,8 @@ const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
 const shops = readFileSync(new URL("../app/shops/page.tsx", import.meta.url), "utf8");
 const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), "utf8");
 
-test("home pathways and the standalone shops page preserve navigation and search", () => {
-  assert.match(home, /className="home-journey-steps"/);
+test("home pathways lead directly to the standalone shops search", () => {
+  assert.doesNotMatch(home, /home-journey-steps/);
   assert.match(home, /className="home-pathway-grid"/);
   assert.match(shops, /export default function ShopsPage/);
   assert.match(shops, /<form className="search" onSubmit=\{search\}>/);

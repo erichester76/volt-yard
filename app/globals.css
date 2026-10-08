@@ -1402,19 +1402,15 @@ footer button {
 
 .community-home-hero { padding-bottom: 52px; }
 .community-home-hero h1 { max-width: 760px; }
-.home-journey { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; padding-top: 82px; padding-bottom: 82px; }
 .home-section-heading .eyebrow { margin-bottom: 13px; }
 .home-section-heading h2 { margin: 0; font-size: clamp(28px, 3vw, 40px); }
-.home-journey-steps { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.home-journey-steps li { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); color: var(--muted); line-height: 1.5; }
-.home-journey-steps b { color: var(--orange); font: 12px "DM Mono", monospace; }
 .home-pathways { padding: 48px 0 62px; background: var(--surface-muted); }
 .home-pathway-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
 .home-pathway-grid article { display: flex; flex-direction: column; min-height: 210px; padding: 22px; border: 1px solid var(--line); background: var(--surface); }
 .home-pathway-grid h3 { margin: 0 0 12px; font-size: 22px; }
 .home-pathway-grid p { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .home-pathway-grid a { margin-top: auto; color: var(--ink); font-size: 13px; font-weight: 700; }
-@media (max-width: 700px) { .home-journey { grid-template-columns: 1fr; gap: 30px; padding-top: 58px; padding-bottom: 58px; }.home-pathway-grid { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; } }
+@media (max-width: 700px) { .home-pathway-grid { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; } }
 
 .community-form {
   display: grid;
