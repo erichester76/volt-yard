@@ -2,7 +2,7 @@
 
 ## Scope
 
-Volt Yard sells active catalog services and upgrades through Stripe Checkout. It records retail price, installer payout, and platform margin snapshots when an order is created. After a verified payment webhook, compatible published partners receive work offers and one eligible partner may claim each request.
+Amped Up Network sells active catalog services and upgrades through Stripe Checkout. It records retail price, installer payout, and platform margin snapshots when an order is created. After a verified payment webhook, compatible published partners receive work offers and one eligible partner may claim each request.
 
 This is managed fulfillment, not a marketplace fee flow. Partner payouts are recorded manually and are not sent with Stripe Connect.
 

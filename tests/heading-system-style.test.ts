@@ -30,20 +30,21 @@ test("authored page headers and actions use shared semantic primitives", () => {
   assert.match(primitives, /export function Eyebrow/);
   assert.match(primitives, /export function Button/);
   assert.match(primitives, /export function ActionLink/);
-  assert.match(css, /--header-accent-background: #f3b2a2;/);
-  assert.match(css, /--header-accent-foreground: #172723;/);
+  assert.match(css, /--header-accent-background: #ffb800;/);
+  assert.match(css, /--header-accent-foreground: #141414;/);
   assert.match(css, /\.page-header \.eyebrow \{[\s\S]*?background: var\(--header-accent-background\);[\s\S]*?color: var\(--header-accent-foreground\);/);
   assert.match(css, /\.button,[\s\S]*?font: var\(--action-font\);/);
 });
 
-test("dark theme accent tokens do not inherit the light salmon palette", () => {
+test("dark theme accent tokens use the Amped Up safety palette", () => {
   const dark = css.match(/:root\[data-theme="dark"\] \{([\s\S]*?)\n\}/)?.[1];
   assert.ok(dark);
 
   assert.doesNotMatch(dark, /#(?:e96b4e|c95439|f3b2a2)\b/i);
-  for (const token of ["--acid", "--orange", "--button-primary-background", "--header-accent-background"]) {
-    assert.match(dark, new RegExp(`${token}: #d6ff35;`));
-  }
+  assert.match(dark, /--acid: #ffcb32;/);
+  assert.match(dark, /--orange: #ff8333;/);
+  assert.match(dark, /--button-primary-background: #ff8333;/);
+  assert.match(dark, /--header-accent-background: #ffcb32;/);
 });
 
 test("home hero applies the shared primary and secondary heading roles", () => {

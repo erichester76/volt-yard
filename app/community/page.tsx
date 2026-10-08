@@ -196,7 +196,7 @@ export default function CommunityPage() {
     : topics;
   return (
     <main className="content-page wrap">
-      <PageHeader className="content-head community-head" eyebrow="Volt Yard community" title="Ask owners who have been there." intro="Compare notes, learn what is normal, and know when it is time to bring in a specialist." actions={<Button
+      <PageHeader className="content-head community-head" eyebrow="Amped Up Network community" title="Ask owners who have been there." intro="Compare notes, learn what is normal, and know when it is time to bring in a specialist." actions={<Button
           onClick={() => setShowForm((value) => !value)}
           aria-expanded={showForm}
         >

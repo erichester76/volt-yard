@@ -2,7 +2,7 @@
 
 ## 1.0.0 - First MVP release
 
-Volt Yard 1.0.0 is the first MVP release of the EV service-partner directory and ownership-support application.
+Amped Up Network 1.0.0 is the first MVP release of the EV service-partner directory and ownership-support application.
 
 - Includes the searchable partner directory, account and vehicle profiles, issue cases, partner workflows, catalog checkout, memberships, community, and expert-work foundations.
 - Uses Supabase Auth, Postgres, Storage, and RLS with Vercel as the deployment target.

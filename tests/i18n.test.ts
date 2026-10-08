@@ -43,7 +43,7 @@ test("preserves route navigation details while adding or reading locales", () =>
 
 test("builds locale-specific canonical and hreflang metadata", () => {
   const metadata = localeMetadata("fr", "/issues");
-  assert.equal(metadata.title, "Volt Yard | Service VE independant");
+  assert.equal(metadata.title, "Amped Up Network | Accompagnement VE independant");
   assert.deepEqual(metadata.alternates, {
     canonical: "/fr/issues",
     languages: { en: "/en/issues", de: "/de/issues", fr: "/fr/issues", es: "/es/issues" },
