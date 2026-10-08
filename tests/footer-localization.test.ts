@@ -6,7 +6,7 @@ const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), 
 const migration = readFileSync(new URL("../supabase/migrations/20261004000002_localize_shared_footer.sql", import.meta.url), "utf8");
 
 test("shared footer copy uses localized content with English fallbacks", () => {
-  assert.match(chrome, /t\(\s*"chrome\.footer\.tagline",\s*"Independent EV ownership, connected\.",?\s*\)/);
+  assert.match(chrome, /t\(\s*"chrome\.footer\.tagline",\s*"EV ownership, made easy\.",?\s*\)/);
   assert.match(chrome, /aria-label=\{t\("chrome\.footer\.navigation", "Footer navigation"\)\}/);
   assert.match(chrome, /href=\{localHref\("\/pricing"\)\}/);
   assert.match(chrome, />\s*Pricing\s*</);

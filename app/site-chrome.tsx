@@ -236,7 +236,7 @@ export default function SiteChrome({
             />
             <span className="brand-copy">
               <strong>Amped Up Network</strong>
-              <small>Independent EV ownership network</small>
+              <small>EV ownership, made easy.</small>
             </span>
           </Link>
           <nav
@@ -400,13 +400,13 @@ export default function SiteChrome({
               />
               <span className="brand-copy">
                 <strong>Amped Up Network</strong>
-                <small>Independent EV ownership network</small>
+                <small>EV ownership, made easy.</small>
               </span>
             </Link>
             <p>
               {t(
                 "chrome.footer.tagline",
-                "Independent EV ownership, connected.",
+                "EV ownership, made easy.",
               )}
             </p>
             <span
