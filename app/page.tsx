@@ -22,14 +22,14 @@ export default function Home() {
       <section className="hero community-home-hero">
         <div className="wrap">
           <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
-          <p className="intro">{t("home.intro", "From question to next step, all in one place. Amped Up Network helps you move from a guided issue to community knowledge, expert context, and, only when hands-on service is needed, the right mechanic network.")}</p>
+          <p className="intro">{t("home.intro", "Information moves with you from one step to the next, so you do not have to repeat yourself and can remember what worked last time.")}</p>
           <div className="hero-support-path" aria-label={t("home.journey_title", "From question to next step, all in one place.")}>
             <p>{t("home.journey_title", "From question to next step, all in one place.")}</p>
             <ol>
-              <li><b>01</b><span>{t("home.journey_guided", "Solve a current issue with guided support.")}</span></li>
-              <li><b>02</b><span>{t("home.journey_community", "Stay proactive with maintenance training and checklists.")}</span></li>
-              <li><b>03</b><span>{t("home.journey_expert", "Discover owner-tested upgrades and community favorites.")}</span></li>
-              <li><b>04</b><span>{t("home.journey_service", "Connect with owners, experts, and mechanics when you need hands-on help.")}</span></li>
+              <li><b>01</b><span>{t("home.journey_guided", "Define what you are looking for: recommendations, upgrades, repairs, or maintenance.")}</span></li>
+              <li><b>02</b><span>{t("home.journey_community", "Decide what solution you need: advice, training, products, or services.")}</span></li>
+              <li><b>03</b><span>{t("home.journey_expert", "Choose where to get it: forums, community feedback, experts, or a mechanic.")}</span></li>
+              <li><b>04</b><span>{t("home.journey_service", "Get to the right resource and keep the information for later.")}</span></li>
             </ol>
           </div>
         </div>
