@@ -784,13 +784,16 @@ footer button {
   .menu-button { display: block; }
 }
 @media (max-width: 700px) {
-  .site-nav { min-height: 64px; gap: 14px; }
+  .site-nav { min-height: 64px; gap: 8px; padding-left: 16px; padding-right: 16px; }
   .consumer-nav { display: none; position: absolute; top: 64px; left: 0; right: 0; padding: 16px 19px; border-bottom: 1px solid var(--line); background: var(--cream); }
   .consumer-nav.is-open { display: grid; gap: 14px; }
-  .site-actions { margin-left: auto; gap: 8px; }
+  .site-actions { margin-left: auto; gap: 6px; }
+  .locale-switcher, .brand-copy small { display: none; }
   .icon-button { width: 30px; height: 30px; }
-  .sign-in-button, .account-button { padding: 7px 8px; }
-  .menu-button { display: block; }
+  .cart-link, .sign-in-button, .account-button, .menu-button { width: 30px; height: 30px; padding: 0; border: 1px solid var(--line); }
+  .cart-link .action-label, .sign-in-button .action-label, .account-button .action-label { display: none; }
+  .menu-button { display: block; font-size: 0; }
+  .menu-button::after { content: "="; font-size: 17px; }
   .footer-content, .footer-content > div { align-items: flex-start; flex-direction: column; }
   .footer-content { padding-top: 30px; padding-bottom: 30px; }
   .footer-content > div { gap: 10px; }
@@ -800,11 +803,7 @@ footer button {
   .brand-copy small { font-size: 7px; }
 }
 @media (max-width: 420px) {
-  .cart-link { width: 30px; height: 30px; border: 1px solid var(--line); }
-  .cart-link .action-label { display: none; }
   .cart-link .cart-count { position: absolute; top: -7px; right: -8px; }
-  .menu-button { font-size: 0; width: 28px; height: 28px; border: 1px solid var(--line); }
-  .menu-button::after { content: "="; font-size: 17px; }
 }
 .profile-form fieldset {
   border: 0;

@@ -14,12 +14,19 @@ test("pricing and store sections have localized route wrappers", () => {
   assert.match(read("app/upgrades/page.tsx"), /section="upgrades"/);
 });
 
-test("catalog sections retain the cart flow and return sign-ins to their current route", () => {
+test("catalog sections retain the secure cart flow and make membership discoverable first", () => {
   const catalog = read("app/catalog/page.tsx");
   assert.match(catalog, /product\.category\?\.slug === "services"/);
-  assert.match(catalog, /authRedirectUrl\(window\.location\.origin, window\.location\.pathname\)/);
+  assert.match(catalog, /volt-yard-open-auth/);
+  assert.match(catalog, /Explore membership and pricing/);
   assert.match(catalog, /href: "\/upgrades"/);
   assert.match(catalog, /href: "\/services"/);
+});
+
+test("pricing describes discounts as future benefits, not active ones", () => {
+  const plans = read("app/membership-plans.tsx");
+  assert.match(plans, /Future member discounts are planned and not yet available\./);
+  assert.doesNotMatch(plans, /active member discounts/i);
 });
 
 test("chrome exposes pricing, services, and upgrades while home prioritizes owner journeys", () => {
