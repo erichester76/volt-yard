@@ -14,8 +14,8 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "Volt Yard | Independent EV service",
-  description: "Find an independent EV mechanic near you."
+  title: "Amped Up Network | Independent EV ownership",
+  description: "Find trusted independent EV help, community, and service partners."
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

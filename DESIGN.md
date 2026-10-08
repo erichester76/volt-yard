@@ -1,8 +1,8 @@
-# Volt Yard Design
+# Amped Up Network Design
 
 ## Product Intent
 
-Volt Yard helps EV owners get from an observed problem to an appropriate form of help: learn, compare community experience, request paid expert input, find a local independent partner, or purchase a managed service. It also gives partners an approval-gated presence and a matched work queue.
+Amped Up Network helps EV owners get from an observed problem to an appropriate form of help: learn, compare community experience, request paid expert input, find a local independent partner, or purchase a managed service. It also gives partners an approval-gated presence and a matched work queue. Amped Up Electric Garage is a founding independent partner, not the platform name or a preferential network placement.
 
 The product does not diagnose vehicles automatically, book appointments, dispatch work, integrate vehicle telemetry, or transfer partner payouts.
 
@@ -78,7 +78,7 @@ The current cart UI does not send the required `Idempotency-Key`, so this journe
 ## Design System
 
 - **Voice:** practical, calm, direct, and EV-specific. The UI uses action-led language such as “Diagnose,” “Find a mechanic,” and “Submit for review.” Avoid implying a confirmed diagnosis, appointment, guaranteed match, or automated payout.
-- **Visual language:** the existing `globals.css` defines the visual system. Reuse its typography, spacing, cards, eyebrow labels, inline calls to action, forms, status/error messaging, light/dark theme behavior, and responsive patterns rather than introducing a disconnected component system.
+- **Visual language:** the existing `globals.css` defines the visual system: black, safety orange, steel gray, and yellow accents in both light and dark themes. The supplied Amped Up Electric Garage logo appears only beside explicit Amped Up Network platform labeling and is described as a founding-partner mark. Reuse its typography, spacing, cards, eyebrow labels, inline calls to action, forms, status/error messaging, light/dark theme behavior, and responsive patterns rather than introducing a disconnected component system.
 - **Interaction:** retain native form controls, visible loading/error states, accessible labels, and concise success messages. Destructive or workflow-changing actions require deliberate labeled buttons and should surface backend errors.
 - **Content states:** distinguish unavailable configuration, empty catalog/community/directory results, pending moderation/review, and authorization failures. Do not substitute sample data for live failures.
 

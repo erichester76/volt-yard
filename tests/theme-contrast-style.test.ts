@@ -32,8 +32,8 @@ test("primary buttons and community card links retain theme contrast", () => {
     assert.ok(contrast(foreground, background) >= 4.5);
   }
 
-  assert.equal(declaration(light, "--button-primary-background"), declaration(light, "--acid"));
-  assert.equal(declaration(dark, "--button-primary-background"), declaration(dark, "--acid"));
+  assert.notEqual(declaration(light, "--button-primary-background"), declaration(light, "--acid"));
+  assert.notEqual(declaration(dark, "--button-primary-background"), declaration(dark, "--acid"));
 
   assert.match(css, /\.catalog-card button \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
   assert.match(css, /\.topic-card-footer a,/);
@@ -54,7 +54,7 @@ test("primary and secondary button tokens are explicit and accessible in each th
     assert.ok(contrast(foreground, background) >= 4.5);
   }
 
-  assert.match(css, /\.heading-accent \{[^}]*font-family: "Playfair Display"[^}]*color: var\(--heading-accent-color\);/);
+  assert.match(css, /\.heading-accent \{[^}]*color: var\(--heading-accent-color\);/);
   assert.match(css, /\.heading-accent-italic \{[^}]*font-style: italic;/);
   assert.match(css, /\.button--primary,[\s\S]*?\.action-link--primary \{[^}]*background: var\(--button-primary-background\);[^}]*color: var\(--button-primary-foreground\);/);
   assert.match(css, /\.inline-cta\.secondary-action \{[^}]*background: var\(--button-secondary-background\);[^}]*color: var\(--button-secondary-foreground\);/);

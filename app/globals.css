@@ -1,26 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap");
 
 :root {
-  --ink: #17283a;
-  --muted: #536574;
-  --line: #cbd5dd;
-  --cream: #edf2f5;
-  --surface: #f8fafb;
-  --surface-muted: #dfe7ed;
-  --surface-strong: #ccd9e2;
-  --acid: #e96b4e;
-  --acid-ink: #172723;
-  --orange: #c95439;
-  --danger: #9d3c2c;
-  --hero: #17283a;
-  --hero-ink: #f7f9fa;
-  --community-card-link: #17283a;
-  --button-primary-background: #e96b4e;
-  --button-primary-foreground: #172723;
-  --button-secondary-background: #ccd9e2;
-  --button-secondary-foreground: #17283a;
-  --diagnose-cta-background: #e96b4e;
-  --diagnose-cta-foreground: #172723;
+  --ink: #141414;
+  --muted: #56616b;
+  --line: #aab1b7;
+  --cream: #f4f2ed;
+  --surface: #ffffff;
+  --surface-muted: #e5e8ea;
+  --surface-strong: #c8cdd1;
+  --acid: #ffb800;
+  --acid-ink: #141414;
+  --orange: #ed6a1f;
+  --danger: #ae321c;
+  --hero: #121212;
+  --hero-ink: #ffffff;
+  --community-card-link: #141414;
+  --button-primary-background: #ed6a1f;
+  --button-primary-foreground: #141414;
+  --button-secondary-background: #c8cdd1;
+  --button-secondary-foreground: #141414;
+  --diagnose-cta-background: #ffb800;
+  --diagnose-cta-foreground: #141414;
   --heading-font-family: "DM Sans", Arial, sans-serif;
   --heading-font-weight: 600;
   --heading-primary-size: clamp(30px, 4vw, 46px);
@@ -30,38 +30,38 @@
   --heading-letter-spacing: -0.05em;
   --heading-primary-color: var(--ink);
   --heading-secondary-color: var(--muted);
-  --heading-accent-color: var(--acid);
+  --heading-accent-color: var(--orange);
   --heading-on-hero-color: var(--hero-ink);
   --heading-secondary-on-hero-color: #bdc8c2;
   --heading-gap: 12px;
-  --header-accent-background: #f3b2a2;
-  --header-accent-foreground: #172723;
+  --header-accent-background: #ffb800;
+  --header-accent-foreground: #141414;
   --action-font: 600 12px "DM Sans", Arial, sans-serif;
   --action-padding: 11px 14px;
 }
 :root[data-theme="dark"] {
-  --ink: #edf4ec;
-  --muted: #b3c0ba;
-  --line: #415149;
-  --cream: #14211e;
-  --surface: #1b2d28;
-  --surface-muted: #20352f;
-  --surface-strong: #2a443b;
-  --acid: #d6ff35;
-  --orange: #d6ff35;
-  --acid-ink: #172723;
-  --danger: #f38b72;
-  --hero: #0e1c19;
-  --hero-ink: #edf4ec;
-  --community-card-link: #edf4ec;
-  --button-primary-background: #d6ff35;
-  --button-primary-foreground: #172723;
-  --button-secondary-background: #4a4f4d;
-  --button-secondary-foreground: #edf4ec;
-  --diagnose-cta-background: #d6ff35;
-  --diagnose-cta-foreground: #172723;
-  --header-accent-background: #d6ff35;
-  --header-accent-foreground: #172723;
+  --ink: #f7f7f4;
+  --muted: #c1c7cb;
+  --line: #5c646a;
+  --cream: #151719;
+  --surface: #212529;
+  --surface-muted: #30363b;
+  --surface-strong: #454d53;
+  --acid: #ffcb32;
+  --orange: #ff8333;
+  --acid-ink: #141414;
+  --danger: #ff9074;
+  --hero: #080909;
+  --hero-ink: #ffffff;
+  --community-card-link: #ffffff;
+  --button-primary-background: #ff8333;
+  --button-primary-foreground: #141414;
+  --button-secondary-background: #454d53;
+  --button-secondary-foreground: #ffffff;
+  --diagnose-cta-background: #ffcb32;
+  --diagnose-cta-foreground: #141414;
+  --header-accent-background: #ffcb32;
+  --header-accent-foreground: #141414;
 }
 * {
   box-sizing: border-box;
@@ -132,8 +132,12 @@ body {
   letter-spacing: -1px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
+.brand-logo { width: 42px; height: 42px; border: 1px solid var(--line); object-fit: contain; background: #fff; }
+.brand-copy { display: grid; gap: 2px; line-height: 1; letter-spacing: -.04em; }
+.brand-copy strong { font-size: 15px; font-weight: 700; }
+.brand-copy small { color: var(--muted); font: 500 8px "DM Mono", monospace; letter-spacing: .05em; text-transform: uppercase; }
 .mark {
   display: grid;
   place-items: center;
@@ -784,6 +788,8 @@ footer button {
   .footer-content > div { gap: 10px; }
   .version-crumb { font-size: 10px; }
   .footer-content nav { justify-content: flex-start; gap: 12px 17px; }
+  .brand-logo { width: 36px; height: 36px; }
+  .brand-copy small { font-size: 7px; }
 }
 @media (max-width: 420px) {
   .cart-link { width: 30px; height: 30px; border: 1px solid var(--line); }

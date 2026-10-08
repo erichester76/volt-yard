@@ -467,7 +467,7 @@ export default function Home() {
             </p>
             <div className="hero-panels">
               <section className="hero-panel diagnose-panel" aria-labelledby="diagnose-panel-title">
-                <p className="eyebrow">{t("home.diagnose_eyebrow", "The Volt Yard difference")}</p>
+                <p className="eyebrow">{t("home.diagnose_eyebrow", "The Amped Up Network difference")}</p>
                 <h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="diagnose-panel-title">
                   {t("home.diagnose_title", "Support that stays with the issue.")}
                 </h2>

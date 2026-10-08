@@ -1,6 +1,6 @@
 # Deployment Runbook
 
-Volt Yard is deployed as a Next.js application on Vercel with Supabase as its backend. Migrations must be available before application code that depends on them.
+Amped Up Network is deployed as a Next.js application on Vercel with Supabase as its backend. Migrations must be available before application code that depends on them.
 
 ## Release Procedure
 
