@@ -787,10 +787,11 @@ footer button {
   .site-nav { min-height: 64px; gap: 8px; padding-left: 16px; padding-right: 16px; }
   .consumer-nav { display: none; position: absolute; top: 64px; left: 0; right: 0; padding: 16px 19px; border-bottom: 1px solid var(--line); background: var(--cream); }
   .consumer-nav.is-open { display: grid; gap: 14px; }
-  .site-actions { margin-left: auto; gap: 6px; }
-  .locale-switcher, .brand-copy small { display: none; }
-  .icon-button { width: 30px; height: 30px; border: 1px solid var(--line); }
-  .cart-link, .sign-in-button, .account-button, .menu-button { width: 30px; height: 30px; padding: 0; border: 1px solid var(--line); }
+  .site-actions { margin-left: auto; gap: 3px; }
+  .brand-copy small { display: none; }
+  .locale-switcher select { min-width: 40px; padding-left: 0; padding-right: 0; }
+  .icon-button { width: 30px; height: 30px; border: 0; }
+  .cart-link, .sign-in-button, .account-button, .menu-button { width: 30px; height: 30px; padding: 0; border: 0; }
   .cart-link .action-label, .sign-in-button .action-label, .account-button .action-label { display: none; }
   .menu-button { display: block; font-size: 0; }
   .menu-button::after { content: "="; font-size: 17px; }
@@ -804,6 +805,15 @@ footer button {
 }
 @media (max-width: 420px) {
   .cart-link .cart-count { position: absolute; top: -7px; right: -8px; }
+}
+@media (max-width: 360px) {
+  .site-nav { gap: 4px; padding-left: 12px; padding-right: 12px; }
+  .site-actions { gap: 2px; }
+  .brand-logo { width: 32px; height: 32px; }
+  .brand-copy strong { font-size: 12px; }
+  .locale-switcher select { min-width: 38px; }
+  .icon-button { display: none; }
+  .cart-link, .sign-in-button, .account-button, .menu-button { width: 28px; height: 28px; }
 }
 .profile-form fieldset {
   border: 0;
