@@ -5,10 +5,10 @@ import { LocalizedHeadingAccent } from "@/app/heading-accent";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const pathways = [
-  ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Start a guided issue", "/issues"],
-  ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Browse practical guides", "/tutorials"],
-  ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Explore community favorites", "/upgrades"],
-  ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Browse or ask the community", "/community"],
+  ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Tell us what is happening. We organize the details, surface relevant answers, and help you choose a next step.", "Start a guided issue", "/issues"],
+  ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Use training and checklists to build a practical plan, then carry it into a service visit when needed.", "Browse practical guides", "/tutorials"],
+  ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Compare community favorites and compatible options before you buy or book, with your vehicle context close at hand.", "Explore community favorites", "/upgrades"],
+  ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Ask focused questions, learn from real ownership experience, and save what helps for next time.", "Browse or ask the community", "/community"],
 ] as const;
 
 export default function Home() {
@@ -33,7 +33,8 @@ export default function Home() {
         </div>
       </section>
       <section className="home-pathways"><div className="wrap">
-        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{title} <span aria-hidden="true">→</span></Link></article>)}</div>
+        <div className="home-section-heading home-pathways-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Start where you are")}</p><h2>{t("home.paths_title", "Choose a path. We carry the context forward.")}</h2><p>{t("home.paths_intro", "Every journey connects your vehicle, questions, and progress to the next useful resource.")}</p></div>
+        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, action, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{action} <span aria-hidden="true">→</span></Link></article>)}</div>
       </div></section>
     </main>
   );
