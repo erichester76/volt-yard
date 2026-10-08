@@ -4,6 +4,7 @@ import test from "node:test";
 
 const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
 const migration = readFileSync(new URL("../supabase/migrations/20261008000003_localize_community_first_home.sql", import.meta.url), "utf8");
+const partnerMigration = readFileSync(new URL("../supabase/migrations/20261008000017_add_home_partner_invitation.sql", import.meta.url), "utf8");
 
 test("home introduces the support pathway and offers the four primary owner journeys", () => {
   assert.match(home, /home\.intro/);
@@ -31,4 +32,15 @@ test("home sends people from the hero directly to the owner pathways", () => {
   assert.match(home, /className="home-pathways"/);
   assert.match(home, /href="#owner-journeys"/);
   assert.match(home, /id="owner-journeys"/);
+});
+
+test("home invites relevant partners to join the network", () => {
+  assert.match(home, /className="home-partner-invitation"/);
+  assert.match(home, /href="\/membership"/);
+
+  for (const key of ["partner_eyebrow", "partner_title", "partner_intro", "partner_action"]) {
+    for (const locale of ["en", "de", "fr", "es"]) {
+      assert.match(partnerMigration, new RegExp(`\\('home\\.${key}','${locale}',`));
+    }
+  }
 });
