@@ -31,8 +31,10 @@ export default function Home() {
             </ol>
           </div>
           <a className="hero-scroll-cue" href="#owner-journeys" aria-label="Explore owner journeys">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3v17M5 13l7 7 7-7" />
+            <svg viewBox="0 0 44 30" aria-hidden="true">
+              <path className="hero-scroll-chevron-orange" d="M2 2l20 7 20-7" />
+              <path className="hero-scroll-chevron-gold" d="M2 11l20 7 20-7" />
+              <path className="hero-scroll-chevron-yellow" d="M2 20l20 7 20-7" />
             </svg>
           </a>
         </div>
