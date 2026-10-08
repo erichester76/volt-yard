@@ -23,3 +23,7 @@ test("home support chain and owner pathways use localized authored copy", () => 
     }
   }
 });
+
+test("home presents owner pathways before explaining the support chain", () => {
+  assert.ok(home.indexOf('className="home-pathways"') < home.indexOf('className="home-journey wrap"'));
+});

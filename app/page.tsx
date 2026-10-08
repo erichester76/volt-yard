@@ -2,7 +2,6 @@
 
 import Link from "@/app/locale-link";
 import { LocalizedHeadingAccent } from "@/app/heading-accent";
-import { ActionLink } from "@/app/page-primitives";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const pathways = [
@@ -25,12 +24,12 @@ export default function Home() {
           <p className="eyebrow">{t("home.eyebrow", "The independent EV ownership network")}</p>
           <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
           <p className="intro">{t("home.intro", "Amped Up Network helps you move from a guided issue to community knowledge, expert context, and, only when hands-on service is needed, the right mechanic network.")}</p>
-          <div className="hero-actions">
-            <ActionLink href="/issues">{t("home.hero_cta", "Solve a current problem")} <span aria-hidden="true">→</span></ActionLink>
-            <Link className="membership-cue" href="/community">{t("home.hero_secondary", "Browse the owner community")}</Link>
-          </div>
         </div>
       </section>
+      <section className="home-pathways"><div className="wrap">
+        <div className="home-section-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Choose your next move")}</p><h2>{t("home.paths_title", "Support for the road you are on.")}</h2></div>
+        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{title} <span aria-hidden="true">→</span></Link></article>)}</div>
+      </div></section>
       <section className="home-journey wrap" aria-labelledby="journey-title">
         <div className="home-section-heading"><p className="eyebrow">{t("home.journey_eyebrow", "One support chain")}</p><h2 className="heading-secondary hero-action-heading hero-action-heading-secondary" id="journey-title">{t("home.journey_title", "From question to next step, all in one place.")}</h2></div>
         <ol className="home-journey-steps">
@@ -40,10 +39,6 @@ export default function Home() {
           <li><b>04</b><span>{t("home.journey_service", "Find a mechanic when hands-on service is the right next step.")}</span></li>
         </ol>
       </section>
-      <section className="home-pathways"><div className="wrap">
-        <div className="home-section-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Choose your next move")}</p><h2>{t("home.paths_title", "Support for the road you are on.")}</h2></div>
-        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{title} <span aria-hidden="true">→</span></Link></article>)}</div>
-      </div></section>
     </main>
   );
 }
