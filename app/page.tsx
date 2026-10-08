@@ -23,8 +23,8 @@ export default function Home() {
         <div className="wrap">
           <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
           <p className="intro">{t("home.intro", "Information moves with you from one step to the next, so you do not have to repeat yourself and can remember what worked last time.")}</p>
-          <div className="hero-support-path" aria-label={t("home.journey_title", "From question to next step, all in one place.")}>
-            <p>{t("home.journey_title", "From question to next step, all in one place.")}</p>
+          <div className="hero-support-path" aria-label={t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}>
+            <p>{t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}</p>
             <ol>
               <li><b>01</b><span>{t("home.journey_guided", "Define what you are looking for: recommendations, upgrades, repairs, or maintenance.")}</span></li>
               <li><b>02</b><span>{t("home.journey_community", "Decide what solution you need: advice, training, products, or services.")}</span></li>
