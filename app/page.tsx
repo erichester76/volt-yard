@@ -30,9 +30,14 @@ export default function Home() {
               <li><b>04</b><span>{t("home.journey_service", "Carry your vehicle, problem, purchase, and post history forward so every next step starts with context.")}</span></li>
             </ol>
           </div>
+          <a className="hero-scroll-cue" href="#owner-journeys" aria-label="Explore owner journeys">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v17M5 13l7 7 7-7" />
+            </svg>
+          </a>
         </div>
       </section>
-      <section className="home-pathways"><div className="wrap">
+      <section className="home-pathways" id="owner-journeys"><div className="wrap">
         <div className="home-section-heading home-pathways-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Start where you are")}</p><h2>{t("home.paths_title", "Choose a path. We carry the context forward.")}</h2><p>{t("home.paths_intro", "Every journey connects your vehicle, questions, and progress to the next useful resource.")}</p></div>
         <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, action, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{action} <span aria-hidden="true">→</span></Link></article>)}</div>
       </div></section>

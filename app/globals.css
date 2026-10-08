@@ -1426,6 +1426,10 @@ footer button {
 .hero-support-path ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
 .hero-support-path li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; color: var(--heading-secondary-on-hero-color); font-size: 13px; line-height: 1.45; }
 .hero-support-path b { color: var(--acid); font: 12px "DM Mono", monospace; }
+.hero-scroll-cue { display: grid; width: 36px; height: 36px; place-items: center; margin-top: 30px; color: var(--acid); animation: hero-scroll-cue 1.7s ease-in-out infinite; }
+.hero-scroll-cue svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: square; stroke-linejoin: miter; stroke-width: 1.8; }
+@keyframes hero-scroll-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+@media (prefers-reduced-motion: reduce) { .hero-scroll-cue { animation: none; } }
 .home-section-heading .eyebrow { margin-bottom: 13px; }
 .home-section-heading h2 { margin: 0; font-size: clamp(28px, 3vw, 40px); }
 .home-pathways-heading { max-width: 700px; margin-bottom: 32px; }
