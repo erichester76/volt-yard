@@ -82,10 +82,10 @@ body {
 .consumer-nav { display: flex; gap: 24px; align-items: center; flex: 1; }
 .consumer-nav a, .site-actions a { color: var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; }
 .site-actions { display: flex; align-items: center; gap: 12px; }
-.locale-switcher select { min-width: 48px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 12px "DM Sans"; padding: 7px 4px; }
+.locale-switcher select { min-width: 48px; border: 0; background: var(--surface); color: var(--ink); font: 600 12px "DM Sans"; padding: 7px 4px; }
 .icon-button, .sign-in-button, .account-button, .menu-button { border: 0; background: none; color: var(--ink); cursor: pointer; font: 600 12px "DM Sans"; }
 .icon-button, .sign-in-button, .account-button, .cart-link { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
-.icon-button { width: 34px; height: 34px; border: 1px solid var(--line); color: var(--ink); }
+.icon-button { width: 34px; height: 34px; border: 0; color: var(--ink); }
 .icon-button svg, .cart-link svg, .sign-in-button svg, .account-button svg { width: 17px; height: 17px; flex: none; }
 .sign-in-button, .account-button { border: 1px solid var(--ink); padding: 8px 11px; }
 .cart-link { position: relative; padding: 7px 2px; }
@@ -789,7 +789,7 @@ footer button {
   .consumer-nav.is-open { display: grid; gap: 14px; }
   .site-actions { margin-left: auto; gap: 6px; }
   .locale-switcher, .brand-copy small { display: none; }
-  .icon-button { width: 30px; height: 30px; }
+  .icon-button { width: 30px; height: 30px; border: 1px solid var(--line); }
   .cart-link, .sign-in-button, .account-button, .menu-button { width: 30px; height: 30px; padding: 0; border: 1px solid var(--line); }
   .cart-link .action-label, .sign-in-button .action-label, .account-button .action-label { display: none; }
   .menu-button { display: block; font-size: 0; }
