@@ -231,7 +231,7 @@ export default function SiteChrome({
           >
             <img
               className="brand-logo"
-              src="/images/amped-up-electric-garage-logo.jpg"
+              src="/images/amped-up-electric-garage-logo.png"
               alt="Amped Up Electric Garage founding partner logo"
             />
             <span className="brand-copy">
@@ -395,7 +395,7 @@ export default function SiteChrome({
             >
               <img
                 className="brand-logo"
-                src="/images/amped-up-electric-garage-logo.jpg"
+                src="/images/amped-up-electric-garage-logo.png"
                 alt="Amped Up Electric Garage founding partner logo"
               />
               <span className="brand-copy">
