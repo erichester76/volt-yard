@@ -21,7 +21,7 @@ export default function Home() {
     <main className="community-home">
       <section className="hero community-home-hero">
         <div className="wrap">
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}.")} accent={t("home.title_accent", "faster")} /></h1>
+          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Find your solution, {{accent}}")} accent={t("home.title_accent", "faster")} /></h1>
           <p className="intro">{t("home.intro", "Information moves with you from one step to the next, so you do not have to repeat yourself and can remember what worked last time.")}</p>
           <div className="hero-support-path" aria-label={t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}>
             <p>{t("home.journey_title", "Stop repeating yourself across social media, reseller sites, and repair shops.")}</p>
@@ -35,7 +35,6 @@ export default function Home() {
         </div>
       </section>
       <section className="home-pathways"><div className="wrap">
-        <div className="home-section-heading"><p className="eyebrow">{t("home.paths_eyebrow", "Choose your next move")}</p><h2>{t("home.paths_title", "Support for the road you are on.")}</h2></div>
         <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{title} <span aria-hidden="true">→</span></Link></article>)}</div>
       </div></section>
     </main>

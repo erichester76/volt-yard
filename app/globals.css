@@ -193,6 +193,7 @@ body {
   color: var(--acid);
 }
 .hero .heading-primary { color: var(--heading-on-hero-color); }
+.hero .heading-primary .heading-accent { margin-left: .16em; }
 h1,
 h2,
 h3,
@@ -1411,7 +1412,7 @@ footer button {
 .home-section-heading .eyebrow { margin-bottom: 13px; }
 .home-section-heading h2 { margin: 0; font-size: clamp(28px, 3vw, 40px); }
 .home-pathways { padding: 48px 0 62px; background: var(--surface-muted); }
-.home-pathway-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.home-pathway-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .home-pathway-grid article { display: flex; flex-direction: column; min-height: 210px; padding: 22px; border: 1px solid var(--line); background: var(--surface); }
 .home-pathway-grid h3 { margin: 0 0 12px; color: var(--orange); font-size: 22px; }
 .home-pathway-grid p { color: var(--muted); font-size: 14px; line-height: 1.5; }
