@@ -444,12 +444,6 @@ export default function SiteChrome({
                 <small>EV ownership, made easy.</small>
               </span>
             </Link>
-            <p>
-              {t(
-                "chrome.footer.tagline",
-                "EV ownership, made easy.",
-              )}
-            </p>
             <span
               className="version-crumb"
               aria-label={`Application version ${appVersion}, build ${buildCommit}`}
