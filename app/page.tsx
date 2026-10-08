@@ -7,10 +7,8 @@ import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 const pathways = [
   ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Start a guided issue", "/issues"],
   ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Browse practical guides", "/tutorials"],
-  ["home.path_membership", "Keep your support history", "home.path_membership_intro", "Join as a member", "/pricing"],
   ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Browse or ask the community", "/community"],
   ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Explore community favorites", "/upgrades"],
-  ["home.path_shops", "Need hands-on service?", "home.path_shops_intro", "Find a mechanic", "/shops"],
 ] as const;
 
 export default function Home() {

@@ -22,8 +22,7 @@ test("catalog sections retain the cart flow and return sign-ins to their current
   assert.match(catalog, /href: "\/services"/);
 });
 
-test("home and chrome expose pricing, services, and upgrades", () => {
-  assert.match(read("app/page.tsx"), /"\/pricing"/);
+test("chrome exposes pricing, services, and upgrades while home prioritizes owner journeys", () => {
   assert.match(read("app/page.tsx"), /"\/upgrades"/);
   const chrome = read("app/site-chrome.tsx");
   assert.match(chrome, /localHref\("\/services"\)/);
