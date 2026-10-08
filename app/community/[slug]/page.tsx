@@ -106,9 +106,7 @@ export default function TopicPage({
     const [authorResult, topicVoteResult, postVoteResult] = await Promise.all([
       authorIds.length
         ? db
-            .from("community_author_profiles")
-            .select("id,display_name,membership_tier,verified_partner_specialty")
-            .in("id", authorIds)
+            .rpc("community_author_profiles_for_ids", { author_ids: authorIds })
         : Promise.resolve({ data: [], error: null }),
       authResult.data.user
         ? db
