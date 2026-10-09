@@ -1448,14 +1448,14 @@ footer button {
 .home-partner-invitation-content { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .7fr); gap: 42px; align-items: end; }
 .home-partner-invitation h2 { max-width: 680px; margin: 0; color: var(--hero-ink); font-size: clamp(30px, 3.4vw, 46px); }
 .home-partner-invitation p { margin: 0 0 20px; color: var(--heading-secondary-on-hero-color); line-height: 1.5; }
-.partnership-hero { padding-bottom: 74px; background: var(--acid); color: var(--acid-ink); }
-.partnership-hero .eyebrow { color: var(--acid-ink); }
+.partnership-hero { padding-bottom: 74px; background: var(--hero); color: var(--acid); }
+.partnership-hero .eyebrow { color: var(--orange); }
 .partnership-hero .wrap { max-width: 880px; text-align: center; }
-.partnership-hero h1 { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid-ink); }
-.partnership-hero .intro { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid-ink); }
-.partnership-hero-detail { max-width: 720px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--acid-ink) 38%, transparent); color: var(--acid-ink); font-size: 14px; line-height: 1.55; }
-.partnership-hero .inline-cta { margin-top: 26px; background: var(--acid-ink); color: var(--hero-ink); }
-.partnership-hero .inline-cta:hover { background: var(--hero); color: var(--hero-ink); }
+.partnership-hero h1 { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid); }
+.partnership-hero .intro { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid); }
+.partnership-hero-detail { max-width: 720px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--acid) 38%, transparent); color: var(--orange); font-size: 14px; line-height: 1.55; }
+.partnership-hero .inline-cta { margin-top: 26px; background: var(--acid); color: var(--acid-ink); }
+.partnership-hero .inline-cta:hover { background: var(--orange); color: var(--acid-ink); }
 .partnership-case { padding: 62px 0; }
 .partnership-case .wrap { max-width: 820px; }
 .partnership-case .eyebrow, .partnership-close .eyebrow { color: var(--orange); }
@@ -1490,10 +1490,10 @@ footer button {
 .partnership-fit .wrap > p { margin: 0; color: var(--heading-secondary-on-hero-color); line-height: 1.55; }
 .partnership-close { padding: 68px 0 76px; background: var(--acid); color: var(--acid-ink); }
 .partnership-close .wrap { max-width: 820px; }
-.partnership-close h2 { color: var(--acid-ink); }
-.partnership-close .wrap > p { max-width: 650px; margin: 0 0 24px; line-height: 1.55; }
-.partnership-close .inline-cta { background: var(--acid-ink); color: var(--hero-ink); }
-.partnership-close .inline-cta:hover { background: var(--hero); color: var(--hero-ink); }
+.partnership-close h2 { color: var(--acid); }
+.partnership-close .wrap > p { max-width: 650px; margin: 0 0 24px; color: var(--orange); line-height: 1.55; }
+.partnership-close .inline-cta { background: var(--acid); color: var(--acid-ink); }
+.partnership-close .inline-cta:hover { background: var(--orange); color: var(--acid-ink); }
 .partnership-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .partnership-tags span { padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--acid) 65%, transparent); color: var(--acid); font: 11px "DM Mono", monospace; text-transform: uppercase; letter-spacing: .04em; }
 .partnership-opportunity { padding: 64px 0; }
