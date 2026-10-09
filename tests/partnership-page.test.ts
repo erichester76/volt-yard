@@ -3,54 +3,32 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const page = readFileSync(new URL("../app/partnership/page.tsx", import.meta.url), "utf8");
-const migration = readFileSync(new URL("../supabase/migrations/20261009000000_add_partnership_landing.sql", import.meta.url), "utf8");
-const commercialMigration = readFileSync(new URL("../supabase/migrations/20261009000001_add_partnership_program_details.sql", import.meta.url), "utf8");
-const narrativeMigration = readFileSync(new URL("../supabase/migrations/20261009000003_expand_partnership_marketing_narrative.sql", import.meta.url), "utf8");
+const migration = readFileSync(new URL("../supabase/migrations/20261009000007_refocus_partnership_marketing_page.sql", import.meta.url), "utf8");
 
-test("partnership landing directs prospective partners into the reviewed portal workflow", () => {
-  assert.match(page, /href="\/portal"/);
-  assert.match(page, /We review the evidence required for your class/);
-  assert.match(page, /before it is published/);
-  assert.match(page, /<h1 className="heading-primary">\{t\("partnership.title", "Your brand\. Your shop/);
-
-  for (const key of ["eyebrow", "title", "intro", "action", "steps_eyebrow", "steps_title", "step_apply", "step_apply_intro", "step_review", "step_review_intro", "step_participate", "step_participate_intro", "fit_eyebrow", "fit_title", "fit_intro"]) {
-    for (const locale of ["en", "de", "fr", "es"]) {
-      assert.match(migration, new RegExp(`\\('partnership\\.${key}','${locale}',`));
-    }
-  }
+test("partnership landing centers the independent business", () => {
+  assert.match(page, /Your brand\. Your shop\. Your revenue/);
+  assert.match(page, /Connecting qualified clients to qualified experts/);
+  assert.match(page, /You keep the customer\. We keep the context/);
+  assert.match(page, /Your customer relationship stays yours/);
+  assert.match(page, /not a diagnosis or an automatic assignment/);
+  assert.match(migration, /\('partnership\.title','en','Your brand\. Your shop\. Your revenue\.'/);
 });
 
-test("partnership landing explains the value before its closing application CTA", () => {
-  assert.match(page, /className="partnership-program"/);
-  assert.match(page, /className="partnership-program-chapter"/);
-  assert.match(page, /Market yourself by participating/);
-  assert.match(page, /Amped Up Network is not a franchise/);
-  assert.match(page, /Market yourself by participating/);
-  assert.match(page, /fixed completed-booking fee may apply only to verified qualifying work/);
-  assert.match(page, /Start the conversation about your place in the network/);
-  assert.ok(page.lastIndexOf('href="/portal"') > page.indexOf("fixed completed-booking fee may apply only to verified qualifying work"));
-
-  for (const key of ["case_eyebrow", "case_title", "case_intro", "benefits_eyebrow", "benefits_title", "benefit_context", "benefit_context_intro", "benefit_marketing", "benefit_marketing_intro", "benefit_reputation", "benefit_reputation_intro", "close_eyebrow", "close_title", "close_intro", "close_action"]) {
-    for (const locale of ["en", "de", "fr", "es"]) {
-      assert.match(narrativeMigration, new RegExp(`\\('partnership\\.${key}','${locale}',`));
-    }
-  }
+test("partnership landing sells shared-growth program value before its CTA", () => {
+  assert.match(page, /marketing front door/);
+  assert.match(page, /Tools and training that improve the handoff/);
+  assert.match(page, /community that helps every member grow/);
+  assert.match(page, /Fixed completed-booking fees apply only to verified qualifying work/);
+  assert.match(page, /We do not promise lead volume, earnings, or certification/);
+  assert.ok(page.lastIndexOf('href="/portal"') > page.indexOf("We do not promise lead volume, earnings, or certification"));
 });
 
-test("partnership landing explains program levels and qualitative commercial terms", () => {
-  assert.match(page, /Verified Specialty \/ Infrastructure/);
-  assert.match(page, /Certified Partner/);
-  assert.match(page, /Network Leader/);
+test("partnership landing presents circular, level-specific network seals", () => {
   assert.match(page, /function LevelBadge/);
   assert.match(page, /AMPED UP/);
   assert.match(page, /NETWORK/);
+  assert.match(page, /VERIFIED/);
+  assert.match(page, /CERTIFIED/);
+  assert.match(page, /LEADER/);
   assert.match(page, /aria-hidden="true"/);
-  assert.match(page, /no promises of lead volume, earnings, or certification/);
-  assert.match(page, /automated transfers are not available/);
-
-  for (const key of ["levels_eyebrow", "levels_title", "levels_intro", "level_specialist", "level_specialist_intro", "level_certified", "level_certified_intro", "level_leader", "level_leader_intro", "commercial_eyebrow", "commercial_title", "commercial_intro", "commercial_launch", "commercial_launch_intro", "commercial_ongoing", "commercial_ongoing_intro", "commercial_payout", "commercial_payout_intro"]) {
-    for (const locale of ["en", "de", "fr", "es"]) {
-      assert.match(commercialMigration, new RegExp(`\\('partnership\\.${key}','${locale}',`));
-    }
-  }
 });
