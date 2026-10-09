@@ -16,7 +16,7 @@ The product does not diagnose vehicles automatically, book appointments, dispatc
 | Community | `/community`, `/community/[slug]` | Read published topics; paid members submit moderated contributions and vote. |
 | Membership | `/membership`, `/profile` | View tier, subscribe, manage display name, and maintain a saved garage. |
 | Commerce | `/catalog`, `/cart`, `/checkout/success` | Browse catalog, manage a cart, and begin Stripe Checkout. |
-| Partner | `/portal`, `/installer/work`, `/expert-work` | Submit an approved partner profile, claim matched managed-service work, and respond to expert opportunities. |
+| Partner | `/partnership`, `/portal`, `/installer/work`, `/expert-work` | Learn about the review-gated partner path, submit a profile for approval, claim matched managed-service work, and respond to expert opportunities. |
 | Administration | `/admin`, `/admin/catalog`, `/admin/community`, `/admin/memberships` | Review partners, manage catalog/community data, moderate contributions, and record administrative membership/payout actions. |
 
 The header prioritizes Diagnose, Shops, Services & upgrades, and Community. Account navigation exposes role-appropriate destinations but server/database authorization remains authoritative.

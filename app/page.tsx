@@ -47,7 +47,7 @@ export default function Home() {
         <p className="eyebrow">{t("home.partner_eyebrow", "Interested partners")}</p>
         <div className="home-partner-invitation-content">
           <h2>{t("home.partner_title", "EV mechanic? Sparky? Wrap artist? Tint master?")}</h2>
-          <div><p>{t("home.partner_intro", "Want to join in on the fun? Sign up to be a network member today.")}</p><Link className="inline-cta" href="/membership">{t("home.partner_action", "Become a network member")}</Link></div>
+          <div><p>{t("home.partner_intro", "Want to join in on the fun? Sign up to be a network member today.")}</p><Link className="inline-cta" href="/partnership">{t("home.partner_action", "Become a network member")}</Link></div>
         </div>
       </div></section>
     </main>

@@ -1,6 +1,6 @@
 import { localePathname } from "@/lib/i18n";
 
-const publicPaths = new Set(["/", "/pricing", "/release-notes", "/journal"]);
+const publicPaths = new Set(["/", "/partnership", "/pricing", "/release-notes", "/journal"]);
 
 export function isGatedPath(path: string) {
   const pathname = new URL(path, "https://amped-up-network.local").pathname;
