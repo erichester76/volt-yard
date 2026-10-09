@@ -3,10 +3,10 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const page = readFileSync(new URL("../app/partnership/page.tsx", import.meta.url), "utf8");
-const migration = readFileSync(new URL("../supabase/migrations/20261009000007_refocus_partnership_marketing_page.sql", import.meta.url), "utf8");
+const migration = readFileSync(new URL("../supabase/migrations/20261009000008_strengthen_partnership_independence_hero.sql", import.meta.url), "utf8");
 
 test("partnership landing defines the EV visibility problem for independent specialists", () => {
-  assert.match(page, /Your brand\. Your shop\. Your revenue/);
+  assert.match(page, /Your brand\. Your revenue\. Your customer/);
   assert.match(page, /Your EV capability may be real\. Your visibility probably is not/);
   assert.match(page, /electrician looking for charger installs/);
   assert.match(page, /wrap shop ready to work on Cybertrucks/);
@@ -15,12 +15,12 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /You keep the customer\. We keep the context/);
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);
-  assert.match(migration, /\('partnership\.title','en','Your brand\. Your shop\. Your revenue\.'/);
+  assert.match(migration, /\('partnership\.title','en','Your brand\. Your revenue\. Your customer\.'/);
 });
 
 test("partnership landing sells the shared-growth model before its CTA", () => {
   assert.match(page, /not a franchise/);
-  assert.match(page, /does not take a percentage of your sale/);
+  assert.match(page, /do not take a percentage of your sale/);
   assert.match(page, /launch marketing, social content, local events, owner education, paid advertising/);
   assert.match(page, /Future permissioned Connected Garage data/);
   assert.match(page, /We do not promise lead volume, earnings, or certification/);

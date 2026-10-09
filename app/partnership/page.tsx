@@ -22,8 +22,9 @@ export default function PartnershipPage() {
   return <main className="partnership-page">
     <section className="hero partnership-hero"><div className="wrap">
       <p className="eyebrow">For independent EV businesses</p>
-      <h1 className="heading-primary">{t("partnership.title", "Your brand. Your shop. Your revenue.")}</h1>
-      <p className="intro">Amped Up Network helps independent specialists build a real place in the EV world, without giving up the business they already built.</p>
+      <h1 className="heading-primary">{t("partnership.title", "Your brand. Your revenue. Your customer.")}</h1>
+      <p className="intro">Amped Up Network is not a franchise. You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly.</p>
+      <p className="partnership-hero-detail">We are the marketing front door, referral network, and shared-growth community for your EV future. We do not take a percentage of your sale, and any membership, fixed verified-booking fee, managed-service, or expert-work terms are disclosed before you participate. We do not promise lead volume, earnings, or certification.</p>
     </div></section>
 
     <section className="partnership-story"><div className="wrap">
@@ -45,13 +46,6 @@ export default function PartnershipPage() {
       <h2>You keep the customer. We keep the context.</h2>
       <p>Typical intake means reverse-engineering a customer's history, their current problem, and the work that has already been attempted. Amped Up keeps the owner-controlled record of the vehicle, issue notes, prior service, photos, and documents so the right context can travel with permission into the service conversation.</p>
       <p>Owners can organize a concern before they reach you and, where useful, learn from the community first. That is not a remote diagnosis or an automatic assignment. It is a qualified starting point that helps your team spend less time rebuilding the story and more time doing the work. Future permissioned Connected Garage data may add relevant vehicle context before an appointment when available; it will never replace your inspection or diagnose a vehicle for you.</p>
-    </div></section>
-
-    <section className="partnership-story partnership-story-accent"><div className="wrap">
-      <p className="eyebrow">Independent by design</p>
-      <h2>We are not a franchise. We are not taking your customer.</h2>
-      <p>You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly. Amped Up does not take a percentage of your sale. Any membership, fixed verified-booking fee, managed-service, or expert-work terms are disclosed before you participate. We do not promise lead volume, earnings, or certification.</p>
-      <p>Our role is to qualify partner information, help you grow, watch for evidence and quality, and give community feedback and verified outcomes a meaningful place in the network. The shared mission is simple: help EV owners get to the right help while independent specialists build a durable reputation for doing it well.</p>
     </div></section>
 
     <section className="partnership-story"><div className="wrap">
