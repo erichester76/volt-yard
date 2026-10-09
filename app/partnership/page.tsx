@@ -4,18 +4,12 @@ import Link from "@/app/locale-link";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const levels = [
-  ["Verified Specialty / Infrastructure", "For electrical, charging, appearance, protection, and aftermarket businesses. We verify the business, required credentials, service scope, and profile details for the partner class.", "specialist"],
-  ["Certified Partner", "For core EV repair partners that complete the network's readiness, safety, training, warranty, and customer-experience standards.", "certified"],
-  ["Network Leader", "For established Certified Partners with sustained outcomes and a meaningful contribution to education, events, and the local EV community.", "leader"],
+  ["Verified Specialty / Infrastructure", "specialist"],
+  ["Certified Partner", "certified"],
+  ["Network Leader", "leader"],
 ] as const;
 
-const offerings = [
-  ["A front door built for EV owners", "We help turn your real capabilities into a clear EV-specific profile, an honest offer, launch materials, and local visibility. Great work should not be invisible because you are busy running the shop."],
-  ["Tools and training that improve the handoff", "Use practical intake context, service scope, customer-experience preparation, and training designed around how EV owners actually need help. Less repeated explaining. Better-prepared conversations."],
-  ["A community that helps every member grow", "Market your own brand by showing up with useful expertise. Community participation, education, local events, verified outcomes, and certification create trust that a generic directory cannot."],
-] as const;
-
-function LevelBadge({ level }: { level: typeof levels[number][2] }) {
+function LevelBadge({ level }: { level: typeof levels[number][1] }) {
   const label = level === "specialist" ? "VERIFIED" : level === "certified" ? "CERTIFIED" : "LEADER";
   const mark = level === "specialist" ? <path d="M50 34 64 42v16L50 66 36 58V42zM42 50h16M50 42v16" /> : level === "certified" ? <path d="M50 33 64 38v11c0 9-5.8 15-14 19-8.2-4-14-10-14-19V38zM43 50l5 5 10-11" /> : <path d="m50 33 4.4 11.6L66 49l-11.6 4.4L50 65l-4.4-11.6L34 49l11.6-4.4z" />;
   return <svg className="partnership-level-badge" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" /><circle cx="50" cy="50" r="38" /><text x="50" y="17" textAnchor="middle">AMPED UP</text><text x="50" y="27" textAnchor="middle">NETWORK</text>{mark}<text x="50" y="84" textAnchor="middle">{label}</text></svg>;
@@ -29,27 +23,43 @@ export default function PartnershipPage() {
     <section className="hero partnership-hero"><div className="wrap">
       <p className="eyebrow">For independent EV businesses</p>
       <h1 className="heading-primary">{t("partnership.title", "Your brand. Your shop. Your revenue.")}</h1>
-      <p className="intro">Amped Up Network is the marketing front door, referral network, and shared-growth community for businesses building the next generation of EV service.</p>
-      <div className="partnership-tags" aria-label="Partner value proposition"><span>Qualified clients</span><span>Qualified experts</span><span>Better context</span></div>
+      <p className="intro">Amped Up Network helps independent specialists build a real place in the EV world, without giving up the business they already built.</p>
     </div></section>
-    <section className="partnership-opportunity"><div className="wrap">
-      <p className="eyebrow">Connecting qualified clients to qualified experts</p>
-      <h2>Great EV work needs a better way to be found.</h2>
-      <p>Most independent shops were built to do excellent work, not to become EV marketers or community builders. Amped Up gives you the infrastructure to tell your story, earn trust, and meet owners who are already looking for the kind of help you provide.</p>
+
+    <section className="partnership-story"><div className="wrap">
+      <p className="eyebrow">The problem</p>
+      <h2>Your EV capability may be real. Your visibility probably is not.</h2>
+      <p>You run a specialist shop, but few people know what you can do for an EV. You are busy serving traditional work. You do not have time to chase a fractured EV community across social media, forums, and local groups just to get your name out. You may be an electrician looking for charger installs, a wrap shop ready to work on Cybertrucks, or an established ICE shop building a serious EV practice. In each case, you need a clearer way into the market and a partner that understands how to grow there.</p>
     </div></section>
-    <section className="partnership-handoff"><div className="wrap">
-      <div><p className="eyebrow">A better handoff</p><h2>You keep the customer. We keep the context.</h2></div>
-      <div className="partnership-handoff-copy"><p>You quote, contract, bill, perform, and warranty your work. Your customer relationship stays yours. Amped Up helps the right owner arrive with permissioned vehicle details, service history, notes, photos, and a clearly stated need.</p><p>That need has already been organized through the owner's records and, where useful, informed by the community. It is not a diagnosis or an automatic assignment. It is a better starting point for the conversation your team needs to have.</p></div>
+
+    <section className="partnership-story partnership-story-dark"><div className="wrap">
+      <p className="eyebrow">Where owners start</p>
+      <h2>EV owners look for answers before they look for vendors.</h2>
+      <p>They compare notes in communities, search social media, and learn in forums before they call a shop. Amped Up helps your business show up in that conversation with a profile that explains your actual scope, and with a community presence that earns trust over time. You market your own brand by participating, sharing useful expertise, supporting education, and delivering work that owners can stand behind.</p>
+      <div className="partnership-seal-row">{levels.map(([title, level]) => <div key={level}><LevelBadge level={level} /><span>{title}</span></div>)}</div>
+      <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
     </div></section>
-    <section className="partnership-offerings"><div className="wrap">
-      <div className="home-section-heading"><p className="eyebrow">What you join</p><h2>Not a franchise. A community built to make independent EV businesses stronger.</h2><p>You pay to join a community where members help one another grow, while retaining their own brand, business, and revenue.</p></div>
-      <div className="partnership-offering-grid">{offerings.map(([title, intro]) => <article key={title}><h3>{title}</h3><p>{intro}</p></article>)}</div>
+
+    <section className="partnership-story"><div className="wrap">
+      <p className="eyebrow">A better appointment starts earlier</p>
+      <h2>You keep the customer. We keep the context.</h2>
+      <p>Typical intake means reverse-engineering a customer's history, their current problem, and the work that has already been attempted. Amped Up keeps the owner-controlled record of the vehicle, issue notes, prior service, photos, and documents so the right context can travel with permission into the service conversation.</p>
+      <p>Owners can organize a concern before they reach you and, where useful, learn from the community first. That is not a remote diagnosis or an automatic assignment. It is a qualified starting point that helps your team spend less time rebuilding the story and more time doing the work. Future permissioned Connected Garage data may add relevant vehicle context before an appointment when available; it will never replace your inspection or diagnose a vehicle for you.</p>
     </div></section>
-    <section className="partnership-growth"><div className="wrap">
-      <div className="home-section-heading"><p className="eyebrow">Grow into the network</p><h2>Build credibility over time, not just a listing.</h2><p>Start with the level that fits your work today. As your training, evidence, outcomes, and contribution grow, eligible partners can move through the program levels available for their specialty.</p></div>
-      <div className="partnership-level-grid">{levels.map(([title, intro, badge]) => <article key={title}><LevelBadge level={badge} /><h3>{title}</h3><p>{intro}</p></article>)}</div>
+
+    <section className="partnership-story partnership-story-accent"><div className="wrap">
+      <p className="eyebrow">Independent by design</p>
+      <h2>We are not a franchise. We are not taking your customer.</h2>
+      <p>You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly. Amped Up does not take a percentage of your sale. Any membership, fixed verified-booking fee, managed-service, or expert-work terms are disclosed before you participate. We do not promise lead volume, earnings, or certification.</p>
+      <p>Our role is to qualify partner information, help you grow, watch for evidence and quality, and give community feedback and verified outcomes a meaningful place in the network. The shared mission is simple: help EV owners get to the right help while independent specialists build a durable reputation for doing it well.</p>
     </div></section>
-    <section className="partnership-terms"><div className="wrap"><p className="eyebrow">Clear terms, shared growth</p><h2>Know what you are joining before you join it.</h2><p>We discuss launch support, ongoing participation, direct referrals, managed services, and expert work in writing before you say yes. Fixed completed-booking fees apply only to verified qualifying work where that model is used. Paid managed-service and expert opportunities disclose scope and partner payout before acceptance. We do not promise lead volume, earnings, or certification.</p></div></section>
+
+    <section className="partnership-story"><div className="wrap">
+      <p className="eyebrow">A network that creates demand</p>
+      <h2>We build the interest. You build the trust.</h2>
+      <p>The network is designed to create interest in EV ownership support and, ultimately, in the partners who make that support real. We bring together launch marketing, social content, local events, owner education, paid advertising where appropriate, practical tools, training, and community infrastructure. You participate, provide good service, and focus on growing in the EV space with a community that wants every capable member to succeed.</p>
+    </div></section>
+
     <section className="partnership-close"><div className="wrap"><p className="eyebrow">Ready to build your EV future?</p><h2>Bring your expertise. We will help open the right doors.</h2><p>Tell us what you do, where you work, and the owners you serve. We will start with the right application and discuss the network path that fits your business.</p><Link className="inline-cta" href="/portal">Start your partner application</Link></div></section>
   </main>;
 }
