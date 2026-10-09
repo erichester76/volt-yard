@@ -1499,6 +1499,10 @@ footer button {
 .partnership-close .wrap > p { max-width: 650px; margin: 0 0 24px; color: var(--orange); line-height: 1.55; }
 .partnership-close .inline-cta { background: var(--acid); color: var(--acid-ink); }
 .partnership-close .inline-cta:hover { background: var(--orange); color: var(--acid-ink); }
+:root[data-theme="dark"] .partnership-close { background: var(--acid); color: var(--acid-ink); }
+:root[data-theme="dark"] .partnership-close h2, :root[data-theme="dark"] .partnership-close .wrap > p { color: var(--acid-ink); }
+:root[data-theme="dark"] .partnership-close .inline-cta { background: var(--acid-ink); color: var(--hero-ink); }
+:root[data-theme="dark"] .partnership-close .inline-cta:hover { background: var(--hero); color: var(--hero-ink); }
 .partnership-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .partnership-tags span { padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--acid) 65%, transparent); color: var(--acid); font: 11px "DM Mono", monospace; text-transform: uppercase; letter-spacing: .04em; }
 .partnership-opportunity { padding: 64px 0; }
