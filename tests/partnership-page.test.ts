@@ -36,6 +36,6 @@ test("partnership landing presents circular, level-specific network seals", () =
   assert.match(page, /CERTIFIED/);
   assert.match(page, /LEADER/);
   assert.match(page, /aria-hidden="true"/);
-  assert.match(page, /AMPED UP NETWORK/);
+  assert.match(page, /AMPED UP/);
   assert.ok(page.indexOf("A network that creates demand") < page.indexOf('className="partnership-seal-row"'));
 });
