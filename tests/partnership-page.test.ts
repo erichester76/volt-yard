@@ -3,10 +3,10 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const page = readFileSync(new URL("../app/partnership/page.tsx", import.meta.url), "utf8");
-const migration = readFileSync(new URL("../supabase/migrations/20261009000008_strengthen_partnership_independence_hero.sql", import.meta.url), "utf8");
+const migration = readFileSync(new URL("../supabase/migrations/20261009000009_update_partnership_headline.sql", import.meta.url), "utf8");
 
 test("partnership landing defines the EV visibility problem for independent specialists", () => {
-  assert.match(page, /Your brand\. Your revenue\. Your customer/);
+  assert.match(page, /Your Brand\. Our Community\. Stronger Together/);
   assert.match(page, /Your EV capability may be real\. Your visibility probably is not/);
   assert.match(page, /electrician looking for charger installs/);
   assert.match(page, /wrap shop ready to work on Cybertrucks/);
@@ -18,7 +18,7 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);
   assert.ok(page.indexOf('href="/portal"') < page.indexOf("Your EV capability may be real"));
-  assert.match(migration, /\('partnership\.title','en','Your brand\. Your revenue\. Your customer\.'/);
+  assert.match(migration, /\('partnership\.title','en','Your Brand\. Our Community\. Stronger Together\.'/);
 });
 
 test("partnership landing sells the shared-growth model before its CTA", () => {

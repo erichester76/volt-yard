@@ -26,7 +26,7 @@ export default function PartnershipPage() {
 
   return <main className="partnership-page">
     <section className="hero partnership-hero"><div className="wrap">
-      <h1 className="heading-primary">{t("partnership.title", "Your brand. Your revenue. Your customer.")}</h1>
+      <h1 className="heading-primary">{t("partnership.title", "Your Brand. Our Community. Stronger Together.")}</h1>
       <p className="intro">Built for independent businesses. You retain your brand, pricing, operations, customer relationship, and work. You quote, bill, and warranty directly.</p>
       <p className="partnership-hero-detail">Amped Up helps create demand through marketing, referrals, and community. We do not take a percentage of your sale; participation terms are disclosed upfront. We do not promise lead volume, earnings, or certification.</p>
       <Link className="inline-cta" href="/portal">Start your partner application</Link>
@@ -47,7 +47,7 @@ export default function PartnershipPage() {
     </div></section>
 
     <section className="partnership-story"><div className="wrap partnership-story-layout">
-      <div className="partnership-story-copy"><h2>We build the interest. You build the trust.</h2>
+      <div className="partnership-story-copy"><h2>Our Demand. Your Customer. Your Revenue.</h2>
         <p>The network is designed to create interest in EV ownership support and, ultimately, in the partners who make that support real. We bring together launch marketing, social content, local events, owner education, paid advertising where appropriate, practical tools, training, and community infrastructure. You participate, provide good service, and focus on growing in the EV space with a community that wants every capable member to succeed.</p>
       </div><StoryArtwork number="03" label="Build demand" />
     </div></section>
