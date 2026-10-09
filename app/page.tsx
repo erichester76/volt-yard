@@ -19,7 +19,7 @@ export default function Home() {
     <main className="community-home">
       <section className="hero community-home-hero">
         <div className="wrap">
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "The EV ownership experience you've been looking for. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
+          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Everything EV, in one place. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
           <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
           <div className="hero-support-path" aria-label={t("home.journey_title", "More than a directory. More than a store. More than a forum.")}>
             <p>{t("home.journey_title", "More than a directory. More than a store. More than a forum.")}</p>
