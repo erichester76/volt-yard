@@ -31,12 +31,7 @@ export default function PartnershipPage() {
       <p className="eyebrow">The problem</p>
       <h2>Your EV capability may be real. Your visibility probably is not.</h2>
       <p>You run a specialist shop, but few people know what you can do for an EV. You are busy serving traditional work. You do not have time to chase a fractured EV community across social media, forums, and local groups just to get your name out. You may be an electrician looking for charger installs, a wrap shop ready to work on Cybertrucks, or an established ICE shop building a serious EV practice. In each case, you need a clearer way into the market and a partner that understands how to grow there.</p>
-    </div></section>
-
-    <section className="partnership-story partnership-story-dark"><div className="wrap">
-      <p className="eyebrow">Where owners start</p>
-      <h2>EV owners look for answers before they look for vendors.</h2>
-      <p>They compare notes in communities, search social media, and learn in forums before they call a shop. Amped Up helps your business show up in that conversation with a profile that explains your actual scope, and with a community presence that earns trust over time. You market your own brand by participating, sharing useful expertise, supporting education, and delivering work that owners can stand behind.</p>
+      <div className="partnership-story-bridge"><p className="eyebrow">Why visibility is different in EV</p><h3>EV owners look for answers before they look for vendors.</h3><p>They compare notes in communities, search social media, and learn in forums before they call a shop. That is why a capable specialist can stay invisible. Amped Up helps your business show up in that conversation with a profile that explains your actual scope, and with a community presence that earns trust over time. You market your own brand by participating, sharing useful expertise, supporting education, and delivering work that owners can stand behind.</p></div>
       <div className="partnership-seal-row">{levels.map(([title, level]) => <div key={level}><LevelBadge level={level} /><span>{title}</span></div>)}</div>
       <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
     </div></section>
