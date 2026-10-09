@@ -22,7 +22,7 @@ test("partnership landing defines the EV visibility problem for independent spec
 });
 
 test("partnership landing sells the shared-growth model before its CTA", () => {
-  assert.match(page, /built for independent businesses/);
+  assert.match(page, /Built for independent businesses/);
   assert.match(page, /do not take a percentage of your sale/);
   assert.match(page, /launch marketing, social content, local events, owner education, paid advertising/);
   assert.match(page, /Future permissioned Connected Garage data/);

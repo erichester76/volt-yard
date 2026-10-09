@@ -26,10 +26,9 @@ export default function PartnershipPage() {
 
   return <main className="partnership-page">
     <section className="hero partnership-hero"><div className="wrap">
-      <p className="eyebrow">For independent EV businesses</p>
       <h1 className="heading-primary">{t("partnership.title", "Your brand. Your revenue. Your customer.")}</h1>
-      <p className="intro">Amped Up Network is built for independent businesses. You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly.</p>
-      <p className="partnership-hero-detail">We are the marketing front door, referral network, and shared-growth community for your EV future. We do not take a percentage of your sale, and any membership, fixed verified-booking fee, managed-service, or expert-work terms are disclosed before you participate. We do not promise lead volume, earnings, or certification.</p>
+      <p className="intro">Built for independent businesses. You retain your brand, pricing, operations, customer relationship, and work. You quote, bill, and warranty directly.</p>
+      <p className="partnership-hero-detail">Amped Up helps create demand through marketing, referrals, and community. We do not take a percentage of your sale; participation terms are disclosed upfront. We do not promise lead volume, earnings, or certification.</p>
       <Link className="inline-cta" href="/portal">Start your partner application</Link>
     </div></section>
 
