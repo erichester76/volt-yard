@@ -1442,7 +1442,7 @@ footer button {
 .home-pathways-heading { max-width: 700px; margin-bottom: 32px; }
 .home-pathways-heading > p:last-child { margin: 14px 0 0; color: var(--muted); line-height: 1.5; }
 .home-pathways { padding: 48px 0 62px; background: var(--surface-muted); }
-.home-pathway-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.home-pathway-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .home-pathway-grid article { display: flex; flex-direction: column; min-height: 210px; padding: 22px; border: 1px solid var(--line); background: var(--surface); }
 .home-pathway-grid h3 { margin: 0 0 12px; color: var(--orange); font-size: 22px; }
 .home-pathway-grid p { color: var(--muted); font-size: 14px; line-height: 1.5; }
