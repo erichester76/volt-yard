@@ -1456,9 +1456,11 @@ footer button {
 .home-partner-invitation p { margin: 0 0 20px; color: var(--acid-ink); line-height: 1.5; }
 .home-partner-invitation .inline-cta { background: var(--acid-ink); color: var(--hero-ink); }
 .home-partner-invitation .inline-cta:hover { background: var(--orange); color: var(--acid-ink); }
-.purchase-research-hero { background: var(--hero); }
+.purchase-research-hero { background: var(--acid); color: var(--acid-ink); }
 .purchase-research-hero .wrap { max-width: 860px; }
-.purchase-research-hero .heading-primary { max-width: 760px; }
+.purchase-research-hero .heading-primary { max-width: 760px; color: var(--acid-ink); }
+.purchase-research-hero .intro { color: var(--acid-ink); }
+.purchase-research-hero .eyebrow { color: var(--orange); }
 .purchase-research-paths { padding: 68px 0; background: var(--surface-muted); }
 .purchase-research-paths .home-section-heading { max-width: 760px; margin-bottom: 36px; }
 .purchase-research-paths .home-section-heading h2 { margin: 0; font-size: clamp(30px, 3.4vw, 44px); }
@@ -1524,6 +1526,9 @@ footer button {
 :root[data-theme="dark"] .purchase-research-close { background: var(--hero); color: var(--hero-ink); }
 :root[data-theme="dark"] .purchase-research-close h2 { color: var(--hero-ink); }
 :root[data-theme="dark"] .purchase-research-close .inline-cta { background: var(--acid); color: var(--acid-ink); }
+:root[data-theme="dark"] .purchase-research-hero { background: var(--hero); color: var(--hero-ink); }
+:root[data-theme="dark"] .purchase-research-hero .heading-primary { color: var(--hero-ink); }
+:root[data-theme="dark"] .purchase-research-hero .intro { color: var(--acid); }
 :root[data-theme="dark"] .community-home-hero h1, :root[data-theme="dark"] .home-partner-invitation h2, :root[data-theme="dark"] .partnership-hero h1, :root[data-theme="dark"] .partnership-close h2 { color: var(--hero-ink); }
 :root[data-theme="dark"] .community-home-hero .intro, :root[data-theme="dark"] .community-home-hero .hero-support-path > p, :root[data-theme="dark"] .community-home-hero .hero-support-path li, :root[data-theme="dark"] .home-partner-invitation p, :root[data-theme="dark"] .partnership-hero .intro, :root[data-theme="dark"] .partnership-hero-detail, :root[data-theme="dark"] .partnership-close .wrap > p { color: var(--acid); }
 :root[data-theme="dark"] .community-home-hero .hero-support-path, :root[data-theme="dark"] .partnership-hero-detail { border-color: color-mix(in srgb, var(--acid) 38%, transparent); }
