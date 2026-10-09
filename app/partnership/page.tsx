@@ -10,9 +10,9 @@ const steps = [
 ] as const;
 
 const levels = [
-  ["partnership.level_specialist", "Verified Specialty / Infrastructure", "partnership.level_specialist_intro", "For electrical, charging, appearance, protection, and aftermarket businesses. We verify the business, required credentials, service scope, and profile details for the partner class."],
-  ["partnership.level_certified", "Certified Partner", "partnership.level_certified_intro", "Reserved for core EV repair partners that complete the network's readiness, safety, training, warranty, and customer-experience standards."],
-  ["partnership.level_leader", "Network Leader", "partnership.level_leader_intro", "For established Certified Partners with sustained outcomes and a meaningful contribution to education, events, and the local EV community."],
+  ["partnership.level_specialist", "Verified Specialty / Infrastructure", "partnership.level_specialist_intro", "For electrical, charging, appearance, protection, and aftermarket businesses. We verify the business, required credentials, service scope, and profile details for the partner class.", "specialist"],
+  ["partnership.level_certified", "Certified Partner", "partnership.level_certified_intro", "Reserved for core EV repair partners that complete the network's readiness, safety, training, warranty, and customer-experience standards.", "certified"],
+  ["partnership.level_leader", "Network Leader", "partnership.level_leader_intro", "For established Certified Partners with sustained outcomes and a meaningful contribution to education, events, and the local EV community.", "leader"],
 ] as const;
 
 const commercialTerms = [
@@ -27,6 +27,12 @@ const benefits = [
   ["partnership.benefit_reputation", "Market yourself by participating", "partnership.benefit_reputation_intro", "Show your actual scope, credentials, supported vehicles, and verified outcomes. Share useful expertise in the community, support education and events, and build a reputation beyond a generic directory listing."],
 ] as const;
 
+function LevelBadge({ level }: { level: typeof levels[number][4] }) {
+  if (level === "specialist") return <svg className="partnership-level-badge" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 40 14v20L24 43 8 34V14z" /><path d="M16 24h16M24 16v16" /></svg>;
+  if (level === "certified") return <svg className="partnership-level-badge" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 39 10v12c0 10-6.2 16.3-15 21-8.8-4.7-15-11-15-21V10z" /><path d="m16 24 5 5 11-12" /></svg>;
+  return <svg className="partnership-level-badge" viewBox="0 0 48 48" aria-hidden="true"><path d="m24 5 4.2 10.8L39 20l-10.8 4.2L24 35l-4.2-10.8L9 20l10.8-4.2z" /><path d="M24 35v8M16 43h16" /></svg>;
+}
+
 export default function PartnershipPage() {
   const locale = useLocale();
   const t = useLocalizedContent(locale);
@@ -34,33 +40,32 @@ export default function PartnershipPage() {
   return <main className="partnership-page">
     <section className="hero partnership-hero"><div className="wrap">
       <p className="eyebrow">{t("partnership.eyebrow", "For EV businesses")}</p>
-      <h1 className="heading-primary">{t("partnership.title", "Bring your EV expertise to the network.")}</h1>
-      <p className="intro">{t("partnership.intro", "Join a reviewed network where owners can find capable EV repair, electrical, appearance, and aftermarket specialists.")}</p>
+      <h1 className="heading-primary">{t("partnership.title", "Connecting qualified clients to qualified shops.")}</h1>
+      <p className="intro">{t("partnership.intro", "A reviewed referral and advisory network for EV repair, electrical, appearance, and aftermarket specialists.")}</p>
     </div></section>
     <section className="partnership-case"><div className="wrap">
       <p className="eyebrow">{t("partnership.case_eyebrow", "More than a listing")}</p>
       <h2>{t("partnership.case_title", "Your brand. Your shop. A stronger front door.")}</h2>
       <p>{t("partnership.case_intro", "Amped Up Network is not a franchise. You retain your brand, pricing, operations, customer relationship, and the work you choose to take on. We are a referral and advisory network: a front door that helps owners understand who is a fit and advocates for clear, qualified partner choices.")}</p>
     </div></section>
-    <section className="partnership-benefits"><div className="wrap">
-      <div className="home-section-heading"><p className="eyebrow">{t("partnership.benefits_eyebrow", "Built to help you grow")}</p><h2>{t("partnership.benefits_title", "Marketing support, better context, and a trusted local presence.")}</h2></div>
-      <div className="partnership-benefit-grid">{benefits.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></article>)}</div>
-    </div></section>
-    <section className="partnership-steps"><div className="wrap">
-      <div className="home-section-heading"><p className="eyebrow">{t("partnership.steps_eyebrow", "How it works")}</p><h2>{t("partnership.steps_title", "A clear path into the network.")}</h2></div>
-      <ol>{steps.map(([titleKey, title, introKey, intro], index) => <li key={titleKey}><b>{String(index + 1).padStart(2, "0")}</b><div><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></div></li>)}</ol>
+    <section className="partnership-program"><div className="wrap">
+      <div className="home-section-heading"><p className="eyebrow">{t("partnership.program_eyebrow", "How the program works")}</p><h2>{t("partnership.program_title", "Build a trusted local presence, then grow with the network.")}</h2><p>{t("partnership.program_intro", "The program brings together practical marketing support, a clear review path, and commercial terms that are understood before you join.")}</p></div>
+      <div className="partnership-program-block">
+        <p className="eyebrow">{t("partnership.steps_eyebrow", "How it works")}</p><h3>{t("partnership.steps_title", "A clear path into the network.")}</h3>
+        <ol>{steps.map(([titleKey, title, introKey, intro], index) => <li key={titleKey}><b>{String(index + 1).padStart(2, "0")}</b><div><h4>{t(titleKey, title)}</h4><p>{t(introKey, intro)}</p></div></li>)}</ol>
+      </div>
+      <div className="partnership-program-block">
+        <p className="eyebrow">{t("partnership.benefits_eyebrow", "Built to help you grow")}</p><h3>{t("partnership.benefits_title", "Marketing support, better context, and a trusted local presence.")}</h3>
+        <div className="partnership-benefit-grid">{benefits.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h4>{t(titleKey, title)}</h4><p>{t(introKey, intro)}</p></article>)}</div>
+      </div>
+      <div className="partnership-program-block">
+        <p className="eyebrow">{t("partnership.commercial_eyebrow", "Clear commercial terms")}</p><h3>{t("partnership.commercial_title", "Know how the program works before you join.")}</h3><p>{t("partnership.commercial_intro", "We discuss the right track, responsibilities, and terms before enrollment. We do not promise lead volume, earnings, or certification.")}</p>
+        <div className="partnership-commercial-grid">{commercialTerms.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h4>{t(titleKey, title)}</h4><p>{t(introKey, intro)}</p></article>)}</div>
+      </div>
     </div></section>
     <section className="partnership-levels"><div className="wrap">
       <div className="home-section-heading"><p className="eyebrow">{t("partnership.levels_eyebrow", "Programs that match your work")}</p><h2>{t("partnership.levels_title", "Built around your specialty and readiness.")}</h2><p>{t("partnership.levels_intro", "Start where your business is ready. As evidence, outcomes, and participation grow, eligible partners can progress through the levels available for their class.")}</p></div>
-      <div className="partnership-level-grid">{levels.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></article>)}</div>
-    </div></section>
-    <section className="partnership-commercial"><div className="wrap">
-      <div className="home-section-heading"><p className="eyebrow">{t("partnership.commercial_eyebrow", "Clear commercial terms")}</p><h2>{t("partnership.commercial_title", "Know how the program works before you join.")}</h2><p>{t("partnership.commercial_intro", "We discuss the right track, responsibilities, and terms before enrollment. We do not promise lead volume, earnings, or certification.")}</p></div>
-      <div className="partnership-commercial-grid">{commercialTerms.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></article>)}</div>
-    </div></section>
-    <section className="partnership-fit"><div className="wrap">
-      <div><p className="eyebrow">{t("partnership.fit_eyebrow", "Built for specialists")}</p><h2>{t("partnership.fit_title", "Connecting qualified clients to qualified shops.")}</h2></div>
-      <p>{t("partnership.fit_intro", "Whether you repair EVs, install charging equipment, protect finishes, or support the aftermarket, start with a profile that makes your scope clear to the people looking for it.")}</p>
+      <div className="partnership-level-grid">{levels.map(([titleKey, title, introKey, intro, badge]) => <article key={titleKey}><LevelBadge level={badge} /><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></article>)}</div>
     </div></section>
     <section className="partnership-close"><div className="wrap">
       <p className="eyebrow">{t("partnership.close_eyebrow", "Ready when you are")}</p>
