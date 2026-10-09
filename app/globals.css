@@ -1472,7 +1472,7 @@ footer button {
 .partnership-level-badge { width: 106px; height: 106px; margin-bottom: 18px; fill: none; stroke: var(--orange); stroke-linecap: square; stroke-linejoin: miter; stroke-width: 1.8; }
 .partnership-badge-outer { fill: #ffffff; stroke: var(--orange); stroke-width: 2.6; }
 .partnership-badge-inner { stroke: #141414; stroke-width: 1; stroke-dasharray: 1.5 2.5; }
-.partnership-badge-wordmark { fill: #141414; stroke: none; font: 700 10px "DM Mono", monospace; letter-spacing: 1.35px; }
+.partnership-badge-wordmark { fill: #141414; stroke: none; font: 700 12px "DM Mono", monospace; letter-spacing: 1.2px; }
 .partnership-badge-dot { fill: var(--orange); stroke: none; }
 .partnership-badge-mark { stroke: var(--orange); stroke-width: 2.4; }
 .partnership-badge-ribbon { fill: #141414; stroke: none; }
