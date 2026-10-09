@@ -50,6 +50,14 @@ export default function PartnershipPage() {
       <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
     </div></section>
 
+    <section className="partnership-standards"><div className="wrap">
+      <div className="home-section-heading"><p className="eyebrow">Trust has to be earned</p><h2>We make the standard clear, then help you meet it.</h2><p>Certification is not something a business buys. It is a class-specific review of the work you do and the evidence behind it.</p></div>
+      <div className="partnership-standards-grid">
+        <div><h3>What we review</h3><ul><li>Your business, licenses, insurance, and stated service area.</li><li>Your EV capability, supported vehicles, tools, training, safety process, and scope.</li><li>Your customer experience, service terms, warranty disclosures, and verified outcomes.</li><li>Your community participation and the evidence that supports your program level.</li></ul></div>
+        <div><h3>What we build with you</h3><p>A credible public profile. A practical readiness and training plan. Clear service and member offers. Launch materials that fit your specialty. A better way to explain your work to owners before they ever call the shop.</p><p>If a business is not ready for a level yet, the next step is not a fake badge. It is a clear plan for what to strengthen, learn, document, or prove next.</p></div>
+      </div>
+    </div></section>
+
     <section className="partnership-close"><div className="wrap"><p className="eyebrow">Ready to build your EV future?</p><h2>Bring your expertise. We will help open the right doors.</h2><p>Tell us what you do, where you work, and the owners you serve. We will start with the right application and discuss the network path that fits your business.</p><Link className="inline-cta" href="/portal">Start your partner application</Link></div></section>
   </main>;
 }

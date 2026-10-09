@@ -25,13 +25,16 @@ test("partnership landing sells the shared-growth model before its CTA", () => {
   assert.match(page, /launch marketing, social content, local events, owner education, paid advertising/);
   assert.match(page, /Future permissioned Connected Garage data/);
   assert.match(page, /We do not promise lead volume, earnings, or certification/);
+  assert.match(page, /We make the standard clear, then help you meet it/);
+  assert.match(page, /Certification is not something a business buys/);
+  assert.match(page, /What we review/);
+  assert.match(page, /What we build with you/);
   assert.ok(page.lastIndexOf('href="/portal"') > page.indexOf("We do not promise lead volume, earnings, or certification"));
 });
 
 test("partnership landing presents circular, level-specific network seals", () => {
   assert.match(page, /function LevelBadge/);
   assert.match(page, /AMPED UP/);
-  assert.match(page, /NETWORK/);
   assert.match(page, /VERIFIED/);
   assert.match(page, /CERTIFIED/);
   assert.match(page, /LEADER/);

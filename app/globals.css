@@ -1532,8 +1532,18 @@ footer button {
 .partnership-seal-row > div { display: grid; justify-items: center; gap: 8px; min-width: 112px; color: var(--hero-ink); font: 600 11px "DM Mono", monospace; letter-spacing: .03em; text-align: center; text-transform: uppercase; }
 .partnership-story:not(.partnership-story-dark) .partnership-seal-row > div { color: var(--ink); }
 .partnership-story-note { font-size: 14px !important; }
+.partnership-standards { padding: 68px 0; background: var(--surface-muted); }
+.partnership-standards .home-section-heading { max-width: 760px; margin-bottom: 36px; }
+.partnership-standards h2 { margin: 0; font-size: clamp(30px, 3.4vw, 44px); }
+.partnership-standards .home-section-heading > p:last-child { margin: 14px 0 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+.partnership-standards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.partnership-standards-grid > div { padding: 28px; border-top: 4px solid var(--orange); background: var(--surface); }
+.partnership-standards-grid h3 { margin: 0 0 16px; font-size: 24px; }
+.partnership-standards-grid p, .partnership-standards-grid li { color: var(--muted); line-height: 1.55; }
+.partnership-standards-grid p { margin: 0 0 16px; }
+.partnership-standards-grid ul { display: grid; gap: 11px; margin: 0; padding-left: 20px; }
 @media (max-width: 960px) { .hero-support-path ol, .home-pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 700px) { .hero-support-path ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }.home-pathway-grid, .partnership-level-grid, .partnership-commercial-grid, .partnership-offering-grid { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; }.home-partner-invitation-content, .partnership-fit .wrap, .partnership-handoff .wrap { grid-template-columns: 1fr; gap: 24px; } }
+@media (max-width: 700px) { .hero-support-path ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }.home-pathway-grid, .partnership-level-grid, .partnership-commercial-grid, .partnership-offering-grid, .partnership-standards-grid { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; }.home-partner-invitation-content, .partnership-fit .wrap, .partnership-handoff .wrap { grid-template-columns: 1fr; gap: 24px; } }
 
 .community-form {
   display: grid;
