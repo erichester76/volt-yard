@@ -6,8 +6,9 @@ const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
 const migration = readFileSync(new URL("../supabase/migrations/20261008000003_localize_community_first_home.sql", import.meta.url), "utf8");
 const partnerMigration = readFileSync(new URL("../supabase/migrations/20261008000017_add_home_partner_invitation.sql", import.meta.url), "utf8");
 const newOwnerMigration = readFileSync(new URL("../supabase/migrations/20261009000010_add_new_owner_home_path.sql", import.meta.url), "utf8");
+const purchaseMigration = readFileSync(new URL("../supabase/migrations/20261009000011_add_ev_purchase_research_home_path.sql", import.meta.url), "utf8");
 
-test("home introduces the support pathway and offers the five primary owner journeys", () => {
+test("home introduces the support pathway and offers the six primary owner journeys", () => {
   assert.match(home, /home\.intro/);
   assert.match(home, /className="hero-support-path"/);
   assert.match(home, /home\.journey_guided/);
@@ -19,6 +20,7 @@ test("home introduces the support pathway and offers the five primary owner jour
   assert.match(home, /"\/community"/);
   assert.match(home, /"\/upgrades"/);
   assert.match(home, /home\.path_new_owner/);
+  assert.match(home, /home\.path_purchase/);
   assert.doesNotMatch(home, /"\/pricing"/);
   assert.doesNotMatch(home, /"\/shops"/);
 
@@ -30,6 +32,11 @@ test("home introduces the support pathway and offers the five primary owner jour
   for (const key of ["path_new_owner", "path_new_owner_intro"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
       assert.match(newOwnerMigration, new RegExp(`\\('home\\.${key}','${locale}',`));
+    }
+  }
+  for (const key of ["path_purchase", "path_purchase_intro"]) {
+    for (const locale of ["en", "de", "fr", "es"]) {
+      assert.match(purchaseMigration, new RegExp(`\\('home\\.${key}','${locale}',`));
     }
   }
 });
