@@ -45,7 +45,7 @@ export default function PartnershipPage() {
       <div className="partnership-commercial-grid">{commercialTerms.map(([titleKey, title, introKey, intro]) => <article key={titleKey}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p></article>)}</div>
     </div></section>
     <section className="partnership-fit"><div className="wrap">
-      <div><p className="eyebrow">{t("partnership.fit_eyebrow", "Built for specialists")}</p><h2>{t("partnership.fit_title", "The right work deserves the right context.")}</h2></div>
+      <div><p className="eyebrow">{t("partnership.fit_eyebrow", "Built for specialists")}</p><h2>{t("partnership.fit_title", "Connecting qualified clients to qualified shops.")}</h2></div>
       <p>{t("partnership.fit_intro", "Whether you repair EVs, install charging equipment, protect finishes, or support the aftermarket, start with a profile that makes your scope clear to the people looking for it.")}</p>
     </div></section>
   </main>;

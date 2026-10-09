@@ -10,6 +10,7 @@ test("partnership landing directs prospective partners into the reviewed portal 
   assert.match(page, /href="\/portal"/);
   assert.match(page, /We review/);
   assert.match(page, /before publishing it/);
+  assert.match(page, /Connecting qualified clients to qualified shops/);
 
   for (const key of ["eyebrow", "title", "intro", "action", "steps_eyebrow", "steps_title", "step_apply", "step_apply_intro", "step_review", "step_review_intro", "step_participate", "step_participate_intro", "fit_eyebrow", "fit_title", "fit_intro"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
