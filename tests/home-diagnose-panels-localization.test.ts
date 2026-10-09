@@ -29,6 +29,7 @@ test("home introduces the support pathway and offers the four primary owner jour
 
 test("home sends people from the hero directly to the owner pathways", () => {
   assert.doesNotMatch(home, /home-journey/);
+  assert.doesNotMatch(home, /home\.paths_eyebrow/);
   assert.match(home, /className="home-pathways"/);
   assert.match(home, /href="#owner-journeys"/);
   assert.match(home, /id="owner-journeys"/);
