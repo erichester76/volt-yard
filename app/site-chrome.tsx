@@ -457,9 +457,6 @@ export default function SiteChrome({
             <Link href={localHref("/issues")}>
               {t("chrome.nav.diagnose", "Diagnose")}
             </Link>
-            <Link href={localHref("/pricing")}>
-              Pricing
-            </Link>
             <Link href={localHref("/community")}>
               {t("chrome.nav.community", "Community")}
             </Link>

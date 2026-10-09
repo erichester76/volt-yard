@@ -7,8 +7,7 @@ const migration = readFileSync(new URL("../supabase/migrations/20261004000002_lo
 
 test("shared footer keeps localized navigation and contact copy", () => {
   assert.match(chrome, /aria-label=\{t\("chrome\.footer\.navigation", "Footer navigation"\)\}/);
-  assert.match(chrome, /href=\{localHref\("\/pricing"\)\}/);
-  assert.match(chrome, />\s*Pricing\s*</);
+  assert.doesNotMatch(chrome, /href=\{localHref\("\/pricing"\)\}/);
   assert.match(chrome, /t\("chrome\.footer\.contact", "Contact"\)/);
   assert.match(chrome, /NEXT_PUBLIC_APP_VERSION \?\? "1\.0\.0"/);
   assert.match(chrome, /v\{appVersion\} \/ \{buildCommit\}/);
