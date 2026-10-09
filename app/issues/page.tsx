@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { Button, PageHeader } from "@/app/page-primitives";
@@ -22,6 +23,7 @@ type GarageVehicle = {
 };
 
 export default function IssuesPage() {
+  const router = useRouter();
   const locale = useLocale();
   const t = useLocalizedContent(locale);
   const [sourceTopicId, setSourceTopicId] = useState<string | null>(null);
@@ -39,6 +41,9 @@ export default function IssuesPage() {
   const [workspaceVersion, setWorkspaceVersion] = useState(0);
   const pendingSave = useRef(false);
   const pendingVehicle = useRef<{ year: string; make: string; model: string } | null>(null);
+  const saveVehicleRef = useRef<
+    ((selection: { year: string; make: string; model: string }) => Promise<void>) | null
+  >(null);
 
   function chooseVehicle(vehicle: NonNullable<GarageVehicle["vehicle"]>) {
     setYear(String(vehicle.model_year));
@@ -66,7 +71,7 @@ export default function IssuesPage() {
       if (event === "SIGNED_IN") {
         if (pendingSave.current && pendingVehicle.current) {
           pendingSave.current = false;
-          void saveVehicle(pendingVehicle.current);
+          void saveVehicleRef.current?.(pendingVehicle.current);
         }
       }
     });
@@ -114,7 +119,7 @@ export default function IssuesPage() {
       }
     });
     return () => { active = false; };
-  }, [userId, workspaceVersion]);
+  }, [make, model, userId, workspaceVersion, year]);
 
   useEffect(() => {
     setMakes([]);
@@ -150,7 +155,7 @@ export default function IssuesPage() {
       });
   }, [make, year]);
 
-  async function selectedVehicleId(selection = { year, make, model }) {
+  const selectedVehicleId = useCallback(async (selection = { year, make, model }) => {
     if (!selection.year || !selection.make || !selection.model) {
       setMessage("Select a year, make, and model from the vehicle catalog.");
       return null;
@@ -168,9 +173,9 @@ export default function IssuesPage() {
       return null;
     }
     return vehicle.id;
-  }
+  }, [make, model, year]);
 
-  async function saveVehicle(selection = { year, make, model }) {
+  const saveVehicle = useCallback(async (selection = { year, make, model }) => {
     const vehicleId = await selectedVehicleId(selection);
     if (!vehicleId) return;
     const db = createBrowserSupabaseClient();
@@ -190,7 +195,10 @@ export default function IssuesPage() {
     pendingVehicle.current = null;
     setMessage("Vehicle saved to your profile.");
     setWorkspaceVersion((version) => version + 1);
-  }
+  }, [make, model, selectedVehicleId, year]);
+  useEffect(() => {
+    saveVehicleRef.current = saveVehicle;
+  }, [saveVehicle]);
 
   async function create(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -216,7 +224,7 @@ export default function IssuesPage() {
       .single();
     if (error || !data)
       return setMessage(error?.message || "Could not create the case.");
-    window.location.assign(`/issues/${data.id}`);
+    router.push(`/issues/${data.id}`);
   }
 
   return (

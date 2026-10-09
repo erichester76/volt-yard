@@ -461,7 +461,8 @@ export default function ShopsPage() {
                 <form className="search" onSubmit={search}>
                <label className="location-field">
                  <span>Location</span>
-                 <input
+                  <input
+                    role="combobox"
                    aria-label="Location"
                    aria-autocomplete="list"
                    aria-controls="location-suggestions"
@@ -612,9 +613,11 @@ export default function ShopsPage() {
             return (
               <article className="shop-card" key={shop.id}>
                 <div className="card-top">
-                  {shop.image ? (
-                    <img className="shop-thumb" src={shop.image} alt="" />
-                  ) : (
+                  {shop.image ? (() => {
+                    // This private Storage URL expires, so next/image cannot optimize it safely.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    return <img className="shop-thumb" src={shop.image} alt="" />;
+                  })() : (
                     <div className="shop-initial">{shop.name.charAt(0)}</div>
                   )}
                   <div>

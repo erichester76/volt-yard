@@ -77,7 +77,6 @@ export default function CommunityPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [authors, setAuthors] = useState<Record<string, Author>>({});
-  const [replyCounts, setReplyCounts] = useState<Record<string, number>>({});
   const [status, setStatus] = useState("Loading conversations...");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -118,26 +117,12 @@ export default function CommunityPage() {
         ),
       ),
     ];
-    const [authorResult, postResult] = await Promise.all([
-      authorIds.length
-        ? db
-            .rpc("community_author_profiles_for_ids", { author_ids: authorIds })
-        : Promise.resolve({ data: [], error: null }),
-      loadedTopics.length
-        ? db
-            .from("community_posts")
-            .select("topic_id")
-            .in(
-              "topic_id",
-              loadedTopics.map((topic) => topic.id),
-            )
-            .eq("moderation_state", "published")
-        : Promise.resolve({ data: [], error: null }),
-    ]);
-    if (authorResult.error || postResult.error)
+    const authorResult = await (authorIds.length
+      ? db.rpc("community_author_profiles_for_ids", { author_ids: authorIds })
+      : Promise.resolve({ data: [], error: null }));
+    if (authorResult.error)
       return setStatus(
-        (authorResult.error || postResult.error)?.message ??
-          "Conversations could not be loaded.",
+        authorResult.error.message ?? "Conversations could not be loaded.",
       );
     setAuthors(
       Object.fromEntries(
@@ -145,15 +130,6 @@ export default function CommunityPage() {
           author.id,
           author,
         ]),
-      ),
-    );
-    setReplyCounts(
-      (postResult.data ?? []).reduce<Record<string, number>>(
-        (counts, post) => ({
-          ...counts,
-          [post.topic_id]: (counts[post.topic_id] ?? 0) + 1,
-        }),
-        {},
       ),
     );
     const loadedCategories = (categoryResult.data ?? []) as Category[];

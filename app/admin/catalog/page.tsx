@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "@/app/locale-link";
 import { AdminNavigation } from "@/app/portal-navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   createBrowserSupabaseClient,
@@ -94,7 +93,7 @@ export default function AdminCatalogPage() {
     active: true,
   });
 
-  async function load() {
+  const load = useCallback(async () => {
     if (!db) return;
     const [categoryResult, vehicleResult, capabilityResult, productResult] = await Promise.all([
       db
@@ -126,7 +125,7 @@ export default function AdminCatalogPage() {
       setCapabilities((capabilityResult.data ?? []) as Capability[]);
       setProducts((productResult.data ?? []) as Product[]);
     }
-  }
+  }, [db]);
 
   useEffect(() => {
     if (!db) return;
@@ -141,7 +140,7 @@ export default function AdminCatalogPage() {
       setReady(true);
       void load();
     });
-  }, [db, router]);
+  }, [db, load, router]);
 
   function editProduct(product: Product) {
     setItem({

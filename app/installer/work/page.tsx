@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "@/app/locale-link";
 import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { Button, PageHeader } from "@/app/page-primitives";
