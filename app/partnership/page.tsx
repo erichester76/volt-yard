@@ -5,14 +5,14 @@ import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const levels = [
   ["Verified Specialty", "specialist"],
-  ["Certified Partner", "certified"],
+  ["Qualified Partner", "qualified"],
   ["Network Leader", "leader"],
 ] as const;
 
 function LevelBadge({ level }: { level: typeof levels[number][1] }) {
-  const label = level === "specialist" ? "VERIFIED" : level === "certified" ? "CERTIFIED" : "LEADER";
+  const label = level === "specialist" ? "VERIFIED" : level === "qualified" ? "QUALIFIED" : "LEADER";
   const id = `partnership-badge-${level}`;
-  const mark = level === "specialist" ? <><path d="M50 36 62 43v14L50 64 38 57V43z" /><path d="M43 50h14M50 43v14" /></> : level === "certified" ? <><path d="M50 35 63 40v11c0 8.5-5.4 14.2-13 18-7.6-3.8-13-9.5-13-18V40z" /><path d="m43 51 5 5 10-11" /></> : <><path d="m50 36 4.4 10.6L65 51l-10.6 4.4L50 66l-4.4-10.6L35 51l10.6-4.4z" /><path d="M50 68v7M43 75h14" /></>;
+  const mark = level === "specialist" ? <><path d="M50 36 62 43v14L50 64 38 57V43z" /><path d="M43 50h14M50 43v14" /></> : level === "qualified" ? <><path d="M50 35 63 40v11c0 8.5-5.4 14.2-13 18-7.6-3.8-13-9.5-13-18V40z" /><path d="m43 51 5 5 10-11" /></> : <><path d="m50 36 4.4 10.6L65 51l-10.6 4.4L50 66l-4.4-10.6L35 51l10.6-4.4z" /><path d="M50 68v7M43 75h14" /></>;
   return <svg className="partnership-level-badge" viewBox="0 0 100 100" aria-hidden="true"><defs><path id={`${id}-arc`} d="M22 54a28 28 0 0 1 56 0" /></defs><circle className="partnership-badge-outer" cx="50" cy="50" r="46" /><circle className="partnership-badge-inner" cx="50" cy="50" r="37" /><text className="partnership-badge-wordmark"><textPath href={`#${id}-arc`} startOffset="50%" textAnchor="middle">AMPED UP</textPath></text><circle className="partnership-badge-dot" cx="22" cy="50" r="1.5" /><circle className="partnership-badge-dot" cx="78" cy="50" r="1.5" /><g className="partnership-badge-mark">{mark}</g><path className="partnership-badge-ribbon" d="M25 74h50v12H25z" /><text className="partnership-badge-level" x="50" y="82" textAnchor="middle">{label}</text></svg>;
 }
 
@@ -28,7 +28,7 @@ export default function PartnershipPage() {
     <section className="hero partnership-hero"><div className="wrap">
       <p className="eyebrow">For independent EV businesses</p>
       <h1 className="heading-primary">{t("partnership.title", "Your brand. Your revenue. Your customer.")}</h1>
-      <p className="intro">Amped Up Network is not a franchise. You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly.</p>
+      <p className="intro">Amped Up Network is built for independent businesses. You retain your brand, pricing, operations, customer relationship, and the work you choose to accept. You quote, contract, bill, and warranty your work directly.</p>
       <p className="partnership-hero-detail">We are the marketing front door, referral network, and shared-growth community for your EV future. We do not take a percentage of your sale, and any membership, fixed verified-booking fee, managed-service, or expert-work terms are disclosed before you participate. We do not promise lead volume, earnings, or certification.</p>
       <Link className="inline-cta" href="/portal">Start your partner application</Link>
     </div></section>

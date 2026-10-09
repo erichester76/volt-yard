@@ -22,7 +22,7 @@ test("partnership landing defines the EV visibility problem for independent spec
 });
 
 test("partnership landing sells the shared-growth model before its CTA", () => {
-  assert.match(page, /not a franchise/);
+  assert.match(page, /built for independent businesses/);
   assert.match(page, /do not take a percentage of your sale/);
   assert.match(page, /launch marketing, social content, local events, owner education, paid advertising/);
   assert.match(page, /Future permissioned Connected Garage data/);
@@ -38,7 +38,7 @@ test("partnership landing presents circular, level-specific network seals", () =
   assert.match(page, /function LevelBadge/);
   assert.match(page, /AMPED UP/);
   assert.match(page, /VERIFIED/);
-  assert.match(page, /CERTIFIED/);
+  assert.match(page, /QUALIFIED/);
   assert.match(page, /LEADER/);
   assert.match(page, /aria-hidden="true"/);
   assert.match(page, /AMPED UP/);
