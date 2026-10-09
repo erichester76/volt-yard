@@ -7,7 +7,7 @@ const heading = readFileSync(new URL("../app/heading-accent.tsx", import.meta.ur
 const migration = readFileSync(new URL("../supabase/migrations/20261008000003_localize_community_first_home.sql", import.meta.url), "utf8");
 
 test("home heading uses a translator-controlled accent token", () => {
-  assert.match(home, /LocalizedHeadingAccent text=\{t\("home\.title", "The EV ownership experience you've been looking for\. \{\{accent\}\}"\)\}\s+accent=\{t\("home\.title_accent", "Finally\."\)\}/);
+  assert.match(home, /LocalizedHeadingAccent text=\{t\("home\.title", "Everything EV, in one place\. \{\{accent\}\}"\)\}\s+accent=\{t\("home\.title_accent", "Finally\."\)\}/);
   assert.match(heading, /const marker = "\{\{accent\}\}"/);
   assert.match(heading, /if \(after === undefined\) return <>\{text\}<\/>/);
   assert.match(heading, /className="heading-accent heading-accent-italic"/);
