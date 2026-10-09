@@ -1470,13 +1470,13 @@ footer button {
 .partnership-level-grid article, .partnership-commercial-grid article { padding: 24px; border: 1px solid var(--line); background: var(--surface); }
 .partnership-level-grid article { border-top: 4px solid var(--acid); }
 .partnership-level-badge { width: 106px; height: 106px; margin-bottom: 18px; fill: none; stroke: var(--orange); stroke-linecap: square; stroke-linejoin: miter; stroke-width: 1.8; }
-.partnership-badge-outer { fill: var(--surface); stroke: var(--orange); stroke-width: 2.6; }
-.partnership-badge-inner { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 1.5 2.5; }
-.partnership-badge-wordmark { fill: var(--ink); stroke: none; font: 700 5.8px "DM Mono", monospace; letter-spacing: 1px; }
+.partnership-badge-outer { fill: #ffffff; stroke: var(--orange); stroke-width: 2.6; }
+.partnership-badge-inner { stroke: #141414; stroke-width: 1; stroke-dasharray: 1.5 2.5; }
+.partnership-badge-wordmark { fill: #141414; stroke: none; font: 700 6.6px "DM Mono", monospace; letter-spacing: 1px; }
 .partnership-badge-dot { fill: var(--orange); stroke: none; }
 .partnership-badge-mark { stroke: var(--orange); stroke-width: 2.4; }
-.partnership-badge-ribbon { fill: var(--ink); stroke: none; }
-.partnership-badge-level { fill: var(--hero-ink); stroke: none; font: 700 6px "DM Mono", monospace; letter-spacing: .75px; }
+.partnership-badge-ribbon { fill: #141414; stroke: none; }
+.partnership-badge-level { fill: #ffffff; stroke: none; font: 700 6.8px "DM Mono", monospace; letter-spacing: .75px; }
 .partnership-commercial-grid article { border-top: 4px solid var(--orange); }
 .partnership-level-grid h4, .partnership-commercial-grid h4 { margin: 0 0 12px; font: 600 21px var(--heading-font-family); line-height: var(--heading-line-height); letter-spacing: var(--heading-letter-spacing); }
 .partnership-level-grid p, .partnership-commercial-grid p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
