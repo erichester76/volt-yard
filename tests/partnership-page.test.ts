@@ -9,9 +9,9 @@ const narrativeMigration = readFileSync(new URL("../supabase/migrations/20261009
 
 test("partnership landing directs prospective partners into the reviewed portal workflow", () => {
   assert.match(page, /href="\/portal"/);
-  assert.match(page, /We review/);
-  assert.match(page, /before publishing it/);
-  assert.match(page, /<h1 className="heading-primary">\{t\("partnership.title", "Connecting qualified clients to qualified shops/);
+  assert.match(page, /We review the evidence required for your class/);
+  assert.match(page, /before it is published/);
+  assert.match(page, /<h1 className="heading-primary">\{t\("partnership.title", "Your brand\. Your shop/);
 
   for (const key of ["eyebrow", "title", "intro", "action", "steps_eyebrow", "steps_title", "step_apply", "step_apply_intro", "step_review", "step_review_intro", "step_participate", "step_participate_intro", "fit_eyebrow", "fit_title", "fit_intro"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
@@ -22,8 +22,8 @@ test("partnership landing directs prospective partners into the reviewed portal 
 
 test("partnership landing explains the value before its closing application CTA", () => {
   assert.match(page, /className="partnership-program"/);
-  assert.match(page, /Marketing support, better context, and a trusted local presence/);
-  assert.match(page, /Co-branded education, local events, and community activity/);
+  assert.match(page, /className="partnership-program-chapter"/);
+  assert.match(page, /Market yourself by participating/);
   assert.match(page, /Amped Up Network is not a franchise/);
   assert.match(page, /Market yourself by participating/);
   assert.match(page, /fixed completed-booking fee may apply only to verified qualifying work/);
@@ -42,8 +42,10 @@ test("partnership landing explains program levels and qualitative commercial ter
   assert.match(page, /Certified Partner/);
   assert.match(page, /Network Leader/);
   assert.match(page, /function LevelBadge/);
+  assert.match(page, /AMPED UP/);
+  assert.match(page, /NETWORK/);
   assert.match(page, /aria-hidden="true"/);
-  assert.match(page, /We do not promise lead volume, earnings, or certification/);
+  assert.match(page, /no promises of lead volume, earnings, or certification/);
   assert.match(page, /automated transfers are not available/);
 
   for (const key of ["levels_eyebrow", "levels_title", "levels_intro", "level_specialist", "level_specialist_intro", "level_certified", "level_certified_intro", "level_leader", "level_leader_intro", "commercial_eyebrow", "commercial_title", "commercial_intro", "commercial_launch", "commercial_launch_intro", "commercial_ongoing", "commercial_ongoing_intro", "commercial_payout", "commercial_payout_intro"]) {
