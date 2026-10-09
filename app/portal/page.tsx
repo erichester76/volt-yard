@@ -147,16 +147,6 @@ export default function PortalPage() {
       }
     });
   }, [db, router]);
-  const toggle = (
-    value: string,
-    values: string[],
-    setValues: (items: string[]) => void,
-  ) =>
-    setValues(
-      values.includes(value)
-        ? values.filter((item) => item !== value)
-        : [...values, value],
-    );
   async function upload(files: FileList | null) {
     if (!db || !files?.length) return;
     const additions: ImageDraft[] = [];

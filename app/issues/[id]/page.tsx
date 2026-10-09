@@ -1,6 +1,6 @@
 "use client";
 import Link from "@/app/locale-link";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 type Case = { id: string; title: string; symptoms: string; warning_codes: string | null; vehicle_year: number | null; vehicle_make: string | null; vehicle_model: string | null; source_topic_id: string | null; status: string };
 type Response = { body: string; created_at: string };

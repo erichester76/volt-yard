@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "@/app/locale-link";
+import Image from "next/image";
 import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -13,6 +14,7 @@ import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
 import { localePath, localePathname } from "@/lib/i18n";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { isGatedPath, safeReturnTo } from "@/lib/account-gate";
+import foundingPartnerLogo from "@/public/images/amped-up-electric-garage-logo.png";
 
 type Account = { email: string; isAdmin: boolean } | null;
 type AuthMode = "sign-in" | "sign-up" | "reset" | "new-password" | "magic-link";
@@ -260,9 +262,9 @@ export default function SiteChrome({
             onClick={() => setMenuOpen(false)}
             aria-label="Amped Up Network home"
           >
-            <img
+            <Image
               className="brand-logo"
-              src="/images/amped-up-electric-garage-logo.png"
+              src={foundingPartnerLogo}
               alt="Amped Up Electric Garage founding partner logo"
             />
           </Link>
@@ -434,9 +436,9 @@ export default function SiteChrome({
               href={localHref("/")}
               aria-label="Amped Up Network home"
             >
-              <img
+              <Image
                 className="brand-logo"
-                src="/images/amped-up-electric-garage-logo.png"
+                src={foundingPartnerLogo}
                 alt="Amped Up Electric Garage founding partner logo"
               />
               <span className="brand-copy">
