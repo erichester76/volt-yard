@@ -1435,6 +1435,8 @@ footer button {
 .hero-scroll-chevron-orange { stroke: var(--orange); }
 .hero-scroll-chevron-gold { stroke: color-mix(in srgb, var(--acid) 76%, #7a5400); }
 .hero-scroll-chevron-yellow { stroke: var(--acid); }
+.community-home-hero .hero-scroll-chevron-yellow { stroke: var(--acid-ink); }
+:root[data-theme="dark"] .community-home-hero .hero-scroll-chevron-yellow { stroke: var(--acid); }
 @keyframes hero-scroll-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 @media (prefers-reduced-motion: reduce) { .hero-scroll-cue { animation: none; } }
 .home-section-heading .eyebrow { margin-bottom: 13px; }
