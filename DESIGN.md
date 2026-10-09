@@ -91,7 +91,7 @@ The current cart UI does not send the required `Idempotency-Key`, so this journe
 | Next.js route handlers | Server-only integrations: Google geocoding, EPA synchronization, provider imports, Stripe Checkout, webhook verification. Validate requests before external calls. |
 | Supabase Auth | Email/password and email-link identity/session management. |
 | Supabase Postgres | Core data, RLS authorization, immutable price/context snapshots, workflow triggers, and atomic security-definer RPCs. |
-| Supabase Storage | Private partner application and published shop imagery served by signed URLs. |
+| Supabase Storage | Private partner application, published shop, and active catalog-product imagery served by signed URLs. |
 | Stripe | Hosted payment/subscription Checkout and signed event delivery. Stripe is authoritative for Stripe subscription lifecycle events. |
 | External data providers | EPA FuelEconomy vehicle catalog; Google geocoding/Places, Yelp, and Overpass only for authorized import/search paths. |
 | Vercel | Next.js runtime, production deployment, and monthly vehicle-catalog cron. |

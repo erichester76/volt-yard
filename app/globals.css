@@ -1324,6 +1324,12 @@ footer button {
 .catalog-card > p:not(.eyebrow), .catalog-card small, .job-card > p:not(.eyebrow) { color: var(--muted); line-height: 1.5; }
 .catalog-card footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 21px; height: auto; }
 .catalog-card button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
+.catalog-details-toggle { margin-top: 4px; background: var(--button-secondary-background) !important; color: var(--button-secondary-foreground) !important; }
+.catalog-details { margin-top: 20px; }
+.catalog-detail-copy { color: var(--muted); font-size: 13px; line-height: 1.55; }
+.catalog-detail-copy ul { margin: 0 0 16px; padding-left: 20px; }
+.catalog-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
+.catalog-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface-muted); }
 .checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
 .login-prompt { display: flex; gap: 9px; align-items: center; padding: 15px; margin-bottom: 24px; background: #e5eadf; }
 .login-prompt input, .checkout-card input, .checkout-card select, .checkout-card textarea { border: 1px solid #ccd5cc; background: #fffefa; padding: 10px; font: 13px "DM Sans"; width: 100%; }
@@ -1352,12 +1358,18 @@ footer button {
 .admin-catalog-form legend { font-size: 12px; font-weight: 600; padding: 0 4px; }.admin-catalog-form legend small { color: var(--muted); font-weight: 400; }
 .vehicle-picker { max-height: 250px; overflow: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px 12px; }
 .vehicle-picker label { font-size: 11px; font-weight: 400; margin: 0; line-height: 1.3; }.vehicle-picker input { margin: 0 4px 0 0; }
+.product-image-manager > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
+.product-image-manager > div label:first-child { grid-column: 1 / -1; }
+.product-image-list { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.product-image-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; border-top: 1px solid var(--line); padding-top: 9px; font-size: 12px; }
+.product-image-list span { flex: 1 1 160px; }.product-image-list small { color: var(--muted); }
+.product-image-list button { padding: 7px 9px; }.product-image-list button:disabled { opacity: .45; cursor: not-allowed; }
 .catalog-admin-sidebar { display: grid; gap: 20px; }.category-form { background: #e5eadf; }
 .admin-catalog-list { display: grid; gap: 0; }.admin-catalog-list h2 { margin-bottom: 12px; }
 .admin-catalog-list article { border-top: 1px solid var(--line); padding: 14px 0; font-size: 13px; }.admin-catalog-list article > div { display: flex; justify-content: space-between; gap: 8px; }.admin-catalog-list span { color: #527438; font: 10px "DM Mono"; text-transform: uppercase; }.admin-catalog-list p { color: var(--muted); margin: 7px 0; }.admin-catalog-list small { color: var(--muted); display: block; margin-bottom: 10px; }.admin-catalog-list button { margin-right: 7px; padding: 7px 9px; }.admin-catalog-list .danger-button { background: #9d3c2c; }
 .item-list { margin-top: 26px; grid-template-columns: repeat(3, 1fr); gap: 0 20px; }.item-list h2 { grid-column: 1 / -1; }.item-list article { min-width: 0; }
 @media (max-width: 700px) { .catalog-grid, .cart-layout, .job-list { grid-template-columns: 1fr; }.commerce-nav { padding-bottom: 35px; }.commerce-nav > div { gap: 12px; }.login-prompt { align-items: stretch; flex-direction: column; } }
-@media (max-width: 700px) { .catalog-admin-grid { grid-template-columns: 1fr; }.item-list { grid-template-columns: 1fr; }.vehicle-picker { grid-template-columns: 1fr; }.catalog-admin header > div { gap: 12px; }.price-fields { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .catalog-admin-grid { grid-template-columns: 1fr; }.item-list { grid-template-columns: 1fr; }.vehicle-picker, .product-image-manager > div { grid-template-columns: 1fr; }.product-image-manager > div label:first-child { grid-column: auto; }.catalog-admin header > div { gap: 12px; }.price-fields { grid-template-columns: 1fr; }.catalog-gallery { grid-template-columns: 1fr; } }
 @media (max-width: 490px) {
   .card-group {
     grid-template-columns: 82px minmax(0, 1fr);
