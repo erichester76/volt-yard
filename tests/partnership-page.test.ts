@@ -13,7 +13,7 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /established ICE shop building a serious EV practice/);
   assert.match(page, /People look for their own answers before they look for a vendor/);
   assert.match(page, /ask AI tools/);
-  assert.match(page, /How customers discover help now/);
+  assert.match(page, /Be found/);
   assert.match(page, /You keep the customer\. We organize the details/);
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);

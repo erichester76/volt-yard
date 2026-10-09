@@ -4,7 +4,7 @@ import Link from "@/app/locale-link";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const levels = [
-  ["Verified Specialty / Infrastructure", "specialist"],
+  ["Verified Specialty", "specialist"],
   ["Certified Partner", "certified"],
   ["Network Leader", "leader"],
 ] as const;
@@ -33,28 +33,25 @@ export default function PartnershipPage() {
     </div></section>
 
     <section className="partnership-story"><div className="wrap partnership-story-layout">
-      <div className="partnership-story-copy"><p className="eyebrow">The problem</p>
-        <h2>Your EV capability may be real. Your visibility probably is not.</h2>
+      <div className="partnership-story-copy"><h2>Your EV capability may be real. Your visibility probably is not.</h2>
         <p>You run a specialist shop, but few people know what you can do for an EV. You are busy serving traditional work. You do not have time to chase a fractured EV community across social media, forums, and local groups just to get your name out. You may be an electrician looking for charger installs, a wrap shop ready to work on Cybertrucks, or an established ICE shop building a serious EV practice. In each case, you need a clearer way into the market and a partner that understands how to grow there.</p>
-        <div className="partnership-story-bridge"><p className="eyebrow">How customers discover help now</p><h3>People look for their own answers before they look for a vendor.</h3><p>They search, ask AI tools, watch videos, compare notes in communities, and learn in forums before they call a shop. Technical EV owners often take that research even further. We are building Amped Up as a trusted place for that work: a place where owners can learn, organize a problem, and find the right next step. Your business can be on the inside of that conversation, with a profile that explains your actual scope and a community presence that earns trust over time. You market your own brand by participating, sharing useful expertise, supporting education, and delivering work that owners can stand behind.</p></div>
-      </div><StoryArtwork number="01" label="Discover" />
+        <div className="partnership-story-bridge"><h3>People look for their own answers before they look for a vendor.</h3><p>They search, ask AI tools, watch videos, compare notes in communities, and learn in forums before they call a shop. Technical EV owners often take that research even further. We are building Amped Up as a trusted place for that work: a place where owners can learn, organize a problem, and find the right next step. Your business can be on the inside of that conversation, with a profile that explains your actual scope and a community presence that earns trust over time. You market your own brand by participating, sharing useful expertise, supporting education, and delivering work that owners can stand behind.</p></div>
+      </div><StoryArtwork number="01" label="Be found" />
     </div></section>
 
     <section className="partnership-story"><div className="wrap partnership-story-layout partnership-story-layout-reverse">
-      <StoryArtwork number="02" label="Organize" /><div className="partnership-story-copy"><p className="eyebrow">A better appointment starts earlier</p>
-        <h2>You keep the customer. We organize the details.</h2>
+      <StoryArtwork number="02" label="Arrive ready" /><div className="partnership-story-copy"><h2>You keep the customer. We organize the details.</h2>
         <p>Typical intake means reverse-engineering a customer's history, their current problem, and the work that has already been attempted. Amped Up keeps the owner-controlled record of the vehicle, issue notes, prior service, photos, and documents so the right details can travel with permission into the service conversation.</p>
         <p>Owners can organize a concern before they reach you and, where useful, learn from the community first. That is not a remote diagnosis or an automatic assignment. It is a qualified starting point that helps your team spend less time rebuilding the story and more time doing the work. Future permissioned Connected Garage data may add relevant vehicle details before an appointment when available; it will never replace your inspection or diagnose a vehicle for you.</p>
       </div>
     </div></section>
 
     <section className="partnership-story"><div className="wrap partnership-story-layout">
-      <div className="partnership-story-copy"><p className="eyebrow">A network that creates demand</p>
-        <h2>We build the interest. You build the trust.</h2>
+      <div className="partnership-story-copy"><h2>We build the interest. You build the trust.</h2>
         <p>The network is designed to create interest in EV ownership support and, ultimately, in the partners who make that support real. We bring together launch marketing, social content, local events, owner education, paid advertising where appropriate, practical tools, training, and community infrastructure. You participate, provide good service, and focus on growing in the EV space with a community that wants every capable member to succeed.</p>
         <div className="partnership-seal-row">{levels.map(([title, level]) => <div key={level}><LevelBadge level={level} /><span>{title}</span></div>)}</div>
         <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
-      </div><StoryArtwork number="03" label="Grow" />
+      </div><StoryArtwork number="03" label="Build demand" />
     </div></section>
 
     <section className="partnership-standards"><div className="wrap">
