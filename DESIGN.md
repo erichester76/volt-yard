@@ -11,6 +11,7 @@ The product does not diagnose vehicles automatically, book appointments, dispatc
 | Area | Routes | Purpose |
 | --- | --- | --- |
 | Discovery | `/`, `/shops/[id]` | Search and inspect published EV partners. |
+| Purchase research | `/ev-purchase-research` | Compare owner perspectives, practical resources, available inspection services, and new-owner essentials before buying. |
 | Diagnosis | `/issues`, `/issues/[id]` | Create and continue a customer-owned issue case. |
 | Learning | `/journal`, `/tutorials`, `/release-notes`, `/library/[slug]` | Display published editorial resources from Supabase. |
 | Community | `/community`, `/community/[slug]` | Read published topics; paid members submit moderated contributions and vote. |
