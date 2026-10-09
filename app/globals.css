@@ -1454,6 +1454,8 @@ footer button {
 .partnership-hero h1 { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid-ink); }
 .partnership-hero .intro { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--acid-ink); }
 .partnership-hero-detail { max-width: 720px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--acid-ink) 38%, transparent); color: var(--acid-ink); font-size: 14px; line-height: 1.55; }
+.partnership-hero .inline-cta { margin-top: 26px; background: var(--acid-ink); color: var(--hero-ink); }
+.partnership-hero .inline-cta:hover { background: var(--hero); color: var(--hero-ink); }
 .partnership-case { padding: 62px 0; }
 .partnership-case .wrap { max-width: 820px; }
 .partnership-case .eyebrow, .partnership-close .eyebrow { color: var(--orange); }

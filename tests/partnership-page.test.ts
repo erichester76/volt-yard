@@ -17,6 +17,7 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /You keep the customer\. We organize the details/);
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);
+  assert.ok(page.indexOf('href="/portal"') < page.indexOf("Your EV capability may be real"));
   assert.match(migration, /\('partnership\.title','en','Your brand\. Your revenue\. Your customer\.'/);
 });
 
