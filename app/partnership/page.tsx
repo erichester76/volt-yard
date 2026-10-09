@@ -5,14 +5,14 @@ import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const levels = [
   ["Verified Specialty", "specialist"],
-  ["Qualified Partner", "qualified"],
+  ["Partner", "partner"],
   ["Network Leader", "leader"],
 ] as const;
 
 function LevelBadge({ level }: { level: typeof levels[number][1] }) {
-  const label = level === "specialist" ? "VERIFIED" : level === "qualified" ? "QUALIFIED" : "LEADER";
+  const label = level === "specialist" ? "VERIFIED" : level === "partner" ? "PARTNER" : "LEADER";
   const id = `partnership-badge-${level}`;
-  const mark = level === "specialist" ? <><path d="M50 36 62 43v14L50 64 38 57V43z" /><path d="M43 50h14M50 43v14" /></> : level === "qualified" ? <><path d="M50 35 63 40v11c0 8.5-5.4 14.2-13 18-7.6-3.8-13-9.5-13-18V40z" /><path d="m43 51 5 5 10-11" /></> : <><path d="m50 36 4.4 10.6L65 51l-10.6 4.4L50 66l-4.4-10.6L35 51l10.6-4.4z" /><path d="M50 68v7M43 75h14" /></>;
+  const mark = level === "specialist" ? <><path d="M50 36 62 43v14L50 64 38 57V43z" /><path d="M43 50h14M50 43v14" /></> : level === "partner" ? <><path d="M50 35 63 40v11c0 8.5-5.4 14.2-13 18-7.6-3.8-13-9.5-13-18V40z" /><path d="m43 51 5 5 10-11" /></> : <><path d="m50 36 4.4 10.6L65 51l-10.6 4.4L50 66l-4.4-10.6L35 51l10.6-4.4z" /><path d="M50 68v7M43 75h14" /></>;
   return <svg className="partnership-level-badge" viewBox="0 0 100 100" aria-hidden="true"><defs><path id={`${id}-arc`} d="M22 54a28 28 0 0 1 56 0" /></defs><circle className="partnership-badge-outer" cx="50" cy="50" r="46" /><circle className="partnership-badge-inner" cx="50" cy="50" r="37" /><text className="partnership-badge-wordmark"><textPath href={`#${id}-arc`} startOffset="50%" textAnchor="middle">AMPED UP</textPath></text><circle className="partnership-badge-dot" cx="22" cy="50" r="1.5" /><circle className="partnership-badge-dot" cx="78" cy="50" r="1.5" /><g className="partnership-badge-mark">{mark}</g><path className="partnership-badge-ribbon" d="M25 74h50v12H25z" /><text className="partnership-badge-level" x="50" y="82" textAnchor="middle">{label}</text></svg>;
 }
 

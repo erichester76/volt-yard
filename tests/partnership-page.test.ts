@@ -38,7 +38,7 @@ test("partnership landing presents circular, level-specific network seals", () =
   assert.match(page, /function LevelBadge/);
   assert.match(page, /AMPED UP/);
   assert.match(page, /VERIFIED/);
-  assert.match(page, /QUALIFIED/);
+  assert.match(page, /PARTNER/);
   assert.match(page, /LEADER/);
   assert.match(page, /aria-hidden="true"/);
   assert.match(page, /AMPED UP/);
