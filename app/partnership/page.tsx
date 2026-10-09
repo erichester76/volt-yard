@@ -24,7 +24,7 @@ const commercialTerms = [
 const benefits = [
   ["partnership.benefit_context", "Qualified context, not cold inquiries", "partnership.benefit_context_intro", "Owners can carry their vehicle, issue, and service context forward with permission, so the right conversations start with less repeated intake."],
   ["partnership.benefit_marketing", "Launch marketing with substance", "partnership.benefit_marketing_intro", "Build a credible profile, a defined offer, and class-appropriate launch materials. Co-branded education, local events, and community activity are used where they make sense."],
-  ["partnership.benefit_reputation", "Earn trust that compounds", "partnership.benefit_reputation_intro", "Show your actual scope, credentials, supported vehicles, and verified outcomes. Contribute useful expertise and build a reputation beyond a generic directory listing."],
+  ["partnership.benefit_reputation", "Market yourself by participating", "partnership.benefit_reputation_intro", "Show your actual scope, credentials, supported vehicles, and verified outcomes. Share useful expertise in the community, support education and events, and build a reputation beyond a generic directory listing."],
 ] as const;
 
 export default function PartnershipPage() {
@@ -39,8 +39,8 @@ export default function PartnershipPage() {
     </div></section>
     <section className="partnership-case"><div className="wrap">
       <p className="eyebrow">{t("partnership.case_eyebrow", "More than a listing")}</p>
-      <h2>{t("partnership.case_title", "Build a better way for EV owners to find your work.")}</h2>
-      <p>{t("partnership.case_intro", "Amped Up Network connects EV-specific businesses with owners who need the right help. Your business remains independent: you set your pricing, perform your work, and stand behind it. We make the scope, context, and next step clearer for everyone involved.")}</p>
+      <h2>{t("partnership.case_title", "Your brand. Your shop. A stronger front door.")}</h2>
+      <p>{t("partnership.case_intro", "Amped Up Network is not a franchise. You retain your brand, pricing, operations, customer relationship, and the work you choose to take on. We are a referral and advisory network: a front door that helps owners understand who is a fit and advocates for clear, qualified partner choices.")}</p>
     </div></section>
     <section className="partnership-benefits"><div className="wrap">
       <div className="home-section-heading"><p className="eyebrow">{t("partnership.benefits_eyebrow", "Built to help you grow")}</p><h2>{t("partnership.benefits_title", "Marketing support, better context, and a trusted local presence.")}</h2></div>

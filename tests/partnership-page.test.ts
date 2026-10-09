@@ -23,6 +23,8 @@ test("partnership landing directs prospective partners into the reviewed portal 
 test("partnership landing explains the value before its closing application CTA", () => {
   assert.match(page, /Marketing support, better context, and a trusted local presence/);
   assert.match(page, /Co-branded education, local events, and community activity/);
+  assert.match(page, /Amped Up Network is not a franchise/);
+  assert.match(page, /Market yourself by participating/);
   assert.match(page, /fixed completed-booking fee may apply only to verified qualifying work/);
   assert.match(page, /Start the conversation about your place in the network/);
   assert.ok(page.lastIndexOf('href="/portal"') > page.indexOf("fixed completed-booking fee may apply only to verified qualifying work"));
