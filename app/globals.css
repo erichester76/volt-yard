@@ -1554,6 +1554,9 @@ footer button {
 .partnership-standards-grid p, .partnership-standards-grid li { color: var(--muted); line-height: 1.55; }
 .partnership-standards-grid p { margin: 0 0 16px; }
 .partnership-standards-grid ul { display: grid; gap: 11px; margin: 0; padding-left: 20px; }
+.partnership-standards .partnership-seal-row { margin-bottom: 18px; }
+.partnership-standards .partnership-seal-row > div { color: var(--ink); }
+.partnership-standards .partnership-story-note { max-width: 760px; color: var(--muted); }
 @media (max-width: 960px) { .hero-support-path ol, .home-pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .hero-support-path ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }.home-pathway-grid, .partnership-level-grid, .partnership-commercial-grid, .partnership-offering-grid, .partnership-standards-grid, .partnership-story-layout, .partnership-story-layout-reverse { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; }.home-partner-invitation-content, .partnership-fit .wrap, .partnership-handoff .wrap { grid-template-columns: 1fr; gap: 24px; }.partnership-story-layout { gap: 32px; }.partnership-story-layout-reverse .partnership-story-copy { justify-self: start; }.partnership-story-art { min-height: 180px; }.partnership-story-art span { font-size: 96px; } }
 

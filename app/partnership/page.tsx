@@ -49,8 +49,6 @@ export default function PartnershipPage() {
     <section className="partnership-story"><div className="wrap partnership-story-layout">
       <div className="partnership-story-copy"><h2>We build the interest. You build the trust.</h2>
         <p>The network is designed to create interest in EV ownership support and, ultimately, in the partners who make that support real. We bring together launch marketing, social content, local events, owner education, paid advertising where appropriate, practical tools, training, and community infrastructure. You participate, provide good service, and focus on growing in the EV space with a community that wants every capable member to succeed.</p>
-        <div className="partnership-seal-row">{levels.map(([title, level]) => <div key={level}><LevelBadge level={level} /><span>{title}</span></div>)}</div>
-        <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
       </div><StoryArtwork number="03" label="Build demand" />
     </div></section>
 
@@ -60,6 +58,8 @@ export default function PartnershipPage() {
         <div><h3>What we review</h3><ul><li>Your business, licenses, insurance, and stated service area.</li><li>Your EV capability, supported vehicles, tools, training, safety process, and scope.</li><li>Your customer experience, service terms, warranty disclosures, and verified outcomes.</li><li>Your community participation and the evidence that supports your program level.</li></ul></div>
         <div><h3>What we build with you</h3><p>A credible public profile. A practical readiness and training plan. Clear service and member offers. Launch materials that fit your specialty. A better way to explain your work to owners before they ever call the shop.</p><p>If a business is not ready for a level yet, the next step is not a fake badge. It is a clear plan for what to strengthen, learn, document, or prove next.</p></div>
       </div>
+      <div className="partnership-seal-row">{levels.map(([title, level]) => <div key={level}><LevelBadge level={level} /><span>{title}</span></div>)}</div>
+      <p className="partnership-story-note">Training, verified outcomes, and useful participation create a path to higher levels when they are available for your specialty. We do not publish an opaque score or make a quality claim your evidence does not support.</p>
     </div></section>
 
     <section className="partnership-close"><div className="wrap"><p className="eyebrow">Ready to build your EV future?</p><h2>Bring your expertise. We will help open the right doors.</h2><p>Tell us what you do, where you work, and the owners you serve. We will start with the right application and discuss the network path that fits your business.</p><Link className="inline-cta" href="/portal">Start your partner application</Link></div></section>
