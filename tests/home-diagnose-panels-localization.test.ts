@@ -37,7 +37,7 @@ test("home sends people from the hero directly to the owner pathways", () => {
 
 test("home invites relevant partners to join the network", () => {
   assert.match(home, /className="home-partner-invitation"/);
-  assert.match(home, /href="\/membership"/);
+  assert.match(home, /href="\/partnership"/);
 
   for (const key of ["partner_eyebrow", "partner_title", "partner_intro", "partner_action"]) {
     for (const locale of ["en", "de", "fr", "es"]) {
