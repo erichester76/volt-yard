@@ -13,7 +13,7 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /established ICE shop building a serious EV practice/);
   assert.match(page, /EV owners look for answers before they look for vendors/);
   assert.match(page, /Why visibility is different in EV/);
-  assert.match(page, /You keep the customer\. We keep the context/);
+  assert.match(page, /You keep the customer\. We organize the details/);
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);
   assert.match(migration, /\('partnership\.title','en','Your brand\. Your revenue\. Your customer\.'/);
@@ -36,4 +36,6 @@ test("partnership landing presents circular, level-specific network seals", () =
   assert.match(page, /CERTIFIED/);
   assert.match(page, /LEADER/);
   assert.match(page, /aria-hidden="true"/);
+  assert.match(page, /AMPED UP NETWORK/);
+  assert.ok(page.indexOf("A network that creates demand") < page.indexOf('className="partnership-seal-row"'));
 });
