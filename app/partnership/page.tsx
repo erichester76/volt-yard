@@ -41,7 +41,7 @@ export default function PartnershipPage() {
 
     <section className="partnership-story"><div className="wrap partnership-story-layout partnership-story-layout-reverse">
       <StoryArtwork number="02" label="Arrive ready" /><div className="partnership-story-copy"><h2>You keep the customer. We organize the details.</h2>
-        <p>Typical intake means reverse-engineering a customer's history, their current problem, and the work that has already been attempted. Amped Up keeps the owner-controlled record of the vehicle, issue notes, prior service, photos, and documents so the right details can travel with permission into the service conversation.</p>
+        <p>Typical intake means reverse-engineering a customer&apos;s history, their current problem, and the work that has already been attempted. Amped Up keeps the owner-controlled record of the vehicle, issue notes, prior service, photos, and documents so the right details can travel with permission into the service conversation.</p>
         <p>Owners can organize a concern before they reach you and, where useful, learn from the community first. That is not a remote diagnosis or an automatic assignment. It is a qualified starting point that helps your team spend less time rebuilding the story and more time doing the work. Future permissioned Connected Garage data may add relevant vehicle details before an appointment when available; it will never replace your inspection or diagnose a vehicle for you.</p>
       </div>
     </div></section>
