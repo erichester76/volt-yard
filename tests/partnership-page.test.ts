@@ -11,8 +11,9 @@ test("partnership landing defines the EV visibility problem for independent spec
   assert.match(page, /electrician looking for charger installs/);
   assert.match(page, /wrap shop ready to work on Cybertrucks/);
   assert.match(page, /established ICE shop building a serious EV practice/);
-  assert.match(page, /EV owners look for answers before they look for vendors/);
-  assert.match(page, /Why visibility is different in EV/);
+  assert.match(page, /People look for their own answers before they look for a vendor/);
+  assert.match(page, /ask AI tools/);
+  assert.match(page, /How customers discover help now/);
   assert.match(page, /You keep the customer\. We organize the details/);
   assert.match(page, /You retain your brand, pricing, operations, customer relationship/);
   assert.match(page, /not a remote diagnosis or an automatic assignment/);
