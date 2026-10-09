@@ -5,6 +5,7 @@ import { LocalizedHeadingAccent } from "@/app/heading-accent";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const pathways = [
+  ["home.path_new_owner", "I'm a new EV owner", "home.path_new_owner_intro", "Start with charging, maintenance, local support, and the practical habits that make EV ownership easier.", "Start with the essentials", "/tutorials"],
   ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Tell us what is happening. We organize the details, surface relevant answers, and help you choose a next step.", "Start a guided issue", "/issues"],
   ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Use training and checklists to build a practical plan, then carry it into a service visit when needed.", "Browse practical guides", "/tutorials"],
   ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Compare community favorites and compatible options before you buy or book, with your vehicle context close at hand.", "Explore community favorites", "/upgrades"],

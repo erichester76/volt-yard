@@ -29,10 +29,10 @@ test("pricing describes discounts as future benefits, not active ones", () => {
   assert.doesNotMatch(plans, /active member discounts/i);
 });
 
-test("chrome exposes pricing, services, and upgrades while home prioritizes owner journeys", () => {
+test("chrome exposes services and upgrades while pricing stays in onboarding", () => {
   assert.match(read("app/page.tsx"), /"\/upgrades"/);
   const chrome = read("app/site-chrome.tsx");
   assert.match(chrome, /localHref\("\/services"\)/);
   assert.match(chrome, /localHref\("\/upgrades"\)/);
-  assert.match(chrome, /localHref\("\/pricing"\)/);
+  assert.doesNotMatch(chrome, /localHref\("\/pricing"\)/);
 });
