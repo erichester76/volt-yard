@@ -1421,6 +1421,7 @@ footer button {
 
 .community-home-hero { padding-bottom: 52px; background: var(--acid); color: var(--acid-ink); }
 .community-home-hero h1 { max-width: 760px; color: var(--acid-ink); }
+.community-home-hero .intro { max-width: 760px; }
 .community-home-hero .heading-accent, .community-home-hero .hero-support-path b { color: var(--orange); }
 .community-home-hero .intro, .community-home-hero .hero-support-path > p, .community-home-hero .hero-support-path li { color: var(--acid-ink); }
 .community-home-hero .hero-support-path { border-color: color-mix(in srgb, var(--acid-ink) 38%, transparent); }
