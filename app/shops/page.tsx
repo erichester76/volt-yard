@@ -3,6 +3,7 @@
 import { FormEvent, KeyboardEvent, useEffect, useState } from "react";
 import Link from "@/app/locale-link";
 import { Button } from "@/app/page-primitives";
+import { fill, useLocale, useLocalizedContent } from "@/lib/localized-content";
 import {
   createBrowserSupabaseClient,
   isSupabaseConfigured,
@@ -88,15 +89,17 @@ type DirectoryRpcError = {
   hint?: string;
 };
 
-function directoryErrorMessage(error: DirectoryRpcError) {
+function directoryErrorMessage(error: DirectoryRpcError, t: (key: string, fallback: string) => string) {
   if (error.code === "PGRST202")
-    return "Shop listings are being updated. Please retry in a moment.";
+    return t("shops.listings_updated", "Shop listings are being updated. Please retry in a moment.");
   if (error.code === "42501")
-    return "Shop listings are temporarily unavailable. Please try again shortly.";
-  return "Live shop listings could not be loaded. Please try again.";
+    return t("shops.listings_unavailable", "Shop listings are temporarily unavailable. Please try again shortly.");
+  return t("shops.listings_failed", "Live shop listings could not be loaded. Please try again.");
 }
 
 export default function ShopsPage() {
+  const locale = useLocale();
+  const t = useLocalizedContent(locale);
   const [make, setMake] = useState("Any make");
   const [year, setYear] = useState("Any year");
   const [model, setModel] = useState("Any model");
@@ -117,17 +120,17 @@ export default function ShopsPage() {
   const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([]);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const [isSelectingPlace, setIsSelectingPlace] = useState(false);
-  const [locationLabel, setLocationLabel] = useState("your location");
+  const [locationLabel, setLocationLabel] = useState(t("shops.your_location", "your location"));
   const [isGeocoding, setIsGeocoding] = useState(false);
   const [locationStatus, setLocationStatus] = useState(
     isSupabaseConfigured
-      ? "Finding your location..."
-      : "Shop listings are not configured.",
+      ? t("shops.finding_you", "Finding your location...")
+      : t("shops.not_configured", "Shop listings are not configured."),
   );
   const [directoryStatus, setDirectoryStatus] = useState(
     isSupabaseConfigured
-      ? "Loading live shop listings..."
-      : "Shop listings are unavailable.",
+      ? t("shops.loading", "Loading live shop listings...")
+      : t("shops.unavailable", "Shop listings are unavailable."),
   );
   const [directoryLoaded, setDirectoryLoaded] = useState(false);
   const [directoryFailed, setDirectoryFailed] = useState(false);
@@ -135,7 +138,7 @@ export default function ShopsPage() {
   useEffect(() => {
     if (!isSupabaseConfigured) return;
     if (!navigator.geolocation) {
-      setLocationStatus("Enter a city, state, or ZIP to search.");
+      setLocationStatus(t("shops.enter_location", "Enter a city, state, or ZIP to search."));
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -146,14 +149,14 @@ export default function ShopsPage() {
         };
         setBrowserLocation(currentLocation);
         setLocation(currentLocation);
-        setQuery("Current location");
+        setQuery(t("shops.current_location", "Current location"));
         setIsCurrentLocationQuery(true);
-        setLocationStatus("Using your current location");
+        setLocationStatus(t("shops.using_current", "Using your current location"));
       },
-      () => setLocationStatus("Enter a city, state, or ZIP to search."),
+      () => setLocationStatus(t("shops.enter_location", "Enter a city, state, or ZIP to search.")),
       { enableHighAccuracy: false, timeout: 10000 },
     );
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (!isSupabaseConfigured || !location) return;
@@ -176,11 +179,11 @@ export default function ShopsPage() {
       setNearbyShops([]);
       setDirectoryLoaded(false);
       setDirectoryFailed(true);
-      setDirectoryStatus(directoryErrorMessage(error));
+      setDirectoryStatus(directoryErrorMessage(error, t));
     };
     setDirectoryLoaded(false);
     setDirectoryFailed(false);
-    setDirectoryStatus("Loading live shop listings...");
+    setDirectoryStatus(t("shops.loading", "Loading live shop listings..."));
     const request = client.rpc("nearby_shops", {
       search_latitude: location.latitude,
       search_longitude: location.longitude,
@@ -212,7 +215,7 @@ export default function ShopsPage() {
           : { data: [], error: null };
         if (cancelled) return;
         if (imageError)
-          setDirectoryStatus("Live shop listings loaded without shop images.");
+          setDirectoryStatus(t("shops.loaded_no_images", "Live shop listings loaded without shop images."));
         const imageByShop = new Map<string, string>();
         const signedImages = await Promise.all((imageRows ?? []).map(async (image) => ({ image, url: (await client.storage.from("shop-images").createSignedUrl(image.storage_path, 3600)).data?.signedUrl })));
         signedImages.forEach(({ image, url }) => {
@@ -246,8 +249,8 @@ export default function ShopsPage() {
         if (!imageError)
           setDirectoryStatus(
             nearby.length
-              ? "Live shop listings"
-              : "No live shops match these filters.",
+              ? t("shops.loaded", "Live shop listings")
+              : t("shops.no_match", "No live shops match these filters."),
           );
       } catch (error) {
         if (!cancelled)
@@ -268,6 +271,7 @@ export default function ShopsPage() {
     capabilityId,
     partnerTypeId,
     reloadDirectory,
+    t,
   ]);
 
   useEffect(() => {
@@ -359,12 +363,12 @@ export default function ShopsPage() {
     setSuggestions([]);
     setActiveSuggestion(-1);
     setIsSelectingPlace(true);
-    setLocationStatus("Finding that location...");
+    setLocationStatus(t("shops.finding_place", "Finding that location..."));
     try {
       const response = await fetch("/api/places/autocomplete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ placeId: suggestion.placeId }) });
       const result = (await response.json().catch(() => null)) as { latitude: number; longitude: number; label: string } | { error: string } | null;
       if (!response.ok || !result || !("latitude" in result)) {
-        setLocationStatus(result && "error" in result ? result.error : "Location search failed. Please try again.");
+        setLocationStatus(result && "error" in result ? result.error : t("shops.location_failed", "Location search failed. Please try again."));
         return;
       }
       setLocation({ latitude: result.latitude, longitude: result.longitude });
@@ -372,11 +376,11 @@ export default function ShopsPage() {
       setQuery(result.label);
       setIsCurrentLocationQuery(false);
       setSelectedPlace({ placeId: suggestion.placeId, label: result.label });
-      setLocationStatus(`Using ${result.label}`);
+      setLocationStatus(fill(t("shops.using_place", "Using {place}"), { place: result.label }));
       setSearched(true);
       document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
     } catch {
-      setLocationStatus("Location search failed. Please try again.");
+      setLocationStatus(t("shops.location_failed", "Location search failed. Please try again."));
     } finally {
       setIsSelectingPlace(false);
     }
@@ -402,21 +406,21 @@ export default function ShopsPage() {
     event.preventDefault();
     const enteredLocation = query.trim();
     if (selectedPlace?.label === enteredLocation && location) {
-      setLocationStatus(`Using ${locationLabel}`);
+      setLocationStatus(fill(t("shops.using_place", "Using {place}"), { place: locationLabel }));
     } else if (!enteredLocation || isCurrentLocationQuery) {
       if (!browserLocation) {
-        setLocationStatus("Enter a city, state, or ZIP to search.");
+        setLocationStatus(t("shops.enter_location", "Enter a city, state, or ZIP to search."));
         return;
       }
       setLocation(browserLocation);
-        setLocationLabel("your location");
-        setQuery("Current location");
+        setLocationLabel(t("shops.your_location", "your location"));
+        setQuery(t("shops.current_location", "Current location"));
         setIsCurrentLocationQuery(true);
         setSelectedPlace(null);
-      setLocationStatus("Using your current location");
+      setLocationStatus(t("shops.using_current", "Using your current location"));
     } else {
       setIsGeocoding(true);
-      setLocationStatus("Finding that location...");
+      setLocationStatus(t("shops.finding_place", "Finding that location..."));
       try {
         const response = await fetch("/api/geocode", {
           method: "POST",
@@ -428,7 +432,7 @@ export default function ShopsPage() {
           | { error: string }
           | null;
         if (!response.ok || !result || !("latitude" in result)) {
-          setLocationStatus(result && "error" in result ? result.error : "Location search failed. Please try again.");
+          setLocationStatus(result && "error" in result ? result.error : t("shops.location_failed", "Location search failed. Please try again."));
           return;
         }
         setLocation({ latitude: result.latitude, longitude: result.longitude });
@@ -436,9 +440,9 @@ export default function ShopsPage() {
         setQuery(result.label);
         setIsCurrentLocationQuery(false);
         setSelectedPlace(null);
-        setLocationStatus(`Using ${result.label}`);
+        setLocationStatus(fill(t("shops.using_place", "Using {place}"), { place: result.label }));
       } catch {
-        setLocationStatus("Location search failed. Please try again.");
+        setLocationStatus(t("shops.location_failed", "Location search failed. Please try again."));
         return;
       } finally {
         setIsGeocoding(false);
@@ -453,22 +457,22 @@ export default function ShopsPage() {
     <main>
       <section className="hero shops-hero" id="top">
         <div className="wrap hero-grid">
-          <p className="eyebrow">Independent EV service network</p>
-          <h1 className="heading-primary">Find the right EV specialist.</h1>
-          <p className="intro">Search independent shops and service partners by location, vehicle, and capability.</p>
+          <p className="eyebrow">{t("shops.eyebrow", "Independent EV service network")}</p>
+          <h1 className="heading-primary">{t("shops.title", "Find the right EV specialist.")}</h1>
+          <p className="intro">{t("shops.intro", "Search independent shops and service partners by location, vehicle, and capability.")}</p>
           <section className="partner-search" aria-labelledby="shop-search-title">
-            <h2 className="sr-only" id="shop-search-title">Search EV service partners</h2>
+            <h2 className="sr-only" id="shop-search-title">{t("shops.search_title", "Search EV service partners")}</h2>
                 <form className="search" onSubmit={search}>
                <label className="location-field">
-                 <span>Location</span>
+                  <span>{t("shops.location", "Location")}</span>
                   <input
                     role="combobox"
-                   aria-label="Location"
+                    aria-label={t("shops.location", "Location")}
                    aria-autocomplete="list"
                    aria-controls="location-suggestions"
                    aria-expanded={suggestions.length > 0}
                    aria-activedescendant={activeSuggestion >= 0 ? `location-suggestion-${activeSuggestion}` : undefined}
-                   placeholder="City, state, or ZIP"
+                    placeholder={t("shops.location_placeholder", "City, state, or ZIP")}
                    value={query}
                     onChange={(event) => { setQuery(event.target.value); setIsCurrentLocationQuery(false); setSelectedPlace(null); }}
                     onKeyDown={locationKeyDown}
@@ -480,16 +484,16 @@ export default function ShopsPage() {
                     }}
                     onBlur={() => window.setTimeout(() => { setSuggestions([]); setActiveSuggestion(-1); }, 150)}
                  />
-                 {suggestions.length > 0 && <ul className="location-suggestions" id="location-suggestions" role="listbox" aria-label="Location suggestions">{suggestions.map((suggestion, index) => <li key={suggestion.placeId} id={`location-suggestion-${index}`} role="option" aria-selected={index === activeSuggestion}><button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => void selectPlace(suggestion)}>{suggestion.label}</button></li>)}</ul>}
+                  {suggestions.length > 0 && <ul className="location-suggestions" id="location-suggestions" role="listbox" aria-label={t("shops.location_suggestions", "Location suggestions")}>{suggestions.map((suggestion, index) => <li key={suggestion.placeId} id={`location-suggestion-${index}`} role="option" aria-selected={index === activeSuggestion}><button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => void selectPlace(suggestion)}>{suggestion.label}</button></li>)}</ul>}
                </label>
               <label>
-                <span>Year</span>
+                 <span>{t("shops.year", "Year")}</span>
                 <select
-                  aria-label="Model year"
+                   aria-label={t("shops.year_label", "Model year")}
                   value={year}
                   onChange={(event) => setYear(event.target.value)}
                 >
-                  <option>Any year</option>
+                  <option value="Any year">{t("shops.any_year", "Any year")}</option>
                   {Array.from({ length: 20 }, (_, index) =>
                     String(new Date().getFullYear() - index),
                   ).map((item) => (
@@ -498,64 +502,64 @@ export default function ShopsPage() {
                 </select>
               </label>
               <label>
-                <span>Vehicle</span>
+                 <span>{t("shops.vehicle", "Vehicle")}</span>
                 <select
-                  aria-label="Vehicle make"
+                   aria-label={t("shops.vehicle_make", "Vehicle make")}
                   value={make}
                   onChange={(event) => setMake(event.target.value)}
                 >
-                  {makeOptions.map((item) => (
-                    <option key={item}>{item}</option>
-                  ))}
+                   {makeOptions.map((item) => (
+                     <option key={item} value={item}>{item === "Any make" ? t("shops.any_make", "Any make") : item}</option>
+                   ))}
                 </select>
               </label>
               <label>
-                <span>Model</span>
+                 <span>{t("shops.model", "Model")}</span>
                 <select
-                  aria-label="Vehicle model"
+                   aria-label={t("shops.vehicle_model", "Vehicle model")}
                   value={model}
                   onChange={(event) => setModel(event.target.value)}
                   disabled={make === "Any make"}
                 >
-                  <option>Any model</option>
+                  <option value="Any model">{t("shops.any_model", "Any model")}</option>
                   {catalogModels.map((item) => (
                     <option key={item}>{item}</option>
                   ))}
                 </select>
               </label>
               <label>
-                <span>Capability</span>
+                 <span>{t("shops.capability", "Capability")}</span>
                 <select
-                  aria-label="Capability needed"
+                   aria-label={t("shops.capability_needed", "Capability needed")}
                   value={capabilityId}
                   onChange={(event) => setCapabilityId(event.target.value)}
                 >
-                  <option value="">Any capability</option>
+                  <option value="">{t("shops.any_capability", "Any capability")}</option>
                   {capabilities.map((capability) => <option key={capability.id} value={capability.id}>{capability.name}</option>)}
                 </select>
               </label>
-              <label><span>Partner type</span><select value={partnerTypeId} onChange={(event) => setPartnerTypeId(event.target.value)}><option value="">Any partner type</option>{partnerTypes.map((type) => <option key={type.id} value={type.id}>{type.name}</option>)}</select></label>
+               <label><span>{t("shops.partner_type", "Partner type")}</span><select value={partnerTypeId} onChange={(event) => setPartnerTypeId(event.target.value)}><option value="">{t("shops.any_partner_type", "Any partner type")}</option>{partnerTypes.map((type) => <option key={type.id} value={type.id}>{type.name}</option>)}</select></label>
               <label>
-                <span>Radius</span>
+                 <span>{t("shops.radius", "Radius")}</span>
                 <select
-                  aria-label="Search radius"
+                   aria-label={t("shops.radius", "Search radius")}
                   value={radius}
                   onChange={(event) => setRadius(Number(event.target.value))}
                 >
                   {[25, 50, 100, 200].map((miles) => (
                     <option value={miles} key={miles}>
-                      {miles} mi
+                      {fill(t("shops.miles", "{miles} mi"), { miles })}
                     </option>
                   ))}
                 </select>
               </label>
                     <Button className="hero-panel-action" type="submit" disabled={isGeocoding || isSelectingPlace}>
-                  {isGeocoding || isSelectingPlace ? "Finding location..." : <>Find a mechanic <span>→</span></>}
+                  {isGeocoding || isSelectingPlace ? t("shops.finding", "Finding location...") : <>{t("shops.find", "Find a mechanic")} <span>→</span></>}
                     </Button>
                 </form>
           </section>
           <p className="trust" role="status" aria-live="polite">
-            {locationStatus} · choose a radius that works for your trip
+            {locationStatus} · {t("shops.radius_hint", "choose a radius that works for your trip")}
           </p>
         </div>
       </section>
@@ -563,16 +567,16 @@ export default function ShopsPage() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">
-              {searched ? "Your matches" : "Nearby shops"}
+              {searched ? t("shops.matches", "Your matches") : t("shops.nearby", "Nearby shops")}
             </p>
             <h2>
-               {nearbyShops.length} EV service partners near {locationLabel}
+               {fill(t("shops.results_count", "{count} EV service partners near {place}"), { count: nearbyShops.length, place: locationLabel })}
             </h2>
           </div>
           <label className="filter">
-            <span className="sr-only">Search radius</span>
+             <span className="sr-only">{t("shops.radius", "Search radius")}</span>
             <select
-              aria-label="Search radius"
+               aria-label={t("shops.radius", "Search radius")}
               value={radius}
               onChange={(event) => setRadius(Number(event.target.value))}
             >
@@ -596,7 +600,7 @@ export default function ShopsPage() {
                 className="filter"
                 onClick={() => setReloadDirectory((version) => version + 1)}
               >
-                Retry
+                {t("shops.retry", "Retry")}
               </button>
             </>
           )}
@@ -607,7 +611,7 @@ export default function ShopsPage() {
             const services = cardItems(shop.services);
             const certifications = cardItems(shop.certifications);
             const years = shop.modelYears.length
-              ? `${Math.min(...shop.modelYears)}-${Math.max(...shop.modelYears)} models`
+              ? fill(t("shops.model_range", "{range} models"), { range: `${Math.min(...shop.modelYears)}-${Math.max(...shop.modelYears)}` })
               : null;
             const website = externalWebsite(shop.website);
             return (
@@ -638,16 +642,16 @@ export default function ShopsPage() {
                   <div className="rating">
                     <strong>{shop.rating.toFixed(1)}</strong> <span>★★★★★</span>{" "}
                     <small>
-                      {shop.reviews} review{shop.reviews === 1 ? "" : "s"}
+                       {fill(shop.reviews === 1 ? t("shops.review_one", "{count} review") : t("shops.review_many", "{count} reviews"), { count: shop.reviews })}
                     </small>
                   </div>
                 )}
                 {shop.note && <p className="shop-note">{shop.note}</p>}
-                {shop.serviceTerritory && <p className="shop-years">Serves {shop.serviceTerritory}</p>}
-                {years && <p className="shop-years">Supports {years}</p>}
+                {shop.serviceTerritory && <p className="shop-years">{fill(t("shops.serves", "Serves {area}"), { area: shop.serviceTerritory })}</p>}
+                {years && <p className="shop-years">{fill(t("shops.supports", "Supports {years}"), { years })}</p>}
                 {makes.length > 0 && (
                   <p className="shop-makes">
-                    Works on {makes.slice(0, 2).join(" · ")}
+                    {fill(t("shops.works_on", "Works on {makes}"), { makes: makes.slice(0, 2).join(" · ") })}
                     {makes.length > 2 ? ` +${makes.length - 2}` : ""}
                   </p>
                 )}
@@ -656,7 +660,7 @@ export default function ShopsPage() {
                     {services.length > 0 && (
                       <div className="card-group card-group--services">
                         <span className="card-group-label">
-                          Services <b>{services.length}</b>
+                          {t("shops.services", "Services")} <b>{services.length}</b>
                         </span>
                         <span>
                           {services.slice(0, 2).join(" · ")}
@@ -669,7 +673,7 @@ export default function ShopsPage() {
                     {certifications.length > 0 && (
                       <div className="card-group card-group--credentials">
                         <span className="card-group-label">
-                          Credentials <b>{certifications.length}</b>
+                          {t("shops.credentials", "Credentials")} <b>{certifications.length}</b>
                         </span>
                         <span>
                           {certifications.slice(0, 2).join(" · ")}
@@ -692,7 +696,7 @@ export default function ShopsPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Website <span aria-hidden="true">↗</span>
+                        {t("shops.website", "Website")} <span aria-hidden="true">↗</span>
                       </a>
                     )}
                     {shop.phone && (
@@ -705,16 +709,16 @@ export default function ShopsPage() {
                   </div>
                 )}
                 <Link className="view" href={`/shops/${shop.id}`}>
-                  View shop <span>↗</span>
+                  {t("shops.view", "View shop")} <span>↗</span>
                 </Link>
               </article>
             );
           })}
         </div>
         {!nearbyShops.length &&
-          directoryStatus !== "Loading live shop listings..." && (
+          directoryStatus !== t("shops.loading", "Loading live shop listings...") && (
             <div className="empty">
-              <p>No live shops match this search.</p>
+              <p>{t("shops.empty", "No live shops match this search.")}</p>
               <button
                 onClick={() => {
                   setMake("Any make");
@@ -724,11 +728,11 @@ export default function ShopsPage() {
                   setPartnerTypeId("");
                 }}
               >
-                Clear filters
+                {t("shops.clear", "Clear filters")}
               </button>
               {directoryLoaded && radius < 200 && (
                 <button type="button" onClick={() => setRadius(200)}>
-                  Search within 200 miles
+                  {t("shops.wider", "Search within 200 miles")}
                 </button>
               )}
             </div>

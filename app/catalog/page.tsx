@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "@/app/locale-link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { requestAccount } from "@/lib/account-gate";
+import { addGuestItem } from "@/lib/guest-cart";
+import { fill, useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { ActionLink, Button, PageHeader } from "@/app/page-primitives";
 
@@ -26,13 +26,19 @@ function DetailCopy({ value }: { value: string }) {
   })}</>;
 }
 
-function compatibilityLabel(product: Product) {
+function compatibilityLabel(product: Product, t: (key: string, fallback: string) => string) {
   const compatibility = product.product_vehicle_compatibility.map((row) => row.vehicle && `${row.vehicle.model_year} ${row.vehicle.make} ${row.vehicle.model}`).filter(Boolean);
-  return compatibility.length ? `Compatible: ${compatibility.join(", ")}` : "Compatible with eligible EVs";
+  return compatibility.length ? fill(t("catalog.compatible", "Compatible: {vehicles}"), { vehicles: compatibility.join(", ") }) : t("catalog.compatible_generic", "Compatible with eligible EVs");
 }
 
 export default function CatalogPage({ section = "all" }: { section?: CatalogSection }) {
-  const copy = sectionCopy[section];
+  const locale = useLocale();
+  const t = useLocalizedContent(locale);
+  const copy = {
+    all: { eyebrow: t("catalog.eyebrow", "Store"), title: t("catalog.title", "Care, lined up."), intro: t("catalog.intro", sectionCopy.all.intro), empty: t("catalog.empty", sectionCopy.all.empty) },
+    services: { eyebrow: t("catalog.services.eyebrow", "Services"), title: t("catalog.services.title", "Service, lined up."), intro: t("catalog.services.intro", sectionCopy.services.intro), empty: t("catalog.services.empty", sectionCopy.services.empty) },
+    upgrades: { eyebrow: t("catalog.upgrades.eyebrow", "Upgrades"), title: t("catalog.upgrades.title", "Upgrade with confidence."), intro: t("catalog.upgrades.intro", sectionCopy.upgrades.intro), empty: t("catalog.upgrades.empty", sectionCopy.upgrades.empty) },
+  }[section];
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState("");
   const [expandedProductId, setExpandedProductId] = useState<string | null>(null);
@@ -42,7 +48,7 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     db.from("catalog_products").select("id,slug,name,description,long_description,price_cents,category:catalog_categories(name,slug),catalog_product_images(id,storage_path,alt_text,sort_order),product_vehicle_compatibility(vehicle:vehicle_catalog(make,model,model_year))").eq("active", true).order("price_cents").then(async ({ data, error }) => {
-      if (error) return setMessage("Services and upgrades are temporarily unavailable.");
+      if (error) return setMessage(t("catalog.unavailable", "Services and upgrades are temporarily unavailable."));
       const signedProducts = await Promise.all((data ?? []).map(async (product) => ({
         ...product,
         catalog_product_images: await Promise.all([...(product.catalog_product_images ?? [])].sort((left, right) => left.sort_order - right.sort_order).map(async (image) => ({
@@ -56,7 +62,7 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
       })));
       setProducts(signedProducts as unknown as Product[]);
     });
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (!expandedProductId) return;
@@ -68,26 +74,28 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
   }, [expandedProductId]);
 
   async function add(productId: string) {
-    if (!isSupabaseConfigured) return setMessage("Services and upgrades require Supabase configuration.");
+    if (!isSupabaseConfigured) return setMessage(t("catalog.needs_config", "Services and upgrades require Supabase configuration."));
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
     if (!auth.user) {
-      requestAccount("sign-up");
+      const product = products.find((entry) => entry.id === productId);
+      addGuestItem({ productId, name: product?.name ?? "Service", priceCents: product?.price_cents ?? 0 });
+      setMessage(t("catalog.added", "Added to your cart."));
       return;
     }
     let { data: cart } = await db.from("carts").select("id").eq("user_id", auth.user.id).eq("status", "active").maybeSingle();
     if (!cart) {
       const created = await db.from("carts").insert({ user_id: auth.user.id }).select("id").single();
-      if (created.error || !created.data) return setMessage("Could not create your cart.");
+      if (created.error || !created.data) return setMessage(t("catalog.cart_failed", "Could not create your cart."));
       cart = created.data;
     }
     const { error } = await db.from("cart_items").upsert({ cart_id: cart.id, product_id: productId, quantity: 1 }, { onConflict: "cart_id,product_id" });
-    setMessage(error ? error.message : "Added to your cart.");
+    setMessage(error ? error.message : t("catalog.added", "Added to your cart."));
     if (!error) window.dispatchEvent(new Event("volt-yard-cart-updated"));
   }
 
   const visibleProducts = products.filter((product) => section === "all" || (section === "services" ? product.category?.slug === "services" : product.category?.slug !== "services"));
-  const alternateSection = section === "services" ? { href: "/upgrades", label: "Browse upgrades" } : section === "upgrades" ? { href: "/services", label: "Browse services" } : null;
+  const alternateSection = section === "services" ? { href: "/upgrades", label: t("catalog.action.browse_upgrades", "Browse upgrades") } : section === "upgrades" ? { href: "/services", label: t("catalog.action.browse_services", "Browse services") } : null;
   const expandedProduct = visibleProducts.find((product) => product.id === expandedProductId) ?? null;
   const gallery = expandedProduct?.catalog_product_images.filter((image) => image.url) ?? [];
   const selectedImage = gallery.find((image) => image.id === selectedImageId) ?? gallery[0];
@@ -98,10 +106,10 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
   }
 
   return <main className="commerce wrap">
-    <PageHeader className="commerce-head" eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} actions={<><ActionLink variant="secondary" href="/pricing">Explore membership and pricing</ActionLink>{alternateSection && <ActionLink variant="secondary" href={alternateSection.href}>{alternateSection.label}</ActionLink>}</>} />
+    <PageHeader className="commerce-head" eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} actions={<><ActionLink variant="secondary" href="/pricing">{t("catalog.action.membership", "Explore membership and pricing")}</ActionLink>{alternateSection && <ActionLink variant="secondary" href={alternateSection.href}>{alternateSection.label}</ActionLink>}</>} />
     {message && <p className="form-message">{message}</p>}
     <section className="catalog-grid">{visibleProducts.map((product) => {
-      const categoryLabel = product.category?.slug === "services" ? "Services" : "Upgrades";
+      const categoryLabel = product.category?.slug === "services" ? t("catalog.label.services", "Services") : t("catalog.label.upgrades", "Upgrades");
       const detailId = `catalog-product-${product.id}-details`;
       const preview = product.catalog_product_images.find((image) => image.url);
       return <article className="catalog-card" key={product.id}>
@@ -110,27 +118,25 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
           <p className="eyebrow">{categoryLabel}</p>
           <h2>{product.name}</h2>
           <p>{product.description}</p>
-          <span>View details</span>
         </button>
-        <footer><strong>{money(product.price_cents)}</strong><Button onClick={() => add(product.id)}>Add to cart</Button></footer>
+        <footer><strong>{money(product.price_cents)}</strong><div className="catalog-card-actions"><Button variant="secondary" onClick={() => openProduct(product)}>{t("catalog.action.details", "View details")}</Button><Button onClick={() => add(product.id)}>{t("catalog.action.cart", "Add to cart")}</Button></div></footer>
       </article>;
     })}{!visibleProducts.length && !message && <p className="empty-copy">{copy.empty}</p>}</section>
-    {alternateSection && <p className="catalog-section-link">Looking for something else? <Link href={alternateSection.href}>{alternateSection.label}</Link>.</p>}
     {expandedProduct && <div className="modal-backdrop" role="presentation" onClick={() => setExpandedProductId(null)}>
       <section className="catalog-detail-dialog" id={`catalog-product-${expandedProduct.id}-details`} role="dialog" aria-modal="true" aria-labelledby={`catalog-product-${expandedProduct.id}-title`} onClick={(event) => event.stopPropagation()}>
-        <button className="close" type="button" aria-label="Close product details" onClick={() => setExpandedProductId(null)}>×</button>
+        <button className="close" type="button" aria-label={t("catalog.action.close", "Close product details")} onClick={() => setExpandedProductId(null)}>×</button>
         <div className="catalog-detail-layout">
           <div className="catalog-gallery" aria-label={`${expandedProduct.name} images`}>
             {selectedImage && <Image src={selectedImage.url!} alt={selectedImage.alt_text} width={1200} height={900} unoptimized />}
             {gallery.length > 1 && <div className="catalog-gallery-thumbs">{gallery.map((image) => <button className={image.id === selectedImage?.id ? "is-selected" : undefined} type="button" key={image.id} aria-label={image.alt_text} aria-pressed={image.id === selectedImage?.id} onClick={() => setSelectedImageId(image.id)}><Image src={image.url!} alt="" width={160} height={120} unoptimized /></button>)}</div>}
           </div>
           <div className="catalog-detail-copy">
-            <p className="eyebrow">{expandedProduct.category?.slug === "services" ? "Services" : "Upgrades"}</p>
+            <p className="eyebrow">{expandedProduct.category?.slug === "services" ? t("catalog.label.services", "Services") : t("catalog.label.upgrades", "Upgrades")}</p>
             <h2 id={`catalog-product-${expandedProduct.id}-title`}>{expandedProduct.name}</h2>
             <p>{expandedProduct.description}</p>
             {expandedProduct.long_description && <DetailCopy value={expandedProduct.long_description} />}
-            <small>{compatibilityLabel(expandedProduct)}</small>
-            <footer><strong>{money(expandedProduct.price_cents)}</strong><Button onClick={() => add(expandedProduct.id)}>Add to cart</Button></footer>
+            <small>{compatibilityLabel(expandedProduct, t)}</small>
+            <footer><strong>{money(expandedProduct.price_cents)}</strong><Button onClick={() => add(expandedProduct.id)}>{t("catalog.action.cart", "Add to cart")}</Button></footer>
           </div>
         </div>
       </section>

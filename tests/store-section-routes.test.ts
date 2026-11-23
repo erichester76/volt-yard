@@ -17,7 +17,8 @@ test("pricing and store sections have localized route wrappers", () => {
 test("catalog sections retain the secure cart flow and make membership discoverable first", () => {
   const catalog = read("app/catalog/page.tsx");
   assert.match(catalog, /product\.category\?\.slug === "services"/);
-  assert.match(catalog, /requestAccount\("sign-up"\)/);
+  assert.match(catalog, /addGuestItem/);
+  assert.doesNotMatch(catalog, /requestAccount/);
   assert.match(catalog, /Explore membership and pricing/);
   assert.match(catalog, /href: "\/upgrades"/);
   assert.match(catalog, /href: "\/services"/);

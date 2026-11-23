@@ -2,6 +2,7 @@
 
 import Link from "@/app/locale-link";
 import { requestAccount } from "@/lib/account-gate";
+import { fill, useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { FormEvent, useEffect, useState } from "react";
 import {
   createBrowserSupabaseClient,
@@ -75,10 +76,12 @@ const authorBadges = (
 };
 
 export default function CommunityPage() {
+  const locale = useLocale();
+  const t = useLocalizedContent(locale);
   const [topics, setTopics] = useState<Topic[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [authors, setAuthors] = useState<Record<string, Author>>({});
-  const [status, setStatus] = useState("Loading conversations...");
+  const [status, setStatus] = useState(t("community.loading", "Loading conversations..."));
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -160,7 +163,7 @@ export default function CommunityPage() {
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
     if (!auth.user) {
-      setStatus("Create an account to ask the community.");
+      setStatus(t("community.sign_up_ask", "Create an account to ask the community."));
       requestAccount("sign-up");
       return;
     }
@@ -179,7 +182,7 @@ export default function CommunityPage() {
     setTitle("");
     setBody("");
     setShowForm(false);
-    setStatus("Question submitted for moderator review.");
+    setStatus(t("community.submitted", "Question submitted for moderator review."));
   }
 
   const visibleTopics = filter
@@ -187,27 +190,27 @@ export default function CommunityPage() {
     : topics;
   return (
     <main className="content-page wrap">
-      <PageHeader className="content-head community-head" eyebrow="Amped Up Network community" title="Ask owners who have been there." intro="Compare notes, learn what is normal, and know when it is time to bring in a specialist." actions={<Button
+      <PageHeader className="content-head community-head" eyebrow={t("community.eyebrow", "Amped Up Network community")} title={t("community.title", "Ask owners who have been there.")} intro={t("community.intro", "Compare notes, learn what is normal, and know when it is time to bring in a specialist.")} actions={<Button
           onClick={() => void startQuestion()}
           aria-expanded={showForm}
         >
-          Ask the community
+          {t("community.ask", "Ask the community")}
         </Button>} />
       {showForm && (
         <form className="community-form" onSubmit={publish}>
           <label>
-            Question title
+            {t("community.question_title", "Question title")}
             <input
               required
               minLength={8}
               maxLength={180}
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-              placeholder="What are you trying to solve?"
+              placeholder={t("community.question_placeholder", "What are you trying to solve?")}
             />
           </label>
           <label>
-            Category
+            {t("community.category", "Category")}
             <select
               required
               value={categoryId}
@@ -221,27 +224,27 @@ export default function CommunityPage() {
             </select>
           </label>
           <label>
-            Details
+            {t("community.details", "Details")}
             <textarea
               required
               minLength={20}
               maxLength={10000}
               value={body}
               onChange={(event) => setBody(event.target.value)}
-              placeholder="Include your vehicle, symptoms, and what you have already checked."
+              placeholder={t("community.details_placeholder", "Include your vehicle, symptoms, and what you have already checked.")}
             />
           </label>
-          <Button type="submit">Submit question</Button>
+          <Button type="submit">{t("community.submit", "Submit question")}</Button>
         </form>
       )}
       <div className="community-toolbar">
         <label>
-          Filter topics
+          {t("community.filter", "Filter topics")}
           <select
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
           >
-            <option value="">All categories</option>
+            <option value="">{t("community.all", "All categories")}</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -249,7 +252,7 @@ export default function CommunityPage() {
             ))}
           </select>
         </label>
-        <span>{visibleTopics.length} discussions</span>
+        <span>{fill(t("community.count", "{count} discussions"), { count: visibleTopics.length })}</span>
       </div>
       <p className="directory-status" aria-live="polite">
         {status}

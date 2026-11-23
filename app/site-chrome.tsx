@@ -14,6 +14,7 @@ import { CartIcon, MoonIcon, SunIcon, UserIcon } from "./icons";
 import { localePath, localePathname } from "@/lib/i18n";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { isGatedPath, safeReturnTo } from "@/lib/account-gate";
+import { guestCartCount } from "@/lib/guest-cart";
 import foundingPartnerLogo from "@/public/images/amped-up-electric-garage-logo.png";
 
 type Account = { email: string; isAdmin: boolean } | null;
@@ -80,7 +81,7 @@ export default function SiteChrome({
       if (!active || version !== requestVersion) return;
       if (!currentUser) {
         setAccount(null);
-        setCartCount(0);
+        setCartCount(guestCartCount());
         setAccountReady(true);
         return;
       }
@@ -288,13 +289,13 @@ export default function SiteChrome({
               href={localHref("/services")}
               onClick={() => setMenuOpen(false)}
             >
-              Services
+              {t("chrome.nav.services_link", "Services")}
             </Link>
             <Link
               href={localHref("/upgrades")}
               onClick={() => setMenuOpen(false)}
             >
-              Upgrades
+              {t("chrome.nav.upgrades", "Upgrades")}
             </Link>
             <Link
               href={localHref("/community")}
@@ -306,26 +307,26 @@ export default function SiteChrome({
               <div className="mobile-account-nav">
                 <p>{account.email}</p>
                 <Link href="/profile" onClick={() => setMenuOpen(false)}>
-                  My profile
+                  {t("chrome.action.my_profile", "My profile")}
                 </Link>
                 <Link href="/membership" onClick={() => setMenuOpen(false)}>
-                  Membership
+                  {t("chrome.action.membership", "Membership")}
                 </Link>
                 <button type="button" onClick={signOut}>
-                  Log out
+                  {t("chrome.action.log_out", "Log out")}
                 </button>
               </div>
             )}
           </nav>
           <div className="site-actions">
             <label className="locale-switcher">
-              <span className="sr-only">Language</span>
+              <span className="sr-only">{t("chrome.action.language", "Language")}</span>
               <select
                 value={locale}
                 onChange={(event) =>
                   switchLocale(event.target.value as typeof locale)
                 }
-                aria-label="Language"
+                aria-label={t("chrome.action.language", "Language")}
               >
                 <option value="en">EN</option>
                 <option value="de">DE</option>
@@ -337,7 +338,7 @@ export default function SiteChrome({
               className="icon-button"
               type="button"
               onClick={() => setDark((value) => !value)}
-              aria-label={dark ? "Use light mode" : "Use dark mode"}
+              aria-label={dark ? t("chrome.action.light_mode", "Use light mode") : t("chrome.action.dark_mode", "Use dark mode")}
             >
               {dark ? <SunIcon /> : <MoonIcon />}
             </button>
@@ -369,36 +370,36 @@ export default function SiteChrome({
                   <div className="account-menu">
                     <p>{account.email}</p>
                     <Link href="/profile" onClick={() => setAccountOpen(false)}>
-                      My profile
+                      {t("chrome.action.my_profile", "My profile")}
                     </Link>
                     <Link
                       href="/membership"
                       onClick={() => setAccountOpen(false)}
                     >
-                      Membership
+                      {t("chrome.action.membership", "Membership")}
                     </Link>
                     <Link href="/portal" onClick={() => setAccountOpen(false)}>
-                      Partner portal
+                      {t("chrome.action.portal", "Partner portal")}
                     </Link>
                     <Link
                       href="/installer/work"
                       onClick={() => setAccountOpen(false)}
                     >
-                      Mechanic work queue
+                      {t("chrome.action.work_queue", "Mechanic work queue")}
                     </Link>
                     <Link
                       href="/expert-work"
                       onClick={() => setAccountOpen(false)}
                     >
-                      Expert jobs
+                      {t("chrome.action.expert_jobs", "Expert jobs")}
                     </Link>
                     {account.isAdmin && (
                       <Link href="/admin" onClick={() => setAccountOpen(false)}>
-                        Administration
+                        {t("chrome.action.admin", "Administration")}
                       </Link>
                     )}
                     <button type="button" onClick={signOut}>
-                      Log out
+                      {t("chrome.action.log_out", "Log out")}
                     </button>
                   </div>
                 )}
@@ -461,10 +462,10 @@ export default function SiteChrome({
               {t("chrome.nav.community", "Community")}
             </Link>
             <Link href={localHref("/services")}>
-              Services
+              {t("chrome.nav.services_link", "Services")}
             </Link>
             <Link href={localHref("/upgrades")}>
-              Upgrades
+              {t("chrome.nav.upgrades", "Upgrades")}
             </Link>
             <a href="mailto:hello@ampedupgarage.com">
               {t("chrome.footer.contact", "Contact")}
@@ -490,37 +491,37 @@ export default function SiteChrome({
               className="close"
               type="button"
               onClick={closeAuth}
-              aria-label="Close sign in"
+              aria-label={t("chrome.action.close_sign_in", "Close sign in")}
               disabled={submitting}
             >
               ×
             </button>
-            <p className="eyebrow">Customer, mechanic, or administrator</p>
+            <p className="eyebrow">{t("auth.eyebrow", "Customer, mechanic, or administrator")}</p>
             <h2 id="auth-title">
               {authMode === "sign-up"
-                ? "Create your account."
+                ? t("auth.sign_up_title", "Create your account.")
                 : authMode === "reset"
-                  ? "Reset your password."
+                  ? t("auth.reset_title", "Reset your password.")
                   : authMode === "new-password"
-                    ? "Set a new password."
+                    ? t("auth.new_password_title", "Set a new password.")
                     : authMode === "magic-link"
-                      ? "Email sign-in link."
-                : "Sign in to Amped Up Network."}
+                      ? t("auth.magic_title", "Email sign-in link.")
+                : t("auth.sign_in_title", "Sign in to Amped Up Network.")}
             </h2>
             <p>
               {authMode === "sign-up"
-                ? "Create an account to preserve your vehicle, problem and case, post, and purchase history."
+                ? t("auth.sign_up_intro", "Create an account to preserve your vehicle, problem and case, post, and purchase history.")
                 : authMode === "reset"
-                  ? "Enter your email and we will send a reset link."
+                  ? t("auth.reset_intro", "Enter your email and we will send a reset link.")
                   : authMode === "new-password"
-                    ? "Enter and confirm a new password."
+                    ? t("auth.new_password_intro", "Enter and confirm a new password.")
                     : authMode === "magic-link"
-                      ? "Prefer passwordless sign-in? We will send a secure link."
-                      : "Sign in with your email and password."}
+                      ? t("auth.magic_intro", "Prefer passwordless sign-in? We will send a secure link.")
+                      : t("auth.sign_in_intro", "Sign in with your email and password.")}
             </p>
             {authMode !== "new-password" && (
               <label>
-                Email
+                {t("auth.email", "Email")}
                 <input
                   required
                   type="email"
@@ -536,7 +537,7 @@ export default function SiteChrome({
               authMode === "sign-up" ||
               authMode === "new-password") && (
               <label>
-                Password
+                {t("auth.password", "Password")}
                 <input
                   required
                   type="password"
@@ -552,7 +553,7 @@ export default function SiteChrome({
             )}
             {(authMode === "sign-up" || authMode === "new-password") && (
               <label>
-                Confirm password
+                {t("auth.confirm_password", "Confirm password")}
                 <input
                   required
                   type="password"
@@ -578,16 +579,16 @@ export default function SiteChrome({
             )}
             <button type="submit" disabled={submitting}>
               {submitting
-                ? "Please wait..."
+                ? t("auth.wait", "Please wait...")
                 : authMode === "sign-up"
-                  ? "Create account"
+                  ? t("auth.create", "Create account")
                   : authMode === "reset"
-                    ? "Send reset link"
+                    ? t("auth.send_reset", "Send reset link")
                     : authMode === "new-password"
-                      ? "Update password"
+                      ? t("auth.update_password", "Update password")
                       : authMode === "magic-link"
-                        ? "Send sign-in link"
-                        : "Sign in"}
+                        ? t("auth.send_link", "Send sign-in link")
+                        : t("chrome.action.sign_in", "Sign in")}
             </button>
             {authMode === "sign-in" && (
               <div className="auth-links">
@@ -596,21 +597,21 @@ export default function SiteChrome({
                   onClick={() => switchAuthMode("reset")}
                   disabled={submitting}
                 >
-                  Forgot password?
+                  {t("auth.forgot", "Forgot password?")}
                 </button>
                 <button
                   type="button"
                   onClick={() => switchAuthMode("magic-link")}
                   disabled={submitting}
                 >
-                  Use a magic link instead
+                  {t("auth.magic_instead", "Use a magic link instead")}
                 </button>
                 <button
                   type="button"
                   onClick={() => switchAuthMode("sign-up")}
                   disabled={submitting}
                 >
-                  Create an account
+                  {t("auth.create_link", "Create an account")}
                 </button>
               </div>
             )}
@@ -621,14 +622,14 @@ export default function SiteChrome({
                   onClick={() => switchAuthMode("sign-in")}
                   disabled={submitting}
                 >
-                  Already have an account? Sign in
+                  {t("auth.have_account", "Already have an account? Sign in")}
                 </button>
                 <button
                   type="button"
                   onClick={() => switchAuthMode("magic-link")}
                   disabled={submitting}
                 >
-                  Use a magic link instead
+                  {t("auth.magic_instead", "Use a magic link instead")}
                 </button>
               </div>
             )}
@@ -639,14 +640,14 @@ export default function SiteChrome({
                   onClick={() => switchAuthMode("sign-in")}
                   disabled={submitting}
                 >
-                  Back to password sign in
+                  {t("auth.back_sign_in", "Back to password sign in")}
                 </button>
                 <button
                   type="button"
                   onClick={() => switchAuthMode("sign-up")}
                   disabled={submitting}
                 >
-                  Create an account
+                  {t("auth.create_link", "Create an account")}
                 </button>
               </div>
             )}
