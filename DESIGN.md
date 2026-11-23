@@ -76,6 +76,13 @@ Partner eligibility for managed-service claims additionally requires a published
 
 The current cart UI does not send the required `Idempotency-Key`, so this journey cannot complete from the checked-in browser client until that gap is fixed.
 
+### Buy A Black Friday Gift Card
+
+1. An ad sends the buyer to `/black-friday`. The existing home page is unchanged, and the buyer does not create an account.
+2. Stripe collects payment. A verified webhook asks Shopify to issue the gift card and emails the buyer a private link.
+3. The recipient opens `/gift/[token]`, learns what the gift does and does not do, then creates their own account.
+4. Claiming attaches the Shopify gift card as their payment method. Applying it debits that Shopify card. It does not book service or review a vehicle.
+
 ## Design System
 
 - **Voice:** practical, calm, direct, and EV-specific. The UI uses action-led language such as “Diagnose,” “Find a mechanic,” and “Submit for review.” Avoid implying a confirmed diagnosis, appointment, guaranteed match, or automated payout.

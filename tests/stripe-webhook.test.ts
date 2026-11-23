@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isHandledStripeWebhookEvent, membershipWebhookUpdate, paidOrderWebhookUpdate } from "../lib/stripe-webhook";
+import { giftCardWebhookUpdate, isHandledStripeWebhookEvent, membershipWebhookUpdate, paidOrderWebhookUpdate } from "../lib/stripe-webhook";
 
 test("handles only Stripe events with fulfillment effects", () => {
   for (const type of ["checkout.session.completed", "checkout.session.async_payment_succeeded", "customer.subscription.created", "customer.subscription.updated", "customer.subscription.deleted"]) assert.equal(isHandledStripeWebhookEvent(type), true);
@@ -23,4 +23,12 @@ test("marks paid non-subscription checkout sessions for order fulfillment", () =
   assert.equal(paidOrderWebhookUpdate({ id: "cs_2", payment_status: "unpaid", mode: "payment", client_reference_id: "order-2", metadata: null, payment_intent: null }), null);
   assert.equal(paidOrderWebhookUpdate({ id: "cs_3", payment_status: "paid", mode: "subscription", client_reference_id: "order-3", metadata: null, payment_intent: null }), null);
   assert.equal(paidOrderWebhookUpdate({ id: "cs_4", payment_status: "paid", mode: "payment", client_reference_id: null, metadata: null, payment_intent: null }), null);
+  assert.equal(paidOrderWebhookUpdate({ id: "cs_5", payment_status: "paid", mode: "payment", client_reference_id: null, metadata: { purpose: "shopify_gift_card", gift_card_id: "gift-1" }, payment_intent: "pi_5" }), null);
+});
+
+test("recognizes a paid Shopify gift-card checkout without treating it as a catalog order", () => {
+  assert.deepEqual(giftCardWebhookUpdate({ id: "cs_5", payment_status: "paid", mode: "payment", client_reference_id: null, metadata: { purpose: "shopify_gift_card", gift_card_id: "gift-1" }, payment_intent: "pi_5" }), {
+    giftCardId: "gift-1", paymentIntent: "pi_5", sessionId: "cs_5",
+  });
+  assert.equal(giftCardWebhookUpdate({ id: "cs_6", payment_status: "paid", mode: "payment", client_reference_id: "order-6", metadata: { order_id: "order-6" }, payment_intent: null }), null);
 });
