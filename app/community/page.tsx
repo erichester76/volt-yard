@@ -84,6 +84,16 @@ export default function CommunityPage() {
   const [filter, setFilter] = useState("");
   const [showForm, setShowForm] = useState(false);
 
+  async function startQuestion() {
+    if (!isSupabaseConfigured) return setStatus("Community is not configured.");
+    const { data } = await createBrowserSupabaseClient().auth.getUser();
+    if (!data.user) {
+      window.dispatchEvent(new CustomEvent("volt-yard-open-auth", { detail: { mode: "sign-up", returnTo: `${window.location.pathname}${window.location.search}${window.location.hash}` } }));
+      return;
+    }
+    setShowForm((value) => !value);
+  }
+
   const load = async () => {
     if (!isSupabaseConfigured) return setStatus("Community is not configured.");
     const db = createBrowserSupabaseClient();
@@ -173,7 +183,7 @@ export default function CommunityPage() {
   return (
     <main className="content-page wrap">
       <PageHeader className="content-head community-head" eyebrow="Amped Up Network community" title="Ask owners who have been there." intro="Compare notes, learn what is normal, and know when it is time to bring in a specialist." actions={<Button
-          onClick={() => setShowForm((value) => !value)}
+          onClick={() => void startQuestion()}
           aria-expanded={showForm}
         >
           Ask the community

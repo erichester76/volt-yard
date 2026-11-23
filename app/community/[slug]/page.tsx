@@ -70,6 +70,9 @@ export default function TopicPage({
   const [body, setBody] = useState("");
   const [replyTo, setReplyTo] = useState<Post | null>(null);
   const [status, setStatus] = useState("Loading conversation...");
+  function requestSignUp() {
+    window.dispatchEvent(new CustomEvent("volt-yard-open-auth", { detail: { mode: "sign-up", returnTo: `${window.location.pathname}${window.location.search}${window.location.hash}` } }));
+  }
   const load = async (slug: string) => {
     if (!isSupabaseConfigured) return setStatus("Community is not configured.");
     const db = createBrowserSupabaseClient();
@@ -152,8 +155,7 @@ export default function TopicPage({
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user)
-      return setStatus("Sign in with a Member or Premium account to vote.");
+    if (!auth.user) return requestSignUp();
     const current = kind === "topic" ? topicVote : (votes[id] ?? null);
     const { error } = await db.rpc("community_set_vote", {
       target_kind: kind,
@@ -168,7 +170,7 @@ export default function TopicPage({
     if (!topic || !isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user) return setStatus("Sign in to add a reply.");
+    if (!auth.user) return requestSignUp();
     const { error } = await db
       .from("community_posts")
       .insert({

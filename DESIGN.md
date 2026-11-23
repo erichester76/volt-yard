@@ -14,9 +14,9 @@ The product does not diagnose vehicles automatically, book appointments, dispatc
 | Purchase research | `/ev-purchase-research` | Compare owner perspectives, practical resources, available inspection services, and new-owner essentials before buying. |
 | Diagnosis | `/issues`, `/issues/[id]` | Create and continue a customer-owned issue case. |
 | Learning | `/journal`, `/tutorials`, `/release-notes`, `/library/[slug]` | Display published editorial resources from Supabase. |
-| Community | `/community`, `/community/[slug]` | Read published topics; paid members submit moderated contributions and vote. |
+| Community | `/community`, `/community/[slug]` | Read published topics; signed-in paid members submit moderated contributions and vote. |
 | Membership | `/membership`, `/profile` | View tier, subscribe, manage display name, and maintain a saved garage. |
-| Commerce | `/catalog`, `/cart`, `/checkout/success` | Browse catalog, manage a cart, and begin Stripe Checkout. |
+| Commerce | `/catalog`, `/services`, `/upgrades`, `/cart`, `/checkout/success` | Browse active catalog offerings publicly; signed-in users manage a cart and begin Stripe Checkout. |
 | Partner | `/partnership`, `/portal`, `/installer/work`, `/expert-work` | Learn about the review-gated partner path, submit a profile for approval, claim matched managed-service work, and respond to expert opportunities. |
 | Administration | `/admin`, `/admin/catalog`, `/admin/community`, `/admin/memberships` | Review partners, manage catalog/community data, moderate contributions, and record administrative membership/payout actions. |
 
