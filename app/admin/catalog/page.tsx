@@ -1,6 +1,7 @@
 "use client";
 
 import { AdminNavigation } from "@/app/portal-navigation";
+import Image from "next/image";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -31,7 +32,7 @@ type Product = {
   required_capability_id: string | null;
   product_vehicle_compatibility: { vehicle_id: string }[];
 };
-type ProductImage = { id: string; storage_path: string; alt_text: string; sort_order: number };
+type ProductImage = { id: string; storage_path: string; alt_text: string; sort_order: number; url?: string };
 type ItemForm = {
   id: string;
   name: string;
@@ -143,8 +144,12 @@ export default function AdminCatalogPage() {
       .eq("product_id", productId)
       .order("sort_order")
       .order("created_at");
-    if (error) setMessage(error.message);
-    else setProductImages((data ?? []) as ProductImage[]);
+    if (error) return setMessage(error.message);
+    const images = await Promise.all((data ?? []).map(async (image) => ({
+      ...image,
+      url: (await db.storage.from("catalog-product-images").createSignedUrl(image.storage_path, 3600)).data?.signedUrl,
+    })));
+    setProductImages(images as ProductImage[]);
   }
 
   useEffect(() => {
@@ -432,7 +437,7 @@ export default function AdminCatalogPage() {
             />
           </label>
           <label>
-            Long description <small>Optional, up to 12,000 characters.</small>
+            Long description <small>Optional, up to 12,000 characters. Separate paragraphs with a blank line. Start list lines with a hyphen.</small>
             <textarea
               maxLength={12000}
               value={item.long_description}
@@ -536,6 +541,7 @@ export default function AdminCatalogPage() {
               <ol className="product-image-list">
                 {productImages.map((image) => (
                   <li key={image.id}>
+                    {image.url && <Image src={image.url} alt={image.alt_text} width={96} height={72} unoptimized />}
                     <span>{image.alt_text}</span>
                     <small>Order {image.sort_order}</small>
                     <button type="button" onClick={() => updateImageOrder(image, image.sort_order - 1)} disabled={image.sort_order === 0}>Earlier</button>

@@ -15,6 +15,7 @@ test("catalog product detail migration constrains private images and public visi
   assert.match(migration, /sort_order between 0 and 1000/);
   assert.match(migration, /product\.active[\s\S]*category\.active/);
   assert.match(migration, /'catalog-product-images',[\s\S]*false,[\s\S]*10485760/);
+  assert.match(migration, /Admins read catalog product image objects/);
   assert.match(migration, /Admins upload catalog product image objects/);
   assert.match(migration, /storage\.foldername\(name\)\)\[1\] in \(select id::text from public\.catalog_products\)/);
   assert.match(migration, /Admins delete catalog product image objects/);
@@ -27,8 +28,10 @@ test("catalog details use signed image URLs, accessible expansion, and the exist
   assert.match(catalog, /catalog_product_images/);
   assert.match(catalog, /storage\.from\("catalog-product-images"\)\.createSignedUrl/);
   assert.doesNotMatch(catalog, /getPublicUrl/);
-  assert.match(catalog, /aria-expanded=\{expanded\}/);
-  assert.match(catalog, /aria-controls=\{detailId\}/);
+  assert.match(catalog, /catalog-card-open/);
+  assert.match(catalog, /modal-backdrop/);
+  assert.match(catalog, /role="dialog"/);
+  assert.match(catalog, /aria-modal="true"/);
   assert.match(catalog, /View details/);
   assert.match(catalog, /volt-yard-open-auth/);
   assert.match(catalog, /mode: "sign-up"/);

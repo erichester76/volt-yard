@@ -62,6 +62,10 @@ create policy "Public reads active catalog product image objects"
     )
   );
 
+create policy "Admins read catalog product image objects"
+  on storage.objects for select to authenticated
+  using (bucket_id = 'catalog-product-images' and public.is_admin());
+
 create policy "Admins upload catalog product image objects"
   on storage.objects for insert to authenticated
   with check (

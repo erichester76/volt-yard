@@ -25,11 +25,17 @@ function DetailCopy({ value }: { value: string }) {
   })}</>;
 }
 
+function compatibilityLabel(product: Product) {
+  const compatibility = product.product_vehicle_compatibility.map((row) => row.vehicle && `${row.vehicle.model_year} ${row.vehicle.make} ${row.vehicle.model}`).filter(Boolean);
+  return compatibility.length ? `Compatible: ${compatibility.join(", ")}` : "Compatible with eligible EVs";
+}
+
 export default function CatalogPage({ section = "all" }: { section?: CatalogSection }) {
   const copy = sectionCopy[section];
   const [products, setProducts] = useState<Product[]>([]);
   const [message, setMessage] = useState("");
   const [expandedProductId, setExpandedProductId] = useState<string | null>(null);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -50,6 +56,15 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
       setProducts(signedProducts as unknown as Product[]);
     });
   }, []);
+
+  useEffect(() => {
+    if (!expandedProductId) return;
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setExpandedProductId(null);
+    }
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [expandedProductId]);
 
   async function add(productId: string) {
     if (!isSupabaseConfigured) return setMessage("Services and upgrades require Supabase configuration.");
@@ -72,12 +87,52 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
 
   const visibleProducts = products.filter((product) => section === "all" || (section === "services" ? product.category?.slug === "services" : product.category?.slug !== "services"));
   const alternateSection = section === "services" ? { href: "/upgrades", label: "Browse upgrades" } : section === "upgrades" ? { href: "/services", label: "Browse services" } : null;
+  const expandedProduct = visibleProducts.find((product) => product.id === expandedProductId) ?? null;
+  const gallery = expandedProduct?.catalog_product_images.filter((image) => image.url) ?? [];
+  const selectedImage = gallery.find((image) => image.id === selectedImageId) ?? gallery[0];
 
-  return <main className="commerce wrap"><PageHeader className="commerce-head" eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} actions={<><ActionLink variant="secondary" href="/pricing">Explore membership and pricing</ActionLink>{alternateSection && <ActionLink variant="secondary" href={alternateSection.href}>{alternateSection.label}</ActionLink>}</>} />{message && <p className="form-message">{message}</p>}<section className="catalog-grid">{visibleProducts.map((product) => {
-    const compatibility = product.product_vehicle_compatibility.map((row) => row.vehicle && `${row.vehicle.model_year} ${row.vehicle.make} ${row.vehicle.model}`).filter(Boolean);
-    const categoryLabel = product.category?.slug === "services" ? "Services" : "Upgrades";
-    const expanded = expandedProductId === product.id;
-    const detailId = `catalog-product-${product.id}-details`;
-    return <article className="catalog-card" key={product.id}><p className="eyebrow">{categoryLabel}</p><h2>{product.name}</h2><p>{product.description}</p><button className="catalog-details-toggle" type="button" aria-expanded={expanded} aria-controls={detailId} onClick={() => setExpandedProductId(expanded ? null : product.id)}>{expanded ? "Hide details" : "View details"}</button>{expanded && <div className="catalog-details" id={detailId}>{product.long_description && <div className="catalog-detail-copy"><DetailCopy value={product.long_description} /></div>}{product.catalog_product_images.filter((image) => image.url).length > 0 && <div className="catalog-gallery" aria-label={`${product.name} images`}>{product.catalog_product_images.filter((image) => image.url).map((image) => <span className="catalog-gallery-image" key={image.id}><Image src={image.url!} alt={image.alt_text} width={1200} height={900} unoptimized /></span>)}</div>}<small>{compatibility.length ? `Compatible: ${compatibility.join(", ")}` : "Compatible with eligible EVs"}</small><footer><strong>{money(product.price_cents)}</strong><Button onClick={() => add(product.id)}>Add to cart</Button></footer></div>}</article>;
-  })}{!visibleProducts.length && !message && <p className="empty-copy">{copy.empty}</p>}</section>{alternateSection && <p className="catalog-section-link">Looking for something else? <Link href={alternateSection.href}>{alternateSection.label}</Link>.</p>}</main>;
+  function openProduct(product: Product) {
+    setExpandedProductId(product.id);
+    setSelectedImageId(product.catalog_product_images.find((image) => image.url)?.id ?? null);
+  }
+
+  return <main className="commerce wrap">
+    <PageHeader className="commerce-head" eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} actions={<><ActionLink variant="secondary" href="/pricing">Explore membership and pricing</ActionLink>{alternateSection && <ActionLink variant="secondary" href={alternateSection.href}>{alternateSection.label}</ActionLink>}</>} />
+    {message && <p className="form-message">{message}</p>}
+    <section className="catalog-grid">{visibleProducts.map((product) => {
+      const categoryLabel = product.category?.slug === "services" ? "Services" : "Upgrades";
+      const detailId = `catalog-product-${product.id}-details`;
+      const preview = product.catalog_product_images.find((image) => image.url);
+      return <article className="catalog-card" key={product.id}>
+        <button className="catalog-card-open" type="button" aria-haspopup="dialog" aria-controls={detailId} onClick={() => openProduct(product)}>
+          {preview && <Image src={preview.url!} alt="" width={640} height={360} unoptimized />}
+          <p className="eyebrow">{categoryLabel}</p>
+          <h2>{product.name}</h2>
+          <p>{product.description}</p>
+          <span>View details</span>
+        </button>
+        <footer><strong>{money(product.price_cents)}</strong><Button onClick={() => add(product.id)}>Add to cart</Button></footer>
+      </article>;
+    })}{!visibleProducts.length && !message && <p className="empty-copy">{copy.empty}</p>}</section>
+    {alternateSection && <p className="catalog-section-link">Looking for something else? <Link href={alternateSection.href}>{alternateSection.label}</Link>.</p>}
+    {expandedProduct && <div className="modal-backdrop" role="presentation" onClick={() => setExpandedProductId(null)}>
+      <section className="catalog-detail-dialog" id={`catalog-product-${expandedProduct.id}-details`} role="dialog" aria-modal="true" aria-labelledby={`catalog-product-${expandedProduct.id}-title`} onClick={(event) => event.stopPropagation()}>
+        <button className="close" type="button" aria-label="Close product details" onClick={() => setExpandedProductId(null)}>×</button>
+        <div className="catalog-detail-layout">
+          <div className="catalog-gallery" aria-label={`${expandedProduct.name} images`}>
+            {selectedImage && <Image src={selectedImage.url!} alt={selectedImage.alt_text} width={1200} height={900} unoptimized />}
+            {gallery.length > 1 && <div className="catalog-gallery-thumbs">{gallery.map((image) => <button className={image.id === selectedImage?.id ? "is-selected" : undefined} type="button" key={image.id} aria-label={image.alt_text} aria-pressed={image.id === selectedImage?.id} onClick={() => setSelectedImageId(image.id)}><Image src={image.url!} alt="" width={160} height={120} unoptimized /></button>)}</div>}
+          </div>
+          <div className="catalog-detail-copy">
+            <p className="eyebrow">{expandedProduct.category?.slug === "services" ? "Services" : "Upgrades"}</p>
+            <h2 id={`catalog-product-${expandedProduct.id}-title`}>{expandedProduct.name}</h2>
+            <p>{expandedProduct.description}</p>
+            {expandedProduct.long_description && <DetailCopy value={expandedProduct.long_description} />}
+            <small>{compatibilityLabel(expandedProduct)}</small>
+            <footer><strong>{money(expandedProduct.price_cents)}</strong><Button onClick={() => add(expandedProduct.id)}>Add to cart</Button></footer>
+          </div>
+        </div>
+      </section>
+    </div>}
+  </main>;
 }

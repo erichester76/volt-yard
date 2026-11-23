@@ -1324,12 +1324,22 @@ footer button {
 .catalog-card > p:not(.eyebrow), .catalog-card small, .job-card > p:not(.eyebrow) { color: var(--muted); line-height: 1.5; }
 .catalog-card footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 21px; height: auto; }
 .catalog-card button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
-.catalog-details-toggle { margin-top: 4px; background: var(--button-secondary-background) !important; color: var(--button-secondary-foreground) !important; }
-.catalog-details { margin-top: 20px; }
-.catalog-detail-copy { color: var(--muted); font-size: 13px; line-height: 1.55; }
+.catalog-card .catalog-card-open { display: grid; gap: 8px; width: 100%; min-height: 0; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+.catalog-card-open img { width: 100%; height: 180px; object-fit: cover; background: var(--surface-muted); }
+.catalog-card-open h2, .catalog-card-open p { margin: 0; }
+.catalog-card-open span { color: var(--ink); font: 700 12px "DM Sans", sans-serif; text-decoration: underline; text-underline-offset: 3px; }
+.catalog-detail-dialog { position: relative; width: min(980px, 100%); max-height: min(860px, calc(100vh - 40px)); overflow: auto; padding: 42px 36px 28px; background: var(--surface); color: var(--ink); }
+.catalog-detail-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: 28px; align-items: start; }
+.catalog-detail-copy { color: var(--muted); font-size: 14px; line-height: 1.55; }
+.catalog-detail-copy h2 { margin: 0 0 12px; color: var(--ink); font-size: 34px; letter-spacing: -.05em; }
 .catalog-detail-copy ul { margin: 0 0 16px; padding-left: 20px; }
-.catalog-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
-.catalog-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface-muted); }
+.catalog-detail-copy footer { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink); }
+.catalog-detail-copy footer button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); cursor: pointer; }
+.catalog-gallery { display: grid; gap: 10px; }
+.catalog-gallery > img, .catalog-gallery-thumbs img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--surface-muted); }
+.catalog-gallery-thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.catalog-gallery-thumbs button { padding: 0; border: 2px solid transparent; background: transparent; cursor: pointer; }
+.catalog-gallery-thumbs button.is-selected { border-color: var(--acid); }
 .checkout-card button, .job-card button, .login-prompt button { border: 0; background: var(--button-primary-background); color: var(--button-primary-foreground); padding: 11px 14px; font: 600 12px "DM Sans"; cursor: pointer; }
 .login-prompt { display: flex; gap: 9px; align-items: center; padding: 15px; margin-bottom: 24px; background: #e5eadf; }
 .login-prompt input, .checkout-card input, .checkout-card select, .checkout-card textarea { border: 1px solid #ccd5cc; background: #fffefa; padding: 10px; font: 13px "DM Sans"; width: 100%; }
@@ -1362,6 +1372,7 @@ footer button {
 .product-image-manager > div label:first-child { grid-column: 1 / -1; }
 .product-image-list { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
 .product-image-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; border-top: 1px solid var(--line); padding-top: 9px; font-size: 12px; }
+.product-image-list img { width: 72px; height: 54px; object-fit: cover; background: var(--surface-muted); }
 .product-image-list span { flex: 1 1 160px; }.product-image-list small { color: var(--muted); }
 .product-image-list button { padding: 7px 9px; }.product-image-list button:disabled { opacity: .45; cursor: not-allowed; }
 .catalog-admin-sidebar { display: grid; gap: 20px; }.category-form { background: #e5eadf; }
@@ -1369,7 +1380,7 @@ footer button {
 .admin-catalog-list article { border-top: 1px solid var(--line); padding: 14px 0; font-size: 13px; }.admin-catalog-list article > div { display: flex; justify-content: space-between; gap: 8px; }.admin-catalog-list span { color: #527438; font: 10px "DM Mono"; text-transform: uppercase; }.admin-catalog-list p { color: var(--muted); margin: 7px 0; }.admin-catalog-list small { color: var(--muted); display: block; margin-bottom: 10px; }.admin-catalog-list button { margin-right: 7px; padding: 7px 9px; }.admin-catalog-list .danger-button { background: #9d3c2c; }
 .item-list { margin-top: 26px; grid-template-columns: repeat(3, 1fr); gap: 0 20px; }.item-list h2 { grid-column: 1 / -1; }.item-list article { min-width: 0; }
 @media (max-width: 700px) { .catalog-grid, .cart-layout, .job-list { grid-template-columns: 1fr; }.commerce-nav { padding-bottom: 35px; }.commerce-nav > div { gap: 12px; }.login-prompt { align-items: stretch; flex-direction: column; } }
-@media (max-width: 700px) { .catalog-admin-grid { grid-template-columns: 1fr; }.item-list { grid-template-columns: 1fr; }.vehicle-picker, .product-image-manager > div { grid-template-columns: 1fr; }.product-image-manager > div label:first-child { grid-column: auto; }.catalog-admin header > div { gap: 12px; }.price-fields { grid-template-columns: 1fr; }.catalog-gallery { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .catalog-admin-grid, .catalog-detail-layout { grid-template-columns: 1fr; }.item-list { grid-template-columns: 1fr; }.vehicle-picker, .product-image-manager > div { grid-template-columns: 1fr; }.product-image-manager > div label:first-child { grid-column: auto; }.catalog-admin header > div { gap: 12px; }.price-fields { grid-template-columns: 1fr; }.catalog-gallery-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }.catalog-detail-dialog { padding: 42px 18px 20px; } }
 @media (max-width: 490px) {
   .card-group {
     grid-template-columns: 82px minmax(0, 1fr);
@@ -1894,7 +1905,7 @@ textarea:focus-visible { outline: 2px solid var(--acid); outline-offset: 2px; }
 /* Legacy class names remain aliases while routes are migrated. */
 .inline-cta { min-height: 39px; padding: var(--action-padding); font: var(--action-font); }
 .inline-cta.secondary-action { background: var(--button-secondary-background); color: var(--button-secondary-foreground); }
-.catalog-card button,
+.catalog-card > footer button,
 .checkout-card button,
 .job-card button,
 .login-prompt button,
