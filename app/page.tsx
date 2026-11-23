@@ -5,12 +5,12 @@ import { LocalizedHeadingAccent } from "@/app/heading-accent";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const pathways = [
-  ["home.path_purchase", "I'm researching an EV purchase", "home.path_purchase_intro", "Compare real ownership experience, charging realities, practical costs, and the questions worth asking before you buy.", "Explore owner perspectives", "/ev-purchase-research"],
-  ["home.path_new_owner", "I'm a new EV owner", "home.path_new_owner_intro", "Start with charging, maintenance, local support, and the practical habits that make EV ownership easier.", "Start with the essentials", "/tutorials"],
-  ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Tell us what is happening. We organize the details, surface relevant answers, and help you choose a next step.", "Start a guided issue", "/issues"],
-  ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Use training and checklists to build a practical plan, then carry it into a service visit when needed.", "Explore maintenance services", "/services"],
-  ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Compare community favorites and compatible options before you buy or book, with your vehicle context close at hand.", "Explore community favorites", "/upgrades"],
-  ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Ask focused questions, learn from real ownership experience, and save what helps for next time.", "Browse or ask the community", "/community"],
+  ["home.path_purchase", "I'm researching an EV purchase", "home.path_purchase_intro", "Compare real ownership experience, charging realities, practical costs, and the questions worth asking before you buy.", "home.path_purchase_action", "Explore owner perspectives", "/ev-purchase-research"],
+  ["home.path_new_owner", "I'm a new EV owner", "home.path_new_owner_intro", "Start with charging, maintenance, local support, and the practical habits that make EV ownership easier.", "home.path_new_owner_action", "Start with the essentials", "/tutorials"],
+  ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Tell us what is happening. We organize the details, surface relevant answers, and help you choose a next step.", "home.path_issue_action", "Start a guided issue", "/issues"],
+  ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Use training and checklists to build a practical plan, then carry it into a service visit when needed.", "home.path_maintenance_action", "Explore maintenance services", "/services"],
+  ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Compare community favorites and compatible options before you buy or book, with your vehicle context close at hand.", "home.path_catalog_action", "Explore community favorites", "/upgrades"],
+  ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Ask focused questions, learn from real ownership experience, and save what helps for next time.", "home.path_community_action", "Browse or ask the community", "/community"],
 ] as const;
 
 export default function Home() {
@@ -32,7 +32,7 @@ export default function Home() {
               <li><b>04</b><span>{t("home.journey_service", "Carry your vehicle, problem, purchase, and post history forward so every next step starts with context.")}</span></li>
             </ol>
           </div>
-          <a className="hero-scroll-cue" href="#owner-journeys" aria-label="Explore owner journeys">
+          <a className="hero-scroll-cue" href="#owner-journeys" aria-label={t("home.scroll", "Explore owner journeys")}>
             <svg viewBox="0 0 44 30" aria-hidden="true">
               <path className="hero-scroll-chevron-orange" d="M2 2l20 7 20-7" />
               <path className="hero-scroll-chevron-gold" d="M2 11l20 7 20-7" />
@@ -43,7 +43,7 @@ export default function Home() {
       </section>
       <section className="home-pathways" id="owner-journeys"><div className="wrap">
         <div className="home-section-heading home-pathways-heading"><h2>{t("home.paths_title", "Tell us where to start. We'll keep notes and guide you through next steps.")}</h2><p>{t("home.paths_intro", "Every journey connects your vehicle, questions, and progress to the next useful resource.")}</p></div>
-        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, action, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{action} <span aria-hidden="true">→</span></Link></article>)}</div>
+        <div className="home-pathway-grid">{pathways.map(([titleKey, title, introKey, intro, actionKey, action, href]) => <article key={href}><h3>{t(titleKey, title)}</h3><p>{t(introKey, intro)}</p><Link href={href}>{t(actionKey, action)} <span aria-hidden="true">→</span></Link></article>)}</div>
       </div></section>
       <section className="home-partner-invitation"><div className="wrap">
         <p className="eyebrow">{t("home.partner_eyebrow", "Interested partners")}</p>

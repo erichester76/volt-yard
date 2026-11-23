@@ -33,5 +33,6 @@ test("catalog details use signed image URLs, accessible expansion, and the exist
   assert.match(catalog, /role="dialog"/);
   assert.match(catalog, /aria-modal="true"/);
   assert.match(catalog, /View details/);
-  assert.match(catalog, /requestAccount\("sign-up"\)/);
+  assert.match(catalog, /addGuestItem/);
+  assert.doesNotMatch(catalog, /requestAccount/);
 });

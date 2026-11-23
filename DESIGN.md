@@ -68,7 +68,7 @@ Partner eligibility for managed-service claims additionally requires a published
 
 ### Purchase And Fulfill A Managed Service
 
-1. A signed-in customer adds active catalog products to a cart and may provide a vehicle, location, and notes.
+1. A visitor can add active catalog products to a browser cart. Sign-in is requested at checkout, where the cart is saved to the account before payment. The customer may provide a vehicle, location, and notes.
 2. The server validates the access token, cart ownership, product state, vehicle compatibility, bounded text, and idempotency key before atomically creating an order and service-request snapshots.
 3. Stripe Checkout accepts payment. A verified, ledger-deduplicated webhook marks the order paid and converts the cart.
 4. Database logic creates offers for compatible published partners. An eligible shop owner accepts the versioned managed-service agreement through `accept_installer_job`; the operation locks the job and withdraws competing offers.

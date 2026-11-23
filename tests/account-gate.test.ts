@@ -6,10 +6,10 @@ import { isGatedPath, safeReturnTo } from "../lib/account-gate";
 const chrome = readFileSync(new URL("../app/site-chrome.tsx", import.meta.url), "utf8");
 
 test("gates account workspaces and private cases while leaving discovery public", () => {
-  for (const path of ["/cart", "/checkout/success", "/profile", "/portal", "/expert-work", "/installer/work", "/admin", "/admin/catalog", "/fr/issues/case-1"]) {
+  for (const path of ["/checkout/success", "/profile", "/portal", "/expert-work", "/installer/work", "/admin", "/admin/catalog", "/fr/issues/case-1"]) {
     assert.equal(isGatedPath(path), true, `${path} is gated`);
   }
-  for (const path of ["/", "/de", "/issues", "/en/tutorials", "/fr/community/topic", "/services", "/upgrades", "/catalog", "/shops", "/shops/shop-1", "/membership", "/ev-purchase-research", "/fr/ev-purchase-research", "/partnership", "/fr/partnership", "/pricing", "/es/pricing", "/release-notes", "/journal", "/library/charging-basics"]) {
+  for (const path of ["/", "/de", "/cart", "/es/cart", "/issues", "/en/tutorials", "/fr/community/topic", "/services", "/upgrades", "/catalog", "/shops", "/shops/shop-1", "/membership", "/ev-purchase-research", "/fr/ev-purchase-research", "/partnership", "/fr/partnership", "/pricing", "/es/pricing", "/release-notes", "/journal", "/library/charging-basics"]) {
     assert.equal(isGatedPath(path), false, `${path} stays public`);
   }
 });

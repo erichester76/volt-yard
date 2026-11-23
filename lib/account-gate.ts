@@ -1,6 +1,6 @@
 import { localePathname } from "@/lib/i18n";
 
-const gatedPrefixes = ["/admin", "/cart", "/checkout", "/expert-work", "/installer", "/portal", "/profile"];
+const gatedPrefixes = ["/admin", "/checkout", "/expert-work", "/installer", "/portal", "/profile"];
 
 export function isGatedPath(path: string) {
   const pathname = new URL(path, "https://amped-up-network.local").pathname;
