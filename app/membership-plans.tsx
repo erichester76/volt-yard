@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { HeadingAccent } from "@/app/heading-accent";
 import { ActionLink, Button, PageHeader } from "@/app/page-primitives";
+import { requestAccount } from "@/lib/account-gate";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
 const tiers = [
@@ -34,7 +35,8 @@ export default function MembershipPlans({ management = false }: { management?: b
     try {
       const { data } = await db.auth.getSession();
       if (!data.session) {
-        setMessage("Sign in, then choose a tier.");
+        setMessage("Create an account to choose a paid tier.");
+        requestAccount("sign-up");
         return;
       }
       setMessage("Opening secure Stripe membership management...");

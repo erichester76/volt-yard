@@ -82,7 +82,7 @@ Never prefix server secrets with `NEXT_PUBLIC_`, commit `.env*` files, or expose
 
 ## Database Migrations
 
-`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261008000002_rebrand_localized_content_to_amped_up_network.sql`; it updates existing editable public copy while preserving stable content keys and English fallbacks in the application.
+`supabase/migrations/` is the schema history and must be treated as append-only once deployed. The latest migration is `20261009000012_add_catalog_product_details.sql`; it adds bounded catalog detail copy and private product images exposed only through signed URLs for active catalog entries.
 
 Before applying to a shared environment:
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "@/app/locale-link";
+import { requestAccount } from "@/lib/account-gate";
 import { FormEvent, useEffect, useState } from "react";
 import {
   createBrowserSupabaseClient,
@@ -158,7 +159,11 @@ export default function CommunityPage() {
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user) return setStatus("Sign in to ask the community.");
+    if (!auth.user) {
+      setStatus("Create an account to ask the community.");
+      requestAccount("sign-up");
+      return;
+    }
     if (!categoryId) return setStatus("Choose a category.");
     const { error } = await db
       .from("community_topics")

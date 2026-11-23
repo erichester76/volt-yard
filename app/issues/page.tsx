@@ -3,6 +3,7 @@
 import Link from "@/app/locale-link";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { requestAccount } from "@/lib/account-gate";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 import { Button, PageHeader } from "@/app/page-primitives";
@@ -205,7 +206,11 @@ export default function IssuesPage() {
     const form = new FormData(event.currentTarget);
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user) return setMessage("Sign in to create an issue.");
+    if (!auth.user) {
+      setMessage("Create an account to save this issue.");
+      requestAccount("sign-up");
+      return;
+    }
     const vehicleId = await selectedVehicleId();
     if (!vehicleId) return;
     const { data, error } = await db

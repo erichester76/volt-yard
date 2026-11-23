@@ -8,14 +8,12 @@ const topic = readFileSync(new URL("../app/community/[slug]/page.tsx", import.me
 
 test("public catalog browsing still sends anonymous purchases through sign-up", () => {
   assert.match(catalog, /catalog_products/);
-  assert.match(catalog, /volt-yard-open-auth/);
-  assert.match(catalog, /mode: "sign-up"/);
+  assert.match(catalog, /requestAccount\("sign-up"\)/);
 });
 
 test("public community browsing sends anonymous writing and voting through sign-up", () => {
   assert.match(community, /async function startQuestion/);
   assert.match(community, /volt-yard-open-auth/);
-  assert.match(topic, /function requestSignUp/);
-  assert.match(topic, /if \(!auth\.user\) return requestSignUp\(\)/);
+  assert.match(topic, /requestAccount\("sign-up"\)/);
   assert.match(topic, /moderation_state: "pending"/);
 });
