@@ -20,7 +20,7 @@ The product does not diagnose vehicles automatically, book appointments, dispatc
 | Partner | `/partnership`, `/portal`, `/installer/work`, `/expert-work` | Learn about the review-gated partner path, submit a profile for approval, claim matched managed-service work, and respond to expert opportunities. |
 | Administration | `/admin`, `/admin/catalog`, `/admin/community`, `/admin/memberships` | Review partners, manage catalog/community data, moderate contributions, and record administrative membership/payout actions. |
 
-The header prioritizes Diagnose, Shops, Services & upgrades, and Community. Account navigation exposes role-appropriate destinations but server/database authorization remains authoritative.
+The header prioritizes Diagnose, Shops, Services & upgrades, and Community. Visitors can browse those journeys before creating an account. Sign-up is requested only for a final action—saving a vehicle, creating a case, posting or voting, adding to a cart, or starting checkout—and for private account, partner, and admin workspaces. Database authorization remains authoritative.
 
 ## Roles And Access
 

@@ -3,6 +3,7 @@
 import Link from "@/app/locale-link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { requestAccount } from "@/lib/account-gate";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { ActionLink, Button, PageHeader } from "@/app/page-primitives";
 
@@ -71,7 +72,7 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
     if (!auth.user) {
-      window.dispatchEvent(new CustomEvent("volt-yard-open-auth", { detail: { mode: "sign-up", returnTo: `${window.location.pathname}${window.location.search}${window.location.hash}` } }));
+      requestAccount("sign-up");
       return;
     }
     let { data: cart } = await db.from("carts").select("id").eq("user_id", auth.user.id).eq("status", "active").maybeSingle();

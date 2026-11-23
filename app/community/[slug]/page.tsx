@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "@/app/locale-link";
+import { requestAccount } from "@/lib/account-gate";
 import { CSSProperties, FormEvent, useEffect, useState } from "react";
 import {
   createBrowserSupabaseClient,
@@ -152,8 +153,11 @@ export default function TopicPage({
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user)
-      return setStatus("Sign in with a Member or Premium account to vote.");
+    if (!auth.user) {
+      setStatus("Create an account to vote.");
+      requestAccount("sign-up");
+      return;
+    }
     const current = kind === "topic" ? topicVote : (votes[id] ?? null);
     const { error } = await db.rpc("community_set_vote", {
       target_kind: kind,
@@ -168,7 +172,11 @@ export default function TopicPage({
     if (!topic || !isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
     const { data: auth } = await db.auth.getUser();
-    if (!auth.user) return setStatus("Sign in to add a reply.");
+    if (!auth.user) {
+      setStatus("Create an account to reply.");
+      requestAccount("sign-up");
+      return;
+    }
     const { error } = await db
       .from("community_posts")
       .insert({
