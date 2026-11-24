@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { applicationOrigin, idempotencyKey, isApplicationOrigin } from "@/lib/api-validation";
 import { newDeliveryToken } from "@/lib/gift-card-fulfillment";
-import { giftOffers, isGiftOffer } from "@/lib/gift-offers";
+import { giftOfferName, isGiftCreditAmount } from "@/lib/gift-offers";
 import { shopifyGiftCardsConfigured } from "@/lib/shopify-gift-cards";
 import { giftEmailConfigured } from "@/lib/transactional-email";
 import { createAdminSupabaseClient } from "@/lib/supabase";
@@ -21,8 +21,15 @@ export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const record = body && typeof body === "object" ? body as Record<string, unknown> : null;
   const email = typeof record?.email === "string" ? record.email.trim().toLowerCase() : "";
-  const offer = record?.offer;
-  if (!key || !isGiftOffer(offer) || !emailPattern.test(email) || email.length > 320) return NextResponse.json({ error: "Enter an email and choose a gift." }, { status: 400 });
+  const creditCents = record?.creditCents;
+  const delivery = record?.delivery === "scheduled" ? "scheduled" : record?.delivery === "buyer" ? "buyer" : null;
+  const recipientEmail = typeof record?.recipientEmail === "string" ? record.recipientEmail.trim().toLowerCase() : "";
+  const sendOn = typeof record?.sendOn === "string" ? record.sendOn : "";
+  const today = new Date().toISOString().slice(0, 10);
+  const latest = new Date(Date.now() + 400 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const scheduled = delivery === "scheduled";
+  if (!key || !delivery || !isGiftCreditAmount(creditCents) || !emailPattern.test(email) || email.length > 320) return NextResponse.json({ error: "Enter an email and choose a credit amount." }, { status: 400 });
+  if (scheduled && (!emailPattern.test(recipientEmail) || !/^\d{4}-\d{2}-\d{2}$/.test(sendOn) || sendOn < today || sendOn > latest)) return NextResponse.json({ error: "Choose a recipient email and a future delivery date." }, { status: 400 });
 
   const admin = createAdminSupabaseClient();
   const existing = await admin.from("gift_cards").select("id,stripe_checkout_session_id").eq("idempotency_key", key).maybeSingle();
@@ -35,15 +42,25 @@ export async function POST(request: NextRequest) {
   const token = newDeliveryToken();
   const created = existing.data
     ? existing
-    : await admin.from("gift_cards").insert({ offer, amount_cents: giftOffers[offer].cents, purchaser_email: email, delivery_token: token, idempotency_key: key }).select("id,stripe_checkout_session_id").single();
+    : await admin.from("gift_cards").insert({
+      offer: "store-credit",
+      amount_cents: creditCents,
+      remaining_cents: creditCents,
+      purchaser_email: email,
+      delivery_mode: delivery,
+      recipient_email: scheduled ? recipientEmail : null,
+      send_on: scheduled ? sendOn : null,
+      delivery_token: token,
+      idempotency_key: key,
+    }).select("id,stripe_checkout_session_id").single();
   if (created.error || !created.data) return NextResponse.json({ error: "Could not start gift checkout." }, { status: 500 });
   const appOrigin = applicationOrigin(request);
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     customer_email: email,
     client_reference_id: created.data.id,
-    metadata: { purpose: "shopify_gift_card", gift_card_id: created.data.id, offer },
-    line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: giftOffers[offer].cents, product_data: { name: giftOffers[offer].name, description: "Shopify-managed Amped Up gift card. No account is required to buy or forward it." } } }],
+    metadata: { purpose: "shopify_gift_card", gift_card_id: created.data.id, offer: "store-credit" },
+    line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: creditCents, product_data: { name: giftOfferName, description: "Store credit for any Amped Up service or upgrade, plus 30 days of membership for the recipient. No buyer account is required." } } }],
     success_url: `${appOrigin}/black-friday/sent?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appOrigin}/black-friday`,
   }, { idempotencyKey: key });

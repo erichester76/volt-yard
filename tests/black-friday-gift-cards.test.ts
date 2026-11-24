@@ -13,8 +13,11 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   const landing = read("app/black-friday/page.tsx");
   const owner = read("app/new-ev-owner/page.tsx");
   assert.doesNotMatch(home, /\/black-friday/);
-  assert.match(landing, /without creating an account/);
-  assert.match(landing, /does not book an appointment/);
+  assert.match(landing, /do not need an account/);
+  assert.match(landing, /Send the gift link on a date/);
+  assert.match(landing, /not sent to the recipient at checkout/);
+  assert.match(landing, /any service or upgrade/);
+  assert.match(landing, /giftMembershipDays/);
   assert.match(owner, /not part of Amped Up yet/);
   assert.doesNotMatch(owner, /we will automatically match|book your appointment now|read our vehicle reviews/i);
 });

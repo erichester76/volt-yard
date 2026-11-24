@@ -37,6 +37,15 @@ export async function createShopifyGiftCard(amountCents: number, note: string) {
   return { id: String(card.id), last4: card.last_characters?.slice(-4) ?? null };
 }
 
+export async function creditShopifyGiftCard(giftCardId: string, amountCents: number, note: string) {
+  if (!/^\d+$/.test(giftCardId) || amountCents <= 0) throw new Error("Invalid Shopify gift card credit.");
+  const payload = await shopifyRequest<{ adjustment: ShopifyAdjustment }>(`/gift_cards/${giftCardId}/adjustments.json`, "POST", {
+    adjustment: { amount: (amountCents / 100).toFixed(2), note: note.slice(0, 240) },
+  });
+  if (!payload.adjustment?.id) throw new Error("Shopify did not reverse the gift card debit.");
+  return String(payload.adjustment.id);
+}
+
 export async function debitShopifyGiftCard(giftCardId: string, amountCents: number, note: string) {
   if (!/^\d+$/.test(giftCardId) || amountCents <= 0) throw new Error("Invalid Shopify gift card debit.");
   const payload = await shopifyRequest<{ adjustment: ShopifyAdjustment }>(`/gift_cards/${giftCardId}/adjustments.json`, "POST", {
