@@ -61,7 +61,6 @@ export default function BlackFridayPage() {
       <div>
         <p className="eyebrow">Black Friday</p>
         <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty" aria-live="polite">{giftWords[wordIndex]}.</span></h1>
-        <p className="intro">No more guesswork. No more hunting endlessly for answers. Solutions in one place.</p>
       </div>
     </div>
     <div className="gift-compare wrap">
