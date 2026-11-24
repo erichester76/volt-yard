@@ -1521,9 +1521,9 @@ footer button {
 .gift-offer-more { padding: 28px 0 64px; }
 .gift-offer-more .wrap { max-width: 1100px; }
 .gift-tour { overflow: hidden; padding-bottom: 8px; }
-.gift-tour-track { display: flex; gap: 16px; width: max-content; animation: gift-tour-scroll 48s linear infinite; }
+.gift-tour-track { display: flex; gap: 16px; width: max-content; animation: gift-tour-step 14s steps(5, end) infinite; }
 .gift-tour:hover .gift-tour-track { animation-play-state: paused; }
-@keyframes gift-tour-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 8px)); } }
+@keyframes gift-tour-step { to { transform: translateX(calc(5 * -296px)); } }
 @media (prefers-reduced-motion: reduce) { .gift-tour { overflow-x: auto; } .gift-tour-track { animation: none; } }
 .gift-tour-shot { flex: 0 0 280px; }
 .gift-tour-shot h2 { margin: 12px 0 0; font-size: 18px; letter-spacing: -0.04em; }
@@ -1546,9 +1546,9 @@ footer button {
 .catalog-teaser-head p { margin: 8px 0 0; color: var(--muted); }
 .gift-offer-hero .catalog-teaser, .purchase-research-hero .catalog-teaser, .gift-offer-hero .catalog-teaser h2, .purchase-research-hero .catalog-teaser h2 { color: var(--acid-ink); }
 .catalog-teaser-viewport { overflow: hidden; }
-.catalog-teaser-track { display: flex; gap: 12px; width: max-content; animation: catalog-teaser-scroll 42s linear infinite; }
+.catalog-teaser-track { display: flex; gap: 12px; width: max-content; }
 .catalog-teaser:hover .catalog-teaser-track { animation-play-state: paused; }
-@keyframes catalog-teaser-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 6px)); } }
+@keyframes catalog-teaser-step { to { transform: translateX(calc(var(--teaser-count) * var(--teaser-step) * -1)); } }
 @media (prefers-reduced-motion: reduce) { .catalog-teaser-viewport { overflow-x: auto; } .catalog-teaser-track { animation: none; } }
 .catalog-teaser-card { flex: 0 0 260px; scroll-snap-align: start; display: grid; gap: 8px; min-height: 180px; padding: 18px; border-top: 4px solid var(--orange); background: var(--surface); color: var(--ink); text-decoration: none; }
 .catalog-teaser.is-compact .catalog-teaser-card { flex-basis: 168px; min-height: 0; gap: 6px; padding: 12px; }

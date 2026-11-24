@@ -31,7 +31,7 @@ export function CatalogTeaser({ title, intro, compact = false }: { title: string
       <div><h2>{title}</h2>{intro && <p>{intro}</p>}</div>
     </div>
     <div className="catalog-teaser-viewport">
-      <div className="catalog-teaser-track">
+      <div className="catalog-teaser-track" style={{ ["--teaser-count" as string]: items.length, ["--teaser-step" as string]: compact ? "180px" : "272px", animation: `catalog-teaser-step ${items.length * 2.8}s steps(${items.length}, end) infinite` }}>
         {[0, 1].map((copy) => items.map((item) => <Link className="catalog-teaser-card" key={`${copy}-${item.id}`} href={`/${item.section}?product=${encodeURIComponent(item.slug)}`} aria-hidden={copy === 1 || undefined} tabIndex={copy === 1 ? -1 : undefined}>
           {!compact && <p className="eyebrow">{item.section === "services" ? "Service" : "Upgrade"}</p>}
           <h3>{item.name}</h3>
