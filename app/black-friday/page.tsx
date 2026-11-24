@@ -55,10 +55,9 @@ export default function BlackFridayPage() {
         <p className="intro">Skip the gadget that ends up in a drawer. This is three months inside Amped Up, plus money already set aside for the car. First day or fifth year, they get a place for better answers, a record that stays with the car, and credit for any service or upgrade.</p>
         <ol className="gift-offer-story">
           <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. It is more than a forum login. They keep a history of the car, ask owners who have been there, and bring an expert into the conversation when the question gets specific. If the next step is a shop, that history goes with them to a specialist. They still choose who, and when.</li>
-          <li><b>Credit for whatever they need.</b> The amount you choose sits on top of the membership. It can go to any service or upgrade, whenever the car needs it.</li>
           <li><b>Experts first. A specialist shop when it is time.</b> Owners and experts can weigh in before anyone picks up a tool. When the car needs a bay, EV mechanics, alignment shops, electricians, and aftermarket specialists are already in the network. The gift does not pick the shop or book the visit.</li>
         </ol>
-        <p className="gift-offer-limit">Hand them a head start. Membership opens the conversation. Credit is there for whatever they need next.</p>
+        <p className="gift-offer-limit"><b>Credit for whatever they need.</b> The amount you choose sits on top of the membership. It can go to any service or upgrade, whenever the car needs it.</p>
         <CatalogTeaser compact title="The credit can go to things like" />
       </div>
       <div className="gift-offer-aside">
