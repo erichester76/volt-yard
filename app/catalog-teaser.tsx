@@ -43,5 +43,6 @@ export function CatalogTeaser({ title, intro, compact = false }: { title: string
         <strong>{money(item.price_cents)}</strong>
       </Link>)}
     </div>
+    <p className="catalog-teaser-more"><Link href="/upgrades">Click here to see it all</Link></p>
   </section>;
 }

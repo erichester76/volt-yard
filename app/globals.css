@@ -1537,6 +1537,9 @@ footer button {
 .catalog-teaser.is-compact .catalog-teaser-card h3 { font-size: 14px; line-height: 1.25; }
 .catalog-teaser-card p:not(.eyebrow) { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .catalog-teaser-card strong { margin-top: auto; }
+.catalog-teaser-more { margin: 10px 0 0; }
+.catalog-teaser-more a { color: var(--ink); font-size: 13px; font-weight: 700; }
+.gift-offer-hero .catalog-teaser-more a, .purchase-research-hero .catalog-teaser-more a { color: var(--acid-ink); }
 .catalog-tools { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 18px; }
 .catalog-tools input { width: min(360px, 100%); border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 11px; font: 14px "DM Sans", sans-serif; }
 .catalog-tools p { margin: 0; color: var(--muted); }
