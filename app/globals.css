@@ -1518,6 +1518,10 @@ footer button {
 .gift-offer-aside { display: grid; gap: 14px; min-width: 0; }
 .gift-offer-aside .gift-offer-limit { max-width: none; margin-top: 0; }
 .gift-offer-aside .catalog-teaser, .gift-offer-aside .catalog-teaser-track { width: 100%; max-width: 100%; min-width: 0; }
+.gift-offer-more { padding: 48px 0 64px; }
+.gift-offer-more .wrap { max-width: 680px; }
+.gift-offer-more .gift-offer-story p { border-top-color: var(--line); color: var(--ink); }
+.gift-offer-more .gift-offer-limit { color: var(--ink); max-width: none; }
 .gift-offer-preview { margin: 0; color: var(--acid-ink); font-size: 15px; line-height: 1.5; }
 .gift-offer-preview a { color: var(--acid-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .gift-offer-note { padding: 28px 0 40px; }
@@ -1625,7 +1629,12 @@ footer button {
 :root[data-theme="dark"] .purchase-research-close h2 { color: var(--hero-ink); }
 :root[data-theme="dark"] .purchase-research-close .inline-cta { background: var(--acid); color: var(--acid-ink); }
 :root[data-theme="dark"] .gift-offer,
-:root[data-theme="dark"] .gift-offer-hero { background: #000; color: var(--acid); }
+:root[data-theme="dark"] .gift-offer-hero,
+:root[data-theme="dark"] .gift-offer-more { background: #000; color: var(--acid); }
+:root[data-theme="dark"] .gift-offer-more .gift-offer-story p,
+:root[data-theme="dark"] .gift-offer-more .gift-offer-limit,
+:root[data-theme="dark"] .gift-offer-more .catalog-teaser h2,
+:root[data-theme="dark"] .gift-offer-more .catalog-teaser-more a { color: var(--acid); }
 :root[data-theme="dark"] .gift-offer-hero .eyebrow,
 :root[data-theme="dark"] .gift-offer-hero h1,
 :root[data-theme="dark"] .gift-offer-hero .intro,
