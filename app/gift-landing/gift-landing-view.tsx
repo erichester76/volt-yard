@@ -24,7 +24,7 @@ export function GiftLandingView({
       <p className="eyebrow">{preview ? "You just scored big!" : "Your gift"}</p>
       <h1 className="heading-primary">{amountLabel ? `${amountLabel} and full network access` : "A gift is waiting."}</h1>
       <p className="intro">Whether this is your first day or your fifth year with your EV, someone just gave you a way to make the experience better. Amped Up is the place for better answers, the right parts, and the right specialist to get you and your car where you want to go. This gift is your entry to the Amped Up Network. Enjoy.</p>
-      <CatalogTeaser compact title="What the credit can cover" />
+      <CatalogTeaser compact title="The credit can go to things like" />
     </div></section>
     <section className="purchase-research-paths"><div className="wrap">
       {message && <p className="form-message" role="status">{message}</p>}
