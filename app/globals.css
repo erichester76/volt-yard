@@ -1519,9 +1519,8 @@ footer button {
 .gift-offer-aside .gift-offer-limit { max-width: none; margin-top: 0; }
 .gift-offer-aside .catalog-teaser { width: 100%; max-width: 100%; min-width: 0; }
 .gift-offer-more { padding: 28px 0 64px; }
-.gift-offer-more .wrap { max-width: 1100px; }
 .gift-offer-more .wrap { max-width: 680px; }
-.gift-tour { overflow: hidden; max-width: 100%; min-width: 0; padding-bottom: 8px; }
+.gift-tour { overflow: hidden; width: min(860px, calc(100% - 56px)); margin: 0 auto 8px; min-width: 0; padding-bottom: 8px; }
 .gift-tour-track { display: flex; gap: 16px; width: max-content; animation: gift-tour-step 18s ease-in-out infinite; }
 .gift-tour:hover .gift-tour-track { animation-play-state: paused; }
 @keyframes gift-tour-step {

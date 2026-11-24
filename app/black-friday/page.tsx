@@ -86,7 +86,7 @@ export default function BlackFridayPage() {
         <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
       </div>
     </div></section>
-    <section className="gift-offer-more" aria-label="What the gift replaces"><div className="wrap">
+    <section className="gift-offer-more" aria-label="What the gift replaces">
       <div className="gift-tour">
         <div className="gift-tour-track">
           {[0, 1].map((copy) => [
@@ -105,7 +105,7 @@ export default function BlackFridayPage() {
           </article>))}
         </div>
       </div>
-      <CatalogTeaser compact title="The credit can go to things like" />
-    </div></section>
+      <div className="wrap"><CatalogTeaser compact title="The credit can go to things like" /></div>
+    </section>
   </main>;
 }
