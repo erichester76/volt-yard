@@ -1518,10 +1518,16 @@ footer button {
 .gift-offer-aside { display: grid; gap: 14px; min-width: 0; }
 .gift-offer-aside .gift-offer-limit { max-width: none; margin-top: 0; }
 .gift-offer-aside .catalog-teaser, .gift-offer-aside .catalog-teaser-track { width: 100%; max-width: 100%; min-width: 0; }
-.gift-offer-more { padding: 48px 0 64px; }
-.gift-offer-more .wrap { max-width: 680px; }
-.gift-offer-more .gift-offer-story p { border-top-color: var(--line); color: var(--ink); }
-.gift-offer-more .gift-offer-limit { color: var(--ink); max-width: none; }
+.gift-offer-more { padding: 28px 0 64px; }
+.gift-offer-more .wrap { max-width: 1100px; }
+.gift-tour { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+.gift-tour-shot { flex: 0 0 280px; scroll-snap-align: start; }
+.gift-tour-shot h2 { margin: 12px 0 0; font-size: 18px; letter-spacing: -0.04em; }
+.gift-tour-frame { min-height: 280px; padding: 16px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); box-shadow: 0 16px 40px color-mix(in srgb, var(--ink) 8%, transparent); }
+.gift-tour-frame .eyebrow { margin-bottom: 12px; }
+.gift-tour-frame strong { display: block; margin-bottom: 12px; font-size: 28px; letter-spacing: -0.04em; }
+.gift-tour-frame ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.35; }
+.gift-tour-frame li { padding-top: 8px; border-top: 1px solid var(--line); }
 .gift-offer-preview { margin: 0; color: var(--acid-ink); font-size: 15px; line-height: 1.5; }
 .gift-offer-preview a { color: var(--acid-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .gift-offer-note { padding: 28px 0 40px; }
@@ -1631,10 +1637,9 @@ footer button {
 :root[data-theme="dark"] .gift-offer,
 :root[data-theme="dark"] .gift-offer-hero,
 :root[data-theme="dark"] .gift-offer-more { background: #000; color: var(--acid); }
-:root[data-theme="dark"] .gift-offer-more .gift-offer-story p,
-:root[data-theme="dark"] .gift-offer-more .gift-offer-limit,
 :root[data-theme="dark"] .gift-offer-more .catalog-teaser h2,
-:root[data-theme="dark"] .gift-offer-more .catalog-teaser-more a { color: var(--acid); }
+:root[data-theme="dark"] .gift-offer-more .catalog-teaser-more a,
+:root[data-theme="dark"] .gift-tour-shot h2 { color: var(--acid); }
 :root[data-theme="dark"] .gift-offer-hero .eyebrow,
 :root[data-theme="dark"] .gift-offer-hero h1,
 :root[data-theme="dark"] .gift-offer-hero .intro,
