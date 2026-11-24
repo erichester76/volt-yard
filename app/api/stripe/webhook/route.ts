@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createAdminSupabaseClient } from "@/lib/supabase";
-import { isHandledStripeWebhookEvent, membershipWebhookUpdate, paidOrderWebhookUpdate } from "@/lib/stripe-webhook";
+import { applicationOrigin } from "@/lib/api-validation";
+import { issueAndEmailGiftCard, type GiftCardRow } from "@/lib/gift-card-fulfillment";
+
+import { isHandledStripeWebhookEvent, giftCardWebhookUpdate, membershipWebhookUpdate, paidOrderWebhookUpdate } from "@/lib/stripe-webhook";
 
 export const runtime = "nodejs";
 
@@ -40,8 +43,16 @@ export async function POST(request: NextRequest) {
       if (profileError) throw profileError;
     } else {
       const session = event.data.object as Stripe.Checkout.Session;
-      const update = paidOrderWebhookUpdate(session);
-      if (session.payment_status === "paid" && session.mode !== "subscription" && !update) throw new Error("Order reference missing.");
+      const gift = giftCardWebhookUpdate(session);
+      if (gift) {
+        const { data: row, error: giftError } = await admin.from("gift_cards").select("id,offer,amount_cents,purchaser_email,delivery_token,delivery_mode,recipient_email,send_on,link_sent_at,buyer_notified_at,status,shopify_gift_card_id,shopify_last4,claimed_by,shopify_adjustment_id").eq("id", gift.giftCardId).eq("stripe_checkout_session_id", gift.sessionId).maybeSingle();
+        if (giftError || !row || row.offer !== "store-credit") throw new Error("Gift card does not match this checkout session.");
+        const { error: paidError } = await admin.from("gift_cards").update({ stripe_payment_intent_id: gift.paymentIntent, status: row.status === "pending_payment" ? "paid" : row.status }).eq("id", row.id);
+        if (paidError) throw paidError;
+        await issueAndEmailGiftCard(admin, row as GiftCardRow, applicationOrigin(request));
+      }
+      const update = gift ? null : paidOrderWebhookUpdate(session);
+      if (!gift && session.payment_status === "paid" && session.mode !== "subscription" && !update) throw new Error("Order reference missing.");
       if (update) {
         const { data: order, error } = await admin.from("orders").update({ status: "paid", paid_at: new Date().toISOString(), stripe_payment_intent_id: update.paymentIntent }).eq("id", update.orderId).eq("stripe_checkout_session_id", update.sessionId).neq("status", "paid").select("id").maybeSingle();
         if (error) throw error;

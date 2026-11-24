@@ -2,7 +2,8 @@
 
 import Link from "@/app/locale-link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { requestAccount } from "@/lib/account-gate";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { ActionLink, Button, PageHeader } from "@/app/page-primitives";
@@ -37,11 +38,16 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
   const [message, setMessage] = useState("");
   const [expandedProductId, setExpandedProductId] = useState<string | null>(null);
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(24);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
     const db = createBrowserSupabaseClient();
-    db.from("catalog_products").select("id,slug,name,description,long_description,price_cents,category:catalog_categories(name,slug),catalog_product_images(id,storage_path,alt_text,sort_order),product_vehicle_compatibility(vehicle:vehicle_catalog(make,model,model_year))").eq("active", true).order("price_cents").then(async ({ data, error }) => {
+    db.from("catalog_products").select("id,slug,name,description,long_description,price_cents,category:catalog_categories(name,slug),catalog_product_images(id,storage_path,alt_text,sort_order),product_vehicle_compatibility(vehicle:vehicle_catalog(make,model,model_year))").eq("active", true).order("name").limit(1000).then(async ({ data, error }) => {
       if (error) return setMessage("Services and upgrades are temporarily unavailable.");
       const signedProducts = await Promise.all((data ?? []).map(async (product) => ({
         ...product,
@@ -58,14 +64,23 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
     });
   }, []);
 
+  const closeProduct = useCallback(() => {
+    setExpandedProductId(null);
+    if (!searchParams.get("product")) return;
+    const next = new URLSearchParams(searchParams.toString());
+    next.delete("product");
+    const queryString = next.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
+  }, [pathname, router, searchParams]);
+
   useEffect(() => {
     if (!expandedProductId) return;
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setExpandedProductId(null);
+      if (event.key === "Escape") closeProduct();
     }
     document.addEventListener("keydown", closeOnEscape);
     return () => document.removeEventListener("keydown", closeOnEscape);
-  }, [expandedProductId]);
+  }, [closeProduct, expandedProductId]);
 
   async function add(productId: string) {
     if (!isSupabaseConfigured) return setMessage("Services and upgrades require Supabase configuration.");
@@ -86,9 +101,12 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
     if (!error) window.dispatchEvent(new Event("volt-yard-cart-updated"));
   }
 
-  const visibleProducts = products.filter((product) => section === "all" || (section === "services" ? product.category?.slug === "services" : product.category?.slug !== "services"));
+  const sectionProducts = products.filter((product) => section === "all" || (section === "services" ? product.category?.slug === "services" : product.category?.slug !== "services"));
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredProducts = sectionProducts.filter((product) => !normalizedQuery || `${product.name} ${product.description}`.toLowerCase().includes(normalizedQuery));
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
   const alternateSection = section === "services" ? { href: "/upgrades", label: "Browse upgrades" } : section === "upgrades" ? { href: "/services", label: "Browse services" } : null;
-  const expandedProduct = visibleProducts.find((product) => product.id === expandedProductId) ?? null;
+  const expandedProduct = sectionProducts.find((product) => product.id === expandedProductId) ?? null;
   const gallery = expandedProduct?.catalog_product_images.filter((image) => image.url) ?? [];
   const selectedImage = gallery.find((image) => image.id === selectedImageId) ?? gallery[0];
 
@@ -97,9 +115,20 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
     setSelectedImageId(product.catalog_product_images.find((image) => image.url)?.id ?? null);
   }
 
+  useEffect(() => {
+    const slug = searchParams.get("product");
+    if (!slug) return;
+    const match = sectionProducts.find((product) => product.slug === slug);
+    if (match) setExpandedProductId(match.id);
+  }, [searchParams, sectionProducts]);
+
   return <main className="commerce wrap">
     <PageHeader className="commerce-head" eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} actions={<><ActionLink variant="secondary" href="/pricing">Explore membership and pricing</ActionLink>{alternateSection && <ActionLink variant="secondary" href={alternateSection.href}>{alternateSection.label}</ActionLink>}</>} />
     {message && <p className="form-message">{message}</p>}
+    <div className="catalog-tools">
+      <label>Search<input value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(24); }} placeholder={section === "services" ? "Search services" : "Search upgrades"} /></label>
+      <p>{filteredProducts.length} {section === "services" ? "services" : "upgrades"}</p>
+    </div>
     <section className="catalog-grid">{visibleProducts.map((product) => {
       const categoryLabel = product.category?.slug === "services" ? "Services" : "Upgrades";
       const detailId = `catalog-product-${product.id}-details`;
@@ -114,11 +143,12 @@ export default function CatalogPage({ section = "all" }: { section?: CatalogSect
         </button>
         <footer><strong>{money(product.price_cents)}</strong><Button onClick={() => add(product.id)}>Add to cart</Button></footer>
       </article>;
-    })}{!visibleProducts.length && !message && <p className="empty-copy">{copy.empty}</p>}</section>
+    })}{!filteredProducts.length && !message && <p className="empty-copy">{normalizedQuery ? "Nothing matches that search." : copy.empty}</p>}</section>
+    {visibleProducts.length < filteredProducts.length && <p className="catalog-more"><button type="button" onClick={() => setVisibleCount((count) => count + 24)}>Show more</button></p>}
     {alternateSection && <p className="catalog-section-link">Looking for something else? <Link href={alternateSection.href}>{alternateSection.label}</Link>.</p>}
-    {expandedProduct && <div className="modal-backdrop" role="presentation" onClick={() => setExpandedProductId(null)}>
+    {expandedProduct && <div className="modal-backdrop" role="presentation" onClick={closeProduct}>
       <section className="catalog-detail-dialog" id={`catalog-product-${expandedProduct.id}-details`} role="dialog" aria-modal="true" aria-labelledby={`catalog-product-${expandedProduct.id}-title`} onClick={(event) => event.stopPropagation()}>
-        <button className="close" type="button" aria-label="Close product details" onClick={() => setExpandedProductId(null)}>×</button>
+        <button className="close" type="button" aria-label="Close product details" onClick={closeProduct}>×</button>
         <div className="catalog-detail-layout">
           <div className="catalog-gallery" aria-label={`${expandedProduct.name} images`}>
             {selectedImage && <Image src={selectedImage.url!} alt={selectedImage.alt_text} width={1200} height={900} unoptimized />}

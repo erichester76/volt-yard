@@ -41,7 +41,19 @@ export function membershipWebhookUpdate(subscription: SubscriptionEvent) {
   };
 }
 
+export function giftCardWebhookUpdate(session: CheckoutSessionEvent) {
+  if (session.metadata?.purpose !== "shopify_gift_card" || session.payment_status !== "paid" || session.mode === "subscription") return null;
+  const giftCardId = session.metadata.gift_card_id;
+  if (!giftCardId) return null;
+  return {
+    giftCardId,
+    paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
+    sessionId: session.id,
+  };
+}
+
 export function paidOrderWebhookUpdate(session: CheckoutSessionEvent) {
+  if (session.metadata?.purpose === "shopify_gift_card") return null;
   if (session.payment_status !== "paid" || session.mode === "subscription") return null;
   const orderId = session.metadata?.order_id || session.client_reference_id;
   if (!orderId) return null;

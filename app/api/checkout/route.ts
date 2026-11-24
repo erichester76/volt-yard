@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { spendGiftCredit } from "@/lib/gift-card-fulfillment";
+import { creditShopifyGiftCard } from "@/lib/shopify-gift-cards";
 import { createAdminSupabaseClient, createUserSupabaseClient } from "@/lib/supabase";
 import { applicationOrigin, bearerToken, boundedText, idempotencyKey, isUuid, optionalUuid } from "@/lib/api-validation";
 
@@ -67,18 +69,29 @@ export async function POST(request: NextRequest) {
   if (orderError || !orderId) return NextResponse.json({ error: "Could not start checkout." }, { status: 500 });
 
   const origin = applicationOrigin(request);
+  const stripe = new Stripe(stripeKey);
+  const { data: existing } = await admin.from("orders").select("stripe_checkout_session_id").eq("id", orderId).single();
+  if (existing?.stripe_checkout_session_id) {
+    const session = await stripe.checkout.sessions.retrieve(existing.stripe_checkout_session_id);
+    if (session.url) return NextResponse.json({ url: session.url });
+  }
+  const total = items.reduce((sum, item) => sum + item.quantity * item.product!.price_cents, 0);
+  const giftCredit = (body as Record<string, unknown>).useGiftCredit === true
+    ? await spendGiftCredit(admin, userData.user.id, total)
+    : { spent: 0, shopifyGiftCardId: null };
   try {
-    const stripe = new Stripe(stripeKey);
-    const { data: existing } = await admin.from("orders").select("stripe_checkout_session_id").eq("id", orderId).single();
-    if (existing?.stripe_checkout_session_id) {
-      const session = await stripe.checkout.sessions.retrieve(existing.stripe_checkout_session_id);
-      if (session.url) return NextResponse.json({ url: session.url });
+    if (giftCredit.spent >= total) {
+      const { error: paidError } = await admin.from("orders").update({ status: "paid", paid_at: new Date().toISOString() }).eq("id", orderId).neq("status", "paid");
+      if (paidError) throw paidError;
+      return NextResponse.json({ url: `${origin}/checkout/success?gift_credit=1` });
     }
+    const coupon = giftCredit.spent > 0 ? await stripe.coupons.create({ amount_off: giftCredit.spent, currency: "usd", duration: "once", name: "Gift card credit" }) : null;
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       customer_email: userData.user.email,
       client_reference_id: orderId,
-      metadata: { order_id: orderId },
+      metadata: { order_id: orderId, gift_credit_cents: String(giftCredit.spent) },
+      discounts: coupon ? [{ coupon: coupon.id }] : undefined,
       line_items: items.map((item) => ({ quantity: item.quantity, price_data: { currency: item.product!.currency, unit_amount: item.product!.price_cents, product_data: { name: item.product!.name, description: item.product!.description } } })),
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cart?cancelled=1`,
@@ -87,7 +100,8 @@ export async function POST(request: NextRequest) {
     if (sessionError) throw sessionError;
     return NextResponse.json({ url: session.url });
   } catch (stripeError) {
-    console.error("Stripe Checkout creation failed", stripeError);
+    console.error("Stripe Checkout creation failed", stripeError instanceof Error ? stripeError.message : "unknown");
+    if (giftCredit.spent > 0 && giftCredit.shopifyGiftCardId) await creditShopifyGiftCard(giftCredit.shopifyGiftCardId, giftCredit.spent, "Reversed failed catalog checkout").catch(() => undefined);
     return NextResponse.json({ error: "Could not start Stripe Checkout." }, { status: 502 });
   }
 }

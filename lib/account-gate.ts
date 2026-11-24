@@ -14,8 +14,8 @@ export function safeReturnTo(path: string | undefined) {
   return `${url.pathname}${url.search}${url.hash}`;
 }
 
-export function requestAccount(mode: "sign-in" | "sign-up" = "sign-up", returnTo?: string) {
+export function requestAccount(mode: "sign-in" | "sign-up" = "sign-up", returnTo?: string, email?: string) {
   if (typeof window === "undefined") return;
   const nextPath = returnTo ?? `${window.location.pathname}${window.location.search}${window.location.hash}`;
-  window.dispatchEvent(new CustomEvent("volt-yard-open-auth", { detail: { mode, returnTo: nextPath } }));
+  window.dispatchEvent(new CustomEvent("volt-yard-open-auth", { detail: { mode, returnTo: nextPath, email } }));
 }

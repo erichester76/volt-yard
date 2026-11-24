@@ -14,9 +14,12 @@ const required = [
   "CRON_SECRET",
 ];
 const missing = required.filter((name) => !process.env[name]?.trim());
-const stripeVariables = ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "STRIPE_MEMBER_PRICE_ID", "STRIPE_PREMIUM_PRICE_ID"];
-const configuredStripeVariables = stripeVariables.filter((name) => process.env[name]?.trim());
-const incompleteStripeVariables = configuredStripeVariables.length ? stripeVariables.filter((name) => !process.env[name]?.trim()) : [];
+  const stripeVariables = ["STRIPE_SECRET_KEY", "STRIPE_WEBHOOK_SECRET", "STRIPE_MEMBER_PRICE_ID", "STRIPE_PREMIUM_PRICE_ID"];
+  const giftVariables = ["SHOPIFY_STORE_DOMAIN", "SHOPIFY_ADMIN_ACCESS_TOKEN", "RESEND_API_KEY", "GIFT_EMAIL_FROM"];
+  const configuredStripeVariables = stripeVariables.filter((name) => process.env[name]?.trim());
+  const incompleteStripeVariables = configuredStripeVariables.length ? stripeVariables.filter((name) => !process.env[name]?.trim()) : [];
+  const configuredGiftVariables = giftVariables.filter((name) => process.env[name]?.trim());
+  const incompleteGiftVariables = configuredGiftVariables.length ? giftVariables.filter((name) => !process.env[name]?.trim()) : [];
 const invalid = [];
 const value = (name) => process.env[name]?.trim() ?? "";
 const canonicalHttpsOrigin = (input) => {
@@ -40,10 +43,13 @@ for (const name of ["STRIPE_MEMBER_PRICE_ID", "STRIPE_PREMIUM_PRICE_ID"]) {
   if (value(name) && !/^price_\S+$/.test(value(name))) invalid.push(`${name} must be a Stripe Price ID.`);
 }
 
-const exposedSecrets = Object.keys(process.env).filter((name) => /^NEXT_PUBLIC_.*(?:SECRET|PRIVATE|WEBHOOK|CRON|YELP|STRIPE)/i.test(name));
-if (missing.length || incompleteStripeVariables.length || invalid.length || exposedSecrets.length) {
-  if (missing.length) console.error(`Missing production environment variables: ${missing.join(", ")}`);
-  if (incompleteStripeVariables.length) console.error(`Incomplete Stripe configuration: ${incompleteStripeVariables.join(", ")}`);
+  const exposedSecrets = Object.keys(process.env).filter((name) => /^NEXT_PUBLIC_.*(?:SECRET|PRIVATE|WEBHOOK|CRON|YELP|STRIPE|SHOPIFY|RESEND)/i.test(name));
+  if (value("SHOPIFY_STORE_DOMAIN") && !/^[a-z0-9][a-z0-9-]*\.myshopify\.com$/i.test(value("SHOPIFY_STORE_DOMAIN"))) invalid.push("SHOPIFY_STORE_DOMAIN must be a myshopify.com domain.");
+  if (value("SHOPIFY_ADMIN_ACCESS_TOKEN") && !/^shpat_\S+$/.test(value("SHOPIFY_ADMIN_ACCESS_TOKEN"))) invalid.push("SHOPIFY_ADMIN_ACCESS_TOKEN must be a Shopify admin token.");
+  if (missing.length || incompleteStripeVariables.length || incompleteGiftVariables.length || invalid.length || exposedSecrets.length) {
+    if (missing.length) console.error(`Missing production environment variables: ${missing.join(", ")}`);
+    if (incompleteStripeVariables.length) console.error(`Incomplete Stripe configuration: ${incompleteStripeVariables.join(", ")}`);
+    if (incompleteGiftVariables.length) console.error(`Incomplete gift card configuration: ${incompleteGiftVariables.join(", ")}`);
   for (const message of invalid) console.error(message);
   if (exposedSecrets.length) console.error(`Secret variables must not use NEXT_PUBLIC_: ${exposedSecrets.join(", ")}`);
   process.exit(1);

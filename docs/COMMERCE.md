@@ -6,6 +6,10 @@ Amped Up Network sells active catalog services and upgrades through Stripe Check
 
 This is managed fulfillment, not a marketplace fee flow. Partner payouts are recorded manually and are not sent with Stripe Connect.
 
+The upgrades catalog includes a 2026-11-23 snapshot of EVOffer's popularity ranking. Amped Up resells those products. Prices are the listed price, or the lowest listed price when EVOffer sells a range. Installer payout is 0 until a fulfillment offer is configured. Installation is not included.
+
+Black Friday gift cards are a separate flow. Every card includes 90 days of membership, valued at three months of the $9 Member tier, and a chosen amount of store credit for any catalog service or upgrade. The buyer pays through a guest Stripe Checkout session. Shopify issues and holds the credit. Gift purchases do not create installer jobs.
+
 ## Setup
 
 1. Apply all Supabase migrations in timestamp order, including `20261003000000_security_hardening.sql` and `20261003000001_bound_directory_rpc_results.sql`.
