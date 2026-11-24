@@ -8,7 +8,7 @@ type Teaser = { id: string; slug: string; name: string; description: string; pri
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 
-export function CatalogTeaser({ title, intro, compact = false }: { title: string; intro?: string; compact?: boolean }) {
+export function CatalogTeaser({ title, intro, compact = false, dense = false }: { title: string; intro?: string; compact?: boolean; dense?: boolean }) {
   const [items, setItems] = useState<Teaser[]>([]);
 
   useEffect(() => {
@@ -26,12 +26,12 @@ export function CatalogTeaser({ title, intro, compact = false }: { title: string
   }, []);
 
   if (!items.length) return null;
-  return <section className={compact ? "catalog-teaser is-compact" : "catalog-teaser"} aria-label={title}>
+  return <section className={dense ? "catalog-teaser is-compact is-dense" : compact ? "catalog-teaser is-compact" : "catalog-teaser"} aria-label={title}>
     <div className="catalog-teaser-head">
       <div><h2>{title}</h2>{intro && <p>{intro}</p>}</div>
     </div>
     <div className="catalog-teaser-viewport">
-      <div className="catalog-teaser-track" style={{ ["--teaser-count" as string]: items.length, ["--teaser-step" as string]: compact ? "180px" : "272px", animation: `catalog-teaser-step ${items.length * 4}s linear infinite` }}>
+      <div className="catalog-teaser-track" style={{ ["--teaser-count" as string]: items.length, ["--teaser-step" as string]: dense ? "128px" : compact ? "180px" : "272px", animation: `catalog-teaser-step ${items.length * 4}s linear infinite` }}>
         {[0, 1].map((copy) => items.map((item) => <Link className="catalog-teaser-card" key={`${copy}-${item.id}`} href={`/${item.section}?product=${encodeURIComponent(item.slug)}`} aria-hidden={copy === 1 || undefined} tabIndex={copy === 1 ? -1 : undefined}>
           {!compact && <p className="eyebrow">{item.section === "services" ? "Service" : "Upgrade"}</p>}
           <h3>{item.name}</h3>
