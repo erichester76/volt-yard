@@ -54,8 +54,8 @@ export default function BlackFridayPage() {
         <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
         <p className="intro">This is three months of Amped Up Network access, plus credit for whatever the car needs next. One place for a better experience. Not another thing they have to figure out alone.</p>
         <div className="gift-offer-story">
-          <p>The usual EV experience is a hunt. Facebook groups. YouTube videos. A stack of parts websites. eBay. Then a round of shops that say they do not touch EVs. The answer is in one place, the part is in another, and the mechanic is still a maybe.</p>
-          <p>Amped Up is the other way. Better answers, the right part, and a specialist who will take the car, in one stop. They can ask owners and experts, keep a history of the car, and take that story to a partner when they want a bay. They still choose the shop. The gift does not book the visit.</p>
+          <p>The usual EV experience is a hunt. Facebook groups. YouTube videos. A stack of parts websites. eBay. Then a round of shops that say they do not touch EVs. If they do get help, it is often the dealer, or a service center far away, with a long wait. The answer is in one place, the part is in another, and the mechanic is still a maybe.</p>
+          <p>Amped Up is the other way. Better answers, the right part, and a specialist who will take the car, in one stop. More options than the dealer or a distant service center. They can ask owners and experts, keep a history of the car, and take that story to a nearby partner when they want a bay. They still choose the shop. The gift does not book the visit.</p>
           <p><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. It is the door into that network, not a forum login.</p>
         </div>
         <p className="gift-offer-limit"><b>Credit for whatever they need.</b> Use it on any service or upgrade in the catalog, or toward a visit with a partner who already works on these cars. The amount you choose sits on top of the access.</p>
