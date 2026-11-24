@@ -88,7 +88,7 @@ export default function BlackFridayPage() {
           <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>
-        <p className="gift-offer-preview">Three months in the network, plus credit for whatever they need. <Link href="/gift-landing/example">See the gift.</Link></p>
+        <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
       </div>
     </div></section>
   </main>;
