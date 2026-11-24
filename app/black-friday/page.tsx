@@ -104,6 +104,6 @@ export default function BlackFridayPage() {
         {message && <p className="form-message" role="alert">{message}</p>}
       </form>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>They open the link when they are ready, make the account theirs, and start with {giftMembershipDays} days of membership plus credit for any service or upgrade. <Link href="/gift-landing/example">See what they will open.</Link></p></div></section>
+    <section className="gift-offer-note"><div className="wrap"><p>Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p></div></section>
   </main>;
 }

@@ -22,6 +22,9 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   assert.match(landing, /giftMembershipDays/);
   assert.match(owner, /first day or your fifth year/);
   assert.match(owner, /entry to the Amped Up Network/);
+  assert.match(landing, /See the gift/);
+  assert.doesNotMatch(owner, /private link|create their own account/i);
+  assert.doesNotMatch(landing, /See what they will open/);
   assert.doesNotMatch(owner, /href="\/black-friday"/);
   assert.doesNotMatch(owner, /we will automatically match|book your appointment now|read our vehicle reviews/i);
 });

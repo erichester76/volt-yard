@@ -58,5 +58,5 @@ export default function GiftLandingPage() {
   }
 
   const amount = gift ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(gift.amountCents / 100) : "";
-  return <GiftLandingView amountLabel={amount} message={message} claimed={claimed} claiming={claiming} signedIn={signedIn} onClaim={claim} />;
+  return <GiftLandingView amountLabel={amount} message={message} claimed={claimed} claiming={claiming} onClaim={claim} />;
 }
