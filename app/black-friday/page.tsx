@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useEffect, useState } from "react";
-import { CatalogTeaser } from "@/app/catalog-teaser";
+import { FormEvent, useState } from "react";
 import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays, giftMembershipValueCents } from "@/lib/gift-offers";
 import { Button } from "@/app/page-primitives";
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
-const giftWords = ["Answers", "Solutions", "Certainty", "Comfort", "Knowledge", "Community"];
 
 export default function BlackFridayPage() {
   const [email, setEmail] = useState("");
@@ -17,14 +15,6 @@ export default function BlackFridayPage() {
   const [sendOn, setSendOn] = useState("2026-12-25");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-    const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % giftWords.length), 2200);
-    return () => window.clearInterval(timer);
-  }, []);
 
   function changeAmount(direction: -1 | 1) {
     setCreditCents((current) => Math.min(giftCreditMaximumCents, Math.max(giftCreditMinimumCents, current + direction * giftCreditStepCents)));
@@ -57,54 +47,12 @@ export default function BlackFridayPage() {
   }
 
   return <main className="gift-offer">
-    <section className="gift-offer-hero"><div className="wrap gift-offer-layout">
+    <section className="gift-offer-buy"><div className="wrap gift-offer-layout">
       <div>
         <p className="eyebrow">Black Friday</p>
-        <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty" aria-live="polite">{giftWords[wordIndex]}.</span></h1>
+        <h1 className="heading-primary">Gift the network.</h1>
+        <p>{giftMembershipDays} days of membership are included. Choose credit for any service or upgrade.</p>
       </div>
-    </div>
-    <div className="gift-compare wrap">
-      <article>
-        <p className="eyebrow">The usual way</p>
-        <h2>The hunt.</h2>
-        <ul>
-          <li>Forums and parts sites</li>
-          <li>Shops that will not help</li>
-          <li>Dealer, far away, long wait</li>
-        </ul>
-      </article>
-      <article>
-        <p className="eyebrow">Amped Up</p>
-        <h2>One stop.</h2>
-        <ul>
-          <li>Answer, upgrade, tutorial</li>
-          <li>Best vendors, one place</li>
-          <li>Issue and service history</li>
-          <li>A nearby service provider</li>
-        </ul>
-      </article>
-      <article className="gift-compare-close">
-        <p className="eyebrow">The gift</p>
-        <h2>Access and credit.</h2>
-        <ul>
-          <li>{giftMembershipDays} days of access</li>
-          <li>Credit for any service or upgrade</li>
-          <li>The amount you choose</li>
-        </ul>
-      </article>
-    </div>
-    <div className="wrap gift-offer-layout">
-      <CatalogTeaser compact dense title="The credit can go to things like" />
-    </div>
-    <a className="hero-scroll-cue" href="#gift-form" aria-label="Continue to the gift form">
-      <svg viewBox="0 0 44 30" aria-hidden="true">
-        <path className="hero-scroll-chevron-orange" d="M2 2l20 7 20-7" />
-        <path className="hero-scroll-chevron-gold" d="M2 11l20 7 20-7" />
-        <path className="hero-scroll-chevron-yellow" d="M2 20l20 7 20-7" />
-      </svg>
-    </a>
-    </section>
-    <section className="gift-offer-buy"><div className="wrap gift-offer-layout">
       <form className="gift-offer-form" id="gift-form" onSubmit={buy}>
           <h2>Choose the credit</h2>
           <p>Three months of Amped Up Network access are already included. Choose how much credit to set aside for a catalog service, an upgrade, or a partner visit.</p>

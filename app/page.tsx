@@ -11,6 +11,7 @@ const pathways = [
   ["home.path_maintenance", "Be proactive with maintenance", "home.path_maintenance_intro", "Use training and checklists to build a practical plan, then carry it into a service visit when needed.", "Explore maintenance services", "/services"],
   ["home.path_catalog", "Enhance your ride", "home.path_catalog_intro", "Compare community favorites and compatible options before you buy or book, with your vehicle context close at hand.", "Explore community favorites", "/upgrades"],
   ["home.path_community", "Compare notes with owners", "home.path_community_intro", "Ask focused questions, learn from real ownership experience, and save what helps for next time.", "Browse or ask the community", "/community"],
+  ["home.path_gift", "I'm looking for a gift for my EV owner", "home.path_gift_intro", "Give 90 days of Amped Up Network, plus credit they can spend on a service or upgrade.", "Gift the network", "/black-friday#gift-form"],
 ] as const;
 
 export default function Home() {
@@ -21,8 +22,17 @@ export default function Home() {
     <main className="community-home">
       <section className="hero community-home-hero">
         <div className="wrap">
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Everything EV, in one place. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
-          <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
+          <div className="hero-lead">
+            <div>
+              <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Everything EV, in one place. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
+              <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
+            </div>
+            <Link className="hero-gift-note" href="/black-friday#gift-form">
+              <span className="eyebrow">Black Friday</span>
+              <strong>Gift the network</strong>
+              <span>90 days of membership, plus credit for a service or upgrade.</span>
+            </Link>
+          </div>
           <div className="hero-support-path" aria-label={t("home.journey_title", "More than a directory. More than a store. More than a forum.")}>
             <p>{t("home.journey_title", "More than a directory. More than a store. More than a forum.")}</p>
             <ol>

@@ -305,10 +305,10 @@ export default function SiteChrome({
             </Link>
             <Link
               className="nav-campaign"
-              href={localHref("/black-friday")}
+              href={`${localHref("/black-friday")}#gift-form`}
               onClick={() => setMenuOpen(false)}
             >
-              Black Friday
+              Gift the network
             </Link>
             {account && (
               <div className="mobile-account-nav">
