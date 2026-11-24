@@ -86,70 +86,26 @@ export default function BlackFridayPage() {
         <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
       </div>
     </div></section>
-    <section className="gift-offer-more" aria-label="What the gift replaces"><div className="wrap">
+    <section className="gift-offer-more" aria-label="What the gift replaces">
       <div className="gift-tour">
-        <article className="gift-tour-shot">
-          <div className="gift-tour-frame" aria-hidden="true">
-            <p className="eyebrow">The usual way</p>
-            <ul>
-              <li>Facebook group: still no answer</li>
-              <li>YouTube: three conflicting videos</li>
-              <li>Parts sites and eBay</li>
-              <li>Shop: we do not touch EVs</li>
-              <li>Dealer: far away, long wait</li>
-            </ul>
-          </div>
-          <h2>The hunt.</h2>
-        </article>
-        <article className="gift-tour-shot">
-          <div className="gift-tour-frame" aria-hidden="true">
-            <p className="eyebrow">Amped Up</p>
-            <strong>Certainty.</strong>
-            <ul>
-              <li>The answer</li>
-              <li>The part</li>
-              <li>A mechanic who will take the car</li>
-            </ul>
-          </div>
-          <h2>One stop.</h2>
-        </article>
-        <article className="gift-tour-shot">
-          <div className="gift-tour-frame" aria-hidden="true">
-            <p className="eyebrow">Network access</p>
-            <strong>{giftMembershipDays} days included</strong>
-            <ul>
-              <li>Ask owners and experts</li>
-              <li>Keep a history of the car</li>
-              <li>Normally {money(giftMembershipValueCents)}</li>
-            </ul>
-          </div>
-          <h2>Not a forum login.</h2>
-        </article>
-        <article className="gift-tour-shot">
-          <div className="gift-tour-frame" aria-hidden="true">
-            <p className="eyebrow">When they want a bay</p>
-            <ul>
-              <li>Nearby partner</li>
-              <li>Not only the dealer</li>
-              <li>Not a distant service center</li>
-              <li>They choose. We do not book it.</li>
-            </ul>
-          </div>
-          <h2>More options.</h2>
-        </article>
-        <article className="gift-tour-shot">
-          <div className="gift-tour-frame" aria-hidden="true">
-            <p className="eyebrow">The credit</p>
-            <ul>
-              <li>any service or upgrade in the catalog</li>
-              <li>Or a partner visit</li>
-              <li>On top of the access</li>
-            </ul>
-          </div>
-          <h2>For whatever they need.</h2>
-        </article>
+        <div className="gift-tour-track">
+          {[0, 1].map((copy) => [
+            ["The hunt.", "The usual way", ["Facebook group: still no answer", "YouTube: three conflicting videos", "Parts sites and eBay", "Shop: we do not touch EVs", "Dealer: far away, long wait"]],
+            ["One stop.", "Amped Up", ["The answer", "The part", "A mechanic who will take the car"], "Certainty."],
+            ["Not a forum login.", "Network access", ["Ask owners and experts", "Keep a history of the car", `Normally ${money(giftMembershipValueCents)}`], `${giftMembershipDays} days included`],
+            ["More options.", "When they want a bay", ["Nearby partner", "Not only the dealer", "Not a distant service center", "They choose. We do not book it."]],
+            ["For whatever they need.", "The credit", ["any service or upgrade in the catalog", "Or a partner visit", "On top of the access"]],
+          ].map(([title, eyebrow, lines, headline]) => <article className="gift-tour-shot" key={`${copy}-${title}`} aria-hidden={copy === 1 || undefined}>
+            <div className="gift-tour-frame">
+              <p className="eyebrow">{eyebrow}</p>
+              {headline && <strong>{headline}</strong>}
+              <ul>{(lines as string[]).map((line) => <li key={line}>{line}</li>)}</ul>
+            </div>
+            <h2>{title}</h2>
+          </article>))}
+        </div>
       </div>
-      <CatalogTeaser compact title="The credit can go to things like" />
-    </div></section>
+      <div className="wrap"><CatalogTeaser compact title="The credit can go to things like" /></div>
+    </section>
   </main>;
 }
