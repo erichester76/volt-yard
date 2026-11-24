@@ -1444,6 +1444,11 @@ footer button {
 .directory-status { min-height: 19px; margin: 0 0 20px; color: var(--muted); font-size: 13px; }
 
 .community-home-hero { padding-bottom: 52px; background: var(--acid); color: var(--acid-ink); }
+.hero-lead { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 28px; align-items: end; }
+.hero-gift-note { display: grid; gap: 8px; padding: 16px; border: 2px solid #141414; background: var(--orange); color: #141414; text-decoration: none; box-shadow: 5px 5px 0 #141414; }
+.hero-gift-note .eyebrow, .hero-gift-note strong, .hero-gift-note span { color: #141414; }
+.hero-gift-note strong { font-size: 22px; letter-spacing: -0.04em; }
+.hero-gift-note span:last-child { font-size: 14px; line-height: 1.35; }
 .community-home-hero h1 { max-width: 760px; color: var(--acid-ink); }
 .community-home-hero .intro { max-width: 760px; }
 .community-home-hero .heading-accent, .community-home-hero .hero-support-path b { color: var(--orange); }
@@ -1709,6 +1714,7 @@ footer button {
 :root[data-theme="dark"] .purchase-research-hero .intro { color: var(--acid); }
 :root[data-theme="dark"] .community-home-hero h1, :root[data-theme="dark"] .home-partner-invitation h2, :root[data-theme="dark"] .partnership-hero h1, :root[data-theme="dark"] .partnership-close h2 { color: var(--hero-ink); }
 :root[data-theme="dark"] .community-home-hero .intro, :root[data-theme="dark"] .community-home-hero .hero-support-path > p, :root[data-theme="dark"] .community-home-hero .hero-support-path li, :root[data-theme="dark"] .home-partner-invitation p, :root[data-theme="dark"] .partnership-hero .intro, :root[data-theme="dark"] .partnership-hero-detail, :root[data-theme="dark"] .partnership-close .wrap > p { color: var(--acid); }
+:root[data-theme="dark"] .hero-gift-note, :root[data-theme="dark"] .hero-gift-note .eyebrow, :root[data-theme="dark"] .hero-gift-note strong, :root[data-theme="dark"] .hero-gift-note span { background: var(--orange); color: #141414; }
 :root[data-theme="dark"] .community-home-hero .hero-support-path, :root[data-theme="dark"] .partnership-hero-detail { border-color: color-mix(in srgb, var(--acid) 38%, transparent); }
 :root[data-theme="dark"] .home-partner-invitation .inline-cta, :root[data-theme="dark"] .partnership-hero .inline-cta, :root[data-theme="dark"] .partnership-close .inline-cta { background: var(--acid); color: var(--acid-ink); }
 .partnership-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
@@ -1776,7 +1782,7 @@ footer button {
 .partnership-standards .partnership-seal-row { justify-content: center; margin-bottom: 18px; }
 .partnership-standards .partnership-seal-row > div { color: var(--ink); }
 .partnership-standards .partnership-story-note { max-width: 760px; margin-left: auto; margin-right: auto; color: var(--muted); text-align: center; }
-@media (max-width: 960px) { .hero-support-path ol, .home-pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 960px) { .hero-lead, .hero-support-path ol, .home-pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-lead { grid-template-columns: 1fr; } }
 @media (max-width: 700px) { .hero-support-path ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }.home-pathway-grid, .purchase-research-grid, .partnership-level-grid, .partnership-commercial-grid, .partnership-offering-grid, .partnership-standards-grid, .partnership-story-layout, .partnership-story-layout-reverse { grid-template-columns: 1fr; }.home-pathway-grid article { min-height: 170px; }.home-partner-invitation-content, .partnership-fit .wrap, .partnership-handoff .wrap { grid-template-columns: 1fr; gap: 24px; }.partnership-story-layout { gap: 32px; }.partnership-story-layout-reverse .partnership-story-copy { justify-self: start; }.partnership-story-art { display: none; } }
 
 .community-form {

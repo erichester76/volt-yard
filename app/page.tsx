@@ -5,6 +5,7 @@ import { LocalizedHeadingAccent } from "@/app/heading-accent";
 import { useLocale, useLocalizedContent } from "@/lib/localized-content";
 
 const pathways = [
+  ["home.path_gift", "I'm looking for a gift for my EV owner", "home.path_gift_intro", "Give 90 days of Amped Up Network, plus credit they can spend on a service or upgrade.", "Gift the network", "/black-friday#gift-form"],
   ["home.path_purchase", "I'm researching an EV purchase", "home.path_purchase_intro", "Compare real ownership experience, charging realities, practical costs, and the questions worth asking before you buy.", "Explore owner perspectives", "/ev-purchase-research"],
   ["home.path_new_owner", "I'm a new EV owner", "home.path_new_owner_intro", "Start with charging, maintenance, local support, and the practical habits that make EV ownership easier.", "Start with the essentials", "/tutorials"],
   ["home.path_issue", "Solve a current problem", "home.path_issue_intro", "Tell us what is happening. We organize the details, surface relevant answers, and help you choose a next step.", "Start a guided issue", "/issues"],
@@ -21,8 +22,17 @@ export default function Home() {
     <main className="community-home">
       <section className="hero community-home-hero">
         <div className="wrap">
-          <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Everything EV, in one place. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
-          <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
+          <div className="hero-lead">
+            <div>
+              <h1 className="heading-primary hero-action-heading hero-action-heading-primary"><LocalizedHeadingAccent text={t("home.title", "Everything EV, in one place. {{accent}}")} accent={t("home.title_accent", "Finally.")} /></h1>
+              <p className="intro">{t("home.intro", "Amped Up Network is a focused home for EV owners to find real answers, capable local help, community knowledge, and practical next steps.")}</p>
+            </div>
+            <Link className="hero-gift-note" href="/black-friday#gift-form">
+              <span className="eyebrow">Black Friday</span>
+              <strong>Gift the network</strong>
+              <span>90 days of membership, plus credit for a service or upgrade.</span>
+            </Link>
+          </div>
           <div className="hero-support-path" aria-label={t("home.journey_title", "More than a directory. More than a store. More than a forum.")}>
             <p>{t("home.journey_title", "More than a directory. More than a store. More than a forum.")}</p>
             <ol>
