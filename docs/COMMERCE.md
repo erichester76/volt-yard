@@ -6,7 +6,7 @@ Amped Up Network sells active catalog services and upgrades through Stripe Check
 
 This is managed fulfillment, not a marketplace fee flow. Partner payouts are recorded manually and are not sent with Stripe Connect.
 
-The upgrades catalog includes a 2026-11-23 snapshot of EVOffer's popularity ranking. Amped Up resells those products. Prices are the listed price, or the lowest listed price when EVOffer sells a range. Installer payout is 0 until a fulfillment offer is configured. Installation is not included.
+The upgrades catalog includes a 2026-11-23 snapshot of EVOffer's popularity ranking and Ohmmu's Tesla 12V lithium and sodium batteries. Amped Up resells those products. Prices are the listed price, or the lowest listed price when a vendor sells a range. Installer payout is 0 until a fulfillment offer is configured. Installation is not included. Ohmmu Tesla batteries are the listed 12V fit only, not later 16V cars.
 
 Black Friday gift cards are a separate flow. Every card includes 90 days of membership, valued at three months of the $9 Member tier, and a chosen amount of store credit for any catalog service or upgrade. The buyer pays through a guest Stripe Checkout session. The claimed gift stores the remaining credit on the recipient account, and catalog checkout subtracts it before charging Stripe for the rest. Gift purchases do not create installer jobs.
 
