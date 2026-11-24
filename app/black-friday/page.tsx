@@ -53,11 +53,9 @@ export default function BlackFridayPage() {
         <p className="eyebrow">Black Friday</p>
         <h1 className="heading-primary">The best gift you can give an EV owner.</h1>
         <p className="gift-offer-certainty">Certainty.</p>
-        <p className="intro">One place for the answer, the part, and a mechanic who will take the car. Not the dealer line. Not a far-away service center and a long wait.</p>
-        <p className="gift-offer-limit">{giftMembershipDays} days of Amped Up Network access, normally {money(giftMembershipValueCents)}, plus credit for any service or upgrade, or a visit with a partner. They still choose the shop.</p>
+        <p className="intro">One place for the answer, the part, and a mechanic who will take the car.</p>
       </div>
       <div className="gift-offer-aside">
-        <CatalogTeaser compact title="The credit can go to things like" />
         <form className="gift-offer-form" onSubmit={buy}>
           <h2>Choose the credit</h2>
           <p>Three months of Amped Up Network access are already included. Choose how much credit to set aside for a catalog service, an upgrade, or a partner visit.</p>
@@ -87,6 +85,15 @@ export default function BlackFridayPage() {
         </form>
         <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
       </div>
+    </div></section>
+    <section className="gift-offer-more"><div className="wrap">
+      <div className="gift-offer-story">
+        <p>The usual EV experience is a hunt. Facebook groups. YouTube videos. A stack of parts websites. eBay. Then a round of shops that say they do not touch EVs. If they do get help, it is often the dealer, or a service center far away, with a long wait.</p>
+        <p>Amped Up is the other way. Better answers, the right part, and a specialist who will take the car, in one stop. More options than the dealer or a distant service center. They can ask owners and experts, keep a history of the car, and take that story to a nearby partner when they want a bay. They still choose the shop. The gift does not book the visit.</p>
+        <p><b>{giftMembershipDays} days of membership, included.</b> That is three months of Amped Up Network access, normally {money(giftMembershipValueCents)}. It is the door into that network, not a forum login.</p>
+      </div>
+      <p className="gift-offer-limit"><b>Credit for whatever they need.</b> Use it on any service or upgrade in the catalog, or toward a visit with a partner who already works on these cars.</p>
+      <CatalogTeaser compact title="The credit can go to things like" />
     </div></section>
   </main>;
 }
