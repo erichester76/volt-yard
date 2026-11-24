@@ -1493,18 +1493,25 @@ footer button {
 .gift-offer-form > p, .gift-offer-summary { margin: 0; color: var(--muted); line-height: 1.45; }
 .gift-offer-form label { display: grid; gap: 6px; font-size: 12px; font-weight: 700; }
 .gift-offer-form input[type="email"], .gift-offer-form input[type="date"] { width: 100%; border: 1px solid var(--line); background: var(--cream); color: var(--ink); padding: 11px; font: 14px "DM Sans", sans-serif; }
-.gift-amount-choices, .gift-delivery-choices, .gift-schedule-fields { display: grid; gap: 8px; }
-.gift-amount-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.gift-amount-choices label, .gift-delivery-choices label { position: relative; display: grid; gap: 2px; min-height: 72px; padding: 12px; border: 1px solid var(--line); background: var(--cream); cursor: pointer; }
-.gift-amount-choices strong, .gift-delivery-choices strong { font-size: 16px; }
-.gift-amount-choices span, .gift-delivery-choices span { color: var(--muted); font-size: 12px; font-weight: 500; line-height: 1.35; }
-.gift-amount-choices input, .gift-delivery-choices input { position: absolute; opacity: 0; }
-.gift-amount-choices .is-selected, .gift-delivery-choices .is-selected { border-color: var(--orange); box-shadow: inset 0 0 0 1px var(--orange); }
+.gift-store-examples { max-width: 640px; margin-top: 22px; }
+.gift-store-examples p, .gift-store-examples li { color: var(--acid-ink); }
+.gift-store-examples ul { display: grid; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+.gift-store-examples li { display: flex; justify-content: space-between; gap: 16px; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--acid-ink) 28%, transparent); font-size: 14px; }
+.gift-amount-stepper { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; border: 1px solid var(--line); background: var(--cream); }
+.gift-amount-stepper strong { text-align: center; font-size: 28px; }
+.gift-amount-stepper button { min-height: 56px; border: 0; background: transparent; color: var(--ink); font-size: 28px; cursor: pointer; }
+.gift-amount-stepper button:disabled { opacity: .35; cursor: not-allowed; }
+.gift-delivery-choices, .gift-schedule-fields { display: grid; gap: 8px; }
+.gift-delivery-choices label { position: relative; display: grid; gap: 2px; min-height: 72px; padding: 12px; border: 1px solid var(--line); background: var(--cream); cursor: pointer; }
+.gift-delivery-choices strong { font-size: 16px; }
+.gift-delivery-choices span { color: var(--muted); font-size: 12px; font-weight: 500; line-height: 1.35; }
+.gift-delivery-choices input { position: absolute; opacity: 0; }
+.gift-delivery-choices .is-selected { border-color: var(--orange); box-shadow: inset 0 0 0 1px var(--orange); }
 .gift-offer-form button { width: 100%; }
 .gift-offer-note { padding: 28px 0 40px; }
 .gift-offer-note p { margin: 0; color: var(--muted); }
 .gift-offer-note a { color: var(--ink); font-weight: 700; }
-@media (max-width: 800px) { .gift-offer-layout, .gift-amount-choices { grid-template-columns: 1fr; } .gift-offer-hero { padding: 48px 0; } }
+@media (max-width: 800px) { .gift-offer-layout { grid-template-columns: 1fr; } .gift-offer-hero { padding: 48px 0; } }
 .purchase-research-hero { background: var(--acid); color: var(--acid-ink); }
 .purchase-research-hero .wrap { max-width: 860px; }
 .purchase-research-hero .heading-primary { max-width: 760px; color: var(--acid-ink); }

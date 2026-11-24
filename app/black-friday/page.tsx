@@ -1,20 +1,38 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useState } from "react";
-import { giftCreditAmounts, giftMembershipDays } from "@/lib/gift-offers";
+import { FormEvent, useEffect, useState } from "react";
+import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays } from "@/lib/gift-offers";
+import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/app/page-primitives";
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 
 export default function BlackFridayPage() {
   const [email, setEmail] = useState("");
-  const [creditCents, setCreditCents] = useState<number>(giftCreditAmounts[1]);
+  const [creditCents, setCreditCents] = useState(20000);
+  type Example = { id: string; name: string; price_cents: number; category: { slug: string } | { slug: string }[] | null };
+  const [examples, setExamples] = useState<Example[]>([]);
   const [delivery, setDelivery] = useState<"buyer" | "scheduled">("buyer");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [sendOn, setSendOn] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    createBrowserSupabaseClient().from("catalog_products").select("id,name,price_cents,category:catalog_categories(slug)").eq("active", true).order("price_cents").limit(8).then(({ data }) => {
+      const products = (data ?? []) as Example[];
+      const slug = (product: (typeof products)[number]) => Array.isArray(product.category) ? product.category[0]?.slug : product.category?.slug;
+      const services = products.filter((product) => slug(product) === "services").slice(0, 2);
+      const upgrades = products.filter((product) => slug(product) !== "services").slice(0, 2);
+      setExamples([...services, ...upgrades].slice(0, 4));
+    });
+  }, []);
+
+  function changeAmount(direction: -1 | 1) {
+    setCreditCents((current) => Math.min(giftCreditMaximumCents, Math.max(giftCreditMinimumCents, current + direction * giftCreditStepCents)));
+  }
 
   async function buy(event: FormEvent) {
     event.preventDefault();
@@ -53,17 +71,16 @@ export default function BlackFridayPage() {
           <li><b>Stop piecing the answer together.</b> Recommendations, guides, products, and services live next to owners who have already been there.</li>
           <li><b>Keep the story with the car.</b> The recipient can save the vehicle, the question, and the purchase so the next step starts with context.</li>
         </ol>
+        {examples.length > 0 && <div className="gift-store-examples"><p>Credit can cover catalog items such as:</p><ul>{examples.map((item) => <li key={item.id}><span>{item.name}</span><b>{money(item.price_cents)}</b></li>)}</ul></div>}
         <p className="gift-offer-limit">The credit spends on any listed service or upgrade. It does not book an appointment or review a vehicle by itself.</p>
       </div>
       <form className="gift-offer-form" onSubmit={buy}>
         <h2>Build the gift</h2>
         <p>Every card includes {giftMembershipDays} days of membership. Choose the store credit.</p>
-        <div className="gift-amount-choices" role="radiogroup" aria-label="Store credit">
-          {giftCreditAmounts.map((cents) => <label key={cents} className={creditCents === cents ? "is-selected" : undefined}>
-            <input type="radio" name="credit" checked={creditCents === cents} onChange={() => setCreditCents(cents)} />
-            <strong>{money(cents)}</strong>
-            <span>catalog credit</span>
-          </label>)}
+        <div className="gift-amount-stepper">
+          <button type="button" aria-label="Decrease gift amount by 100 dollars" onClick={() => changeAmount(-1)} disabled={creditCents <= giftCreditMinimumCents}>−</button>
+          <strong>{money(creditCents)}</strong>
+          <button type="button" aria-label="Increase gift amount by 100 dollars" onClick={() => changeAmount(1)} disabled={creditCents >= giftCreditMaximumCents}>+</button>
         </div>
         <div className="gift-delivery-choices">
           <label className={delivery === "buyer" ? "is-selected" : undefined}>

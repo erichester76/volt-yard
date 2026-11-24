@@ -1,11 +1,11 @@
 export const giftMembershipDays = 30;
 
-export const giftCreditAmounts = [5000, 10000, 25000] as const;
+export const giftCreditStepCents = 10000;
+export const giftCreditMinimumCents = 10000;
+export const giftCreditMaximumCents = 100000;
 
-export type GiftCreditAmount = (typeof giftCreditAmounts)[number];
-
-export function isGiftCreditAmount(value: unknown): value is GiftCreditAmount {
-  return typeof value === "number" && giftCreditAmounts.includes(value as GiftCreditAmount);
+export function isGiftCreditAmount(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= giftCreditMinimumCents && value <= giftCreditMaximumCents && value % giftCreditStepCents === 0;
 }
 
 export const giftOfferName = "Amped Up gift card";
