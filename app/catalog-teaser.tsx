@@ -8,7 +8,7 @@ type Teaser = { id: string; slug: string; name: string; description: string; pri
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
 
-export function CatalogTeaser({ title, intro }: { title: string; intro: string }) {
+export function CatalogTeaser({ title, intro, compact = false }: { title: string; intro?: string; compact?: boolean }) {
   const scroller = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<Teaser[]>([]);
 
@@ -27,21 +27,21 @@ export function CatalogTeaser({ title, intro }: { title: string; intro: string }
   }, []);
 
   if (!items.length) return null;
-  return <section className="catalog-teaser" aria-label={title}><div className="wrap">
+  return <section className={compact ? "catalog-teaser is-compact" : "catalog-teaser"} aria-label={title}>
     <div className="catalog-teaser-head">
-      <div><h2>{title}</h2><p>{intro}</p></div>
+      <div><h2>{title}</h2>{intro && <p>{intro}</p>}</div>
       <div className="catalog-teaser-controls">
-        <button type="button" aria-label="Show previous items" onClick={() => scroller.current?.scrollBy({ left: -280, behavior: "smooth" })}>←</button>
-        <button type="button" aria-label="Show next items" onClick={() => scroller.current?.scrollBy({ left: 280, behavior: "smooth" })}>→</button>
+        <button type="button" aria-label="Show previous items" onClick={() => scroller.current?.scrollBy({ left: compact ? -180 : -280, behavior: "smooth" })}>←</button>
+        <button type="button" aria-label="Show next items" onClick={() => scroller.current?.scrollBy({ left: compact ? 180 : 280, behavior: "smooth" })}>→</button>
       </div>
     </div>
     <div className="catalog-teaser-track" ref={scroller}>
       {items.map((item) => <Link className="catalog-teaser-card" key={item.id} href={`/${item.section}?product=${encodeURIComponent(item.slug)}`}>
-        <p className="eyebrow">{item.section === "services" ? "Service" : "Upgrade"}</p>
+        {!compact && <p className="eyebrow">{item.section === "services" ? "Service" : "Upgrade"}</p>}
         <h3>{item.name}</h3>
-        <p>{item.description}</p>
+        {!compact && <p>{item.description}</p>}
         <strong>{money(item.price_cents)}</strong>
       </Link>)}
     </div>
-  </div></section>;
+  </section>;
 }

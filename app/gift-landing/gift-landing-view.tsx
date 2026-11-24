@@ -24,6 +24,7 @@ export function GiftLandingView({
       <p className="eyebrow">{preview ? "You just scored big!" : "Your gift"}</p>
       <h1 className="heading-primary">{amountLabel ? `${amountLabel} and full network access` : "A gift is waiting."}</h1>
       <p className="intro">Whether this is your first day or your fifth year with your EV, someone just gave you a way to make the experience better. Amped Up is the place for better answers, the right parts, and the right specialist to get you and your car where you want to go. This gift is your entry to the Amped Up Network. Enjoy.</p>
+      <CatalogTeaser compact title="What the credit can cover" />
     </div></section>
     <section className="purchase-research-paths"><div className="wrap">
       {message && <p className="form-message" role="status">{message}</p>}
@@ -33,7 +34,6 @@ export function GiftLandingView({
         <article><h3>You just got in</h3><p>{claimed ? "The network is open. The credit is ready when you want it." : "Someone just handed you the membership, the credit, and a place built for this car. That is a lot of access."}</p>{recipientEmail && !claimed && <p className="gift-landing-email">Open it with {recipientEmail}.</p>}{!claimed && !preview && <Button disabled={claiming} onClick={onClaim}>{claiming ? "Opening your gift..." : "Open my gift"}</Button>}</article>
       </div>}
     </div></section>
-    <CatalogTeaser title="What the credit can cover." intro="Open any of these to see the details." />
     {claimed && <section className="purchase-research-close"><div className="wrap"><h2>Go use it.</h2><p>Look at service, upgrades, or what other owners already figured out.</p><Link className="inline-cta" href="/services">Browse services</Link></div></section>}
   </main>;
 }

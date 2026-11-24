@@ -1520,14 +1520,21 @@ footer button {
 .gift-offer-note a { color: var(--ink); font-weight: 700; }
 @media (max-width: 800px) { .gift-offer-layout { grid-template-columns: 1fr; } .gift-offer-hero { padding: 48px 0; } }
 .catalog-teaser { padding: 36px 0 56px; }
+.catalog-teaser.is-compact { padding: 18px 0 0; }
 .catalog-teaser-head { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 16px; }
 .catalog-teaser h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); }
+.catalog-teaser.is-compact h2 { font-size: 15px; }
 .catalog-teaser-head p { margin: 8px 0 0; color: var(--muted); }
+.gift-offer-hero .catalog-teaser, .purchase-research-hero .catalog-teaser, .gift-offer-hero .catalog-teaser h2, .purchase-research-hero .catalog-teaser h2 { color: var(--acid-ink); }
 .catalog-teaser-controls { display: flex; gap: 8px; }
 .catalog-teaser-controls button { width: 40px; height: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font-size: 18px; }
+.catalog-teaser.is-compact .catalog-teaser-controls button { width: 32px; height: 32px; }
 .catalog-teaser-track { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+.catalog-teaser.is-compact .catalog-teaser-track { gap: 8px; }
 .catalog-teaser-card { flex: 0 0 260px; scroll-snap-align: start; display: grid; gap: 8px; min-height: 180px; padding: 18px; border-top: 4px solid var(--orange); background: var(--surface); color: var(--ink); text-decoration: none; }
+.catalog-teaser.is-compact .catalog-teaser-card { flex-basis: 168px; min-height: 0; gap: 6px; padding: 12px; }
 .catalog-teaser-card h3, .catalog-teaser-card p { margin: 0; }
+.catalog-teaser.is-compact .catalog-teaser-card h3 { font-size: 14px; line-height: 1.25; }
 .catalog-teaser-card p:not(.eyebrow) { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .catalog-teaser-card strong { margin-top: auto; }
 .catalog-tools { display: flex; justify-content: space-between; gap: 16px; align-items: end; margin-bottom: 18px; }

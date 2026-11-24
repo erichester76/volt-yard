@@ -53,6 +53,7 @@ export default function BlackFridayPage() {
         <p className="eyebrow">A gift they will actually use</p>
         <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
         <p className="intro">A good gift is not another gadget. It is someone to call, a place to ask, and money already set aside for the work. This card includes {giftMembershipDays} days of membership and credit for any service or upgrade.</p>
+        <CatalogTeaser compact title="The credit can cover" />
         <ol className="gift-offer-story">
           <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. They can keep a case history and join the conversation: ask, reply, and vote, not just read.</li>
           <li><b>Credit on top of that.</b> The amount you choose is separate. It spends on any service or upgrade, from a checkup to something that makes the car more theirs.</li>
@@ -91,6 +92,5 @@ export default function BlackFridayPage() {
         <p className="gift-offer-preview">Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p>
       </div>
     </div></section>
-    <CatalogTeaser title="The credit can go toward work like this." intro="Open any of these to see the details." />
   </main>;
 }
