@@ -86,13 +86,69 @@ export default function BlackFridayPage() {
         <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
       </div>
     </div></section>
-    <section className="gift-offer-more"><div className="wrap">
-      <div className="gift-offer-story">
-        <p>The usual EV experience is a hunt. Facebook groups. YouTube videos. A stack of parts websites. eBay. Then a round of shops that say they do not touch EVs. If they do get help, it is often the dealer, or a service center far away, with a long wait.</p>
-        <p>Amped Up is the other way. Better answers, the right part, and a specialist who will take the car, in one stop. More options than the dealer or a distant service center. They can ask owners and experts, keep a history of the car, and take that story to a nearby partner when they want a bay. They still choose the shop. The gift does not book the visit.</p>
-        <p><b>{giftMembershipDays} days of membership, included.</b> That is three months of Amped Up Network access, normally {money(giftMembershipValueCents)}. It is the door into that network, not a forum login.</p>
+    <section className="gift-offer-more" aria-label="What the gift replaces"><div className="wrap">
+      <div className="gift-tour">
+        <article className="gift-tour-shot">
+          <div className="gift-tour-frame" aria-hidden="true">
+            <p className="eyebrow">The usual way</p>
+            <ul>
+              <li>Facebook group: still no answer</li>
+              <li>YouTube: three conflicting videos</li>
+              <li>Parts sites and eBay</li>
+              <li>Shop: we do not touch EVs</li>
+              <li>Dealer: far away, long wait</li>
+            </ul>
+          </div>
+          <h2>The hunt.</h2>
+        </article>
+        <article className="gift-tour-shot">
+          <div className="gift-tour-frame" aria-hidden="true">
+            <p className="eyebrow">Amped Up</p>
+            <strong>Certainty.</strong>
+            <ul>
+              <li>The answer</li>
+              <li>The part</li>
+              <li>A mechanic who will take the car</li>
+            </ul>
+          </div>
+          <h2>One stop.</h2>
+        </article>
+        <article className="gift-tour-shot">
+          <div className="gift-tour-frame" aria-hidden="true">
+            <p className="eyebrow">Network access</p>
+            <strong>{giftMembershipDays} days included</strong>
+            <ul>
+              <li>Ask owners and experts</li>
+              <li>Keep a history of the car</li>
+              <li>Normally {money(giftMembershipValueCents)}</li>
+            </ul>
+          </div>
+          <h2>Not a forum login.</h2>
+        </article>
+        <article className="gift-tour-shot">
+          <div className="gift-tour-frame" aria-hidden="true">
+            <p className="eyebrow">When they want a bay</p>
+            <ul>
+              <li>Nearby partner</li>
+              <li>Not only the dealer</li>
+              <li>Not a distant service center</li>
+              <li>They choose. We do not book it.</li>
+            </ul>
+          </div>
+          <h2>More options.</h2>
+        </article>
+        <article className="gift-tour-shot">
+          <div className="gift-tour-frame" aria-hidden="true">
+            <p className="eyebrow">The credit</p>
+            <ul>
+              <li>any service or upgrade in the catalog</li>
+              <li>Or a partner visit</li>
+              <li>On top of the access</li>
+            </ul>
+          </div>
+          <h2>For whatever they need.</h2>
+        </article>
       </div>
-      <p className="gift-offer-limit"><b>Credit for whatever they need.</b> Use it on any service or upgrade in the catalog, or toward a visit with a partner who already works on these cars.</p>
       <CatalogTeaser compact title="The credit can go to things like" />
     </div></section>
   </main>;
