@@ -1520,7 +1520,8 @@ footer button {
 .gift-offer-aside .catalog-teaser { width: 100%; max-width: 100%; min-width: 0; }
 .gift-offer-more { padding: 28px 0 64px; }
 .gift-offer-more .wrap { max-width: 680px; }
-.gift-tour { --tour-card: 280px; --tour-gap: 16px; --tour-step: calc(var(--tour-card) + var(--tour-gap)); overflow: hidden; width: min(872px, calc(round(down, 100% - 56px, 296px) - 16px)); margin: 0 auto 8px; min-width: 0; padding-bottom: 8px; background: transparent; }
+.gift-tour { --tour-card: 280px; --tour-gap: 16px; --tour-step: calc(var(--tour-card) + var(--tour-gap)); overflow: hidden; width: min(872px, calc(round(down, 100% - 56px, 296px) - 16px)); margin: 28px auto 18px; min-width: 0; padding-bottom: 8px; background: transparent; }
+.gift-offer-hero .gift-tour-shot h2 { color: var(--acid-ink); }
 .gift-tour-track { display: flex; gap: 16px; width: max-content; animation: gift-tour-step 18s ease-in-out infinite; }
 .gift-tour:hover .gift-tour-track { animation-play-state: paused; }
 @keyframes gift-tour-step {
@@ -1650,7 +1651,7 @@ footer button {
 :root[data-theme="dark"] .gift-offer-more { background: #000; color: var(--acid); }
 :root[data-theme="dark"] .gift-offer-more .catalog-teaser h2,
 :root[data-theme="dark"] .gift-offer-more .catalog-teaser-more a,
-:root[data-theme="dark"] .gift-tour-shot h2 { color: var(--acid); }
+:root[data-theme="dark"] .gift-offer-hero .gift-tour-shot h2 { color: var(--acid); }
 :root[data-theme="dark"] .gift-offer-hero .eyebrow,
 :root[data-theme="dark"] .gift-offer-hero h1,
 :root[data-theme="dark"] .gift-offer-hero .intro,
