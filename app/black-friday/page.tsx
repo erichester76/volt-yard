@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "@/app/locale-link";
 import { FormEvent, useEffect, useState } from "react";
 import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays } from "@/lib/gift-offers";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
@@ -104,6 +103,6 @@ export default function BlackFridayPage() {
         {message && <p className="form-message" role="alert">{message}</p>}
       </form>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>They open the gift in their own time and make the account theirs. <Link href="/gift-landing">Peek at what they will see.</Link></p></div></section>
+    <section className="gift-offer-note"><div className="wrap"><p>They open a private link, in their own time, and make the account theirs. That page is the gift. It is not a second stop after signup.</p></div></section>
   </main>;
 }

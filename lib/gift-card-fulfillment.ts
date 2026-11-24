@@ -31,7 +31,7 @@ export function hashDeliveryToken(token: string) {
 }
 
 export function giftShareUrl(origin: string, token: string) {
-  return `${origin}/gift/${token}`;
+  return `${origin}/gift-landing/${token}`;
 }
 
 export async function issueAndEmailGiftCard(admin: SupabaseClient, gift: GiftCardRow, origin: string) {
