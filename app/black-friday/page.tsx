@@ -85,14 +85,14 @@ export default function BlackFridayPage() {
           <li>A nearby partner, not only the dealer</li>
         </ul>
       </article>
-      <article>
+      <article className="gift-compare-close">
         <p className="eyebrow">The gift</p>
-        <h2>{giftMembershipDays} days in.</h2>
+        <h2>Give both.</h2>
         <ul>
-          <li>Normally {money(giftMembershipValueCents)} of access</li>
-          <li>any service or upgrade in the catalog</li>
-          <li>Or a partner visit</li>
-          <li>They choose. We do not book it.</li>
+          <li>{giftMembershipDays} days of network access, normally {money(giftMembershipValueCents)}</li>
+          <li>Credit for any service or upgrade</li>
+          <li>Or a visit with a partner they choose</li>
+          <li>One gift. The hunt stops here.</li>
         </ul>
       </article>
     </div>
