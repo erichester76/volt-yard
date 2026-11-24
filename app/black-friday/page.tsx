@@ -90,7 +90,7 @@ export default function BlackFridayPage() {
         <h2>Access and credit.</h2>
         <ul>
           <li>{giftMembershipDays} days of network access, normally {money(giftMembershipValueCents)}</li>
-          <li>Credit for any service or upgrade</li>
+          <li>Credit for any service or upgrade, in the amount you choose</li>
           <li>One gift. The hunt stops here.</li>
         </ul>
       </article>
