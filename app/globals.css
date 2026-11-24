@@ -1490,20 +1490,21 @@ footer button {
 .gift-compare li { padding-top: 4px; border-top: 1px solid var(--line); }
 .gift-compare-close { border-color: var(--orange); background: var(--surface); }
 .gift-compare-close .eyebrow, .gift-compare-close h2 { color: var(--orange); }
+.catalog-teaser.is-compact.is-dense { --teaser-step: 180px; }
 @media (max-width: 800px) {
   .gift-compare.wrap { width: 100%; max-width: none; padding-left: 10px; padding-right: 10px; gap: 6px; }
   .gift-compare article { padding: 8px 6px; }
   .gift-compare h2 { margin-bottom: 6px; font-size: 14px; }
   .gift-compare ul, .gift-compare .eyebrow { font-size: 12px; line-height: 1.25; }
+  .catalog-teaser.is-compact.is-dense { --teaser-step: 104px; padding-top: 0; }
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-head { margin-bottom: 4px; }
+  .catalog-teaser.is-compact.is-dense h2 { margin-bottom: 0; font-size: 12px; }
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-card { flex-basis: 92px; min-height: 0; padding: 6px; }
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-card h3,
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-card strong { font-size: 11px; line-height: 1.2; }
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-more { margin-top: 4px; }
+  .catalog-teaser.is-compact.is-dense .catalog-teaser-more a { font-size: 11px; }
 }
-.catalog-teaser.is-compact.is-dense { max-width: 560px; margin-inline: auto; padding-top: 0; }
-.catalog-teaser.is-compact.is-dense .catalog-teaser-head { margin-bottom: 4px; }
-.catalog-teaser.is-compact.is-dense h2 { margin-bottom: 0; font-size: 12px; }
-.catalog-teaser.is-compact.is-dense .catalog-teaser-card { flex-basis: 92px; min-height: 0; padding: 6px; }
-.catalog-teaser.is-compact.is-dense .catalog-teaser-card h3,
-.catalog-teaser.is-compact.is-dense .catalog-teaser-card strong { font-size: 11px; line-height: 1.2; }
-.catalog-teaser.is-compact.is-dense .catalog-teaser-more { margin-top: 4px; }
-.catalog-teaser.is-compact.is-dense .catalog-teaser-more a { font-size: 11px; }
 .gift-offer-hero .gift-tour-frame { min-height: 0; height: 100%; padding: 10px; overflow: hidden; }
 .gift-offer-hero .gift-tour-shot { display: flex; flex-direction: column; min-height: 0; }
 .gift-offer-hero .gift-tour-track { height: 100%; }
