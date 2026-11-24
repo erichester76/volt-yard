@@ -3,7 +3,6 @@ import Stripe from "stripe";
 import { applicationOrigin, idempotencyKey, isApplicationOrigin } from "@/lib/api-validation";
 import { newDeliveryToken } from "@/lib/gift-card-fulfillment";
 import { giftOfferName, isGiftCreditAmount } from "@/lib/gift-offers";
-import { shopifyGiftCardsConfigured } from "@/lib/shopify-gift-cards";
 import { giftEmailConfigured } from "@/lib/transactional-email";
 import { createAdminSupabaseClient } from "@/lib/supabase";
 
@@ -14,7 +13,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
   if (!origin || !isApplicationOrigin(origin, request)) return NextResponse.json({ error: "Invalid checkout origin." }, { status: 403 });
-  if (!shopifyGiftCardsConfigured() || !giftEmailConfigured()) return NextResponse.json({ error: "Gift cards are not configured." }, { status: 503 });
+  if (!giftEmailConfigured()) return NextResponse.json({ error: "Gift email is not configured." }, { status: 503 });
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeKey) return NextResponse.json({ error: "Stripe is not configured." }, { status: 503 });
   const key = idempotencyKey(request);

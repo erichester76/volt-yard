@@ -45,6 +45,7 @@ test("gift purchase does not require a buyer account and does not log Shopify ca
   const shopify = read("lib/shopify-gift-cards.ts");
   const webhook = read("app/api/stripe/webhook/route.ts");
   assert.doesNotMatch(checkout, /bearerToken/);
+  assert.doesNotMatch(checkout, /shopifyGiftCardsConfigured/);
   assert.match(checkout, /shopify_gift_card/);
   assert.match(checkout, /idempotencyKey/);
   assert.doesNotMatch(shopify, /console\.(log|info|debug)/);

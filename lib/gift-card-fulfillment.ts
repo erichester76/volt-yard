@@ -1,7 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { giftOfferName } from "@/lib/gift-offers";
-import { createShopifyGiftCard, creditShopifyGiftCard, debitShopifyGiftCard } from "@/lib/shopify-gift-cards";
 import { sendGiftDeliveryEmail, sendGiftHoldEmail } from "@/lib/transactional-email";
 
 export type GiftCardRow = {
@@ -35,15 +34,6 @@ export function giftShareUrl(origin: string, token: string) {
 }
 
 export async function issueAndEmailGiftCard(admin: SupabaseClient, gift: GiftCardRow, origin: string) {
-  let shopifyId = gift.shopify_gift_card_id;
-  let last4 = gift.shopify_last4;
-  if (!shopifyId) {
-    const issued = await createShopifyGiftCard(gift.amount_cents, giftOfferName);
-    shopifyId = issued.id;
-    last4 = issued.last4;
-    const { error } = await admin.from("gift_cards").update({ shopify_gift_card_id: shopifyId, shopify_last4: last4, status: "paid" }).eq("id", gift.id).is("shopify_gift_card_id", null);
-    if (error) throw error;
-  }
   const today = new Date().toISOString().slice(0, 10);
   if (gift.delivery_mode === "scheduled" && gift.recipient_email && gift.send_on && gift.send_on > today) {
     if (!gift.buyer_notified_at) {
@@ -76,31 +66,33 @@ export async function issueAndEmailGiftCard(admin: SupabaseClient, gift: GiftCar
 }
 
 export async function spendGiftCredit(admin: SupabaseClient, userId: string, amountCents: number) {
-  if (amountCents <= 0) return { spent: 0, shopifyGiftCardId: null };
-  const { data, error } = await admin.from("gift_cards").select("id,remaining_cents,shopify_gift_card_id").eq("claimed_by", userId).eq("offer", "store-credit").gt("remaining_cents", 0).order("created_at").limit(1).maybeSingle();
+  if (amountCents <= 0) return { spent: 0, giftCardId: null };
+  const { data, error } = await admin.from("gift_cards").select("id,remaining_cents").eq("claimed_by", userId).eq("offer", "store-credit").gt("remaining_cents", 0).order("created_at").limit(1).maybeSingle();
   if (error) throw error;
-  if (!data?.shopify_gift_card_id || !data.remaining_cents) return { spent: 0, shopifyGiftCardId: null };
+  if (!data?.remaining_cents) return { spent: 0, giftCardId: null };
   const spend = Math.min(data.remaining_cents, amountCents);
-  const adjustmentId = await debitShopifyGiftCard(data.shopify_gift_card_id, spend, `Catalog payment by ${userId}`);
+  const remaining = data.remaining_cents - spend;
   const { error: updateError } = await admin.from("gift_cards").update({
-    remaining_cents: data.remaining_cents - spend,
-    shopify_adjustment_id: adjustmentId,
-    status: data.remaining_cents - spend === 0 ? "applied" : "claimed",
-    applied_at: data.remaining_cents - spend === 0 ? new Date().toISOString() : null,
+    remaining_cents: remaining,
+    status: remaining === 0 ? "applied" : "claimed",
+    applied_at: remaining === 0 ? new Date().toISOString() : null,
   }).eq("id", data.id).eq("remaining_cents", data.remaining_cents);
-  if (updateError) {
-    await creditShopifyGiftCard(data.shopify_gift_card_id, spend, "Reversed failed catalog payment");
-    throw updateError;
-  }
-  return { spent: spend, shopifyGiftCardId: data.shopify_gift_card_id };
+  if (updateError) throw updateError;
+  return { spent: spend, giftCardId: data.id };
+}
+
+export async function restoreGiftCredit(admin: SupabaseClient, giftCardId: string, amountCents: number) {
+  if (amountCents <= 0) return;
+  const { data, error } = await admin.from("gift_cards").select("remaining_cents,amount_cents").eq("id", giftCardId).maybeSingle();
+  if (error || !data) throw error ?? new Error("Gift credit could not be restored.");
+  const remaining = Math.min(data.amount_cents, data.remaining_cents + amountCents);
+  const { error: updateError } = await admin.from("gift_cards").update({ remaining_cents: remaining, status: "claimed", applied_at: null }).eq("id", giftCardId);
+  if (updateError) throw updateError;
 }
 
 export async function applyGiftCardPayment(admin: SupabaseClient, gift: GiftCardRow, userId: string) {
   if (gift.claimed_by !== userId) throw new Error("This gift is not claimed by the signed-in recipient.");
-  if (gift.status === "applied" && gift.shopify_adjustment_id) return gift.shopify_adjustment_id;
-  if (!gift.shopify_gift_card_id) throw new Error("Shopify gift card is not ready.");
-  const adjustmentId = gift.shopify_adjustment_id ?? await debitShopifyGiftCard(gift.shopify_gift_card_id, gift.amount_cents, `Applied by recipient ${userId} to ${gift.offer}`);
-  const { error } = await admin.from("gift_cards").update({ status: "applied", applied_at: new Date().toISOString(), shopify_adjustment_id: adjustmentId }).eq("id", gift.id).eq("claimed_by", userId);
+  const { error } = await admin.from("gift_cards").update({ status: "applied", applied_at: new Date().toISOString(), remaining_cents: 0 }).eq("id", gift.id).eq("claimed_by", userId);
   if (error) throw error;
-  return adjustmentId;
+  return gift.id;
 }

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { spendGiftCredit } from "@/lib/gift-card-fulfillment";
-import { creditShopifyGiftCard } from "@/lib/shopify-gift-cards";
+import { restoreGiftCredit, spendGiftCredit } from "@/lib/gift-card-fulfillment";
 import { createAdminSupabaseClient, createUserSupabaseClient } from "@/lib/supabase";
 import { applicationOrigin, bearerToken, boundedText, idempotencyKey, isUuid, optionalUuid } from "@/lib/api-validation";
 
@@ -78,7 +77,7 @@ export async function POST(request: NextRequest) {
   const total = items.reduce((sum, item) => sum + item.quantity * item.product!.price_cents, 0);
   const giftCredit = (body as Record<string, unknown>).useGiftCredit === true
     ? await spendGiftCredit(admin, userData.user.id, total)
-    : { spent: 0, shopifyGiftCardId: null };
+    : { spent: 0, giftCardId: null };
   try {
     if (giftCredit.spent >= total) {
       const { error: paidError } = await admin.from("orders").update({ status: "paid", paid_at: new Date().toISOString() }).eq("id", orderId).neq("status", "paid");
@@ -101,7 +100,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (stripeError) {
     console.error("Stripe Checkout creation failed", stripeError instanceof Error ? stripeError.message : "unknown");
-    if (giftCredit.spent > 0 && giftCredit.shopifyGiftCardId) await creditShopifyGiftCard(giftCredit.shopifyGiftCardId, giftCredit.spent, "Reversed failed catalog checkout").catch(() => undefined);
+    if (giftCredit.spent > 0 && giftCredit.giftCardId) await restoreGiftCredit(admin, giftCredit.giftCardId, giftCredit.spent).catch(() => undefined);
     return NextResponse.json({ error: "Could not start Stripe Checkout." }, { status: 502 });
   }
 }

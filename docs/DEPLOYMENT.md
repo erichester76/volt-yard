@@ -37,7 +37,7 @@ Amped Up Network is deployed as a Next.js application on Vercel with Supabase as
 | Yelp partner import | `YELP_API_KEY` |
 | EPA vehicle synchronization and protected imports | `CRON_SECRET` |
 | Service Checkout and memberships | `STRIPE_SECRET_KEY` |
-| Black Friday gift cards | `SHOPIFY_STORE_DOMAIN`, `SHOPIFY_ADMIN_ACCESS_TOKEN`, `RESEND_API_KEY`, `GIFT_EMAIL_FROM`, plus Stripe |
+| Black Friday gift cards | `RESEND_API_KEY`, `GIFT_EMAIL_FROM`, plus Stripe. Credit is stored on the claimed gift, not in Shopify. |
 | Stripe webhook verification | `STRIPE_WEBHOOK_SECRET` |
 | Membership plans | `STRIPE_MEMBER_PRICE_ID`, `STRIPE_PREMIUM_PRICE_ID` |
 | Membership Billing Portal (optional) | `STRIPE_BILLING_PORTAL_CONFIGURATION_ID` |
