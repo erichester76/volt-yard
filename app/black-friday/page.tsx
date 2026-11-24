@@ -87,11 +87,10 @@ export default function BlackFridayPage() {
       </article>
       <article className="gift-compare-close">
         <p className="eyebrow">The gift</p>
-        <h2>Give both.</h2>
+        <h2>Access and credit.</h2>
         <ul>
           <li>{giftMembershipDays} days of network access, normally {money(giftMembershipValueCents)}</li>
           <li>Credit for any service or upgrade</li>
-          <li>Or a visit with a partner they choose</li>
           <li>One gift. The hunt stops here.</li>
         </ul>
       </article>
