@@ -50,21 +50,21 @@ export default function BlackFridayPage() {
   return <main className="gift-offer">
     <section className="gift-offer-hero"><div className="wrap gift-offer-layout">
       <div>
-        <p className="eyebrow">A gift they will actually use</p>
+        <p className="eyebrow">The gift they will still be glad they opened</p>
         <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
-        <p className="intro">A good gift is not another gadget. It is someone to call, a place to ask, and money already set aside for the work. This card includes {giftMembershipDays} days of membership and credit for any service or upgrade.</p>
+        <p className="intro">Skip the gadget that ends up in a drawer. This is three months inside Amped Up, plus money already set aside for the car. First day or fifth year, they get a place for better answers, a record that stays with the car, and credit for any service or upgrade.</p>
         <ol className="gift-offer-story">
-          <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. They can keep a case history and join the conversation: ask, reply, and vote, not just read.</li>
-          <li><b>Credit on top of that.</b> The amount you choose is separate. It spends on any service or upgrade, from a checkup to something that makes the car more theirs.</li>
-          <li><b>A softer landing.</b> Independent EV mechanics, alignment shops, electricians, and aftermarket specialists are gathered here, so they are not starting from a blank search.</li>
+          <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. This is more than a login for the forum. They keep a history of the car: symptoms, what was tried, and the next question. They can ask, reply, and vote with owners who have these cars. Reading is free. These three months let them take part, and carry that context into the next step.</li>
+          <li><b>Credit for the real work.</b> The amount you choose sits on top of the membership. It spends on any service or upgrade, from a checkup to something that makes the car more theirs.</li>
+          <li><b>A network, not a blank search.</b> EV mechanics, alignment shops, electricians, and aftermarket specialists are already gathered here. They still choose the shop and the visit. The gift does not book it for them.</li>
         </ol>
-        <p className="gift-offer-limit">They choose the service or upgrade when they are ready. The card does not book the visit for them.</p>
+        <p className="gift-offer-limit">Hand them a head start. The membership opens the network. The credit is waiting when the car needs something real.</p>
         <CatalogTeaser compact title="The credit can go to things like" />
       </div>
       <div className="gift-offer-aside">
         <form className="gift-offer-form" onSubmit={buy}>
-          <h2>Choose the amount</h2>
-          <p>The membership is the part that keeps their questions and history together. The amount below is extra credit for the work.</p>
+          <h2>Put money on the gift</h2>
+          <p>Three months of membership are already included. The amount below is extra credit for service or an upgrade, whenever they are ready.</p>
           <div className="gift-amount-stepper">
             <button type="button" aria-label="Decrease gift amount by 100 dollars" onClick={() => changeAmount(-1)} disabled={creditCents <= giftCreditMinimumCents}>−</button>
             <strong>{money(creditCents)}</strong>
@@ -89,7 +89,7 @@ export default function BlackFridayPage() {
           <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>
-        <p className="gift-offer-preview">Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p>
+        <p className="gift-offer-preview">Three months in the network, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p>
       </div>
     </div></section>
   </main>;
