@@ -82,7 +82,7 @@ export default function BlackFridayPage() {
           <li>The answer, the upgrade, the tutorial</li>
           <li>Parts from the best vendors, in one place</li>
           <li>Owners and experts in one place</li>
-          <li>A history of the car</li>
+          <li>An issue and service history of your car</li>
           <li>A nearby service provider</li>
         </ul>
       </article>
