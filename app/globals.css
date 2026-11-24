@@ -1491,11 +1491,16 @@ footer button {
 .gift-compare-close { border-color: var(--orange); background: var(--surface); }
 .gift-compare-close .eyebrow, .gift-compare-close h2 { color: var(--orange); }
 @media (max-width: 800px) {
-  .gift-compare.wrap { width: 100%; max-width: none; padding-left: 10px; padding-right: 10px; gap: 4px; }
-  .gift-compare article { padding: 6px 4px; }
-  .gift-compare h2 { margin-bottom: 4px; font-size: 12px; }
-  .gift-compare ul, .gift-compare .eyebrow { font-size: 10px; line-height: 1.2; }
+  .gift-compare.wrap { width: 100%; max-width: none; padding-left: 10px; padding-right: 10px; gap: 6px; }
+  .gift-compare article { padding: 8px 6px; }
+  .gift-compare h2 { margin-bottom: 6px; font-size: 14px; }
+  .gift-compare ul, .gift-compare .eyebrow { font-size: 12px; line-height: 1.25; }
 }
+.catalog-teaser.is-dense { padding-top: 0; }
+.catalog-teaser.is-dense h2 { margin-bottom: 6px; font-size: 13px; }
+.catalog-teaser.is-dense .catalog-teaser-card { flex-basis: 116px; min-height: 0; padding: 8px; }
+.catalog-teaser.is-dense .catalog-teaser-card h3,
+.catalog-teaser.is-dense .catalog-teaser-card strong { font-size: 12px; line-height: 1.2; }
 .gift-offer-hero .gift-tour-frame { min-height: 0; height: 100%; padding: 10px; overflow: hidden; }
 .gift-offer-hero .gift-tour-shot { display: flex; flex-direction: column; min-height: 0; }
 .gift-offer-hero .gift-tour-track { height: 100%; }

@@ -69,20 +69,18 @@ export default function BlackFridayPage() {
         <p className="eyebrow">The usual way</p>
         <h2>The hunt.</h2>
         <ul>
-          <li>Facebook, YouTube, parts sites, eBay</li>
-          <li>Shops that do not touch EVs</li>
-          <li>Dealer or a far service center</li>
-          <li>A long wait</li>
+          <li>Forums and parts sites</li>
+          <li>Shops that will not help</li>
+          <li>Dealer, far away, long wait</li>
         </ul>
       </article>
       <article>
         <p className="eyebrow">Amped Up</p>
         <h2>One stop.</h2>
         <ul>
-          <li>The answer, the upgrade, the tutorial</li>
-          <li>Parts from the best vendors, in one place</li>
-          <li>Owners and experts in one place</li>
-          <li>An issue and service history of your car</li>
+          <li>Answer, upgrade, tutorial</li>
+          <li>Best vendors, one place</li>
+          <li>Issue and service history</li>
           <li>A nearby service provider</li>
         </ul>
       </article>
@@ -90,14 +88,14 @@ export default function BlackFridayPage() {
         <p className="eyebrow">The gift</p>
         <h2>Access and credit.</h2>
         <ul>
-          <li>{giftMembershipDays} days of network access, normally {money(giftMembershipValueCents)}</li>
-          <li>Credit for any service or upgrade, in the amount you choose</li>
-          <li>One gift. The hunt stops here.</li>
+          <li>{giftMembershipDays} days of access</li>
+          <li>Credit for any service or upgrade</li>
+          <li>The amount you choose</li>
         </ul>
       </article>
     </div>
     <div className="wrap gift-offer-layout">
-      <CatalogTeaser compact title="The credit can go to things like" />
+      <CatalogTeaser compact dense title="The credit can go to things like" />
     </div>
     <a className="hero-scroll-cue" href="#gift-form" aria-label="Continue to the gift form">
       <svg viewBox="0 0 44 30" aria-hidden="true">
