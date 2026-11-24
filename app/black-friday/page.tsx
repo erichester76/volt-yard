@@ -55,8 +55,28 @@ export default function BlackFridayPage() {
         <p className="gift-offer-certainty">Certainty.</p>
         <p className="intro">One place for the answer, the part, and a mechanic who will take the car.</p>
       </div>
-      <div className="gift-offer-aside">
-        <form className="gift-offer-form" onSubmit={buy}>
+    </div>
+    <div className="gift-tour">
+      <div className="gift-tour-track">
+        {[0, 1].map((copy) => [
+          ["The hunt.", "The usual way", ["Facebook group: still no answer", "YouTube: three conflicting videos", "Parts sites and eBay", "Shop: we do not touch EVs", "Dealer: far away, long wait"]],
+          ["One stop.", "Amped Up", ["The answer", "The part", "A mechanic who will take the car"], "Certainty."],
+          ["Not a forum login.", "Network access", ["Ask owners and experts", "Keep a history of the car", `Normally ${money(giftMembershipValueCents)}`], `${giftMembershipDays} days included`],
+          ["More options.", "When they want a bay", ["Nearby partner", "Not only the dealer", "Not a distant service center", "They choose. We do not book it."]],
+          ["For whatever they need.", "The credit", ["any service or upgrade in the catalog", "Or a partner visit", "On top of the access"]],
+        ].map(([title, eyebrow, lines, headline]) => <article className="gift-tour-shot" key={`${copy}-${title}`} aria-hidden={copy === 1 || undefined}>
+          <div className="gift-tour-frame">
+            <p className="eyebrow">{eyebrow}</p>
+            {headline && <strong>{headline}</strong>}
+            <ul>{(lines as string[]).map((line) => <li key={line}>{line}</li>)}</ul>
+          </div>
+          <h2>{title}</h2>
+        </article>))}
+      </div>
+    </div>
+    <div className="wrap gift-offer-layout">
+      <CatalogTeaser compact title="The credit can go to things like" />
+      <form className="gift-offer-form" onSubmit={buy}>
           <h2>Choose the credit</h2>
           <p>Three months of Amped Up Network access are already included. Choose how much credit to set aside for a catalog service, an upgrade, or a partner visit.</p>
           <div className="gift-amount-stepper">
@@ -84,28 +104,6 @@ export default function BlackFridayPage() {
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>
         <p className="gift-offer-preview"><Link href="/gift-landing/example">Click here to see what they will get when they open the link.</Link></p>
-      </div>
     </div></section>
-    <section className="gift-offer-more" aria-label="What the gift replaces">
-      <div className="gift-tour">
-        <div className="gift-tour-track">
-          {[0, 1].map((copy) => [
-            ["The hunt.", "The usual way", ["Facebook group: still no answer", "YouTube: three conflicting videos", "Parts sites and eBay", "Shop: we do not touch EVs", "Dealer: far away, long wait"]],
-            ["One stop.", "Amped Up", ["The answer", "The part", "A mechanic who will take the car"], "Certainty."],
-            ["Not a forum login.", "Network access", ["Ask owners and experts", "Keep a history of the car", `Normally ${money(giftMembershipValueCents)}`], `${giftMembershipDays} days included`],
-            ["More options.", "When they want a bay", ["Nearby partner", "Not only the dealer", "Not a distant service center", "They choose. We do not book it."]],
-            ["For whatever they need.", "The credit", ["any service or upgrade in the catalog", "Or a partner visit", "On top of the access"]],
-          ].map(([title, eyebrow, lines, headline]) => <article className="gift-tour-shot" key={`${copy}-${title}`} aria-hidden={copy === 1 || undefined}>
-            <div className="gift-tour-frame">
-              <p className="eyebrow">{eyebrow}</p>
-              {headline && <strong>{headline}</strong>}
-              <ul>{(lines as string[]).map((line) => <li key={line}>{line}</li>)}</ul>
-            </div>
-            <h2>{title}</h2>
-          </article>))}
-        </div>
-      </div>
-      <div className="wrap"><CatalogTeaser compact title="The credit can go to things like" /></div>
-    </section>
   </main>;
 }
