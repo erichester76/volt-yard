@@ -79,9 +79,9 @@ The current cart UI does not send the required `Idempotency-Key`, so this journe
 ### Buy A Black Friday Gift Card
 
 1. An ad sends the buyer to `/black-friday`. The existing home page is unchanged, and the buyer does not create an account. The buyer always enters the recipient email. The private link only claims for an account with that email.
-2. Stripe collects payment. A verified webhook asks Shopify to issue the gift card. The buyer can hold the private link or choose a date for it to be emailed. It is not sent to the recipient at purchase.
+2. Stripe collects payment. A verified webhook marks the gift paid and emails the private link, or holds it for the buyer. It is not sent to the recipient at purchase.
 3. The recipient opens `/gift-landing/[token]`. That private link is the gift landing, not a page after signup. Buyers can preview the same page at `/gift-landing/example`.
-4. Claiming starts 90 days of membership and attaches the Shopify gift card as store credit. Checkout can debit that credit toward any catalog service or upgrade. It does not book service or review a vehicle.
+4. Claiming starts 90 days of membership and puts the credit on the recipient account. Checkout subtracts that balance toward any catalog service or upgrade, then charges Stripe for the rest. It does not book service or review a vehicle.
 
 ## Design System
 
