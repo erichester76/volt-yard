@@ -22,6 +22,7 @@ test("EVOffer top sellers land in the upgrades catalog without an installer payo
     assert.match(sql, new RegExp(slug));
   }
   assert.match(sql, /slug = 'upgrades'/);
-  assert.match(sql, /installer_payout_cents,\s*\n\s*0,/);
+  assert.match(sql, /installer_payout_cents/);
+  assert.match(sql, /item\.price_cents,\n\s*0,/);
   assert.doesNotMatch(sql, /https:\/\/evoffer\.com\/wp-content/);
 });
