@@ -1490,7 +1490,12 @@ footer button {
 .gift-compare li { padding-top: 4px; border-top: 1px solid var(--line); }
 .gift-compare-close { border-color: var(--orange); background: var(--surface); }
 .gift-compare-close .eyebrow, .gift-compare-close h2 { color: var(--orange); }
-@media (max-width: 800px) { .gift-compare { grid-template-columns: 1fr; width: min(680px, calc(100% - 40px)); } }
+@media (max-width: 800px) {
+  .gift-compare { grid-template-columns: repeat(3, minmax(0, 1fr)); width: calc(100% - 24px); gap: 6px; }
+  .gift-compare article { padding: 6px; }
+  .gift-compare h2 { font-size: 13px; }
+  .gift-compare ul, .gift-compare .eyebrow { font-size: 11px; }
+}
 .gift-offer-hero .gift-tour-frame { min-height: 0; height: 100%; padding: 10px; overflow: hidden; }
 .gift-offer-hero .gift-tour-shot { display: flex; flex-direction: column; min-height: 0; }
 .gift-offer-hero .gift-tour-track { height: 100%; }
