@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
   const today = new Date().toISOString().slice(0, 10);
   const latest = new Date(Date.now() + 400 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const scheduled = delivery === "scheduled";
-  if (!key || !delivery || !isGiftCreditAmount(creditCents) || !emailPattern.test(email) || email.length > 320) return NextResponse.json({ error: "Enter an email and choose a credit amount." }, { status: 400 });
-  if (scheduled && (!emailPattern.test(recipientEmail) || !/^\d{4}-\d{2}-\d{2}$/.test(sendOn) || sendOn < today || sendOn > latest)) return NextResponse.json({ error: "Choose a recipient email and a future delivery date." }, { status: 400 });
+  if (!key || !delivery || !isGiftCreditAmount(creditCents) || !emailPattern.test(email) || email.length > 320 || !emailPattern.test(recipientEmail) || recipientEmail.length > 320) return NextResponse.json({ error: "Enter both emails and choose a credit amount." }, { status: 400 });
+  if (scheduled && (!/^\d{4}-\d{2}-\d{2}$/.test(sendOn) || sendOn < today || sendOn > latest)) return NextResponse.json({ error: "Choose a future delivery date." }, { status: 400 });
 
   const admin = createAdminSupabaseClient();
   const existing = await admin.from("gift_cards").select("id,stripe_checkout_session_id").eq("idempotency_key", key).maybeSingle();
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       remaining_cents: creditCents,
       purchaser_email: email,
       delivery_mode: delivery,
-      recipient_email: scheduled ? recipientEmail : null,
+      recipient_email: recipientEmail,
       send_on: scheduled ? sendOn : null,
       delivery_token: token,
       idempotency_key: key,

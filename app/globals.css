@@ -81,6 +81,7 @@ body {
 .site-nav { min-height: 72px; display: flex; align-items: center; gap: 34px; }
 .consumer-nav { display: flex; gap: 24px; align-items: center; flex: 1; }
 .consumer-nav a, .site-actions a { color: var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; }
+.consumer-nav .nav-campaign { padding: 8px 12px; background: var(--header-accent-background); color: var(--header-accent-foreground); }
 .mobile-account-nav { display: none; }
 .site-actions { display: flex; align-items: center; gap: 12px; }
 .locale-switcher select { min-width: 48px; border: 0; background: var(--surface); color: var(--ink); font: 600 12px "DM Sans"; padding: 7px 4px; }
@@ -1508,6 +1509,9 @@ footer button {
 .gift-delivery-choices input { position: absolute; opacity: 0; }
 .gift-delivery-choices .is-selected { border-color: var(--orange); box-shadow: inset 0 0 0 1px var(--orange); }
 .gift-offer-form button { width: 100%; }
+.gift-offer-aside { display: grid; gap: 14px; }
+.gift-offer-preview { margin: 0; color: var(--acid-ink); line-height: 1.45; }
+.gift-offer-preview a { color: var(--acid-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .gift-offer-note { padding: 28px 0 40px; }
 .gift-offer-note p { margin: 0; color: var(--muted); }
 .gift-offer-note a { color: var(--ink); font-weight: 700; }

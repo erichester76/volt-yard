@@ -6,7 +6,7 @@ import { requestAccount } from "@/lib/account-gate";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { GiftLandingView } from "../gift-landing-view";
 
-type GiftPreview = { name: string; amountCents: number; status: string };
+type GiftPreview = { name: string; amountCents: number; status: string; recipientEmail?: string };
 
 export default function GiftLandingPage() {
   const { token } = useParams<{ token: string }>();
@@ -34,7 +34,7 @@ export default function GiftLandingPage() {
 
   async function claim() {
     if (!signedIn) {
-      requestAccount("sign-up", window.location.pathname);
+      requestAccount("sign-up", window.location.pathname, gift?.recipientEmail);
       return;
     }
     setClaiming(true);
@@ -42,7 +42,7 @@ export default function GiftLandingPage() {
     try {
       const db = createBrowserSupabaseClient();
       const { data: session } = await db.auth.getSession();
-      if (!session.session) return requestAccount("sign-up", window.location.pathname);
+      if (!session.session) return requestAccount("sign-up", window.location.pathname, gift?.recipientEmail);
       const response = await fetch("/api/gift-cards/redeem", {
         method: "POST",
         headers: { "content-type": "application/json", authorization: `Bearer ${session.session.access_token}` },
@@ -58,5 +58,5 @@ export default function GiftLandingPage() {
   }
 
   const amount = gift ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(gift.amountCents / 100) : "";
-  return <GiftLandingView amountLabel={amount} message={message} claimed={claimed} claiming={claiming} onClaim={claim} />;
+  return <GiftLandingView amountLabel={amount} message={message} claimed={claimed} claiming={claiming} recipientEmail={gift?.recipientEmail} onClaim={claim} />;
 }

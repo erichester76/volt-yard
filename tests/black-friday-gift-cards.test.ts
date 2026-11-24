@@ -23,6 +23,11 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   assert.match(owner, /first day or your fifth year/);
   assert.match(owner, /entry to the Amped Up Network/);
   assert.match(landing, /See the gift/);
+  assert.match(read("app/site-chrome.tsx"), /href=\{localHref\("\/black-friday"\)\}/);
+  assert.match(landing, /Their email/);
+  assert.doesNotMatch(landing, /delivery === "scheduled" && <div className="gift-schedule-fields">/);
+  assert.match(read("app/api/gift-cards/checkout/route.ts"), /recipient_email: recipientEmail/);
+  assert.match(read("app/api/gift-cards/redeem/route.ts"), /accountEmail !== data\.recipient_email/);
   assert.doesNotMatch(owner, /private link|create their own account/i);
   assert.doesNotMatch(landing, /See what they will open/);
   assert.doesNotMatch(owner, /href="\/black-friday"/);

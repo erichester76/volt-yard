@@ -74,36 +74,36 @@ export default function BlackFridayPage() {
         {examples.length > 0 && <div className="gift-store-examples"><p>A few things the credit can go toward:</p><ul>{examples.map((item) => <li key={item.id}><span>{item.name}</span><b>{money(item.price_cents)}</b></li>)}</ul></div>}
         <p className="gift-offer-limit">They choose the service or upgrade when they are ready. The card does not book the visit for them.</p>
       </div>
-      <form className="gift-offer-form" onSubmit={buy}>
-        <h2>Choose the amount</h2>
-        <p>The membership is the part that keeps their questions and history together. The amount below is extra credit for the work.</p>
-        <div className="gift-amount-stepper">
-          <button type="button" aria-label="Decrease gift amount by 100 dollars" onClick={() => changeAmount(-1)} disabled={creditCents <= giftCreditMinimumCents}>−</button>
-          <strong>{money(creditCents)}</strong>
-          <button type="button" aria-label="Increase gift amount by 100 dollars" onClick={() => changeAmount(1)} disabled={creditCents >= giftCreditMaximumCents}>+</button>
-        </div>
-        <div className="gift-delivery-choices">
-          <label className={delivery === "buyer" ? "is-selected" : undefined}>
-            <input type="radio" name="delivery" checked={delivery === "buyer"} onChange={() => setDelivery("buyer")} />
-            <strong>I will give it myself</strong>
-            <span>Email me the private link. It is not sent to the recipient at checkout.</span>
-          </label>
-          <label className={delivery === "scheduled" ? "is-selected" : undefined}>
-            <input type="radio" name="delivery" checked={delivery === "scheduled"} onChange={() => setDelivery("scheduled")} />
-            <strong>Send the gift link on a date</strong>
-            <span>Perfect for Christmas morning, or any day you choose.</span>
-          </label>
-        </div>
-        <label>Your email<input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /></label>
-        {delivery === "scheduled" && <div className="gift-schedule-fields">
-          <label>Recipient email<input required type="email" value={recipientEmail} onChange={(event) => setRecipientEmail(event.target.value)} placeholder="recipient@example.com" /></label>
-          <label>Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} /></label>
-        </div>}
-        <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for any service or upgrade.</p>
-        <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
-        {message && <p className="form-message" role="alert">{message}</p>}
-      </form>
+      <div className="gift-offer-aside">
+        <form className="gift-offer-form" onSubmit={buy}>
+          <h2>Choose the amount</h2>
+          <p>The membership is the part that keeps their questions and history together. The amount below is extra credit for the work.</p>
+          <div className="gift-amount-stepper">
+            <button type="button" aria-label="Decrease gift amount by 100 dollars" onClick={() => changeAmount(-1)} disabled={creditCents <= giftCreditMinimumCents}>−</button>
+            <strong>{money(creditCents)}</strong>
+            <button type="button" aria-label="Increase gift amount by 100 dollars" onClick={() => changeAmount(1)} disabled={creditCents >= giftCreditMaximumCents}>+</button>
+          </div>
+          <label>Their email<input required type="email" autoComplete="off" value={recipientEmail} onChange={(event) => setRecipientEmail(event.target.value)} placeholder="recipient@example.com" /></label>
+          <label>Your email<input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" /></label>
+          <div className="gift-delivery-choices">
+            <label className={delivery === "buyer" ? "is-selected" : undefined}>
+              <input type="radio" name="delivery" checked={delivery === "buyer"} onChange={() => setDelivery("buyer")} />
+              <strong>I will give it myself</strong>
+              <span>Email me the private link. It is not sent to the recipient at checkout.</span>
+            </label>
+            <label className={delivery === "scheduled" ? "is-selected" : undefined}>
+              <input type="radio" name="delivery" checked={delivery === "scheduled"} onChange={() => setDelivery("scheduled")} />
+              <strong>Send the gift link on a date</strong>
+              <span>Perfect for Christmas morning, or any day you choose.</span>
+            </label>
+          </div>
+          {delivery === "scheduled" && <label>Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} /></label>}
+          <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for any service or upgrade.</p>
+          <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
+          {message && <p className="form-message" role="alert">{message}</p>}
+        </form>
+        <p className="gift-offer-preview">Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p>
+      </div>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p></div></section>
   </main>;
 }

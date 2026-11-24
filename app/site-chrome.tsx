@@ -121,8 +121,8 @@ export default function SiteChrome({
       void loadAccount(session?.user ?? null);
     });
     const openRequestedAuth = (event: Event) => {
-      const detail = (event as CustomEvent<{ mode?: AuthMode; returnTo?: string }>).detail;
-      openAuth(detail?.mode ?? "sign-in", detail?.returnTo);
+      const detail = (event as CustomEvent<{ mode?: AuthMode; returnTo?: string; email?: string }>).detail;
+      openAuth(detail?.mode ?? "sign-in", detail?.returnTo, detail?.email);
     };
     window.addEventListener("volt-yard-open-auth", openRequestedAuth);
     const reloadAccount = () => {
@@ -137,8 +137,9 @@ export default function SiteChrome({
     };
   }, []);
 
-  function openAuth(mode: AuthMode = "sign-in", nextReturnTo?: string) {
+  function openAuth(mode: AuthMode = "sign-in", nextReturnTo?: string, nextEmail?: string) {
     setAuthMode(mode);
+    if (nextEmail) setEmail(nextEmail);
     setReturnTo(safeReturnTo(nextReturnTo) ?? null);
     setMessage("");
     setMessageTone("error");
@@ -301,6 +302,13 @@ export default function SiteChrome({
               onClick={() => setMenuOpen(false)}
             >
               {t("chrome.nav.community", "Community")}
+            </Link>
+            <Link
+              className="nav-campaign"
+              href={localHref("/black-friday")}
+              onClick={() => setMenuOpen(false)}
+            >
+              Black Friday
             </Link>
             {account && (
               <div className="mobile-account-nav">

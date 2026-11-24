@@ -18,9 +18,11 @@ export async function POST(request: NextRequest) {
   const admin = createAdminSupabaseClient();
   const { data: userData, error: userError } = await admin.auth.getUser(tokenHeader);
   if (userError || !userData.user) return NextResponse.json({ error: "Your session has expired." }, { status: 401 });
-  const { data, error } = await admin.from("gift_cards").select("id,offer,amount_cents,remaining_cents,status,shopify_last4,claimed_by").eq("delivery_token", token).maybeSingle();
+  const { data, error } = await admin.from("gift_cards").select("id,offer,amount_cents,remaining_cents,status,shopify_last4,claimed_by,recipient_email").eq("delivery_token", token).maybeSingle();
   if (error || !data || data.offer !== "store-credit" || data.status === "pending_payment") return NextResponse.json({ error: "This gift is not ready." }, { status: 404 });
   if (data.claimed_by && data.claimed_by !== userData.user.id) return NextResponse.json({ error: "This gift has already been claimed." }, { status: 409 });
+  const accountEmail = userData.user.email?.trim().toLowerCase() ?? "";
+  if (!data.recipient_email || accountEmail !== data.recipient_email.trim().toLowerCase()) return NextResponse.json({ error: "Sign in with the email this gift was bought for." }, { status: 403 });
 
   if (!data.claimed_by) {
     const claimed = await admin.from("gift_cards").update({ claimed_by: userData.user.id, claimed_at: new Date().toISOString(), status: "claimed" }).eq("id", data.id).is("claimed_by", null).select("id").maybeSingle();

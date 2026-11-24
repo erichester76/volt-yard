@@ -9,14 +9,14 @@ create table public.gift_cards (
   currency text not null default 'usd' check (currency = 'usd'),
   purchaser_email text not null check (char_length(purchaser_email) between 3 and 320),
   delivery_mode text not null default 'buyer' check (delivery_mode in ('buyer', 'scheduled')),
-  recipient_email text check (recipient_email is null or char_length(recipient_email) between 3 and 320),
+  recipient_email text not null check (char_length(recipient_email) between 3 and 320),
   send_on date,
   link_sent_at timestamptz,
   buyer_notified_at timestamptz,
   delivery_token text not null unique check (char_length(delivery_token) between 32 and 128),
   constraint gift_cards_delivery_check check (
-    (delivery_mode = 'buyer' and recipient_email is null and send_on is null)
-    or (delivery_mode = 'scheduled' and recipient_email is not null and send_on is not null)
+    (delivery_mode = 'buyer' and send_on is null)
+    or (delivery_mode = 'scheduled' and send_on is not null)
   ),
   status text not null default 'pending_payment' check (status in ('pending_payment', 'paid', 'claimed', 'applied', 'void')),
   stripe_checkout_session_id text unique,
