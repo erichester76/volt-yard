@@ -51,7 +51,7 @@ export default function BlackFridayPage() {
     <section className="gift-offer-hero"><div className="wrap gift-offer-layout">
       <div>
         <p className="eyebrow">Black Friday</p>
-        <h1 className="heading-primary">The best gift you can give an EV owner. <span className="gift-offer-certainty">Certainty.</span></h1>
+        <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty">Certainty.</span></h1>
         <p className="intro">One place for the answer, the part, and a mechanic who will take the car.</p>
       </div>
     </div>
@@ -75,13 +75,16 @@ export default function BlackFridayPage() {
     </div>
     <div className="wrap gift-offer-layout">
       <CatalogTeaser compact title="The credit can go to things like" />
-      <a className="hero-scroll-cue" href="#gift-form" aria-label="Continue to the gift form">
-        <svg viewBox="0 0 44 30" aria-hidden="true">
-          <path className="hero-scroll-chevron-orange" d="M2 2l20 7 20-7" />
-          <path className="hero-scroll-chevron-gold" d="M2 11l20 7 20-7" />
-          <path className="hero-scroll-chevron-yellow" d="M2 20l20 7 20-7" />
-        </svg>
-      </a>
+    </div>
+    <a className="hero-scroll-cue" href="#gift-form" aria-label="Continue to the gift form">
+      <svg viewBox="0 0 44 30" aria-hidden="true">
+        <path className="hero-scroll-chevron-orange" d="M2 2l20 7 20-7" />
+        <path className="hero-scroll-chevron-gold" d="M2 11l20 7 20-7" />
+        <path className="hero-scroll-chevron-yellow" d="M2 20l20 7 20-7" />
+      </svg>
+    </a>
+    </section>
+    <section className="gift-offer-buy"><div className="wrap gift-offer-layout">
       <form className="gift-offer-form" id="gift-form" onSubmit={buy}>
           <h2>Choose the credit</h2>
           <p>Three months of Amped Up Network access are already included. Choose how much credit to set aside for a catalog service, an upgrade, or a partner visit.</p>
