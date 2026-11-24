@@ -64,7 +64,7 @@ export default function BlackFridayPage() {
     <section className="gift-offer-hero"><div className="wrap gift-offer-layout">
       <div>
         <p className="eyebrow">A gift they will actually use</p>
-        <h1 className="heading-primary">Give someone a calmer first year with their EV.</h1>
+        <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
         <p className="intro">A good gift is not another gadget. It is someone to call, a place to ask, and money already set aside for the work. This card includes {giftMembershipDays} days of membership and credit for any service or upgrade. You do not need an account to buy it.</p>
         <ol className="gift-offer-story">
           <li><b>{giftMembershipDays} days of membership, included.</b> Member access is normally $9 a month. For this month they can keep a case history and join the conversation: ask, reply, and vote, not just read.</li>
