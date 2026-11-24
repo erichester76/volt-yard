@@ -6,14 +6,15 @@ const root = new URL("../", import.meta.url);
 const read = (path: string) => readFileSync(new URL(path, root), "utf8");
 
 test("Black Friday and new-owner landings stay public and do not replace home", () => {
-  for (const path of ["app/black-friday/page.tsx", "app/[locale]/black-friday/page.tsx", "app/gift-landing/[token]/page.tsx", "app/[locale]/gift-landing/[token]/page.tsx", "app/gift/[token]/page.tsx"]) {
+  for (const path of ["app/black-friday/page.tsx", "app/[locale]/black-friday/page.tsx", "app/gift-landing/[token]/page.tsx", "app/gift-landing/example/page.tsx", "app/[locale]/gift-landing/[token]/page.tsx", "app/gift/[token]/page.tsx"]) {
     assert.equal(existsSync(new URL(path, root)), true, path);
   }
   const home = read("app/page.tsx");
   const landing = read("app/black-friday/page.tsx");
-  const owner = read("app/gift-landing/[token]/page.tsx");
+  const owner = read("app/gift-landing/gift-landing-view.tsx");
   assert.doesNotMatch(home, /\/black-friday/);
-  assert.match(landing, /do not need an account/);
+  assert.doesNotMatch(landing, /do not need an account/);
+  assert.match(landing, /gift-landing\/example/);
   assert.match(landing, /Send the gift link on a date/);
   assert.match(landing, /2026-12-25/);
   assert.match(landing, /not sent to the recipient at checkout/);
@@ -35,4 +36,6 @@ test("gift purchase does not require a buyer account and does not log Shopify ca
   assert.doesNotMatch(shopify, /console\.(log|info|debug)/);
   assert.match(webhook, /purpose !== "shopify_gift_card"|giftCardWebhookUpdate/);
   assert.match(read("supabase/migrations/20261010000000_add_shopify_gift_cards.sql"), /revoke all on table public\.gift_cards from anon/);
+  assert.match(read("lib/gift-offers.ts"), /giftMembershipDays = 90/);
+  assert.match(read("lib/gift-offers.ts"), /giftMembershipValueCents = 2700/);
 });

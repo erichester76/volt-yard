@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     customer_email: email,
     client_reference_id: created.data.id,
     metadata: { purpose: "shopify_gift_card", gift_card_id: created.data.id, offer: "store-credit" },
-    line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: creditCents, product_data: { name: giftOfferName, description: "Store credit for any Amped Up service or upgrade, plus 30 days of membership for the recipient. No buyer account is required." } } }],
+    line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: creditCents, product_data: { name: giftOfferName, description: "Store credit for any Amped Up service or upgrade, plus 90 days of membership for the recipient. No buyer account is required." } } }],
     success_url: `${appOrigin}/black-friday/sent?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${appOrigin}/black-friday`,
   }, { idempotencyKey: key });

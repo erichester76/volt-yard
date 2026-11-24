@@ -6,7 +6,7 @@ Amped Up Network sells active catalog services and upgrades through Stripe Check
 
 This is managed fulfillment, not a marketplace fee flow. Partner payouts are recorded manually and are not sent with Stripe Connect.
 
-Black Friday gift cards are a separate flow. Every card includes 30 days of membership and a chosen amount of store credit for any catalog service or upgrade. The buyer pays through a guest Stripe Checkout session. Shopify issues and holds the credit. Gift purchases do not create installer jobs.
+Black Friday gift cards are a separate flow. Every card includes 90 days of membership, valued at three months of the $9 Member tier, and a chosen amount of store credit for any catalog service or upgrade. The buyer pays through a guest Stripe Checkout session. Shopify issues and holds the credit. Gift purchases do not create installer jobs.
 
 ## Setup
 

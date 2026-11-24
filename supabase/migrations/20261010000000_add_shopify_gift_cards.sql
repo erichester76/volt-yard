@@ -5,7 +5,7 @@ create table public.gift_cards (
   offer text not null default 'store-credit' check (offer = 'store-credit'),
   amount_cents integer not null check (amount_cents between 10000 and 100000 and amount_cents % 10000 = 0),
   remaining_cents integer not null check (remaining_cents between 0 and 100000),
-  membership_days integer not null default 30 check (membership_days = 30),
+  membership_days integer not null default 90 check (membership_days = 90),
   currency text not null default 'usd' check (currency = 'usd'),
   purchaser_email text not null check (char_length(purchaser_email) between 3 and 320),
   delivery_mode text not null default 'buyer' check (delivery_mode in ('buyer', 'scheduled')),

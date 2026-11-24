@@ -1,4 +1,5 @@
-export const giftMembershipDays = 30;
+export const giftMembershipDays = 90;
+export const giftMembershipValueCents = 2700;
 
 export const giftCreditStepCents = 10000;
 export const giftCreditMinimumCents = 10000;

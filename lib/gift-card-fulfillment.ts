@@ -55,7 +55,7 @@ export async function issueAndEmailGiftCard(admin: SupabaseClient, gift: GiftCar
     await sendGiftDeliveryEmail({
       to: gift.recipient_email,
       shareUrl: giftShareUrl(origin, gift.delivery_token),
-      offerName: `${giftOfferName} with 30 days of membership`,
+      offerName: `${giftOfferName} with 90 days of membership`,
       amountCents: gift.amount_cents,
     });
     const { error: sentError } = await admin.from("gift_cards").update({ link_sent_at: new Date().toISOString() }).eq("id", gift.id);
@@ -64,7 +64,7 @@ export async function issueAndEmailGiftCard(admin: SupabaseClient, gift: GiftCar
     await sendGiftDeliveryEmail({
       to: gift.purchaser_email,
       shareUrl: giftShareUrl(origin, gift.delivery_token),
-      offerName: `${giftOfferName} with 30 days of membership`,
+      offerName: `${giftOfferName} with 90 days of membership`,
       amountCents: gift.amount_cents,
       heldByBuyer: true,
     });

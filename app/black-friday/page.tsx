@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "@/app/locale-link";
 import { FormEvent, useEffect, useState } from "react";
-import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays } from "@/lib/gift-offers";
+import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays, giftMembershipValueCents } from "@/lib/gift-offers";
 import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/app/page-primitives";
 
@@ -64,9 +65,9 @@ export default function BlackFridayPage() {
       <div>
         <p className="eyebrow">A gift they will actually use</p>
         <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
-        <p className="intro">A good gift is not another gadget. It is someone to call, a place to ask, and money already set aside for the work. This card includes {giftMembershipDays} days of membership and credit for any service or upgrade. You do not need an account to buy it.</p>
+        <p className="intro">A good gift is not another gadget. It is someone to call, a place to ask, and money already set aside for the work. This card includes {giftMembershipDays} days of membership and credit for any service or upgrade.</p>
         <ol className="gift-offer-story">
-          <li><b>{giftMembershipDays} days of membership, included.</b> Member access is normally $9 a month. For this month they can keep a case history and join the conversation: ask, reply, and vote, not just read.</li>
+          <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. They can keep a case history and join the conversation: ask, reply, and vote, not just read.</li>
           <li><b>Credit on top of that.</b> The amount you choose is separate. It spends on any service or upgrade, from a checkup to something that makes the car more theirs.</li>
           <li><b>A softer landing.</b> Independent EV mechanics, alignment shops, electricians, and aftermarket specialists are gathered here, so they are not starting from a blank search.</li>
         </ol>
@@ -98,11 +99,11 @@ export default function BlackFridayPage() {
           <label>Recipient email<input required type="email" value={recipientEmail} onChange={(event) => setRecipientEmail(event.target.value)} placeholder="recipient@example.com" /></label>
           <label>Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} /></label>
         </div>}
-        <p className="gift-offer-summary">They get a ${9} month of membership, plus {money(creditCents)} for any service or upgrade.</p>
+        <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for any service or upgrade.</p>
         <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
         {message && <p className="form-message" role="alert">{message}</p>}
       </form>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>They open the link when they are ready, make the account theirs, and start with 30 days of membership plus credit for any service or upgrade.</p></div></section>
+    <section className="gift-offer-note"><div className="wrap"><p>They open the link when they are ready, make the account theirs, and start with {giftMembershipDays} days of membership plus credit for any service or upgrade. <Link href="/gift-landing/example">See what they will open.</Link></p></div></section>
   </main>;
 }
