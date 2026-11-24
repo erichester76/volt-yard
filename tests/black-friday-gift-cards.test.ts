@@ -25,6 +25,10 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   assert.match(owner, /You just got in/);
   assert.match(owner, /A home for the car/);
   assert.match(landing, /See the gift/);
+  assert.match(landing, /CatalogTeaser/);
+  assert.match(read("app/gift-landing/gift-landing-view.tsx"), /CatalogTeaser/);
+  assert.match(read("app/catalog-teaser.tsx"), /product=\$\{encodeURIComponent\(item\.slug\)\}/);
+  assert.match(read("app/catalog/page.tsx"), /searchParams\.get\("product"\)/);
   assert.match(read("app/site-chrome.tsx"), /href=\{localHref\("\/black-friday"\)\}/);
   assert.match(landing, /Their email/);
   assert.doesNotMatch(landing, /delivery === "scheduled" && <div className="gift-schedule-fields">/);

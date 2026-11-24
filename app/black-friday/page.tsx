@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
+import { CatalogTeaser } from "@/app/catalog-teaser";
 import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays, giftMembershipValueCents } from "@/lib/gift-offers";
-import { createBrowserSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import { Button } from "@/app/page-primitives";
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
@@ -11,24 +11,11 @@ const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "curren
 export default function BlackFridayPage() {
   const [email, setEmail] = useState("");
   const [creditCents, setCreditCents] = useState(20000);
-  type Example = { id: string; name: string; price_cents: number; category: { slug: string } | { slug: string }[] | null };
-  const [examples, setExamples] = useState<Example[]>([]);
   const [delivery, setDelivery] = useState<"buyer" | "scheduled">("buyer");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [sendOn, setSendOn] = useState("2026-12-25");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (!isSupabaseConfigured) return;
-    createBrowserSupabaseClient().from("catalog_products").select("id,name,price_cents,category:catalog_categories(slug)").eq("active", true).order("price_cents").limit(8).then(({ data }) => {
-      const products = (data ?? []) as Example[];
-      const slug = (product: (typeof products)[number]) => Array.isArray(product.category) ? product.category[0]?.slug : product.category?.slug;
-      const services = products.filter((product) => slug(product) === "services").slice(0, 2);
-      const upgrades = products.filter((product) => slug(product) !== "services").slice(0, 2);
-      setExamples([...services, ...upgrades].slice(0, 4));
-    });
-  }, []);
 
   function changeAmount(direction: -1 | 1) {
     setCreditCents((current) => Math.min(giftCreditMaximumCents, Math.max(giftCreditMinimumCents, current + direction * giftCreditStepCents)));
@@ -71,7 +58,6 @@ export default function BlackFridayPage() {
           <li><b>Credit on top of that.</b> The amount you choose is separate. It spends on any service or upgrade, from a checkup to something that makes the car more theirs.</li>
           <li><b>A softer landing.</b> Independent EV mechanics, alignment shops, electricians, and aftermarket specialists are gathered here, so they are not starting from a blank search.</li>
         </ol>
-        {examples.length > 0 && <div className="gift-store-examples"><p>A few things the credit can go toward:</p><ul>{examples.map((item) => <li key={item.id}><span>{item.name}</span><b>{money(item.price_cents)}</b></li>)}</ul></div>}
         <p className="gift-offer-limit">They choose the service or upgrade when they are ready. The card does not book the visit for them.</p>
       </div>
       <div className="gift-offer-aside">
@@ -97,7 +83,7 @@ export default function BlackFridayPage() {
               <span>Perfect for Christmas morning, or any day you choose.</span>
             </label>
           </div>
-          {delivery === "scheduled" && <label>Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} /></label>}
+          {delivery === "scheduled" && <label className="gift-date-field">Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} onClick={(event) => { try { event.currentTarget.showPicker(); } catch { /* The picker is already open. */ } }} /></label>}
           <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for any service or upgrade.</p>
           <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
           {message && <p className="form-message" role="alert">{message}</p>}
@@ -105,5 +91,6 @@ export default function BlackFridayPage() {
         <p className="gift-offer-preview">Three months of membership, plus credit for whatever the car needs next. <Link href="/gift-landing/example">See the gift.</Link></p>
       </div>
     </div></section>
+    <CatalogTeaser title="The credit can go toward work like this." intro="Open any of these to see the details." />
   </main>;
 }
