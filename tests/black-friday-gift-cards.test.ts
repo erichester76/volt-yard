@@ -22,6 +22,8 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   assert.match(landing, /giftMembershipDays/);
   assert.match(owner, /first day or your fifth year/);
   assert.match(owner, /entry to the Amped Up Network/);
+  assert.match(owner, /You just got in/);
+  assert.match(owner, /A home for the car/);
   assert.match(landing, /See the gift/);
   assert.match(read("app/site-chrome.tsx"), /href=\{localHref\("\/black-friday"\)\}/);
   assert.match(landing, /Their email/);

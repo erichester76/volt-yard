@@ -1530,6 +1530,10 @@ footer button {
 .purchase-research-grid h3 { margin: 0 0 14px; font-size: 25px; }
 .purchase-research-grid p { margin: 0; color: var(--muted); line-height: 1.55; }
 .purchase-research-grid a { margin-top: auto; padding-top: 24px; color: var(--ink); font-size: 13px; font-weight: 700; }
+.gift-landing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gift-landing-grid p, .gift-landing-email { color: var(--ink); }
+.gift-landing-email { margin-top: 14px; font-size: 13px; font-weight: 700; }
+.gift-landing-grid button { width: fit-content; margin-top: auto; }
 .purchase-research-close { padding: 68px 0 76px; background: var(--acid); color: var(--acid-ink); }
 .purchase-research-close .wrap { max-width: 820px; }
 .purchase-research-close h2 { max-width: 700px; margin: 0 0 18px; color: var(--acid-ink); font-size: clamp(30px, 3.4vw, 44px); }
