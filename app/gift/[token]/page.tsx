@@ -72,6 +72,6 @@ export default function GiftRecipientPage() {
         <article><h3>Make it yours</h3><p>{signedIn ? "Claiming starts your 30 days and keeps the credit ready for checkout." : "Create your own account when you want the gift in your name."}</p>{step >= 2 && <Button disabled={applying} onClick={() => redeem("claim")}>{applying ? "Opening your gift..." : "Claim my gift"}</Button>}</article>
       </div>}
     </div></section>
-    <section className="purchase-research-close"><div className="wrap"><h2>When you are ready for the next step</h2><p>Start with the basics, look at service, or just read what other owners wish they had known.</p><Link className="inline-cta" href="/new-ev-owner">Show me where to start</Link></div></section>
+    <section className="purchase-research-close"><div className="wrap"><h2>When you are ready for the next step</h2><p>Use it to sharpen a first year or a fifth. The credit and the membership are there either way.</p><Link className="inline-cta" href="/gift-landing">See how to use it</Link></div></section>
   </main>;
 }

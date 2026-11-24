@@ -6,12 +6,12 @@ const root = new URL("../", import.meta.url);
 const read = (path: string) => readFileSync(new URL(path, root), "utf8");
 
 test("Black Friday and new-owner landings stay public and do not replace home", () => {
-  for (const path of ["app/black-friday/page.tsx", "app/[locale]/black-friday/page.tsx", "app/new-ev-owner/page.tsx", "app/[locale]/new-ev-owner/page.tsx", "app/gift/[token]/page.tsx", "app/[locale]/gift/[token]/page.tsx"]) {
+  for (const path of ["app/black-friday/page.tsx", "app/[locale]/black-friday/page.tsx", "app/gift-landing/page.tsx", "app/[locale]/gift-landing/page.tsx", "app/gift/[token]/page.tsx", "app/[locale]/gift/[token]/page.tsx"]) {
     assert.equal(existsSync(new URL(path, root)), true, path);
   }
   const home = read("app/page.tsx");
   const landing = read("app/black-friday/page.tsx");
-  const owner = read("app/new-ev-owner/page.tsx");
+  const owner = read("app/gift-landing/page.tsx");
   assert.doesNotMatch(home, /\/black-friday/);
   assert.match(landing, /do not need an account/);
   assert.match(landing, /Send the gift link on a date/);
@@ -20,6 +20,7 @@ test("Black Friday and new-owner landings stay public and do not replace home", 
   assert.match(landing, /any service or upgrade/);
   assert.match(landing, /giftMembershipDays/);
   assert.match(owner, /not booking appointments or reviewing cars yet/);
+  assert.match(owner, /fifth year|year five|fifth/);
   assert.doesNotMatch(owner, /we will automatically match|book your appointment now|read our vehicle reviews/i);
 });
 

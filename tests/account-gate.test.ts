@@ -9,7 +9,7 @@ test("gates account workspaces and private cases while leaving discovery public"
   for (const path of ["/cart", "/checkout/success", "/profile", "/portal", "/expert-work", "/installer/work", "/admin", "/admin/catalog", "/fr/issues/case-1"]) {
     assert.equal(isGatedPath(path), true, `${path} is gated`);
   }
-  for (const path of ["/", "/de", "/issues", "/en/tutorials", "/fr/community/topic", "/services", "/upgrades", "/catalog", "/shops", "/shops/shop-1", "/membership", "/ev-purchase-research", "/fr/ev-purchase-research", "/partnership", "/fr/partnership", "/pricing", "/es/pricing", "/release-notes", "/journal", "/library/charging-basics", "/black-friday", "/es/black-friday", "/new-ev-owner", "/fr/new-ev-owner", "/gift/token", "/de/gift/token"]) {
+  for (const path of ["/", "/de", "/issues", "/en/tutorials", "/fr/community/topic", "/services", "/upgrades", "/catalog", "/shops", "/shops/shop-1", "/membership", "/ev-purchase-research", "/fr/ev-purchase-research", "/partnership", "/fr/partnership", "/pricing", "/es/pricing", "/release-notes", "/journal", "/library/charging-basics", "/black-friday", "/es/black-friday", "/gift-landing", "/fr/gift-landing", "/gift/token", "/de/gift/token"]) {
     assert.equal(isGatedPath(path), false, `${path} stays public`);
   }
 });

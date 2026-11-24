@@ -104,6 +104,6 @@ export default function BlackFridayPage() {
         {message && <p className="form-message" role="alert">{message}</p>}
       </form>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>They open the gift in their own time and make the account theirs. <Link href="/new-ev-owner">Peek at what they will see.</Link></p></div></section>
+    <section className="gift-offer-note"><div className="wrap"><p>They open the gift in their own time and make the account theirs. <Link href="/gift-landing">Peek at what they will see.</Link></p></div></section>
   </main>;
 }
