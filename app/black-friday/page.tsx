@@ -52,18 +52,18 @@ export default function BlackFridayPage() {
       <div>
         <p className="eyebrow">The gift they will still be glad they opened</p>
         <h1 className="heading-primary">Give someone a smoother 2027 with their EV.</h1>
-        <p className="intro">Skip the gadget that ends up in a drawer. This is three months inside Amped Up, plus money already set aside for the car. First day or fifth year, they get a place for better answers, a record that stays with the car, and credit for any service or upgrade.</p>
+        <p className="intro">Skip the gadget that ends up in a drawer. This is three months inside Amped Up, plus credit they can use in two ways: on any service or upgrade in the catalog, or toward a visit with a network partner.</p>
         <ol className="gift-offer-story">
-          <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. It is more than a forum login. They keep a history of the car, ask owners who have been there, and bring an expert into the conversation when the question gets specific. If the next step is a shop, that history goes with them to a specialist. They still choose who, and when.</li>
-          <li><b>Experts first. A specialist shop when it is time.</b> Owners and experts can weigh in before anyone picks up a tool. When the car needs a bay, EV mechanics, alignment shops, electricians, and aftermarket specialists are already in the network. The gift does not pick the shop or book the visit.</li>
+          <li><b>{giftMembershipDays} days of membership, included.</b> That is three months of Member access, normally {money(giftMembershipValueCents)}. It is more than a forum login. They keep a history of the car, ask owners who have been there, and bring an expert into the conversation when the question gets specific.</li>
+          <li><b>Then a specialist, when they want one.</b> That history can go with them to an EV mechanic, alignment shop, electrician, or aftermarket specialist. They choose the partner. The gift does not pick the shop or book the visit.</li>
         </ol>
-        <p className="gift-offer-limit"><b>Credit for whatever they need.</b> The amount you choose sits on top of the membership. It can go to any service or upgrade, whenever the car needs it.</p>
+        <p className="gift-offer-limit"><b>Credit for whatever they need.</b> It is not only for parts. Use it on any service or upgrade in the catalog, or put it toward the visit with a partner. The amount you choose sits on top of the membership.</p>
       </div>
       <div className="gift-offer-aside">
         <CatalogTeaser compact title="The credit can go to things like" />
         <form className="gift-offer-form" onSubmit={buy}>
           <h2>Choose the credit</h2>
-          <p>Three months of membership are already included. Choose how much credit to set aside for whatever they need.</p>
+          <p>Three months of membership are already included. Choose how much credit to set aside for a catalog service, an upgrade, or a partner visit.</p>
           <div className="gift-amount-stepper">
             <button type="button" aria-label="Decrease gift amount by 100 dollars" onClick={() => changeAmount(-1)} disabled={creditCents <= giftCreditMinimumCents}>−</button>
             <strong>{money(creditCents)}</strong>
@@ -84,7 +84,7 @@ export default function BlackFridayPage() {
             </label>
           </div>
           {delivery === "scheduled" && <label className="gift-date-field">Delivery date<input required type="date" value={sendOn} min={new Date().toISOString().slice(0, 10)} onChange={(event) => setSendOn(event.target.value)} onClick={(event) => { try { event.currentTarget.showPicker(); } catch { /* The picker is already open. */ } }} /></label>}
-          <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for whatever they need.</p>
+          <p className="gift-offer-summary">They get {money(giftMembershipValueCents)} of membership, plus {money(creditCents)} for a service, an upgrade, or a partner visit.</p>
           <Button disabled={submitting}>{submitting ? "Taking you to checkout..." : `Give ${money(creditCents)}`}</Button>
           {message && <p className="form-message" role="alert">{message}</p>}
         </form>
