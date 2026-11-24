@@ -52,7 +52,7 @@ export default function BlackFridayPage() {
       <div>
         <p className="eyebrow">Black Friday</p>
         <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty">Certainty.</span></h1>
-        <p className="intro">One place for the answer, the part, and a mechanic who will take the car.</p>
+        <p className="intro">No more guesswork. No more hunting endlessly for answers. Solutions in one place.</p>
       </div>
     </div>
     <div className="gift-tour">
