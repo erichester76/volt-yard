@@ -1520,7 +1520,7 @@ footer button {
 .gift-offer-aside .catalog-teaser { width: 100%; max-width: 100%; min-width: 0; }
 .gift-offer-more { padding: 28px 0 64px; }
 .gift-offer-more .wrap { max-width: 680px; }
-.gift-tour { overflow: hidden; width: min(860px, calc(100% - 56px)); margin: 0 auto 8px; min-width: 0; padding-bottom: 8px; }
+.gift-tour { --tour-card: 280px; --tour-gap: 16px; --tour-step: calc(var(--tour-card) + var(--tour-gap)); overflow: hidden; width: min(872px, calc(round(down, 100% - 56px, 296px) - 16px)); margin: 0 auto 8px; min-width: 0; padding-bottom: 8px; background: transparent; }
 .gift-tour-track { display: flex; gap: 16px; width: max-content; animation: gift-tour-step 18s ease-in-out infinite; }
 .gift-tour:hover .gift-tour-track { animation-play-state: paused; }
 @keyframes gift-tour-step {
@@ -1534,7 +1534,7 @@ footer button {
 @media (prefers-reduced-motion: reduce) { .gift-tour { overflow-x: auto; } .gift-tour-track { animation: none; } }
 .gift-tour-shot { flex: 0 0 280px; }
 .gift-tour-shot h2 { margin: 12px 0 0; font-size: 18px; letter-spacing: -0.04em; }
-.gift-tour-frame { min-height: 280px; padding: 16px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); box-shadow: 0 16px 40px color-mix(in srgb, var(--ink) 8%, transparent); }
+.gift-tour-frame { min-height: 280px; padding: 16px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); }
 .gift-tour-frame .eyebrow { margin-bottom: 12px; }
 .gift-tour-frame strong { display: block; margin-bottom: 12px; font-size: 28px; letter-spacing: -0.04em; }
 .gift-tour-frame ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.35; }
