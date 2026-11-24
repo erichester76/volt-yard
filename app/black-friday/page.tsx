@@ -80,6 +80,7 @@ export default function BlackFridayPage() {
         <h2>One stop.</h2>
         <ul>
           <li>The answer, the part, the mechanic</li>
+          <li>Parts from the best vendors, in one place</li>
           <li>Owners and experts in one place</li>
           <li>A history of the car</li>
           <li>A nearby partner, not only the dealer</li>
