@@ -103,6 +103,6 @@ export default function BlackFridayPage() {
         {message && <p className="form-message" role="alert">{message}</p>}
       </form>
     </div></section>
-    <section className="gift-offer-note"><div className="wrap"><p>They open a private link, in their own time, and make the account theirs. That page is the gift. It is not a second stop after signup.</p></div></section>
+    <section className="gift-offer-note"><div className="wrap"><p>They open the link when they are ready, make the account theirs, and start with 30 days of membership plus credit for any service or upgrade.</p></div></section>
   </main>;
 }
