@@ -79,11 +79,11 @@ export default function BlackFridayPage() {
         <p className="eyebrow">Amped Up</p>
         <h2>One stop.</h2>
         <ul>
-          <li>The answer, the part, the mechanic</li>
+          <li>The answer, the upgrade, the tutorial</li>
           <li>Parts from the best vendors, in one place</li>
           <li>Owners and experts in one place</li>
           <li>A history of the car</li>
-          <li>A nearby partner, not only the dealer</li>
+          <li>A nearby service provider</li>
         </ul>
       </article>
       <article className="gift-compare-close">
