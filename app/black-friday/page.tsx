@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "@/app/locale-link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { CatalogTeaser } from "@/app/catalog-teaser";
 import { giftCreditMaximumCents, giftCreditMinimumCents, giftCreditStepCents, giftMembershipDays, giftMembershipValueCents } from "@/lib/gift-offers";
 import { Button } from "@/app/page-primitives";
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
+const giftWords = ["Answers", "Solutions", "Certainty", "Comfort", "Knowledge", "Community"];
 
 export default function BlackFridayPage() {
   const [email, setEmail] = useState("");
@@ -16,6 +17,14 @@ export default function BlackFridayPage() {
   const [sendOn, setSendOn] = useState("2026-12-25");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    const timer = window.setInterval(() => setWordIndex((current) => (current + 1) % giftWords.length), 2200);
+    return () => window.clearInterval(timer);
+  }, []);
 
   function changeAmount(direction: -1 | 1) {
     setCreditCents((current) => Math.min(giftCreditMaximumCents, Math.max(giftCreditMinimumCents, current + direction * giftCreditStepCents)));
@@ -51,27 +60,41 @@ export default function BlackFridayPage() {
     <section className="gift-offer-hero"><div className="wrap gift-offer-layout">
       <div>
         <p className="eyebrow">Black Friday</p>
-        <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty">Certainty.</span></h1>
+        <h1 className="heading-primary">The best gift you can give an EV owner: <span className="gift-offer-certainty" aria-live="polite">{giftWords[wordIndex]}.</span></h1>
         <p className="intro">No more guesswork. No more hunting endlessly for answers. Solutions in one place.</p>
       </div>
     </div>
-    <div className="gift-tour">
-      <div className="gift-tour-track">
-        {[0, 1].map((copy) => [
-          ["The hunt.", "The usual way", ["Facebook group: still no answer", "YouTube: three conflicting videos", "Parts sites and eBay", "Shop: we do not touch EVs", "Dealer: far away, long wait"]],
-          ["One stop.", "Amped Up", ["The answer", "The part", "A mechanic who will take the car"], "Certainty."],
-          ["Not a forum login.", "Network access", ["Ask owners and experts", "Keep a history of the car", `Normally ${money(giftMembershipValueCents)}`], `${giftMembershipDays} days included`],
-          ["More options.", "When they want a bay", ["Nearby partner", "Not only the dealer", "Not a distant service center", "They choose. We do not book it."]],
-          ["For whatever they need.", "The credit", ["any service or upgrade in the catalog", "Or a partner visit", "On top of the access"]],
-        ].map(([title, eyebrow, lines, headline]) => <article className="gift-tour-shot" key={`${copy}-${title}`} aria-hidden={copy === 1 || undefined}>
-          <div className="gift-tour-frame">
-            <p className="eyebrow">{eyebrow}</p>
-            {headline && <strong>{headline}</strong>}
-            <ul>{(lines as string[]).map((line) => <li key={line}>{line}</li>)}</ul>
-          </div>
-          <h2>{title}</h2>
-        </article>))}
-      </div>
+    <div className="gift-compare wrap">
+      <article>
+        <p className="eyebrow">The usual way</p>
+        <h2>The hunt.</h2>
+        <ul>
+          <li>Facebook, YouTube, parts sites, eBay</li>
+          <li>Shops that do not touch EVs</li>
+          <li>Dealer or a far service center</li>
+          <li>A long wait</li>
+        </ul>
+      </article>
+      <article>
+        <p className="eyebrow">Amped Up</p>
+        <h2>One stop.</h2>
+        <ul>
+          <li>The answer, the part, the mechanic</li>
+          <li>Owners and experts in one place</li>
+          <li>A history of the car</li>
+          <li>A nearby partner, not only the dealer</li>
+        </ul>
+      </article>
+      <article>
+        <p className="eyebrow">The gift</p>
+        <h2>{giftMembershipDays} days in.</h2>
+        <ul>
+          <li>Normally {money(giftMembershipValueCents)} of access</li>
+          <li>any service or upgrade in the catalog</li>
+          <li>Or a partner visit</li>
+          <li>They choose. We do not book it.</li>
+        </ul>
+      </article>
     </div>
     <div className="wrap gift-offer-layout">
       <CatalogTeaser compact title="The credit can go to things like" />
